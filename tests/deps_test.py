@@ -1,5 +1,7 @@
 from pxr import Sdf, Usd, UsdUtils
 
+# TODO move to src
+
 path = "/Applications/Houdini/Houdini20.5.445/Frameworks/Houdini.framework/Versions/20.5/Resources/houdini/usd/assets/crag/crag.usd"
 
 root_layer = Sdf.Layer.FindOrOpen(path)
