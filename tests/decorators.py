@@ -15,24 +15,7 @@ rework this entire file, make it more streamlined towards usd
 """
 
 
-def proof_execution_time(function):
-    """
-    Records the amount of time it takes to execute the input function
-    """
-
-    def wrapper(*args, **kwargs):
-        # TODO: Test exceptions for imports
-        import time
-
-        start: float = time.perf_counter()
-        function(*args, **kwargs)
-        end: float = time.perf_counter()
-        print(f"{(end - start):.5f}s")
-
-    return wrapper
-
-
-def proof_multiple_executions(num_tests: int = 1, execute: bool = True):
+def benchmark(runs: int = 1, verbose: bool = False):
     """
     executes the function a given number of times, returning information in the process
 
@@ -56,11 +39,14 @@ def proof_multiple_executions(num_tests: int = 1, execute: bool = True):
                 function(*args, **kwargs)
                 end: float = time.perf_counter()
                 overall_time += end - start
-                print(f"Test number: {i} | Execution time: {(end - start):.5f}s")
+                print(
+                    f"---------- Test number {i} executed in {(end - start):.5f}s ----------"
+                )
 
-            print("\n")
-            print("Average execution time: ")
-            print(f"{(overall_time / num_tests):.5f}s")
+            if runs > 1:
+                print("\n")
+                print("Average execution time: ")
+                print(f"{(overall_time / num_tests):.5f}s")
 
         return wrapper if execute else None
 
