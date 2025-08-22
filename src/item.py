@@ -3,6 +3,8 @@ import time
 
 from pxr import Sdf, Usd, UsdUtils
 
+from decorators import benchmark
+
 
 class UsdItem:
     """
@@ -15,6 +17,7 @@ class UsdItem:
         self.path = path
         self.layer = Sdf.Layer.FindOrOpen(self.path)
 
+    @benchmark(num_tests=3)
     def get_layers(self):
         # returns a list of all the dependencies to be resolved
         return UsdUtils.ComputeAllDependencies(self.path)[0]
@@ -32,15 +35,4 @@ if __name__ == "__main__":
     test_file = "/Users/epalmer/lib/usd/ALab-main/ALab/entry.usda"
 
     item = UsdItem(path=test_file)
-    dependencies = item.scrape_dependencies()
-
-    # runs in 0.71s
-    # need to test it on more advanced hardware
-    fails = []
-    for i in dependencies:
-        if not os.path.exists(i.realPath):
-            fails.append(i.realPath)
-        # print(f"{type(i.realPath)}\n")
-        continue
-
-    print(fails)
+    layers = item.get_layers()
