@@ -1,24 +1,46 @@
+import os
 import time
 
 from pxr import Sdf, Usd, UsdUtils
 
 
 class UsdItem:
+    """
+    TODO:
+        - write resolve function to properly group dependencies
+        - write in checks for if the given path does not exist
+    """
 
     def __init__(self, path: str):
         self.path = path
+        self.layer = Sdf.Layer.FindOrOpen(self.path)
 
-    def scrape_dependencies(self):
-        root_layer = Sdf.Layer.FindOrOpen(self.path)
-        all_dependencies = UsdUtils.ComputeAllDependencies(assetPath=self.path)
-        layers = all_dependencies[0]
-        assets = all_dependencies[1]
-        unresolved_paths = all_dependencies[2]
+    def get_layers(self):
+        # returns a list of all the dependencies to be resolved
+        return UsdUtils.ComputeAllDependencies(self.path)[0]
 
-        return layers
+    def get_assets(self):
+        # returns a list of all the assets
+        return UsdUtils.ComputeAllDependencies(self.path)[1]
+
+    def get_unresolved_paths(self):
+        # returns a list of all unresolved_paths
+        return UsdUtils.ComputeAllDependencies(self.path)[2]
 
 
 if __name__ == "__main__":
-    test_file = "/Applications/Houdini/Houdini20.5.445/Frameworks/Houdini.framework/Versions/20.5/Resources/houdini/usd/assets/crag/crag.usd"
+    test_file = "/Users/epalmer/lib/usd/ALab-main/ALab/entry.usda"
 
     item = UsdItem(path=test_file)
+    dependencies = item.scrape_dependencies()
+
+    # runs in 0.71s
+    # need to test it on more advanced hardware
+    fails = []
+    for i in dependencies:
+        if not os.path.exists(i.realPath):
+            fails.append(i.realPath)
+        # print(f"{type(i.realPath)}\n")
+        continue
+
+    print(fails)
