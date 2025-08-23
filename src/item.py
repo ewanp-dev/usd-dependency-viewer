@@ -3,7 +3,10 @@ import time
 
 from pxr import Sdf, Usd, UsdUtils
 
-from decorators import benchmark
+try:
+    from decorators import benchmark
+except ModuleNotFoundError:
+    pass
 
 
 class UsdItem:
@@ -17,7 +20,6 @@ class UsdItem:
         self.path = path
         self.layer = Sdf.Layer.FindOrOpen(self.path)
 
-    @benchmark(num_tests=3)
     def get_layers(self):
         # returns a list of all the dependencies to be resolved
         return UsdUtils.ComputeAllDependencies(self.path)[0]
@@ -30,9 +32,25 @@ class UsdItem:
         # returns a list of all unresolved_paths
         return UsdUtils.ComputeAllDependencies(self.path)[2]
 
+    def get_sublayers(self):
+        # returns a list of all resolved top-level sublayers
+        # TODO: cross compare with ComputeAllDependencies list to make sure all exist (maybe do this in a unit test)
+        return [
+            self.layer.ComputeAbsolutePath(path) for path in self.layer.subLayerPaths
+        ]
+
+    def get_references(self):
+        # returns a list of all resolved top-level references
+        return [
+            self.layer.ComputeAbsolutePath(path)
+            for path in self.layer.externalReferences
+        ]
+
 
 if __name__ == "__main__":
     test_file = "/Users/epalmer/lib/usd/ALab-main/ALab/entry.usda"
+    test_file_02 = "/Users/epalmer/repos/local/USD-Strata/examples/assets/test.usda"
+    test_file_03 = "/Users/epalmer/geo/untitled.usd_rop1.usda"
 
     item = UsdItem(path=test_file)
-    layers = item.get_layers()
+    print(item.layer.GetCompositionAssetDependencies())
