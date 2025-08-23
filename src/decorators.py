@@ -9,7 +9,7 @@ Types of decorators
 """
 
 
-def benchmark(num_tests: int = 1, skip: bool = False):
+def benchmark(num_tests: int = 1, skip: bool = False, constraint: float = 0):
     """
     times the test a number of given times and returns execution time
     as well as the average execution time
@@ -27,6 +27,7 @@ def benchmark(num_tests: int = 1, skip: bool = False):
             if not skip:
                 import time
 
+                fastest_run = {}
                 overall_time: float = 0
                 for _ in range(num_tests):
                     _ += 1
@@ -39,8 +40,15 @@ def benchmark(num_tests: int = 1, skip: bool = False):
                     )
                     print("\n#-------------------------------------------------#\n")
 
+                average_execution_time: float = overall_time / num_tests
+                if constraint > 0:
+                    if average_execution_time > constraint:
+                        print(
+                            f"WARNING: execution is over constraint time by {(average_execution_time - constraint):.5f}s"
+                        )
+
                 print("\n")
-                print(f"Average execution time {(overall_time / num_tests):.5f}s")
+                print(f"Average execution time {average_execution_time:.5f}s")
 
         return wrapper
 
