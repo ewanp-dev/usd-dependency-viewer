@@ -98,3 +98,11 @@ def test_existing_dependencies(path):
     dependencies = usd_item.get_layers()
     for _ in dependencies:
         assert os.path.exists(_.realPath)
+
+
+# ---------------------------------------------------------------
+# TEST:: Checking to see whether the length of a references list matches the amount of actual references
+
+
+# ---------------------------------------------------------------
+# TEST:: Testing to see other usd file structures to see if dependencies are resolved properly
