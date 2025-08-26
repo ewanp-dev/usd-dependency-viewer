@@ -9,20 +9,38 @@ this is where usd dependency related tests will live so the test_item.py
 file doesn't become too bloated
 """
 
+
 # ---------------------------------------------------------------
-# TEST: testing that different usd files lists add up to the number of external references
+# TEST : test to see that the parametrize fixture is working properly
+def test_fixture_parametrize(item_parametrized):
+    path = item_parametrized.path
+    assert path.endswith((".usd", ".usda"))
 
 
-@pytest.mark.parametrize(
-    "test_projects",
-    [
-        os.path.expanduser("~/lib/usd/ALab-main/ALab/entry.usda"),
-        os.path.expanduser("~/repos/local/USD-Strata/examples/assets/test.usda"),
-        os.path.expanduser("~/geo/untitled.usd_rop1.usda"),
-    ],
-)
-def test_compare_references(test_projects):
-    usd_item = item.UsdItem(test_projects)
-    sublayers = usd_item.get_sublayers()
-    references = usd_item.get_references()
-    assert len(sublayers + references) == len(usd_item.layer.externalReferences)
+# ---------------------------------------------------------------
+# TEST : testing that different usd files lists add up to the number of external references
+
+
+def test_compare_references(item_parametrized):
+    sublayers = item_parametrized.get_sublayers()
+    references = item_parametrized.get_references()
+    assert len(sublayers + references) == len(
+        item_parametrized.layer.externalReferences
+    )
+
+
+# ---------------------------------------------------------------
+# TEST : test to see that the keys for the dependency hashmap
+# matches the length of all single dependencies
+
+
+def test_compare_keys(item_parametrized):
+    layers = item_parametrized.get_layers()
+
+    dep_tree = {}
+
+    for _ in layers:
+        _item_instance = item.UsdItem(path=_.realPath)
+        dep_tree[_item_instance.path] = _item_instance.get_sublayers()
+
+    assert len(dep_tree.keys()) == len(layers)

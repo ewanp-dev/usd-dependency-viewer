@@ -49,14 +49,3 @@ class UsdItem:
         ]
         references = [ref for ref in references_dirty if ref not in sublayers]
         return references
-
-
-if __name__ == "__main__":
-    test_file = "/Users/epalmer/lib/usd/ALab-main/ALab/entry.usda"
-    test_file_02 = "/Users/epalmer/repos/local/USD-Strata/examples/assets/test.usda"
-    test_file_03 = "/Users/epalmer/geo/untitled.usd_rop1.usda"
-
-    item = UsdItem(path=test_file_02)
-    print(item.get_sublayers())
-    print("\n")
-    print(item.get_references())

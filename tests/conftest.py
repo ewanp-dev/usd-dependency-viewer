@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 
 import pytest
+
 import src.item as item
 
 # TODO: make a wildcard fixture to pick up all assets for easy parametrize
@@ -19,3 +20,14 @@ def assets_dir():
 def item_instance(assets_dir):
     # TODO: move to parametrize mark to test multiple files
     return item.UsdItem(str((assets_dir / "rubbertoy/rubbertoy.usd").resolve()))
+
+
+@pytest.fixture(
+    params=[
+        os.path.expanduser("~/lib/usd/ALab-main/ALab/entry.usda"),
+        os.path.expanduser("~/repos/local/USD-Strata/examples/assets/test.usda"),
+        os.path.expanduser("~/geo/untitled.usd_rop1.usda"),
+    ]
+)
+def item_parametrized(request):
+    return item.UsdItem(request.param)
