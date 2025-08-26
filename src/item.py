@@ -49,3 +49,8 @@ class UsdItem:
         ]
         references = [ref for ref in references_dirty if ref not in sublayers]
         return references
+
+
+if __name__ == "__main__":
+    item = UsdItem(path="tmp")
+    assert isinstance(item, UsdItem)
