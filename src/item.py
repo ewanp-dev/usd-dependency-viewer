@@ -41,10 +41,14 @@ class UsdItem:
 
     def get_references(self):
         # returns a list of all resolved top-level references
-        return [
-            self.layer.ComputeAbsolutePath(path)
-            for path in self.layer.externalReferences
+        # NOTE: this is just a dummy class for testing, i will improve it at a later point
+        sublayers = self.get_sublayers()
+
+        references_dirty = [
+            self.layer.ComputeAbsolutePath(ref) for ref in self.layer.externalReferences
         ]
+        references = [ref for ref in references_dirty if ref not in sublayers]
+        return references
 
 
 if __name__ == "__main__":
@@ -52,5 +56,7 @@ if __name__ == "__main__":
     test_file_02 = "/Users/epalmer/repos/local/USD-Strata/examples/assets/test.usda"
     test_file_03 = "/Users/epalmer/geo/untitled.usd_rop1.usda"
 
-    item = UsdItem(path=test_file)
-    print(item.layer.GetCompositionAssetDependencies())
+    item = UsdItem(path=test_file_02)
+    print(item.get_sublayers())
+    print("\n")
+    print(item.get_references())
