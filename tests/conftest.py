@@ -2,8 +2,8 @@ import os
 from pathlib import Path
 
 import pytest
-
-import src.item as item
+import src.dependencies as dep_item
+import src.item as usd_item
 
 # TODO: make a wildcard fixture to pick up all assets for easy parametrize
 
@@ -19,7 +19,7 @@ def assets_dir():
 @pytest.fixture
 def item_instance(assets_dir):
     # TODO: move to parametrize mark to test multiple files
-    return item.UsdItem(str((assets_dir / "rubbertoy/rubbertoy.usd").resolve()))
+    return usd_item.UsdItem(str((assets_dir / "rubbertoy/rubbertoy.usd").resolve()))
 
 
 @pytest.fixture(
@@ -30,4 +30,9 @@ def item_instance(assets_dir):
     ]
 )
 def item_parametrized(request):
-    return item.UsdItem(request.param)
+    return usd_item.UsdItem(request.param)
+
+
+@pytest.fixture
+def dep_item_instance(item_parametrized):
+    return dep_item.UsdDependencies(usd_item=item_parametrized)
