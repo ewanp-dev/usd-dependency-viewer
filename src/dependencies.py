@@ -12,6 +12,14 @@ except ModuleNotFoundError:
 
 
 class UsdDependencies:
+    """
+    the calculate dependencies function os okay for now
+    but it is running a little slow and its only going to get slower
+    as we add more functionality to it
+
+    not to worry about for now but keep it in mind, we will use multithreading
+    with the interface which should help with speeds
+    """
 
     def __init__(self, usd_item):
         self.item = usd_item
@@ -28,6 +36,7 @@ class UsdDependencies:
             dependency_instance = UsdItem(path=layer.realPath)
             tmp_dict = {}
             tmp_dict["sublayers"] = dependency_instance.get_sublayers()
+            tmp_dict["references"] = dependency_instance.get_references()
             layers_tree[dependency_instance.path] = tmp_dict
 
         return layers_tree
@@ -36,3 +45,6 @@ class UsdDependencies:
 if __name__ == "__main__":
     item = UsdItem(path=os.path.expanduser("~/lib/usd/ALab-main/ALab/entry.usda"))
     tmp = UsdDependencies(usd_item=item)
+    for i in tmp.layers_tree.keys():
+        print(i, tmp.layers_tree[i])
+        print("\n")
