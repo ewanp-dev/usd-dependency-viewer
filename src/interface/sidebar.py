@@ -15,7 +15,7 @@ class StrataSideBar(QWidget):
     def initUI(self):
         self.setFixedWidth(50)
         layout = QVBoxLayout()
-        self.test_button = QPushButton("A")
+        self.test_button = QPushButton("T")
         layout.addWidget(self.test_button)
         layout.setContentsMargins(10, 0, 0, 0)
 

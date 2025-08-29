@@ -1,16 +1,20 @@
 import sys
 
+from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (
     QApplication,
     QHBoxLayout,
     QMainWindow,
     QPushButton,
+    QSplitter,
     QVBoxLayout,
     QWidget,
 )
 
 from details_view import StrataDetailsView
+from dropdown import StrataList
 from sidebar import StrataSideBar
+from top_bar import StrataUITopBar
 
 
 class UsdDependencyViewerWindow(QMainWindow):
@@ -30,17 +34,50 @@ class UsdDependencyViewerWindow(QMainWindow):
         layout = QVBoxLayout(central_widget)
         layout.setContentsMargins(0, 0, 0, 0)
 
+        self.top_bar = StrataUITopBar()
+        self.top_bar.expand_button.clicked.connect(self.on_toggle)
+
         mid_layout = QHBoxLayout()
+
         self.sidebar = StrataSideBar()
         mid_layout.addWidget(self.sidebar)
-        self.details_view = StrataDetailsView()
-        mid_layout.addWidget(self.details_view)
 
+        # middle section
+
+        splitter = QSplitter(Qt.Orientation.Horizontal)
+
+        self.dropdown_list = StrataList()
+        self.details_view = StrataDetailsView()
+
+        splitter.addWidget(self.dropdown_list)
+        splitter.addWidget(self.details_view)
+        splitter.setSizes([150, 600])
+
+        splitter.setStyleSheet(
+            """
+        QSplitter::handle {
+            background: transparent;
+            border: none;
+            width: 0px;  /* make the handle invisible */
+        }
+        """
+        )
+
+        mid_layout.addWidget(splitter)
+
+        layout.addWidget(self.top_bar)
         layout.addLayout(mid_layout)
+
+    def on_toggle(self):
+        if self.top_bar.expand_button.isChecked():
+            self.dropdown_list.show()
+        else:
+            self.dropdown_list.hide()
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+    app.setStyle("Fusion")
     window = UsdDependencyViewerWindow()
     window.show()
     sys.exit(app.exec())
