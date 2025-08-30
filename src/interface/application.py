@@ -1,7 +1,7 @@
 import sys
 import os
 
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QPropertyAnimation, QEasingCurve
 from PyQt6.QtWidgets import (
     QApplication,
     QHBoxLayout,
@@ -17,6 +17,7 @@ from dropdown import StrataUIDropdown
 from sidebar import StrataUISideBar
 from header_left import StrataUIHeaderLeft
 from header_right import StrataUIHeaderRight
+from home import StrataUIHome
 
 
 class UsdDependencyViewerWindow(QMainWindow):
@@ -43,6 +44,7 @@ class UsdDependencyViewerWindow(QMainWindow):
         self.sidebar = StrataUISideBar()
         self.dropdown_list = StrataUIDropdown()
         self.details_view = StrataUIDetailsView()
+        self.home_page = StrataUIHome()
 
         self.header_right.expand_left.clicked.connect(self.show_left_widget)
         self.header_left.expand_left.clicked.connect(self.hide_right_widget)
@@ -63,7 +65,7 @@ class UsdDependencyViewerWindow(QMainWindow):
         # NOTE need to account for the right properties panel later on
 
         right_main_layout.addWidget(self.header_right)
-        right_main_layout.addWidget(self.details_view)
+        right_main_layout.addWidget(self.home_page)
 
 
         # middle section
@@ -91,9 +93,24 @@ class UsdDependencyViewerWindow(QMainWindow):
         self.left_widget.show()
         self.header_right.expand_left.hide()
 
+        self.anim = QPropertyAnimation(self.left_widget, b"minimumWidth")
+        self.anim.setDuration(150)  # ms
+        self.anim.setStartValue(0)
+        self.anim.setEndValue(200)  # target width
+        self.anim.setEasingCurve(QEasingCurve.Type.InOutCubic)
+        self.anim.start()
+
     def hide_right_widget(self):
-        self.left_widget.hide()
+        self.anim = QPropertyAnimation(self.left_widget, b"minimumWidth")
+        self.anim.setDuration(150)
+        self.anim.setStartValue(self.left_widget.width())
+        self.anim.setEndValue(0)
+        self.anim.setEasingCurve(QEasingCurve.Type.InOutCubic)
+        self.anim.finished.connect(self.left_widget.hide)  # hide fully when collapsed
+        self.anim.start()
         self.header_right.expand_left.show()
+
+        
 
 def load_styles(app):
     base_dir = os.path.dirname(__file__)

@@ -3,6 +3,10 @@ from PyQt6.QtWidgets import QHBoxLayout, QPushButton, QWidget
 from button import StrataUIButton
 from strata_globals import *
 
+"""
+TODO
+- make header shorter on both left and right
+"""
 
 class StrataUIHeaderLeft(QWidget):
 
