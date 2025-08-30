@@ -1,4 +1,5 @@
 import sys
+import os
 
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (
@@ -14,7 +15,7 @@ from PyQt6.QtWidgets import (
 from details_view import StrataDetailsView
 from dropdown import StrataList
 from sidebar import StrataSideBar
-from top_bar import StrataUITopBar
+from header import StrataUITopBar
 
 
 class UsdDependencyViewerWindow(QMainWindow):
@@ -35,7 +36,7 @@ class UsdDependencyViewerWindow(QMainWindow):
         layout.setContentsMargins(0, 0, 0, 0)
 
         self.top_bar = StrataUITopBar()
-        self.top_bar.expand_button.clicked.connect(self.on_toggle)
+        self.top_bar.expand_left.clicked.connect(self.on_toggle)
 
         mid_layout = QHBoxLayout()
 
@@ -69,14 +70,24 @@ class UsdDependencyViewerWindow(QMainWindow):
         layout.addLayout(mid_layout)
 
     def on_toggle(self):
-        if self.top_bar.expand_button.isChecked():
+        if self.top_bar.expand_left.isChecked():
             self.dropdown_list.show()
         else:
             self.dropdown_list.hide()
 
 
+def load_styles(app):
+    base_dir = os.path.dirname(__file__)
+    style_path = os.path.join(base_dir, "styles", "style.qss")
+    with open(style_path, "r") as f:
+        qss = f.read()
+        app.setStyleSheet(qss)
+
+
 if __name__ == "__main__":
+    # move this to main
     app = QApplication(sys.argv)
+    load_styles(app)
     app.setStyle("Fusion")
     window = UsdDependencyViewerWindow()
     window.show()
