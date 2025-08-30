@@ -5,17 +5,18 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (
     QApplication,
     QHBoxLayout,
+    QVBoxLayout,
     QMainWindow,
     QPushButton,
     QSplitter,
-    QVBoxLayout,
     QWidget,
 )
 
-from details_view import StrataDetailsView
-from dropdown import StrataList
-from sidebar import StrataSideBar
-from header import StrataUITopBar
+from details_view import StrataUIDetailsView
+from dropdown import StrataUIDropdown
+from sidebar import StrataUISideBar
+from header_left import StrataUIHeaderLeft
+from header_right import StrataUIHeaderRight
 
 
 class UsdDependencyViewerWindow(QMainWindow):
@@ -32,27 +33,46 @@ class UsdDependencyViewerWindow(QMainWindow):
         central_widget = QWidget()
         central_widget.setContentsMargins(0, 0, 0, 0)
         self.setCentralWidget(central_widget)
-        layout = QVBoxLayout(central_widget)
-        layout.setContentsMargins(0, 0, 0, 0)
 
-        self.top_bar = StrataUITopBar()
-        self.top_bar.expand_left.clicked.connect(self.on_toggle)
+        central_layout = QHBoxLayout(central_widget)
+        central_layout.setContentsMargins(0, 0, 0, 0)
 
-        mid_layout = QHBoxLayout()
+        # WIDGETS
+        self.header_left = StrataUIHeaderLeft()
+        self.header_right = StrataUIHeaderRight()
+        self.sidebar = StrataUISideBar()
+        self.dropdown_list = StrataUIDropdown()
+        self.details_view = StrataUIDetailsView()
 
-        self.sidebar = StrataSideBar()
-        mid_layout.addWidget(self.sidebar)
+        self.header_right.expand_left.clicked.connect(self.show_left_widget)
+        self.header_left.expand_left.clicked.connect(self.hide_right_widget)
+
+        # LEFT LAYOUT
+        self.left_widget = QWidget()
+        left_main_layout = QVBoxLayout(self.left_widget)
+        left_main_layout.addWidget(self.header_left)
+        left_main_layout.addWidget(self.dropdown_list)
+        self.left_widget.hide()
+        left_main_layout.setContentsMargins(0, 0, 0, 0)
+
+        # RIGHT LAYOUT
+        right_widget = QWidget()
+        right_main_layout = QVBoxLayout(right_widget)
+        right_main_layout.setContentsMargins(0, 0, 0, 0)
+
+        # NOTE need to account for the right properties panel later on
+
+        right_main_layout.addWidget(self.header_right)
+        right_main_layout.addWidget(self.details_view)
+
 
         # middle section
 
         splitter = QSplitter(Qt.Orientation.Horizontal)
 
-        self.dropdown_list = StrataList()
-        self.details_view = StrataDetailsView()
-
-        splitter.addWidget(self.dropdown_list)
-        splitter.addWidget(self.details_view)
-        splitter.setSizes([150, 600])
+        splitter.addWidget(self.left_widget)
+        splitter.addWidget(right_widget)
+        splitter.setSizes([90, 600])
 
         splitter.setStyleSheet(
             """
@@ -64,17 +84,16 @@ class UsdDependencyViewerWindow(QMainWindow):
         """
         )
 
-        mid_layout.addWidget(splitter)
+        central_layout.addWidget(self.sidebar)
+        central_layout.addWidget(splitter)
 
-        layout.addWidget(self.top_bar)
-        layout.addLayout(mid_layout)
+    def show_left_widget(self):
+        self.left_widget.show()
+        self.header_right.expand_left.hide()
 
-    def on_toggle(self):
-        if self.top_bar.expand_left.isChecked():
-            self.dropdown_list.show()
-        else:
-            self.dropdown_list.hide()
-
+    def hide_right_widget(self):
+        self.left_widget.hide()
+        self.header_right.expand_left.show()
 
 def load_styles(app):
     base_dir = os.path.dirname(__file__)

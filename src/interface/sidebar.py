@@ -3,7 +3,7 @@ from PyQt6.QtCore import Qt
 from button import StrataUIButton
 from strata_globals import *
 
-class StrataSideBar(QWidget):
+class StrataUISideBar(QWidget):
     """
     acts as the side bar on the left to switch between different
     window types
@@ -15,11 +15,10 @@ class StrataSideBar(QWidget):
         self.initUI()
 
     def initUI(self):
-        self.setFixedWidth(50)
 
         layout = QVBoxLayout()
         layout.setSpacing(10)
-        layout.setContentsMargins(10, 20, 0, 0)
+        layout.setContentsMargins(10, 60, 0, 0)
 
         button_width, button_height = STRATA_BUTTON_WIDTH, STRATA_BUTTON_HEIGHT
 
@@ -38,3 +37,4 @@ class StrataSideBar(QWidget):
 
         layout.addSpacerItem(QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding))
         self.setLayout(layout)
+        self.setFixedWidth(50)

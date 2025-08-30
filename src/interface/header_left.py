@@ -4,7 +4,7 @@ from button import StrataUIButton
 from strata_globals import *
 
 
-class StrataUITopBar(QWidget):
+class StrataUIHeaderLeft(QWidget):
 
     def __init__(self):
         super().__init__()
@@ -28,6 +28,6 @@ class StrataUITopBar(QWidget):
         self.expand_left = StrataUIButton(icon_name="sidebar_left.png", width=STRATA_BUTTON_WIDTH, height=STRATA_BUTTON_HEIGHT)
         self.expand_left.setCheckable(True)
 
-        layout.addWidget(self.expand_left, alignment=Qt.AlignmentFlag.AlignLeft)
+        layout.addWidget(self.expand_left, alignment=Qt.AlignmentFlag.AlignRight)
         self.setLayout(layout)
         self.setFixedHeight(50)

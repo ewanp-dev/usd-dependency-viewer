@@ -1,7 +1,14 @@
 from PyQt6.QtWidgets import QListWidget, QVBoxLayout, QWidget
 
 
-class StrataDetailsView(QWidget):
+class StrataUIDetailsView(QWidget):
+    """
+    contains a detail list view  where you can select all dependencies
+
+    NOTE 
+    this will be implemented with a way to switch between a grid view and details 
+    view
+    """
 
     def __init__(self):
         super().__init__()
