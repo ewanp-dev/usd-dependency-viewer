@@ -22,41 +22,39 @@ class StrataUIDetailsView(QWidget):
         """
         TODO
         * add in new icon for switcher button
-        * fix spacer in the middle to move everything to the left and right
-        * fix button size so it fits flush around the button contents
+        * write the ui for switching between grid and details view
         * start writing tests for the list interface
         * start writing the item to redirect on selection
-        * write the ui for switching between grid and details view
         """
         DETAILS_BUTTON_WIDTH: int = 100
         DETAILS_BUTTON_HEIGHT: int = 30
+        DETAILS_MARGINS = [10, 5, 10, 5]
+        DETAILS_ICON_SIZE = [14, 14]
 
         _layout_header = QHBoxLayout()
-        _layout_header.setContentsMargins(10, 5, 10, 5)
+        _layout_header.setContentsMargins(*DETAILS_MARGINS)
         _layout_main = QVBoxLayout()
-        _layout_main.setContentsMargins(10, 5, 10, 5)
+        _layout_main.setContentsMargins(*DETAILS_MARGINS)
 
         # switch to abstract strata class
         self.view_switcher = StrataUIButton(icon_name="table.png", width_policy=QSizePolicy.Policy.Preferred, height_policy=QSizePolicy.Policy.Fixed)
-        #self.results_list = StrataUIButton(icon_name="", width=DETAILS_BUTTON_WIDTH, height=STRATA_BUTTON_HEIGHT)
-        self.results_list = QPushButton()
+        self.results_list = StrataUIButton(text="0 Results", width_policy=QSizePolicy.Policy.Preferred, height_policy=QSizePolicy.Policy.Fixed)
         self.sort = StrataUIButton(icon_name="sorting.png", width_policy=QSizePolicy.Policy.Preferred, height_policy=QSizePolicy.Policy.Fixed)
         self.properties = StrataUIButton(icon_name="properties.png", width_policy=QSizePolicy.Policy.Preferred, height_policy=QSizePolicy.Policy.Fixed)
         
         self.view_switcher.setText(" Table")
         self.view_switcher.setPadding(5, 5)
-        self.view_switcher.setIconSize(QSize(24, 24))
+        self.view_switcher.setIconSize(QSize(*DETAILS_ICON_SIZE))
 
-        self.results_list.setText("0 Results")
-        self.results_list.setFixedSize(DETAILS_BUTTON_WIDTH, DETAILS_BUTTON_HEIGHT)
-        
+        self.results_list.setPadding(5, 5)
+
         self.sort.setText(" Sort")
         self.sort.setPadding(5, 5)
-        self.sort.setIconSize(QSize(24, 24))
+        self.sort.setIconSize(QSize(*DETAILS_ICON_SIZE))
 
         self.properties.setText(" Properties")
         self.properties.setPadding(5, 5)
-        self.properties.setIconSize(QSize(24, 24))
+        self.properties.setIconSize(QSize(*DETAILS_ICON_SIZE))
 
         space = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
         

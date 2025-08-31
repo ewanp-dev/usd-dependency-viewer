@@ -2,7 +2,9 @@
 This will be a shotgrid like text dropdown where you can manually select or filter through all dependencies
 """
 
-from PyQt6.QtWidgets import QListWidget, QVBoxLayout, QWidget
+from PyQt6.QtWidgets import QListWidget, QVBoxLayout, QWidget, QLineEdit, QPushButton, QHBoxLayout
+from button import StrataUIButton
+from strata_globals import *
 
 
 class StrataUIDropdown(QWidget):
@@ -24,13 +26,23 @@ class StrataUIDropdown(QWidget):
         * run unit tests on loading speeds
         """
 
-        layout = QVBoxLayout()
-        layout.setContentsMargins(0, 0, 0, 0)
+        _layout_main = QVBoxLayout()
+        _layout_header = QHBoxLayout()
+        _layout_main.setContentsMargins(0, 0, 0, 0)
+
+        self.search_bar = QLineEdit()
+        self.filter_button = StrataUIButton(icon_name="filter.png", width=24, height=24)
+
+        _layout_header.addWidget(self.search_bar)
+        _layout_header.addWidget(self.filter_button)
+        
 
         self.list = QListWidget()
 
-        layout.addWidget(self.list)
+        _layout_main.addLayout(_layout_header)
+        _layout_main.addWidget(self.list)
 
-        self.setLayout(layout)
-        self.setStyleSheet("background-color: rgb(50, 50, 50);")
+
+        self.setLayout(_layout_main)
+        #self.setStyleSheet("background-color: rgb(50, 50, 50);")
         self.setMinimumWidth(45)
