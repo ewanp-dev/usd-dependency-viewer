@@ -1,5 +1,11 @@
 # USD Dependency Viewer
 
+<p align="center">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=py,qt" />
+  </a>
+</p>
+
 A modern **Python + Qt application** for exploring, visualizing, and managing **USD (Universal Scene Description) asset dependencies**.  
 Built for VFX and animation pipelines where understanding complex USD hierarchies is critical.
 
