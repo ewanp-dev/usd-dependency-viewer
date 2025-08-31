@@ -10,6 +10,7 @@ from PyQt6.QtWidgets import (
     QPushButton,
     QSplitter,
     QWidget,
+    QStackedWidget,
     QWIDGETSIZE_MAX,
 )
 
@@ -73,7 +74,17 @@ class UsdDependencyViewerWindow(QMainWindow):
         # NOTE need to account for the right properties panel later on
 
         right_main_layout.addWidget(self.header_right)
-        right_main_layout.addWidget(self.home_page)
+
+        self.pages = QStackedWidget()
+        self.pages.addWidget(self.home_page)
+        self.pages.addWidget(self.details_view)
+    
+        # connecting side buttons to different pages
+        self.sidebar.win_database.clicked.connect(lambda: self.pages.setCurrentWidget(self.details_view))
+        self.sidebar.win_command.clicked.connect(lambda: self.pages.setCurrentWidget(self.home_page))
+
+        right_main_layout.addWidget(self.pages)
+
 
 
         # middle section
