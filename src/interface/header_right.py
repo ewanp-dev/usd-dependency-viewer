@@ -20,6 +20,10 @@ class StrataUIHeaderRight(QWidget):
 
         we also need to make the main layout horizontal and have two headers split
         by a qsplitter
+
+        TODO
+        * make sure that the button reappears when the left header is fully closed
+        * add in settings button
         """
         layout = QHBoxLayout()
         layout.setContentsMargins(0, 10, 0, 0)

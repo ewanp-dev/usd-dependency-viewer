@@ -7,6 +7,11 @@ class StrataUISideBar(QWidget):
     """
     acts as the side bar on the left to switch between different
     window types
+
+    TODO
+    * start writing tooltips
+    * add clicked functionality into class
+    * start style sheet
     """
 
     def __init__(self):
@@ -24,7 +29,7 @@ class StrataUISideBar(QWidget):
 
         # using button widgets for each page
         self.win_dropdown = StrataUIButton(icon_name="list.png", width=button_width, height=button_height)
-        self.win_nodegraph = StrataUIButton(icon_name="node.png", width=button_width, height=button_height)
+        self.win_nodegraph = StrataUIButton(icon_name="node.png", width=button_width, height=button_height, tooltip="Node View")
         self.win_quick_search = StrataUIButton(icon_name="search.png", width=button_width, height=button_height)
         self.win_library = StrataUIButton(icon_name="library.png", width=button_width, height=button_height)
         self.win_command = StrataUIButton(icon_name="command.png", width=button_width, height=button_height)

@@ -7,6 +7,10 @@ from PyQt6.QtCore import QSize
 class StrataUIButton(QPushButton):
     """
     abstract button class to remove boilerplate code
+
+    TODO
+    * check to see if there is any more functionality we can add to this
+    * add in more checks for missing icons
     """
 
     def __init__(self, icon_name: str=None, tooltip: str=None, width: int=10, height: int=10, parent=None, flipped=False):

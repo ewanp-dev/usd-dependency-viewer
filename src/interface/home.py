@@ -1,6 +1,9 @@
-from PyQt6.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout
+from PyQt6.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QPushButton 
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
+
+from button import StrataUIButton
+from strata_globals import *
 
 class StrataUIHome(QWidget):
     """
@@ -17,7 +20,15 @@ class StrataUIHome(QWidget):
         self.initUI()
 
     def initUI(self):
-        main_layout = QHBoxLayout()
+        """
+        TODO
+        * fix spacing between label and button
+        * fix button width and height
+        * increase button icon and text size
+        * add button functionality to create file browser
+        """
+        main_layout = QVBoxLayout()
+        main_layout.setSpacing(10)
 
         splash_text: str = """
 ███████╗████████╗██████╗  █████╗ ████████╗ █████╗ 
@@ -34,6 +45,10 @@ class StrataUIHome(QWidget):
         self.home_label.setFont(font)
         self.home_label.setWordWrap(False)
 
+        self.open = StrataUIButton(icon_name="search.png", width=150, height=STRATA_BUTTON_HEIGHT)
+        self.open.setText("Select File")
+
 
         main_layout.addWidget(self.home_label, alignment=Qt.AlignmentFlag.AlignCenter)
+        main_layout.addWidget(self.open, alignment=Qt.AlignmentFlag.AlignCenter)
         self.setLayout(main_layout)

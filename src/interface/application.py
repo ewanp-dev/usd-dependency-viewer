@@ -10,6 +10,7 @@ from PyQt6.QtWidgets import (
     QPushButton,
     QSplitter,
     QWidget,
+    QWIDGETSIZE_MAX,
 )
 
 from details_view import StrataUIDetailsView
@@ -19,11 +20,18 @@ from header_left import StrataUIHeaderLeft
 from header_right import StrataUIHeaderRight
 from home import StrataUIHome
 
-
 class UsdDependencyViewerWindow(QMainWindow):
+    """
+    TODO
+
+    * add in widget switching functionality when changing page
+    * think about cleaning up the class
+    * run execution from here to ../main.py
+    """
 
     def __init__(self):
         super().__init__()
+        self.saved_width = 200
 
         self.initUI()
 
@@ -93,22 +101,30 @@ class UsdDependencyViewerWindow(QMainWindow):
         self.left_widget.show()
         self.header_right.expand_left.hide()
 
-        self.anim = QPropertyAnimation(self.left_widget, b"minimumWidth")
+        self.anim = QPropertyAnimation(self.left_widget, b"maximumWidth")
         self.anim.setDuration(150)  # ms
         self.anim.setStartValue(0)
-        self.anim.setEndValue(200)  # target width
-        self.anim.setEasingCurve(QEasingCurve.Type.InOutCubic)
+        self.anim.setEndValue(self.saved_width)  # target width
+        self.anim.finished.connect(
+                lambda: self.left_widget.setMaximumWidth(QWIDGETSIZE_MAX)
+                )
         self.anim.start()
 
     def hide_right_widget(self):
-        self.anim = QPropertyAnimation(self.left_widget, b"minimumWidth")
+        start_width = self.left_widget.width()
+        self.saved_width = start_width
+        self.anim = QPropertyAnimation(self.left_widget, b"maximumWidth")
         self.anim.setDuration(150)
-        self.anim.setStartValue(self.left_widget.width())
+        self.anim.setStartValue(start_width)
         self.anim.setEndValue(0)
-        self.anim.setEasingCurve(QEasingCurve.Type.InOutCubic)
-        self.anim.finished.connect(self.left_widget.hide)  # hide fully when collapsed
+
+        def hide_widget():
+            self.left_widget.hide()
+            self.header_right.expand_left.show()
+            self.left_widget.setMaximumWidth(QWIDGETSIZE_MAX)
+
+        self.anim.finished.connect(hide_widget)  # hide fully when collapsed
         self.anim.start()
-        self.header_right.expand_left.show()
 
         
 

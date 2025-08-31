@@ -16,6 +16,14 @@ class StrataUIDropdown(QWidget):
         self.initUI()
 
     def initUI(self):
+        """
+        TODO
+        * start adding basic widgets to this layout to build upon
+        * create stylesheet
+        * run unit tests on dependency checker
+        * run unit tests on loading speeds
+        """
+
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
 

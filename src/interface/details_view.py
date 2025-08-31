@@ -16,6 +16,13 @@ class StrataUIDetailsView(QWidget):
         self.initUI()
 
     def initUI(self):
+        """
+        TODO
+        * add in all base widgets such as filter, search. etc
+        * start writing tests for the list interface
+        * start writing the item to redirect on selection
+        * write the ui for switching between grid and details view
+        """
 
         layout = QVBoxLayout()
         self.list = QListWidget()

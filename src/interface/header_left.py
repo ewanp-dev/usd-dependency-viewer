@@ -24,6 +24,9 @@ class StrataUIHeaderLeft(QWidget):
 
         we also need to make the main layout horizontal and have two headers split
         by a qsplitter
+
+        TODO
+        * check to see if we can add anymore widgets to this
         """
         layout = QHBoxLayout()
         layout.setContentsMargins(50, 10, 0, 0)
