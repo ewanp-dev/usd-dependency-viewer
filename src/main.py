@@ -2,12 +2,15 @@
 bring in the interface here
 """
 
-import sys
 import argparse
 import os
+import sys
+
 from PyQt6.QtWidgets import QApplication
-from interface.application import strata_window_main, load_styles
-from core.item import strata_core_usditem 
+
+from core.item import strata_core_usditem
+from interface.application import load_styles, strata_window_main
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -21,6 +24,7 @@ def main():
     window = strata_window_main(item=usd_item)
     window.show()
     sys.exit(app.exec())
+
 
 if __name__ == "__main__":
     main()

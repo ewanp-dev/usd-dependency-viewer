@@ -24,10 +24,12 @@ class strata_widget_details_view(QWidget):
     view
     """
 
-    def __init__(self):
+    def __init__(self, item=None):
         super().__init__()
 
+        self.item = item
         self.initUI()
+        self.__populate_items()
 
     def initUI(self):
         """
@@ -101,3 +103,6 @@ class strata_widget_details_view(QWidget):
         _layout_main.addLayout(_layout_header)
         _layout_main.addWidget(self.list)
         self.setLayout(_layout_main)
+
+    def __populate_items(self):
+        self.list.addItems(self.item.layers_path)

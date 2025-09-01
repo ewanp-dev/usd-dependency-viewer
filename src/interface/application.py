@@ -21,6 +21,7 @@ from .header_right import strata_widget_header_r
 from .home import strata_widget_home
 from .sidebar import strata_widget_sidebar
 
+
 class strata_window_main(QMainWindow):
     """
     TODO
@@ -52,7 +53,7 @@ class strata_window_main(QMainWindow):
         self.header_right = strata_widget_header_r()
         self.sidebar = strata_widget_sidebar()
         self.dropdown_list = strata_widget_dropdown()
-        self.details_view = strata_widget_details_view()
+        self.details_view = strata_widget_details_view(item=self.item)
         self.home_page = strata_widget_home()
 
         self.header_right.expand_left.clicked.connect(self.show_left_widget)

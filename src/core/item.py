@@ -19,6 +19,9 @@ class strata_core_usditem:
     def __init__(self, path: str):
         self.path = path
         self.layer = Sdf.Layer.FindOrOpen(self.path)
+        self.dependencies = UsdUtils.ComputeAllDependencies(self.path)
+        self.layers = self.dependencies[0]
+        self.layers_path = [i.realPath for i in self.layers]
 
     def get_layers(self):
         # returns a list of all the dependencies to be resolved
@@ -54,7 +57,7 @@ class strata_core_usditem:
         """
         calculates a single dict of all dependencies and their top level
         depenncies
-        
+
         NOTE
         * this will probably be removed in later revisions as there will be no need
         for two dependency resolving solutions
@@ -74,4 +77,4 @@ class strata_core_usditem:
 if __name__ == "__main__":
     item = UsdItem(path=os.path.expanduser("~/lib/usd/ALab-main/ALab/entry.usda"))
     print(len(item.calculate_single_dependencies().keys()))
-    #assert isinstance(item, UsdItem)
+    # assert isinstance(item, UsdItem)

@@ -27,7 +27,7 @@ class strata_widget_button(QPushButton):
         height: int = 10,
         parent=None,
         flipped=False,
-        inverted=False,
+        inverted=True,
         font_size: int = 9,
     ):
         super().__init__(parent)
