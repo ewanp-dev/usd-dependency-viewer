@@ -1,25 +1,26 @@
-import sys
 import os
+import sys
 
-from PyQt6.QtCore import Qt, QPropertyAnimation, QEasingCurve
+from PyQt6.QtCore import QEasingCurve, QPropertyAnimation, Qt
 from PyQt6.QtWidgets import (
+    QWIDGETSIZE_MAX,
     QApplication,
     QHBoxLayout,
-    QVBoxLayout,
     QMainWindow,
     QPushButton,
     QSplitter,
-    QWidget,
     QStackedWidget,
-    QWIDGETSIZE_MAX,
+    QVBoxLayout,
+    QWidget,
 )
 
-from details_view import StrataUIDetailsView
-from dropdown import StrataUIDropdown
-from sidebar import StrataUISideBar
-from header_left import StrataUIHeaderLeft
-from header_right import StrataUIHeaderRight
-from home import StrataUIHome
+from details_view import strata_widget_details_view
+from dropdown import strata_widget_dropdown
+from header_left import strata_widget_header_l
+from header_right import strata_widget_header_r
+from home import strata_widget_home
+from sidebar import strata_widget_sidebar
+
 
 class UsdDependencyViewerWindow(QMainWindow):
     """
@@ -48,12 +49,12 @@ class UsdDependencyViewerWindow(QMainWindow):
         central_layout.setContentsMargins(0, 0, 0, 0)
 
         # WIDGETS
-        self.header_left = StrataUIHeaderLeft()
-        self.header_right = StrataUIHeaderRight()
-        self.sidebar = StrataUISideBar()
-        self.dropdown_list = StrataUIDropdown()
-        self.details_view = StrataUIDetailsView()
-        self.home_page = StrataUIHome()
+        self.header_left = strata_widget_header_l()
+        self.header_right = strata_widget_header_r()
+        self.sidebar = strata_widget_sidebar()
+        self.dropdown_list = strata_widget_dropdown()
+        self.details_view = strata_widget_details_view()
+        self.home_page = strata_widget_home()
 
         self.header_right.expand_left.clicked.connect(self.show_left_widget)
         self.header_left.expand_left.clicked.connect(self.hide_right_widget)
@@ -78,14 +79,16 @@ class UsdDependencyViewerWindow(QMainWindow):
         self.pages = QStackedWidget()
         self.pages.addWidget(self.home_page)
         self.pages.addWidget(self.details_view)
-    
+
         # connecting side buttons to different pages
-        self.sidebar.win_database.clicked.connect(lambda: self.pages.setCurrentWidget(self.details_view))
-        self.sidebar.win_command.clicked.connect(lambda: self.pages.setCurrentWidget(self.home_page))
+        self.sidebar.win_database.clicked.connect(
+            lambda: self.pages.setCurrentWidget(self.details_view)
+        )
+        self.sidebar.win_command.clicked.connect(
+            lambda: self.pages.setCurrentWidget(self.home_page)
+        )
 
         right_main_layout.addWidget(self.pages)
-
-
 
         # middle section
 
@@ -117,8 +120,8 @@ class UsdDependencyViewerWindow(QMainWindow):
         self.anim.setStartValue(0)
         self.anim.setEndValue(self.saved_width)  # target width
         self.anim.finished.connect(
-                lambda: self.left_widget.setMaximumWidth(QWIDGETSIZE_MAX)
-                )
+            lambda: self.left_widget.setMaximumWidth(QWIDGETSIZE_MAX)
+        )
         self.anim.start()
 
     def hide_right_widget(self):
@@ -137,7 +140,6 @@ class UsdDependencyViewerWindow(QMainWindow):
         self.anim.finished.connect(hide_widget)  # hide fully when collapsed
         self.anim.start()
 
-        
 
 def load_styles(app):
     base_dir = os.path.dirname(__file__)

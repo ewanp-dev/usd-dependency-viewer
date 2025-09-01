@@ -1,9 +1,11 @@
-from PyQt6.QtWidgets import QPushButton, QVBoxLayout, QWidget, QSpacerItem, QSizePolicy
 from PyQt6.QtCore import Qt
-from button import StrataUIButton
+from PyQt6.QtWidgets import QPushButton, QSizePolicy, QSpacerItem, QVBoxLayout, QWidget
+
+from button import strata_widget_button
 from strata_globals import *
 
-class StrataUISideBar(QWidget):
+
+class strata_widget_sidebar(QWidget):
     """
     acts as the side bar on the left to switch between different
     window types
@@ -28,11 +30,24 @@ class StrataUISideBar(QWidget):
         button_width, button_height = STRATA_BUTTON_WIDTH, STRATA_BUTTON_HEIGHT
 
         # using button widgets for each page
-        self.win_database = StrataUIButton(icon_name="list.png", width=button_width, height=button_height)
-        self.win_nodegraph = StrataUIButton(icon_name="node.png", width=button_width, height=button_height, tooltip="Node View")
-        self.win_quick_search = StrataUIButton(icon_name="search.png", width=button_width, height=button_height)
-        self.win_library = StrataUIButton(icon_name="library.png", width=button_width, height=button_height)
-        self.win_command = StrataUIButton(icon_name="command.png", width=button_width, height=button_height)
+        self.win_database = strata_widget_button(
+            icon_name="list.png", width=button_width, height=button_height
+        )
+        self.win_nodegraph = strata_widget_button(
+            icon_name="node.png",
+            width=button_width,
+            height=button_height,
+            tooltip="Node View",
+        )
+        self.win_quick_search = strata_widget_button(
+            icon_name="search.png", width=button_width, height=button_height
+        )
+        self.win_library = strata_widget_button(
+            icon_name="library.png", width=button_width, height=button_height
+        )
+        self.win_command = strata_widget_button(
+            icon_name="command.png", width=button_width, height=button_height
+        )
 
         layout.addWidget(self.win_database)
         layout.addWidget(self.win_nodegraph)
@@ -40,6 +55,8 @@ class StrataUISideBar(QWidget):
         layout.addWidget(self.win_library)
         layout.addWidget(self.win_command)
 
-        layout.addSpacerItem(QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding))
+        layout.addSpacerItem(
+            QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        )
         self.setLayout(layout)
         self.setFixedWidth(50)

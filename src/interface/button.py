@@ -1,10 +1,11 @@
 import os
 
-from PyQt6.QtWidgets import QPushButton, QSizePolicy
-from PyQt6.QtGui import QIcon, QPixmap, QTransform, QImage, QFont
 from PyQt6.QtCore import QSize
+from PyQt6.QtGui import QFont, QIcon, QImage, QPixmap, QTransform
+from PyQt6.QtWidgets import QPushButton, QSizePolicy
 
-class StrataUIButton(QPushButton):
+
+class strata_widget_button(QPushButton):
     """
     abstract button class to remove boilerplate code
 
@@ -16,38 +17,38 @@ class StrataUIButton(QPushButton):
     """
 
     def __init__(
-            self, 
-            icon_name: str=None,
-            text: str="",
-            tooltip: str=None,
-            width_policy=None,
-            height_policy=None,
-            width: int=10, 
-            height: int=10, 
-            parent=None, 
-            flipped=False,
-            inverted=False,
-            font_size: int=9
-        ):
+        self,
+        icon_name: str = None,
+        text: str = "",
+        tooltip: str = None,
+        width_policy=None,
+        height_policy=None,
+        width: int = 10,
+        height: int = 10,
+        parent=None,
+        flipped=False,
+        inverted=False,
+        font_size: int = 9,
+    ):
         super().__init__(parent)
 
         elements_folder = os.path.join(os.path.dirname(__file__), "elements")
         icon_path = os.path.join(elements_folder, icon_name) if icon_name else None
         self.setFont(QFont("San Francisco", font_size))
 
-        if ( width_policy ) and ( height_policy ):
+        if (width_policy) and (height_policy):
             self.setSizePolicy(width_policy, height_policy)
         else:
             self.setFixedSize(width, height)
 
         # setting qicon
-        if ( icon_path ):
-            if ( os.path.exists(icon_path) ):
+        if icon_path:
+            if os.path.exists(icon_path):
                 self.img = QImage(icon_path)
-                if ( inverted ):
+                if inverted:
                     self.img.invertPixels(QImage.InvertMode.InvertRgb)
 
-                if ( flipped ):
+                if flipped:
                     pixmap = QPixmap.fromImage(self.img)
                     flipped_pixmap = pixmap.transformed(QTransform().scale(-1, 1))
                     icon = QIcon(flipped_pixmap)
@@ -62,9 +63,7 @@ class StrataUIButton(QPushButton):
 
         self.setText(text)
 
-
-
-        if ( tooltip ):
+        if tooltip:
             self.setToolTip(tooltip)
 
         # add in stylesheets later on down the line
@@ -73,8 +72,10 @@ class StrataUIButton(QPushButton):
         """
         sets the vertical and horizontal padding in a stylesheet
         """
-        self.setStyleSheet(f"""
+        self.setStyleSheet(
+            f"""
             QPushButton {{
                 padding: {str(horizontal_padding)}px {str(vertical_padding)}px;
             }}
-        """)
+        """
+        )

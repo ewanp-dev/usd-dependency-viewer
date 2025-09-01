@@ -1,6 +1,7 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QHBoxLayout, QPushButton, QWidget
-from button import StrataUIButton
+
+from button import strata_widget_button
 from strata_globals import *
 
 """
@@ -8,7 +9,8 @@ TODO
 - make header shorter on both left and right
 """
 
-class StrataUIHeaderLeft(QWidget):
+
+class strata_widget_header_l(QWidget):
 
     def __init__(self):
         super().__init__()
@@ -32,7 +34,11 @@ class StrataUIHeaderLeft(QWidget):
         layout.setContentsMargins(50, 10, 0, 0)
         layout.setSpacing(10)
 
-        self.expand_left = StrataUIButton(icon_name="sidebar_left.png", width=STRATA_BUTTON_WIDTH, height=STRATA_BUTTON_HEIGHT)
+        self.expand_left = strata_widget_button(
+            icon_name="sidebar_left.png",
+            width=STRATA_BUTTON_WIDTH,
+            height=STRATA_BUTTON_HEIGHT,
+        )
         self.expand_left.setCheckable(True)
 
         layout.addWidget(self.expand_left, alignment=Qt.AlignmentFlag.AlignRight)

@@ -1,11 +1,12 @@
-from PyQt6.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QPushButton 
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
+from PyQt6.QtWidgets import QHBoxLayout, QLabel, QPushButton, QVBoxLayout, QWidget
 
-from button import StrataUIButton
+from button import strata_widget_button
 from strata_globals import *
 
-class StrataUIHome(QWidget):
+
+class strata_widget_home(QWidget):
     """
     home screen for when the application is first opened
 
@@ -45,9 +46,10 @@ class StrataUIHome(QWidget):
         self.home_label.setFont(font)
         self.home_label.setWordWrap(False)
 
-        self.open = StrataUIButton(icon_name="search.png", width=150, height=STRATA_BUTTON_HEIGHT)
+        self.open = strata_widget_button(
+            icon_name="search.png", width=150, height=STRATA_BUTTON_HEIGHT
+        )
         self.open.setText("Select File")
-
 
         main_layout.addWidget(self.home_label, alignment=Qt.AlignmentFlag.AlignCenter)
         main_layout.addWidget(self.open, alignment=Qt.AlignmentFlag.AlignCenter)

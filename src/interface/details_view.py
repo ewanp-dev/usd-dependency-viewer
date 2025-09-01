@@ -1,15 +1,26 @@
-from PyQt6.QtWidgets import QListWidget, QVBoxLayout, QHBoxLayout, QWidget, QPushButton, QSpacerItem, QSizePolicy
-from PyQt6.QtCore import QSize
-from button import StrataUIButton
 from typing import List
+
+from PyQt6.QtCore import QSize
+from PyQt6.QtWidgets import (
+    QHBoxLayout,
+    QListWidget,
+    QPushButton,
+    QSizePolicy,
+    QSpacerItem,
+    QVBoxLayout,
+    QWidget,
+)
+
+from button import strata_widget_button
 from strata_globals import *
 
-class StrataUIDetailsView(QWidget):
+
+class strata_widget_details_view(QWidget):
     """
     contains a detail list view  where you can select all dependencies
 
-    NOTE 
-    this will be implemented with a way to switch between a grid view and details 
+    NOTE
+    this will be implemented with a way to switch between a grid view and details
     view
     """
 
@@ -37,11 +48,27 @@ class StrataUIDetailsView(QWidget):
         _layout_main.setContentsMargins(*DETAILS_MARGINS)
 
         # switch to abstract strata class
-        self.view_switcher = StrataUIButton(icon_name="table.png", width_policy=QSizePolicy.Policy.Preferred, height_policy=QSizePolicy.Policy.Fixed)
-        self.results_list = StrataUIButton(text="0 Results", width_policy=QSizePolicy.Policy.Preferred, height_policy=QSizePolicy.Policy.Fixed)
-        self.sort = StrataUIButton(icon_name="sorting.png", width_policy=QSizePolicy.Policy.Preferred, height_policy=QSizePolicy.Policy.Fixed)
-        self.properties = StrataUIButton(icon_name="properties.png", width_policy=QSizePolicy.Policy.Preferred, height_policy=QSizePolicy.Policy.Fixed)
-        
+        self.view_switcher = strata_widget_button(
+            icon_name="table.png",
+            width_policy=QSizePolicy.Policy.Preferred,
+            height_policy=QSizePolicy.Policy.Fixed,
+        )
+        self.results_list = strata_widget_button(
+            text="0 Results",
+            width_policy=QSizePolicy.Policy.Preferred,
+            height_policy=QSizePolicy.Policy.Fixed,
+        )
+        self.sort = strata_widget_button(
+            icon_name="sorting.png",
+            width_policy=QSizePolicy.Policy.Preferred,
+            height_policy=QSizePolicy.Policy.Fixed,
+        )
+        self.properties = strata_widget_button(
+            icon_name="properties.png",
+            width_policy=QSizePolicy.Policy.Preferred,
+            height_policy=QSizePolicy.Policy.Fixed,
+        )
+
         self.view_switcher.setText(" Table")
         self.view_switcher.setPadding(5, 5)
         self.view_switcher.setIconSize(QSize(*DETAILS_ICON_SIZE))
@@ -56,8 +83,10 @@ class StrataUIDetailsView(QWidget):
         self.properties.setPadding(5, 5)
         self.properties.setIconSize(QSize(*DETAILS_ICON_SIZE))
 
-        space = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
-        
+        space = QSpacerItem(
+            0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum
+        )
+
         _layout_header.addWidget(self.view_switcher)
         _layout_header.addWidget(self.results_list)
         _layout_header.addStretch(1)
