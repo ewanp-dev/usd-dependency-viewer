@@ -9,7 +9,7 @@ except ModuleNotFoundError:
     pass
 
 
-class UsdItem:
+class strata_core_usditem:
     """
     TODO:
         - write resolve function to properly group dependencies

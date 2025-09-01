@@ -30,10 +30,10 @@ class strata_window_main(QMainWindow):
     * run execution from here to ../main.py
     """
 
-    def __init__(self):
+    def __init__(self, item=None):
         super().__init__()
         self.saved_width = 200
-
+        self.item = item
         self.initUI()
 
     def initUI(self):
