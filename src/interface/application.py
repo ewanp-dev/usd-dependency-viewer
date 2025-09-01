@@ -14,15 +14,14 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
-from details_view import strata_widget_details_view
-from dropdown import strata_widget_dropdown
-from header_left import strata_widget_header_l
-from header_right import strata_widget_header_r
-from home import strata_widget_home
-from sidebar import strata_widget_sidebar
+from .details_view import strata_widget_details_view
+from .dropdown import strata_widget_dropdown
+from .header_left import strata_widget_header_l
+from .header_right import strata_widget_header_r
+from .home import strata_widget_home
+from .sidebar import strata_widget_sidebar
 
-
-class UsdDependencyViewerWindow(QMainWindow):
+class strata_window_main(QMainWindow):
     """
     TODO
 

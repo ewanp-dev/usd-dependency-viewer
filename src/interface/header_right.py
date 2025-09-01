@@ -1,8 +1,8 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QHBoxLayout, QPushButton, QWidget
 
-from button import strata_widget_button
-from strata_globals import *
+from .button import strata_widget_button
+from .strata_globals import *
 
 
 class strata_widget_header_r(QWidget):

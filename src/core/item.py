@@ -50,7 +50,28 @@ class UsdItem:
         references = [ref for ref in references_dirty if ref not in sublayers]
         return references
 
+    def calculate_single_dependencies(self):
+        """
+        calculates a single dict of all dependencies and their top level
+        depenncies
+        
+        NOTE
+        * this will probably be removed in later revisions as there will be no need
+        for two dependency resolving solutions
+        """
+
+        layer_tree = {}
+        for layer in self.get_layers():
+            depdendency_instance = UsdItem(path=layer.realPath)
+            tmp_dict = {}
+            tmp_dict["sublayers"] = depdendency_instance.get_sublayers()
+            tmp_dict["references"] = depdendency_instance.get_references()
+            layer_tree[depdendency_instance.path] = tmp_dict
+
+        return layer_tree
+
 
 if __name__ == "__main__":
-    item = UsdItem(path="tmp")
-    assert isinstance(item, UsdItem)
+    item = UsdItem(path=os.path.expanduser("~/lib/usd/ALab-main/ALab/entry.usda"))
+    print(len(item.calculate_single_dependencies().keys()))
+    #assert isinstance(item, UsdItem)

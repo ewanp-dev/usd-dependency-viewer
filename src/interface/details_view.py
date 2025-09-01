@@ -11,8 +11,8 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
-from button import strata_widget_button
-from strata_globals import *
+from .button import strata_widget_button
+from .strata_globals import *
 
 
 class strata_widget_details_view(QWidget):

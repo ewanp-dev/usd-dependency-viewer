@@ -1,8 +1,8 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QPushButton, QSizePolicy, QSpacerItem, QVBoxLayout, QWidget
 
-from button import strata_widget_button
-from strata_globals import *
+from .button import strata_widget_button
+from .strata_globals import *
 
 
 class strata_widget_sidebar(QWidget):
