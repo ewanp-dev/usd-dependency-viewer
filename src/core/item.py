@@ -22,6 +22,18 @@ class strata_core_usditem:
         self.layer = Sdf.Layer.FindOrOpen(self.path)
         self._cache_file = os.path.expanduser("~/repos/local/USD-Strata/cache/tmp.json")
         self.dependencies = self.cache_dependencies(file=self._cache_file)
+        self.dependencies_list = []
+
+    def get_flattened_dependencies(self):
+        self.flatten_dependencies(self.dependencies)
+        return list(set(self.dependencies_list))
+
+    def flatten_dependencies(self, tree):
+        total = 1
+        for child in tree["children"]:
+            self.dependencies_list.append(child["name"])
+            total += self.flatten_dependencies(child)
+        return total
 
     def cache_dependencies(self, file: str):
         """
@@ -80,5 +92,7 @@ if __name__ == "__main__":
             path=os.path.expanduser("~/lib/usd/ALab-main/ALab/entry.usda")
         )
         dep = item.dependencies
+        # _list = item.get_dependencies_list(dep)
+        print(len(item.get_flattened_dependencies()))
 
     main()

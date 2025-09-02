@@ -105,4 +105,4 @@ class strata_widget_details_view(QWidget):
         self.setLayout(_layout_main)
 
     def __populate_items(self):
-        self.list.addItems(self.item.layers_path)
+        self.list.addItems(self.item.get_flattened_dependencies())
