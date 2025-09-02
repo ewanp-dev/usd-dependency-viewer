@@ -38,7 +38,6 @@ class strata_widget_sidebar(QWidget):
             width=button_width,
             height=button_height,
             tooltip="Node View",
-            inverted=True,
         )
         self.win_quick_search = strata_widget_button(
             icon_name="search.png", width=button_width, height=button_height

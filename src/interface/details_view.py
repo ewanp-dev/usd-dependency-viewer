@@ -1,6 +1,9 @@
+import os
+
 from typing import List
 
 from PyQt6.QtCore import QSize
+from PyQt6.QtGui import QStandardItemModel, QStandardItem
 from PyQt6.QtWidgets import (
     QHBoxLayout,
     QListWidget,
@@ -8,9 +11,12 @@ from PyQt6.QtWidgets import (
     QSizePolicy,
     QSpacerItem,
     QVBoxLayout,
+    QTableWidget,
+    QTableWidgetItem,
     QWidget,
 )
 
+from .dropdowns.properties import strata_dropdown_properties
 from .button import strata_widget_button
 from .strata_globals import *
 
@@ -28,8 +34,10 @@ class strata_widget_details_view(QWidget):
         super().__init__()
 
         self.item = item
+        self.item_dependencies = self.item.get_flattened_dependencies()
+        print(len(self.item_dependencies))
         self.initUI()
-        self.__populate_items()
+        #self.__populate_items()
 
     def initUI(self):
         """
@@ -71,6 +79,9 @@ class strata_widget_details_view(QWidget):
             height_policy=QSizePolicy.Policy.Fixed,
         )
 
+        # creating dropdown widget
+        self.dropdown_properties = strata_dropdown_properties()
+
         self.view_switcher.setText(" Table")
         self.view_switcher.setPadding(5, 5)
         self.view_switcher.setIconSize(QSize(*DETAILS_ICON_SIZE))
@@ -89,6 +100,9 @@ class strata_widget_details_view(QWidget):
             0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum
         )
 
+        # CONNECTIONS
+        self.properties.clicked.connect(lambda checked: self.show_dropdown(self.properties, self.dropdown_properties))
+
         _layout_header.addWidget(self.view_switcher)
         _layout_header.addWidget(self.results_list)
         _layout_header.addStretch(1)
@@ -96,13 +110,33 @@ class strata_widget_details_view(QWidget):
         _layout_header.addWidget(self.sort)
         _layout_header.addWidget(self.properties)
 
+        # ---------------------------------------------------------------
+        # TABLE WIDGET
+
         # NOTE might need to change this to a grid widget
-        self.list = QListWidget()
+        self.table = QTableWidget()
+        self.table.resizeRowsToContents()
+        self.table.verticalHeader().setVisible(False)
+        self.table.setRowCount(len(self.item_dependencies))
+        self.table.setColumnCount(5)
+        self.table.setColumnWidth(0, 250)
+        self.table.setHorizontalHeaderLabels(["file name", "file path", "file size", "extension", "date modified"])
+
+        for row, name in enumerate(self.item_dependencies):
+            self.table.setItem(row, 0, QTableWidgetItem(os.path.splitext(os.path.basename(name))[0]))
+            self.table.setItem(row, 1, QTableWidgetItem(name))
+            self.table.setItem(row, 2, QTableWidgetItem(f"{os.path.getsize(name) / 1024:.3f}"))
+            self.table.setItem(row, 3, QTableWidgetItem(os.path.splitext(os.path.basename(name))[-1]))
+            
+
+        #self.list = QListWidget()
         _layout_main.setContentsMargins(0, 0, 0, 0)
 
         _layout_main.addLayout(_layout_header)
-        _layout_main.addWidget(self.list)
+        _layout_main.addWidget(self.table)
         self.setLayout(_layout_main)
 
-    def __populate_items(self):
-        self.list.addItems(self.item.get_flattened_dependencies())
+    def show_dropdown(self, btn, dropdown):
+        pos = btn.mapToGlobal(btn.rect().bottomLeft())
+        dropdown.move(pos)
+        dropdown.show()
