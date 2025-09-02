@@ -2,8 +2,6 @@ import os
 
 from pxr import Ar, Sdf, UsdUtils
 
-from decorators import benchmark
-
 """
 testing the logistics of creating a custom resolver as the 
 ComputeAllDependencies function is good but quite slow
@@ -75,8 +73,8 @@ def resolve_dependency_tree(path, visited=None):
     lyrResolved = layer.resolvedPath
 
     # if already visited, stop recursion
-    if lyrResolved in visited:
-        return {"name": str(lyrResolved) + " (already visited)", "children": []}
+    # if lyrResolved in visited:
+    #    return {"name": str(lyrResolved) + " (already visited)", "children": []}
     visited.add(lyrResolved)
 
     ctx = resolver.CreateDefaultContextForAsset(lyrResolved)
@@ -107,35 +105,34 @@ def pretty_print_tree(node, indent=0):
         pretty_print_tree(child, indent + 1)
 
 
-# -----------------------------------------------------------------------
-# NOTE testing the number of nodes is matching the true dependency value
+tree = resolve_dependency_tree(PATH)
+
+
+# pretty_print_tree(tree)
+x = []
 
 
 def count_all_nodes(node):
     """Counts the node itself plus all children recursively."""
     total = 1  # count this node
+    global x
     for child in node["children"]:
+        x.append(child["name"])
         total += count_all_nodes(child)
     return total
 
 
-@benchmark(num_tests=1)
-def resolved_nodes(path):
-    return UsdUtils.ComputeAllDependencies(path)[0]
-
-
-@benchmark(num_tests=1)
-def resolved_mine(path):
-    return resolve_dependency_tree(path)
-
-
-# NOTE the new functions is currently not matching the true dep numbers
-print("\n")
-print("MY METHOD")
-tree = resolved_mine(PATH)
-
-print("\n")
-print("USDUTILS METHOD")
-deps = resolved_nodes(PATH)
-# total_files = count_all_nodes(tree)
+total_files = count_all_nodes(tree)
 # print(f"\nTotal files in tree (including root): {total_files}")
+
+duplicates = [i for i in x if x.count(i) > 1]
+
+# use set() to remove duplications
+duplicates = set(duplicates)
+
+print(len(x))
+print(len(set(x)))
+# print(len(UsdUtils.ComputeAllDependencies(PATH)[0]))
+print(duplicates)
+
+# resolve_asset_alternative(PATH)
