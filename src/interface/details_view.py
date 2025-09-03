@@ -17,6 +17,7 @@ from PyQt6.QtWidgets import (
 )
 
 from .dropdowns.properties import strata_dropdown_properties
+from .dropdowns.sort import strata_dropdown_sort
 from .button import strata_widget_button
 from .strata_globals import *
 
@@ -81,6 +82,7 @@ class strata_widget_details_view(QWidget):
 
         # creating dropdown widget
         self.dropdown_properties = strata_dropdown_properties()
+        self.dropdown_sort = strata_dropdown_sort()
 
         self.view_switcher.setText(" Table")
         self.view_switcher.setPadding(5, 5)
@@ -102,6 +104,7 @@ class strata_widget_details_view(QWidget):
 
         # CONNECTIONS
         self.properties.clicked.connect(lambda checked: self.show_dropdown(self.properties, self.dropdown_properties))
+        self.sort.clicked.connect(lambda checked: self.show_dropdown(self.sort, self.dropdown_sort))
 
         _layout_header.addWidget(self.view_switcher)
         _layout_header.addWidget(self.results_list)
@@ -127,14 +130,26 @@ class strata_widget_details_view(QWidget):
             self.table.setItem(row, 1, QTableWidgetItem(name))
             self.table.setItem(row, 2, QTableWidgetItem(f"{os.path.getsize(name) / 1024:.3f}"))
             self.table.setItem(row, 3, QTableWidgetItem(os.path.splitext(os.path.basename(name))[-1]))
-            
 
-        #self.list = QListWidget()
+
+        # ---------------------------------------------------------------
+        # COLUMN PROPERTIES FUNCTIONALITY
+        self.table.setColumnHidden(1, True)
+        self.table.setColumnHidden(2, True)
+        self.table.setColumnHidden(3, True)
+        
+        self.dropdown_properties.check_name.stateChanged.connect(lambda checked: self.hide_column(0, self.dropdown_properties.check_name))
+        self.dropdown_properties.check_path.stateChanged.connect(lambda checked: self.hide_column(1, self.dropdown_properties.check_path))
+        self.dropdown_properties.check_size.stateChanged.connect(lambda checked: self.hide_column(2, self.dropdown_properties.check_size))
+        self.dropdown_properties.check_extension.stateChanged.connect(lambda checked: self.hide_column(3, self.dropdown_properties.check_extension))
+
         _layout_main.setContentsMargins(0, 0, 0, 0)
-
         _layout_main.addLayout(_layout_header)
         _layout_main.addWidget(self.table)
         self.setLayout(_layout_main)
+
+    def hide_column(self, column, check):
+        self.table.setColumnHidden(column, not check.isChecked())
 
     def show_dropdown(self, btn, dropdown):
         pos = btn.mapToGlobal(btn.rect().bottomLeft())
