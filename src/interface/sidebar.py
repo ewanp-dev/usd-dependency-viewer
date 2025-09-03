@@ -11,6 +11,7 @@ class strata_widget_sidebar(QWidget):
     window types
 
     TODO
+    * add in more interesting button interactions, simple highlighting isnt very interesting
     * start writing tooltips
     * add clicked functionality into class
     * start style sheet

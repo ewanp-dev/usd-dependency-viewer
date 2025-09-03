@@ -17,8 +17,12 @@ from .strata_globals import *
 
 class strata_widget_dropdown(QWidget):
     """
-    list widget with dropdown functionality to see tree view of all
-    dependencies
+    TODO
+    * start filling in the dropdown with recursive function
+    * start adding basic widgets to this layout to build upon
+    * create stylesheet
+    * run unit tests on dependency checker
+    * run unit tests on loading speeds
     """
 
     def __init__(self):
@@ -26,13 +30,6 @@ class strata_widget_dropdown(QWidget):
         self.initUI()
 
     def initUI(self):
-        """
-        TODO
-        * start adding basic widgets to this layout to build upon
-        * create stylesheet
-        * run unit tests on dependency checker
-        * run unit tests on loading speeds
-        """
 
         _layout_main = QVBoxLayout()
         _layout_header = QHBoxLayout()

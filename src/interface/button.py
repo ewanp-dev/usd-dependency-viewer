@@ -10,6 +10,7 @@ class strata_widget_button(QPushButton):
     abstract button class to remove boilerplate code
 
     TODO
+    * add inverted as a global variable for easy switching
     * make better checks for missing icon path, you should be able to add just text
     * add in better size policy control
     * check to see if there is any more functionality we can add to this

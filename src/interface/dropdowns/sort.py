@@ -15,7 +15,7 @@ class strata_dropdown_sort(QWidget):
         self.sort_rule = QComboBox()
         self.clear_sort = QPushButton("C")
 
-        types_list = [
+        self.types_list = [
             "file name",
             "file path",
             "file size",
@@ -23,7 +23,7 @@ class strata_dropdown_sort(QWidget):
             "date created",
             "date modified",
         ]
-        self.sort_type.addItems(types_list)
+        self.sort_type.addItems(self.types_list)
         self.sort_rule.addItems(["A->Z", "Z->A"])
 
         _layout_main = QHBoxLayout(self)
@@ -39,7 +39,9 @@ class strata_dropdown_sort(QWidget):
         TODO
         * find a better clearing method for the type combo box
         """
+        self.sort_type.clear()
         self.sort_rule.clear()
+        self.sort_type.addItems(self.types_list)
 
     def switch_rule(self):
         """

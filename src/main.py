@@ -1,7 +1,3 @@
-"""
-bring in the interface here
-"""
-
 import argparse
 import os
 import sys
@@ -13,6 +9,14 @@ from interface.application import load_styles, strata_window_main
 
 
 def main():
+    """
+    TODO
+    * add in more verbose arguments
+    * add in help argument
+    * add in refresh argument
+    * add in description
+    * add in man command
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument("usd_file", help="Path to the USD File")
     args = parser.parse_args()

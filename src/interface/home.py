@@ -10,9 +10,12 @@ class strata_widget_home(QWidget):
     """
     home screen for when the application is first opened
 
-    NOTE
-    need to add some more text and interactive features to load up pages by default
-
+    TODO
+    * make the home screen more interactive and have the logo be animated
+    * remove spacing between the logo and the button
+    * fix button width and height
+    * add file browser functionality
+    * add in hotkeys to the home page to open other pages (low prio)
     """
 
     def __init__(self, parent=None):
@@ -21,13 +24,6 @@ class strata_widget_home(QWidget):
         self.initUI()
 
     def initUI(self):
-        """
-        TODO
-        * fix spacing between label and button
-        * fix button width and height
-        * increase button icon and text size
-        * add button functionality to create file browser
-        """
         main_layout = QVBoxLayout()
         main_layout.setSpacing(10)
 

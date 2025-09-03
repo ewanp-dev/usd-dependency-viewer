@@ -18,6 +18,7 @@ from PyQt6.QtWidgets import (
 from .button import strata_widget_button
 from .dropdowns.properties import strata_dropdown_properties
 from .dropdowns.sort import strata_dropdown_sort
+from .dropdowns.view_switcher import strata_dropdown_view_switcher
 from .strata_globals import *
 
 
@@ -82,6 +83,7 @@ class strata_widget_details_view(QWidget):
         # creating dropdown widget
         self.dropdown_properties = strata_dropdown_properties()
         self.dropdown_sort = strata_dropdown_sort()
+        self.dropdown_view = strata_dropdown_view_switcher()
 
         self.view_switcher.setText(" Table")
         self.view_switcher.setPadding(5, 5)
@@ -102,6 +104,9 @@ class strata_widget_details_view(QWidget):
         )
 
         # CONNECTIONS
+        self.view_switcher.clicked.connect(
+            lambda checked: self.show_dropdown(self.view_switcher, self.dropdown_view)
+        )
         self.properties.clicked.connect(
             lambda checked: self.show_dropdown(
                 self.properties, self.dropdown_properties
