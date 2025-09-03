@@ -1,7 +1,12 @@
-from PyQt6.QtWidgets import QWidget, QPushButton, QComboBox, QHBoxLayout
 from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QComboBox, QHBoxLayout, QPushButton, QWidget
+
 
 class strata_dropdown_sort(QWidget):
+    """
+    TODO
+    * connect to the main view to sort the list
+    """
 
     def __init__(self):
         super().__init__()
@@ -10,14 +15,47 @@ class strata_dropdown_sort(QWidget):
         self.sort_rule = QComboBox()
         self.clear_sort = QPushButton("C")
 
-        types_list = ["file name", "file path", "file size", "extension", "date created", "date modified",]
-        self.sort_type.addItems(l)
-
-        sort_rule_str = ["A->Z", "Z->A"]
-        sort_rule_num = ["0->1", "1->0"]
-        sort_rule_time = ["Old to new", "New to old"]
+        types_list = [
+            "file name",
+            "file path",
+            "file size",
+            "extension",
+            "date created",
+            "date modified",
+        ]
+        self.sort_type.addItems(types_list)
+        self.sort_rule.addItems(["A->Z", "Z->A"])
 
         _layout_main = QHBoxLayout(self)
         _layout_main.addWidget(self.sort_type)
         _layout_main.addWidget(self.sort_rule)
         _layout_main.addWidget(self.clear_sort)
+
+        self.sort_type.currentIndexChanged.connect(self.switch_rule)
+        self.clear_sort.clicked.connect(self.clear_boxes)
+
+    def clear_boxes(self):
+        """
+        TODO
+        * find a better clearing method for the type combo box
+        """
+        self.sort_rule.clear()
+
+    def switch_rule(self):
+        """
+        change the rule type based on the type index
+        """
+        self.sort_rule.clear()
+        sort_rule_str = ["A->Z", "Z->A"]
+        sort_rule_num = ["0->1", "1->0"]
+        sort_rule_time = ["Old to new", "New to old"]
+
+        text = self.sort_type.currentText()
+        if text in ["file name", "file path", "extension"]:
+            self.sort_rule.addItems(sort_rule_str)
+
+        elif text in ["date created", "date modified"]:
+            self.sort_rule.addItems(sort_rule_time)
+
+        else:
+            self.sort_rule.addItems(sort_rule_num)

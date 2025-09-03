@@ -1,24 +1,23 @@
 import os
-
 from typing import List
 
 from PyQt6.QtCore import QSize
-from PyQt6.QtGui import QStandardItemModel, QStandardItem
+from PyQt6.QtGui import QStandardItem, QStandardItemModel
 from PyQt6.QtWidgets import (
     QHBoxLayout,
     QListWidget,
     QPushButton,
     QSizePolicy,
     QSpacerItem,
-    QVBoxLayout,
     QTableWidget,
     QTableWidgetItem,
+    QVBoxLayout,
     QWidget,
 )
 
+from .button import strata_widget_button
 from .dropdowns.properties import strata_dropdown_properties
 from .dropdowns.sort import strata_dropdown_sort
-from .button import strata_widget_button
 from .strata_globals import *
 
 
@@ -38,7 +37,7 @@ class strata_widget_details_view(QWidget):
         self.item_dependencies = self.item.get_flattened_dependencies()
         print(len(self.item_dependencies))
         self.initUI()
-        #self.__populate_items()
+        # self.__populate_items()
 
     def initUI(self):
         """
@@ -103,8 +102,14 @@ class strata_widget_details_view(QWidget):
         )
 
         # CONNECTIONS
-        self.properties.clicked.connect(lambda checked: self.show_dropdown(self.properties, self.dropdown_properties))
-        self.sort.clicked.connect(lambda checked: self.show_dropdown(self.sort, self.dropdown_sort))
+        self.properties.clicked.connect(
+            lambda checked: self.show_dropdown(
+                self.properties, self.dropdown_properties
+            )
+        )
+        self.sort.clicked.connect(
+            lambda checked: self.show_dropdown(self.sort, self.dropdown_sort)
+        )
 
         _layout_header.addWidget(self.view_switcher)
         _layout_header.addWidget(self.results_list)
@@ -123,25 +128,42 @@ class strata_widget_details_view(QWidget):
         self.table.setRowCount(len(self.item_dependencies))
         self.table.setColumnCount(5)
         self.table.setColumnWidth(0, 250)
-        self.table.setHorizontalHeaderLabels(["file name", "file path", "file size", "extension", "date modified"])
+        self.table.setHorizontalHeaderLabels(
+            ["file name", "file path", "file size", "extension", "date modified"]
+        )
 
         for row, name in enumerate(self.item_dependencies):
-            self.table.setItem(row, 0, QTableWidgetItem(os.path.splitext(os.path.basename(name))[0]))
+            self.table.setItem(
+                row, 0, QTableWidgetItem(os.path.splitext(os.path.basename(name))[0])
+            )
             self.table.setItem(row, 1, QTableWidgetItem(name))
-            self.table.setItem(row, 2, QTableWidgetItem(f"{os.path.getsize(name) / 1024:.3f}"))
-            self.table.setItem(row, 3, QTableWidgetItem(os.path.splitext(os.path.basename(name))[-1]))
-
+            self.table.setItem(
+                row, 2, QTableWidgetItem(f"{os.path.getsize(name) / 1024:.3f}")
+            )
+            self.table.setItem(
+                row, 3, QTableWidgetItem(os.path.splitext(os.path.basename(name))[-1])
+            )
 
         # ---------------------------------------------------------------
         # COLUMN PROPERTIES FUNCTIONALITY
         self.table.setColumnHidden(1, True)
         self.table.setColumnHidden(2, True)
         self.table.setColumnHidden(3, True)
-        
-        self.dropdown_properties.check_name.stateChanged.connect(lambda checked: self.hide_column(0, self.dropdown_properties.check_name))
-        self.dropdown_properties.check_path.stateChanged.connect(lambda checked: self.hide_column(1, self.dropdown_properties.check_path))
-        self.dropdown_properties.check_size.stateChanged.connect(lambda checked: self.hide_column(2, self.dropdown_properties.check_size))
-        self.dropdown_properties.check_extension.stateChanged.connect(lambda checked: self.hide_column(3, self.dropdown_properties.check_extension))
+
+        self.dropdown_properties.check_name.stateChanged.connect(
+            lambda checked: self.hide_column(0, self.dropdown_properties.check_name)
+        )
+        self.dropdown_properties.check_path.stateChanged.connect(
+            lambda checked: self.hide_column(1, self.dropdown_properties.check_path)
+        )
+        self.dropdown_properties.check_size.stateChanged.connect(
+            lambda checked: self.hide_column(2, self.dropdown_properties.check_size)
+        )
+        self.dropdown_properties.check_extension.stateChanged.connect(
+            lambda checked: self.hide_column(
+                3, self.dropdown_properties.check_extension
+            )
+        )
 
         _layout_main.setContentsMargins(0, 0, 0, 0)
         _layout_main.addLayout(_layout_header)
