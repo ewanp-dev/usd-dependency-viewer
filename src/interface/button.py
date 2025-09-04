@@ -1,8 +1,8 @@
 import os
 
 from PyQt6.QtCore import QSize
-from PyQt6.QtGui import QFont, QIcon, QImage, QPixmap, QTransform
-from PyQt6.QtWidgets import QPushButton, QSizePolicy
+from PyQt6.QtGui import QFont, QIcon, QImage, QPixmap, QTransform, QColor
+from PyQt6.QtWidgets import QPushButton, QSizePolicy, QGraphicsDropShadowEffect
 
 
 class strata_widget_button(QPushButton):
@@ -35,12 +35,15 @@ class strata_widget_button(QPushButton):
 
         elements_folder = os.path.join(os.path.dirname(__file__), "elements")
         icon_path = os.path.join(elements_folder, icon_name) if icon_name else None
+
+        self.base_width, self.base_height = width, height
         self.setFont(QFont("San Francisco", font_size))
+        self.setFlat(True)
 
         if (width_policy) and (height_policy):
             self.setSizePolicy(width_policy, height_policy)
         else:
-            self.setFixedSize(width, height)
+            self.setFixedSize(self.base_width, self.base_height)
 
         # setting qicon
         if icon_path:
@@ -57,7 +60,7 @@ class strata_widget_button(QPushButton):
                     icon = QIcon(QPixmap.fromImage(self.img))
 
                 self.setIcon(icon)
-                self.setIconSize(QSize(width - 2, height - 2))
+                self.setIconSize(QSize(self.base_width - 2, self.base_height - 2))
             else:
                 # NOTE put error message here
                 pass
@@ -66,6 +69,13 @@ class strata_widget_button(QPushButton):
 
         if tooltip:
             self.setToolTip(tooltip)
+
+        self.setStyleSheet("background: transparent; border: none;")
+        self.glow_effect = QGraphicsDropShadowEffect(self)
+        self.glow_effect.setBlurRadius(0)
+        self.glow_effect.setOffset(0, 0)
+        self.glow_effect.setColor(QColor(255, 0, 0))
+        self.setGraphicsEffect(self.glow_effect)
 
         # add in stylesheets later on down the line
 
@@ -80,3 +90,13 @@ class strata_widget_button(QPushButton):
             }}
         """
         )
+
+    def enterEvent(self, event):
+        self.glow_effect.setBlurRadius(10)
+        self.setIconSize(QSize(self.base_width + 1, self.base_height + 1))
+        super().enterEvent(event)
+
+    def leaveEvent(self, event):
+        self.glow_effect.setBlurRadius(0)
+        self.setIconSize(QSize(self.base_width, self.base_height))
+        super().leaveEvent(event)

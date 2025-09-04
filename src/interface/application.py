@@ -34,6 +34,8 @@ class strata_window_main(QMainWindow):
     def __init__(self, item=None):
         super().__init__()
         self.saved_width = 200
+        # NOTE set inverted sheet here
+        # self.setStyleSheet("background-color: black;")
         self.item = item
         self.initUI()
 
