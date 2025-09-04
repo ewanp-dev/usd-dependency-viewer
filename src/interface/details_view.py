@@ -17,6 +17,7 @@ from PyQt6.QtWidgets import (
 
 from .button import strata_widget_button
 from .dropdowns.properties import strata_dropdown_properties
+from .dropdowns.results import strata_dropdown_results
 from .dropdowns.sort import strata_dropdown_sort
 from .dropdowns.view_switcher import strata_dropdown_view_switcher
 from .strata_globals import *
@@ -36,7 +37,6 @@ class strata_widget_details_view(QWidget):
 
         self.item = item
         self.item_dependencies = self.item.get_flattened_dependencies()
-        print(len(self.item_dependencies))
         self.initUI()
         # self.__populate_items()
 
@@ -65,7 +65,7 @@ class strata_widget_details_view(QWidget):
             height_policy=QSizePolicy.Policy.Fixed,
         )
         self.results_list = strata_widget_button(
-            text="0 Results",
+            text=f"{len(self.item_dependencies)} Results",
             width_policy=QSizePolicy.Policy.Preferred,
             height_policy=QSizePolicy.Policy.Fixed,
         )
@@ -82,6 +82,7 @@ class strata_widget_details_view(QWidget):
 
         # creating dropdown widget
         self.dropdown_properties = strata_dropdown_properties()
+        self.dropdown_results = strata_dropdown_results()
         self.dropdown_sort = strata_dropdown_sort()
         self.dropdown_view = strata_dropdown_view_switcher()
 
@@ -107,6 +108,9 @@ class strata_widget_details_view(QWidget):
         self.view_switcher.clicked.connect(
             lambda checked: self.show_dropdown(self.view_switcher, self.dropdown_view)
         )
+        self.results_list.clicked.connect(
+                lambda checked: self.show_dropdown(self.results_list, self.dropdown_results)
+                )
         self.properties.clicked.connect(
             lambda checked: self.show_dropdown(
                 self.properties, self.dropdown_properties

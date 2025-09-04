@@ -92,7 +92,8 @@ class strata_widget_button(QPushButton):
         )
 
     def enterEvent(self, event):
-        self.glow_effect.setBlurRadius(10)
+        # NOTE default 10 but turned off for now
+        self.glow_effect.setBlurRadius(0)
         self.setIconSize(QSize(self.base_width + 1, self.base_height + 1))
         super().enterEvent(event)
 
