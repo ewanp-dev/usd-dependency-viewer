@@ -25,6 +25,7 @@ class strata_dropdown_sort(QWidget):
         ]
         self.sort_type.addItems(self.types_list)
         self.sort_rule.addItems(["A->Z", "Z->A"])
+        self.sort_type.setPlaceholderText("Text")
 
         _layout_main = QHBoxLayout(self)
         _layout_main.addWidget(self.sort_type)

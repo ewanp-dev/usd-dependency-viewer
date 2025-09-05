@@ -23,6 +23,8 @@ class strata_dropdown_view_switcher(QWidget):
         self.row_height = QComboBox()
         self.card_size = QSlider()
 
+        self.card_size.setOrientation(Qt.Orientation.Horizontal)
+
         self.view_type.addItems(["Table", "Cards"])
         self.row_height.addItems(["Short", "Medium", "Tall"])
 
