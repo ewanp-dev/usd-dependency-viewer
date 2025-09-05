@@ -48,10 +48,11 @@ class strata_widget_details_view(QWidget):
         * start writing tests for the list interface
         * start writing the item to redirect on selection
         """
+        BUTTON_WIDTH, BUTTON_HEIGHT = int(STRATA_BUTTON_WIDTH * 1), int(STRATA_BUTTON_HEIGHT * 1)
         DETAILS_BUTTON_WIDTH: int = 100
         DETAILS_BUTTON_HEIGHT: int = 30
         DETAILS_MARGINS = [10, 5, 10, 5]
-        DETAILS_ICON_SIZE = [14, 14]
+        DETAILS_ICON_SIZE = [18, 18]
 
         _layout_header = QHBoxLayout()
         _layout_header.setContentsMargins(*DETAILS_MARGINS)
@@ -60,7 +61,9 @@ class strata_widget_details_view(QWidget):
 
         # switch to abstract strata class
         self.view_switcher = strata_widget_button(
-            icon_name="table.png",
+            icon_name="meal/view.png",
+            width=BUTTON_WIDTH,
+            height=BUTTON_HEIGHT,
             width_policy=QSizePolicy.Policy.Preferred,
             height_policy=QSizePolicy.Policy.Fixed,
         )
@@ -70,12 +73,16 @@ class strata_widget_details_view(QWidget):
             height_policy=QSizePolicy.Policy.Fixed,
         )
         self.sort = strata_widget_button(
-            icon_name="sorting.png",
+            icon_name="meal/sort.png",
+            width=BUTTON_WIDTH,
+            height=BUTTON_HEIGHT,
             width_policy=QSizePolicy.Policy.Preferred,
             height_policy=QSizePolicy.Policy.Fixed,
         )
         self.properties = strata_widget_button(
-            icon_name="properties.png",
+            icon_name="meal/filter.png",
+            width=BUTTON_WIDTH,
+            height=BUTTON_HEIGHT,
             width_policy=QSizePolicy.Policy.Preferred,
             height_policy=QSizePolicy.Policy.Fixed,
         )
@@ -86,17 +93,17 @@ class strata_widget_details_view(QWidget):
         self.dropdown_sort = strata_dropdown_sort()
         self.dropdown_view = strata_dropdown_view_switcher()
 
-        self.view_switcher.setText(" Table")
+        # self.view_switcher.setText(" Table")
         self.view_switcher.setPadding(5, 5)
         self.view_switcher.setIconSize(QSize(*DETAILS_ICON_SIZE))
 
         self.results_list.setPadding(5, 5)
 
-        self.sort.setText(" Sort")
+        # self.sort.setText(" Sort")
         self.sort.setPadding(5, 5)
         self.sort.setIconSize(QSize(*DETAILS_ICON_SIZE))
 
-        self.properties.setText(" Properties")
+        # self.properties.setText(" Properties")
         self.properties.setPadding(5, 5)
         self.properties.setIconSize(QSize(*DETAILS_ICON_SIZE))
 

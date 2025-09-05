@@ -43,6 +43,7 @@ class strata_window_main(QMainWindow):
         # temporary title
         self.setWindowTitle("Usd Dependency Viewer")
         self.setGeometry(100, 100, 1280, 720)
+
         central_widget = QWidget()
         central_widget.setContentsMargins(0, 0, 0, 0)
         self.setCentralWidget(central_widget)

@@ -1,5 +1,10 @@
 /* style.qss */
+QMainWindow {
+    background-color: rgb(25, 25, 25);
+}
+
 QPushButton {
+    color: rgb(190, 190, 190);
     background: transparent;
     border: none;
 }

@@ -32,22 +32,22 @@ class strata_widget_sidebar(QWidget):
 
         # using button widgets for each page
         self.win_database = strata_widget_button(
-            icon_name="list.png", width=button_width, height=button_height
+            icon_name="meal/list.png", width=button_width, height=button_height
         )
         self.win_nodegraph = strata_widget_button(
-            icon_name="node.png",
+            icon_name="meal/node.png",
             width=button_width,
             height=button_height,
             tooltip="Node View",
         )
         self.win_quick_search = strata_widget_button(
-            icon_name="search.png", width=button_width, height=button_height
+            icon_name="meal/search.png", width=button_width, height=button_height
         )
         self.win_library = strata_widget_button(
-            icon_name="library.png", width=button_width, height=button_height
+            icon_name="meal/grid.png", width=button_width, height=button_height
         )
         self.win_command = strata_widget_button(
-            icon_name="command.png", width=button_width, height=button_height
+            icon_name="meal/command.png", width=button_width, height=button_height
         )
 
         layout.addWidget(self.win_database)

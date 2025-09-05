@@ -4,6 +4,8 @@ from PyQt6.QtCore import QSize
 from PyQt6.QtGui import QFont, QIcon, QImage, QPixmap, QTransform, QColor
 from PyQt6.QtWidgets import QPushButton, QSizePolicy, QGraphicsDropShadowEffect
 
+from .strata_globals import *
+
 
 class strata_widget_button(QPushButton):
     """
@@ -28,7 +30,7 @@ class strata_widget_button(QPushButton):
         height: int = 10,
         parent=None,
         flipped=False,
-        inverted=False,
+        inverted=STRATA_ICONS_INVERTED,
         font_size: int = 9,
     ):
         super().__init__(parent)
@@ -50,6 +52,7 @@ class strata_widget_button(QPushButton):
             if os.path.exists(icon_path):
                 self.img = QImage(icon_path)
                 if inverted:
+                    # NOTE need to find a better color method
                     self.img.invertPixels(QImage.InvertMode.InvertRgb)
 
                 if flipped:
@@ -93,11 +96,11 @@ class strata_widget_button(QPushButton):
 
     def enterEvent(self, event):
         # NOTE default 10 but turned off for now
-        self.glow_effect.setBlurRadius(0)
-        self.setIconSize(QSize(self.base_width + 1, self.base_height + 1))
+        # self.glow_effect.setBlurRadius(5)
+        # self.setIconSize(QSize(self.base_width + 1, self.base_height + 1))
         super().enterEvent(event)
 
     def leaveEvent(self, event):
-        self.glow_effect.setBlurRadius(0)
-        self.setIconSize(QSize(self.base_width, self.base_height))
+        # self.glow_effect.setBlurRadius(0)
+        # self.setIconSize(QSize(self.base_width, self.base_height))
         super().leaveEvent(event)
