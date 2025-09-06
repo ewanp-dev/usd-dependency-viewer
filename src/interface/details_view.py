@@ -2,7 +2,7 @@ import os
 from typing import List
 
 from PyQt6.QtCore import QSize
-from PyQt6.QtGui import QStandardItem, QStandardItemModel
+from PyQt6.QtGui import QStandardItem, QStandardItemModel, QFontDatabase
 from PyQt6.QtWidgets import (
     QHBoxLayout,
     QListWidget,
@@ -53,6 +53,8 @@ class strata_widget_details_view(QWidget):
         DETAILS_BUTTON_HEIGHT: int = 30
         DETAILS_MARGINS = [10, 5, 10, 5]
         DETAILS_ICON_SIZE = [18, 18]
+
+        print(QFontDatabase.families())
 
         _layout_header = QHBoxLayout()
         _layout_header.setContentsMargins(*DETAILS_MARGINS)

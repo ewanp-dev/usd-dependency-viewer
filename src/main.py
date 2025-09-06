@@ -3,6 +3,7 @@ import os
 import sys
 
 from PyQt6.QtWidgets import QApplication
+from PyQt6.QtGui import QFontDatabase
 
 from core.item import strata_core_usditem
 from interface.application import load_styles, strata_window_main

@@ -35,7 +35,7 @@ class strata_widget_header_l(QWidget):
         layout.setSpacing(10)
 
         self.expand_left = strata_widget_button(
-            icon_name="sidebar_left.png",
+            icon_name="meal/sidebar.png",
             width=STRATA_BUTTON_WIDTH,
             height=STRATA_BUTTON_HEIGHT,
         )

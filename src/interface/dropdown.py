@@ -37,7 +37,7 @@ class strata_widget_dropdown(QWidget):
 
         self.search_bar = QLineEdit()
         self.filter_button = strata_widget_button(
-            icon_name="filter.png", width=24, height=24
+            icon_name="meal/sort.png", width=24, height=24
         )
 
         _layout_header.addWidget(self.search_bar)

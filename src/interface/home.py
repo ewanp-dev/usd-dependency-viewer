@@ -38,14 +38,14 @@ class strata_widget_home(QWidget):
 
         self.home_label = QLabel(splash_text.strip())
         self.home_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        font = QFont("Courier New", 20)
+        font = QFont("Luxi Mono", 15)
         self.home_label.setFont(font)
         self.home_label.setWordWrap(False)
 
         self.open = strata_widget_button(
             icon_name="meal/search.png", width=150, height=STRATA_BUTTON_HEIGHT
         )
-        self.open.setText("Select File")
+        self.open.setText(" Select File")
 
         main_layout.addWidget(self.home_label, alignment=Qt.AlignmentFlag.AlignCenter)
         main_layout.addWidget(self.open, alignment=Qt.AlignmentFlag.AlignCenter)

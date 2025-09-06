@@ -3,7 +3,12 @@ QMainWindow {
     background-color: rgb(25, 25, 25);
 }
 
+QLabel {
+    color: rgb(190, 190, 190);
+}
+
 QPushButton {
+    font: 10pt "Sans Serif";
     color: rgb(190, 190, 190);
     background: transparent;
     border: none;
@@ -18,3 +23,22 @@ QPushButton:pressed {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
+QHeaderView::section {
+    background-color: rgb(46, 46, 46);
+    border-style: none;
+    border-bottom: 1px solid rgb(190, 190, 190);
+    border-right: 1px solid rgb(190, 190, 190);
+    border-top: 1px solid rgb(190, 190, 190);
+    color: rgb(190, 190, 190);
+}
+
+QTableWidget {
+    background-color: rgba(45.9, 45.9, 45.9, 0.1);
+    color: rgb(190, 190, 190);
+}
+
+QTableWidget::item {
+    border-bottom: 1px solid rgb(190, 190, 190);
+    border-right: 1px solid rgb(190, 190, 190);
+
+}
