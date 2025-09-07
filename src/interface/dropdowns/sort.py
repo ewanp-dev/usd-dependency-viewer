@@ -1,3 +1,5 @@
+from typing import List
+
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QComboBox, QHBoxLayout, QPushButton, QWidget
 
@@ -62,3 +64,9 @@ class strata_dropdown_sort(QWidget):
 
         else:
             self.sort_rule.addItems(sort_rule_num)
+
+    def sort_alphabetically(self, _list: List[str]) -> List[str]:
+        return sorted(_list)
+
+    def sort_reverse_alphabetically(self, _list: List[str]) -> List[str]:
+        return sorted(_list).reverse()

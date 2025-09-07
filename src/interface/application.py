@@ -105,7 +105,7 @@ class strata_window_main(QMainWindow):
             """
         QSplitter::handle {
             background: transparent;
-            border: none;
+            border: 1px rgb(190, 190, 190);
             width: 0px;  /* make the handle invisible */
         }
         """
