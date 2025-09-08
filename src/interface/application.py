@@ -20,6 +20,7 @@ from .header_left import strata_widget_header_l
 from .header_right import strata_widget_header_r
 from .home import strata_widget_home
 from .sidebar import strata_widget_sidebar
+from .widgets.search import strata_widget_search
 
 
 class strata_window_main(QMainWindow):
@@ -113,6 +114,14 @@ class strata_window_main(QMainWindow):
 
         central_layout.addWidget(self.sidebar)
         central_layout.addWidget(splitter)
+
+        # ----------------------------------------------------
+        # FLOATING WIDGET
+        self.sidebar.win_quick_search.clicked.connect(self.show_floating_search)
+
+    def show_floating_search(self):
+        self.floating_search = strata_widget_search(self)
+        self.floating_search.show_centered()
 
     def show_left_widget(self):
         self.left_widget.show()

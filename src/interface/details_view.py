@@ -37,7 +37,6 @@ class strata_widget_details_view(QWidget):
         self.item = item
         self.item_dependencies = self.item.get_flattened_dependencies()
         self.initUI()
-        self.signal_sort_type_changed(0, 0)
         # self.__populate_items()
 
     def initUI(self):
@@ -131,11 +130,11 @@ class strata_widget_details_view(QWidget):
             lambda checked: self.show_dropdown(self.sort, self.dropdown_sort, shift=100)
         )
 
-        self.dropdown_sort.sort_rule.currentIndexChanged.connect(
-            lambda: self.signal_sort_type_changed(
-                type_index=0, rule_index=self.dropdown_sort.sort_rule.currentIndex()
-            )
-        )
+        # self.dropdown_sort.sort_rule.currentIndexChanged.connect(
+        # lambda: self.signal_sort_type_changed(
+        # type_index=0, rule_index=self.dropdown_sort.sort_rule.currentIndex()
+        # )
+        # )
 
         _layout_header.addWidget(self.view_switcher)
         _layout_header.addWidget(self.results_list)
@@ -188,6 +187,7 @@ class strata_widget_details_view(QWidget):
 
         # ---------------------------------------------------------------
         # COLUMN PROPERTIES FUNCTIONALITY
+        self.table.setColumnWidth(0, 230)
         self.table.setColumnHidden(1, True)
         self.table.setColumnHidden(2, True)
         self.table.setColumnHidden(3, True)
@@ -249,7 +249,6 @@ class strata_widget_details_view(QWidget):
     def signal_sort_type_changed(self, type_index, rule_index):
         if type_index in [0, 1, 3]:
             # indexes for string based sorting
-            print("sorting")
             self.restructure_list(type_index, rule_index)
         elif type_index == 2:
             # indexes for int based sorting
@@ -265,7 +264,6 @@ class strata_widget_details_view(QWidget):
         elif rule_index == 1:
             self.item_dependencies = sorted(self.item_dependencies).reverse()
 
-        print(type(self.item_dependencies), self.item_dependencies[0])
         for row, name in enumerate(self.item_dependencies):
             # restructuring the list alphabetically
             continue

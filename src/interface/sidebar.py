@@ -26,7 +26,7 @@ class strata_widget_sidebar(QWidget):
 
         layout = QVBoxLayout()
         layout.setSpacing(10)
-        layout.setContentsMargins(10, 60, 0, 0)
+        layout.setContentsMargins(10, 60, 0, 10)
 
         button_width, button_height = STRATA_BUTTON_WIDTH, STRATA_BUTTON_HEIGHT
 
@@ -49,6 +49,9 @@ class strata_widget_sidebar(QWidget):
         self.win_command = strata_widget_button(
             icon_name="meal/command.png", width=button_width, height=button_height
         )
+        self.settings = strata_widget_button(
+            icon_name="meal/settings.png", width=button_width, height=button_height
+        )
 
         layout.addWidget(self.win_database)
         layout.addWidget(self.win_nodegraph)
@@ -59,5 +62,8 @@ class strata_widget_sidebar(QWidget):
         layout.addSpacerItem(
             QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
         )
+
+        layout.addWidget(self.settings)
+
         self.setLayout(layout)
         self.setFixedWidth(50)
