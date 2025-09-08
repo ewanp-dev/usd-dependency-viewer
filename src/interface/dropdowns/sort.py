@@ -4,7 +4,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QComboBox, QHBoxLayout, QPushButton, QWidget
 
 
-class strata_dropdown_sort(QWidget):
+class StrataDropdownSort(QWidget):
     """
     Dropdown to sort the dependencies list
     """

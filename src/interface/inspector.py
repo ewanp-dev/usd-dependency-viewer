@@ -12,15 +12,15 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
-from .button import strata_widget_button
-from .dropdowns.properties import strata_dropdown_properties
-from .dropdowns.results import strata_dropdown_results
-from .dropdowns.sort import strata_dropdown_sort
-from .dropdowns.view_switcher import strata_dropdown_view_switcher
+from .button import StrataAbstractButton
+from .dropdowns.properties import StrataDropdownProperties
+from .dropdowns.results import StrataDropdownResults
+from .dropdowns.sort import StrataDropdownSort
+from .dropdowns.view_switcher import StrataDropdownView
 from .strata_globals import *
 
 
-class strata_widget_details_view(QWidget):
+class StrataListPage(QWidget):
     """
     Page for storing the list/grid view of all dependencies
     """
@@ -53,26 +53,26 @@ class strata_widget_details_view(QWidget):
         _layout_main = QVBoxLayout()
         _layout_main.setContentsMargins(*DETAILS_MARGINS)
 
-        self.view_switcher = strata_widget_button(
+        self.view_switcher = StrataAbstractButton(
             icon_name="meal/view.png",
             width=BUTTON_WIDTH,
             height=BUTTON_HEIGHT,
             width_policy=QSizePolicy.Policy.Preferred,
             height_policy=QSizePolicy.Policy.Fixed,
         )
-        self.results_list = strata_widget_button(
+        self.results_list = StrataAbstractButton(
             text=f"{len(self.item_dependencies)} Results",
             width_policy=QSizePolicy.Policy.Preferred,
             height_policy=QSizePolicy.Policy.Fixed,
         )
-        self.sort = strata_widget_button(
+        self.sort = StrataAbstractButton(
             icon_name="meal/sort.png",
             width=BUTTON_WIDTH,
             height=BUTTON_HEIGHT,
             width_policy=QSizePolicy.Policy.Preferred,
             height_policy=QSizePolicy.Policy.Fixed,
         )
-        self.properties = strata_widget_button(
+        self.properties = StrataAbstractButton(
             icon_name="meal/filter.png",
             width=BUTTON_WIDTH,
             height=BUTTON_HEIGHT,
@@ -81,10 +81,10 @@ class strata_widget_details_view(QWidget):
         )
 
         # creating dropdown widget
-        self.dropdown_view = strata_dropdown_view_switcher()
-        self.dropdown_results = strata_dropdown_results()
-        self.dropdown_sort = strata_dropdown_sort()
-        self.dropdown_properties = strata_dropdown_properties()
+        self.dropdown_view = StrataDropdownView()
+        self.dropdown_results = StrataDropdownResults()
+        self.dropdown_sort = StrataDropdownSort()
+        self.dropdown_properties = StrataDropdownProperties()
 
         # self.view_switcher.setText(" Table")
         self.view_switcher.setPadding(5, 5)

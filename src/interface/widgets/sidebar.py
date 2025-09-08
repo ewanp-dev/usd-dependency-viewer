@@ -1,10 +1,10 @@
 from PyQt6.QtWidgets import QSizePolicy, QSpacerItem, QVBoxLayout, QWidget
 
-from ..button import strata_widget_button
+from ..button import StrataAbstractButton
 from ..strata_globals import *
 
 
-class strata_widget_sidebar(QWidget):
+class StrataPageSwitcher(QWidget):
     """
     Left sidebar to open pages or widgets
     """
@@ -29,25 +29,25 @@ class strata_widget_sidebar(QWidget):
         button_width, button_height = STRATA_BUTTON_WIDTH, STRATA_BUTTON_HEIGHT
 
         # using button widgets for each page
-        self.win_database = strata_widget_button(
+        self.win_database = StrataAbstractButton(
             icon_name="meal/list.png", width=button_width, height=button_height
         )
-        self.win_nodegraph = strata_widget_button(
+        self.win_nodegraph = StrataAbstractButton(
             icon_name="meal/node.png",
             width=button_width,
             height=button_height,
             tooltip="Node View",
         )
-        self.win_quick_search = strata_widget_button(
+        self.win_quick_search = StrataAbstractButton(
             icon_name="meal/search.png", width=button_width, height=button_height
         )
-        self.win_library = strata_widget_button(
+        self.win_library = StrataAbstractButton(
             icon_name="meal/grid.png", width=button_width, height=button_height
         )
-        self.win_command = strata_widget_button(
+        self.win_command = StrataAbstractButton(
             icon_name="meal/command.png", width=button_width, height=button_height
         )
-        self.settings = strata_widget_button(
+        self.settings = StrataAbstractButton(
             icon_name="meal/settings.png", width=button_width, height=button_height
         )
 

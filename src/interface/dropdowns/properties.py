@@ -2,7 +2,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QCheckBox, QVBoxLayout, QWidget
 
 
-class strata_dropdown_properties(QWidget):
+class StrataDropdownProperties(QWidget):
     """
     Shows the different list columns to enable/disable
     """

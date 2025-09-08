@@ -1,11 +1,11 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QHBoxLayout, QWidget
 
-from ..button import strata_widget_button
+from ..button import StrataAbstractButton
 from ..strata_globals import *
 
 
-class strata_widget_header_r(QWidget):
+class StrataHeaderRight(QWidget):
     """
     !!DEPRECATED!!
 
@@ -28,7 +28,7 @@ class strata_widget_header_r(QWidget):
         layout.setContentsMargins(0, 10, 0, 0)
         layout.setSpacing(10)
 
-        self.expand_left = strata_widget_button(
+        self.expand_left = StrataAbstractButton(
             icon_name="meal/sidebar.png",
             width=STRATA_BUTTON_WIDTH,
             height=STRATA_BUTTON_HEIGHT,

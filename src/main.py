@@ -5,7 +5,7 @@ import sys
 from PyQt6.QtWidgets import QApplication
 
 from core.item import strata_core_usditem
-from interface.app import load_styles, strata_window_main
+from interface.app import StrataApplication, load_styles
 
 
 def main():
@@ -25,7 +25,7 @@ def main():
 
     app = QApplication(sys.argv)
     load_styles(app)
-    window = strata_window_main(item=usd_item)
+    window = StrataApplication(item=usd_item)
     window.show()
     sys.exit(app.exec())
 

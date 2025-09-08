@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import QHBoxLayout, QWidget
 from ..strata_globals import *
 
 
-class strata_widget_header(QWidget):
+class StrataHeader(QWidget):
     """
     Merged header classes
     """

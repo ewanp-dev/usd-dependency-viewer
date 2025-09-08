@@ -6,7 +6,7 @@ from PyQt6.QtWidgets import QComboBox, QLabel, QSlider, QVBoxLayout, QWidget
 """
 
 
-class strata_dropdown_view_switcher(QWidget):
+class StrataDropdownView(QWidget):
     """
     TODO
     * convert labels to private members

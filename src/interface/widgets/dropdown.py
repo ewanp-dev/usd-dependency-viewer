@@ -1,10 +1,10 @@
 from PyQt6.QtWidgets import QHBoxLayout, QLineEdit, QListWidget, QVBoxLayout, QWidget
 
-from ..button import strata_widget_button
+from ..button import StrataAbstractButton
 from ..strata_globals import *
 
 
-class strata_widget_dropdown(QWidget):
+class StrataDropdown(QWidget):
     """
     Interactive dependencies dropdown widget
     """
@@ -28,7 +28,7 @@ class strata_widget_dropdown(QWidget):
         _layout_main.setContentsMargins(0, 0, 0, 0)
 
         self.search_bar = QLineEdit()
-        self.filter_button = strata_widget_button(
+        self.filter_button = StrataAbstractButton(
             icon_name="meal/sort.png", width=24, height=24
         )
 

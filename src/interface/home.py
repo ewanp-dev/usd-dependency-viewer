@@ -2,11 +2,11 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QLabel, QVBoxLayout, QWidget
 
-from .button import strata_widget_button
+from .button import StrataAbstractButton
 from .strata_globals import *
 
 
-class strata_widget_home(QWidget):
+class StrataHomePage(QWidget):
     """
     The home button/startup page
     """
@@ -46,7 +46,7 @@ class strata_widget_home(QWidget):
         self.home_label.setFont(font)
         self.home_label.setWordWrap(False)
 
-        self.open = strata_widget_button(
+        self.open = StrataAbstractButton(
             icon_name="meal/search.png", width=150, height=STRATA_BUTTON_HEIGHT
         )
         self.open.setText(" Select File")

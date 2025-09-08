@@ -2,7 +2,7 @@ from PyQt6.QtCore import QEvent, QPoint, Qt
 from PyQt6.QtWidgets import QApplication, QVBoxLayout, QWidget
 
 
-class strata_widget_search(QWidget):
+class StrataFloatingSearch(QWidget):
     """
     Floating search widget
     """

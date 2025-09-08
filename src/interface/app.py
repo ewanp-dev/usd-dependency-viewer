@@ -11,16 +11,16 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
-from .home import strata_widget_home
-from .inspector import strata_widget_details_view
-from .widgets.dropdown import strata_widget_dropdown
-from .widgets.header_left import strata_widget_header_l
-from .widgets.header_right import strata_widget_header_r
-from .widgets.search import strata_widget_search
-from .widgets.sidebar import strata_widget_sidebar
+from .home import StrataHomePage
+from .inspector import StrataListPage
+from .widgets.dropdown import StrataDropdown
+from .widgets.header_left import StrataHeaderLeft
+from .widgets.header_right import StrataHeaderRight
+from .widgets.search import StrataFloatingSearch
+from .widgets.sidebar import StrataPageSwitcher
 
 
-class strata_window_main(QMainWindow):
+class StrataApplication(QMainWindow):
     """
     Main application window the package draws from
     """
@@ -53,12 +53,12 @@ class strata_window_main(QMainWindow):
         central_layout.setContentsMargins(0, 0, 0, 0)
 
         # WIDGETS
-        self.header_left = strata_widget_header_l()
-        self.header_right = strata_widget_header_r()
-        self.sidebar = strata_widget_sidebar()
-        self.dropdown_list = strata_widget_dropdown()
-        self.details_view = strata_widget_details_view(item=self.item)
-        self.home_page = strata_widget_home()
+        self.header_left = StrataHeaderLeft()
+        self.header_right = StrataHeaderRight()
+        self.sidebar = StrataPageSwitcher()
+        self.dropdown_list = StrataDropdown()
+        self.details_view = StrataListPage(item=self.item)
+        self.home_page = StrataHomePage()
 
         self.header_right.expand_left.clicked.connect(self.show_left_widget)
         self.header_left.expand_left.clicked.connect(self.hide_right_widget)
@@ -123,7 +123,7 @@ class strata_window_main(QMainWindow):
         """
         Show the floating searching widget upon button press
         """
-        self.floating_search = strata_widget_search(self)
+        self.floating_search = StrataFloatingSearch(self)
         self.floating_search.show_centered()
 
     def show_left_widget(self) -> None:

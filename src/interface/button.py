@@ -7,7 +7,7 @@ from PyQt6.QtWidgets import QGraphicsDropShadowEffect, QPushButton
 from .strata_globals import *
 
 
-class strata_widget_button(QPushButton):
+class StrataAbstractButton(QPushButton):
     """
     Bespoke abstract button class to avoid boilerplate code
     """
