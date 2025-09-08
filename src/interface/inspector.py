@@ -1,11 +1,9 @@
 import os
 
 from PyQt6.QtCore import QSize, Qt
-from PyQt6.QtGui import QFont, QFontDatabase, QStandardItem, QStandardItemModel
+from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import (
     QHBoxLayout,
-    QListWidget,
-    QPushButton,
     QSizePolicy,
     QSpacerItem,
     QTableWidget,
@@ -24,45 +22,37 @@ from .strata_globals import *
 
 class strata_widget_details_view(QWidget):
     """
-    contains a detail list view  where you can select all dependencies
-
-    NOTE
-    this will be implemented with a way to switch between a grid view and details
-    view
+    Page for storing the list/grid view of all dependencies
     """
 
-    def __init__(self, item=None):
+    def __init__(self, item=None) -> None:
+        """
+        Constructor
+
+        :param item: Input usd class item
+        """
         super().__init__()
 
         self.item = item
         self.item_dependencies = self.item.get_flattened_dependencies()
         self.initUI()
-        # self.__populate_items()
 
     def initUI(self):
         """
-        TODO
-        * add in new icon for switcher button
-        * write the ui for switching between grid and details view
-        * start writing tests for the list interface
-        * start writing the item to redirect on selection
+        UI Constructor
         """
+
         BUTTON_WIDTH, BUTTON_HEIGHT = int(STRATA_BUTTON_WIDTH * 1), int(
             STRATA_BUTTON_HEIGHT * 1
         )
-        DETAILS_BUTTON_WIDTH: int = 100
-        DETAILS_BUTTON_HEIGHT: int = 30
         DETAILS_MARGINS = [10, 5, 10, 5]
         DETAILS_ICON_SIZE = [18, 18]
-
-        # print(QFontDatabase.families())
 
         _layout_header = QHBoxLayout()
         _layout_header.setContentsMargins(*DETAILS_MARGINS)
         _layout_main = QVBoxLayout()
         _layout_main.setContentsMargins(*DETAILS_MARGINS)
 
-        # switch to abstract strata class
         self.view_switcher = strata_widget_button(
             icon_name="meal/view.png",
             width=BUTTON_WIDTH,
@@ -130,30 +120,11 @@ class strata_widget_details_view(QWidget):
             lambda checked: self.show_dropdown(self.sort, self.dropdown_sort, shift=100)
         )
 
-        # self.dropdown_sort.sort_rule.currentIndexChanged.connect(
-        # lambda: self.signal_sort_type_changed(
-        # type_index=0, rule_index=self.dropdown_sort.sort_rule.currentIndex()
-        # )
-        # )
-
         _layout_header.addWidget(self.view_switcher)
         _layout_header.addWidget(self.results_list)
         _layout_header.addStretch(1)
-        # _layout_header.addSpacerItem(space)
         _layout_header.addWidget(self.sort)
         _layout_header.addWidget(self.properties)
-
-        # ---------------------------------------------------------------
-        # SORTING SIGNALS
-
-        # self.dropdown_sort.sort_rule.currentIndexChanged.connect(
-        # lambda: self.switch_sort_type(
-        # index=self.dropdown_sort.sort_rule.currentIndex()
-        # )
-        # )
-
-        # ---------------------------------------------------------------
-        # TABLE WIDGET
 
         # NOTE might need to change this to a grid widget
         self.table = QTableWidget()
@@ -212,14 +183,26 @@ class strata_widget_details_view(QWidget):
         _layout_main.addWidget(self.table)
         self.setLayout(_layout_main)
 
-    def hide_column(self, column, check):
+    def hide_column(self, column: int, check) -> None:
+        """
+        Hides an input column
+
+        :param column: The column number
+        :param check: Bool to enable or disable the hide operation
+        """
         self.table.setColumnHidden(column, not check.isChecked())
 
-    def show_dropdown(self, btn, dropdown, shift: int = 0):
+    def show_dropdown(self, btn, dropdown, shift: int = 0) -> None:
+        """
+        Shows a dropdown widget
+
+        :param btn: The button to connect the dropdown to
+        :param dropdown: The dropdown widget
+        :param shift: [Optional] Amount to shift the dropdown position by
+        """
         pos = btn.mapToGlobal(btn.rect().bottomLeft())
         if shift:
             # TODO move this to a relative option
-            # make pos x the max x position of the window
             pos_x = pos.x() - shift
             pos.setX(pos_x)
 
@@ -229,7 +212,9 @@ class strata_widget_details_view(QWidget):
 
     def switch_sort_type(self, index: int) -> None:
         """
-        calls the sort function based on the current index
+        Calls the sort function based on the current index
+
+        :param index: The current index of the sort combo box
         """
         # NOTE this function is currently broken
         # sorting by file name
@@ -247,6 +232,9 @@ class strata_widget_details_view(QWidget):
                 )
 
     def signal_sort_type_changed(self, type_index, rule_index):
+        """
+        !!DEPRECATED
+        """
         if type_index in [0, 1, 3]:
             # indexes for string based sorting
             self.restructure_list(type_index, rule_index)
@@ -258,7 +246,10 @@ class strata_widget_details_view(QWidget):
             pass
         return
 
-    def restructure_list(self, type_index, rule_index):
+    def restructure_list(self, type_index, rule_index) -> None:
+        """
+        !!DEPRECATED!!
+        """
         if not rule_index:
             self.item_dependencies = sorted(self.item_dependencies)
         elif rule_index == 1:

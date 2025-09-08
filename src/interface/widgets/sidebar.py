@@ -1,28 +1,26 @@
-from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QPushButton, QSizePolicy, QSpacerItem, QVBoxLayout, QWidget
+from PyQt6.QtWidgets import QSizePolicy, QSpacerItem, QVBoxLayout, QWidget
 
-from .button import strata_widget_button
-from .strata_globals import *
+from ..button import strata_widget_button
+from ..strata_globals import *
 
 
 class strata_widget_sidebar(QWidget):
     """
-    acts as the side bar on the left to switch between different
-    window types
-
-    TODO
-    * add in more interesting button interactions, simple highlighting isnt very interesting
-    * start writing tooltips
-    * add clicked functionality into class
-    * start style sheet
+    Left sidebar to open pages or widgets
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
+        """
+        Cunstructor
+        """
         super().__init__()
 
         self.initUI()
 
-    def initUI(self):
+    def initUI(self) -> None:
+        """
+        UI Constructor
+        """
 
         layout = QVBoxLayout()
         layout.setSpacing(10)

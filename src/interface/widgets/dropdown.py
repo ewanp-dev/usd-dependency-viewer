@@ -1,36 +1,28 @@
-"""
-This will be a shotgrid like text dropdown where you can manually select or filter through all dependencies
-"""
+from PyQt6.QtWidgets import QHBoxLayout, QLineEdit, QListWidget, QVBoxLayout, QWidget
 
-from PyQt6.QtWidgets import (
-    QHBoxLayout,
-    QLineEdit,
-    QListWidget,
-    QPushButton,
-    QVBoxLayout,
-    QWidget,
-)
-
-from .button import strata_widget_button
-from .strata_globals import *
+from ..button import strata_widget_button
+from ..strata_globals import *
 
 
 class strata_widget_dropdown(QWidget):
     """
-    TODO
-    * start filling in the dropdown with recursive function
-    * start adding basic widgets to this layout to build upon
-    * create stylesheet
-    * run unit tests on dependency checker
-    * run unit tests on loading speeds
+    Interactive dependencies dropdown widget
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
+        """
+        Cunstructor
+        """
+
         super().__init__()
         self.initUI()
 
-    def initUI(self):
+    def initUI(self) -> None:
+        """
+        UI Constructor
+        """
 
+        # TODO clean up layout and add stylesheet
         _layout_main = QVBoxLayout()
         _layout_header = QHBoxLayout()
         _layout_main.setContentsMargins(0, 0, 0, 0)
@@ -49,5 +41,4 @@ class strata_widget_dropdown(QWidget):
         _layout_main.addWidget(self.list)
 
         self.setLayout(_layout_main)
-        # self.setStyleSheet("background-color: rgb(50, 50, 50);")
         self.setMinimumWidth(45)

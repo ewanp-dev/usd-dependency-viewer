@@ -1,30 +1,28 @@
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QHBoxLayout, QPushButton, QWidget
+from PyQt6.QtWidgets import QHBoxLayout, QWidget
 
-from .button import strata_widget_button
-from .strata_globals import *
+from ..button import strata_widget_button
+from ..strata_globals import *
 
 
 class strata_widget_header_r(QWidget):
+    """
+    !!DEPRECATED!!
 
-    def __init__(self):
+    The right side of the application header
+    """
+
+    def __init__(self) -> None:
+        """
+        Constructor
+        """
         super().__init__()
 
         self.initUI()
 
-    def initUI(self):
+    def initUI(self) -> None:
         """
-        NOTE
-        currently the expand button doesnt follow the dropdown menu
-        we need to create two expand buttons and hide one when the dropdown
-        widget is expanded
-
-        we also need to make the main layout horizontal and have two headers split
-        by a qsplitter
-
-        TODO
-        * make sure that the button reappears when the left header is fully closed
-        * add in settings button
+        UI Constructor
         """
         layout = QHBoxLayout()
         layout.setContentsMargins(0, 10, 0, 0)

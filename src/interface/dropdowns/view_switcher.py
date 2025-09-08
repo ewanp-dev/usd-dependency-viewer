@@ -1,6 +1,10 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QComboBox, QLabel, QSlider, QVBoxLayout, QWidget
 
+"""
+!!DEPRECATED!!
+"""
+
 
 class strata_dropdown_view_switcher(QWidget):
     """

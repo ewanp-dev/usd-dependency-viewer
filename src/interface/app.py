@@ -1,46 +1,46 @@
 import os
-import sys
 
-from PyQt6.QtCore import QEasingCurve, QPropertyAnimation, Qt
+from PyQt6.QtCore import QPropertyAnimation, Qt
 from PyQt6.QtWidgets import (
     QWIDGETSIZE_MAX,
-    QApplication,
     QHBoxLayout,
     QMainWindow,
-    QPushButton,
     QSplitter,
     QStackedWidget,
     QVBoxLayout,
     QWidget,
 )
 
-from .details_view import strata_widget_details_view
-from .dropdown import strata_widget_dropdown
-from .header_left import strata_widget_header_l
-from .header_right import strata_widget_header_r
 from .home import strata_widget_home
-from .sidebar import strata_widget_sidebar
+from .inspector import strata_widget_details_view
+from .widgets.dropdown import strata_widget_dropdown
+from .widgets.header_left import strata_widget_header_l
+from .widgets.header_right import strata_widget_header_r
 from .widgets.search import strata_widget_search
+from .widgets.sidebar import strata_widget_sidebar
 
 
 class strata_window_main(QMainWindow):
     """
-    TODO
-
-    * add in widget switching functionality when changing page
-    * think about cleaning up the class
-    * run execution from here to ../main.py
+    Main application window the package draws from
     """
 
     def __init__(self, item=None):
+        """
+        Cunstructor
+
+        :param item: Input USD path object
+        """
         super().__init__()
         self.saved_width = 200
-        # NOTE set inverted sheet here
-        # self.setStyleSheet("background-color: black;")
         self.item = item
         self.initUI()
 
     def initUI(self):
+        """
+        UI Cunstructor
+        """
+
         # temporary title
         self.setWindowTitle("Usd Dependency Viewer")
         self.setGeometry(100, 100, 1280, 720)
@@ -119,11 +119,17 @@ class strata_window_main(QMainWindow):
         # FLOATING WIDGET
         self.sidebar.win_quick_search.clicked.connect(self.show_floating_search)
 
-    def show_floating_search(self):
+    def show_floating_search(self) -> None:
+        """
+        Show the floating searching widget upon button press
+        """
         self.floating_search = strata_widget_search(self)
         self.floating_search.show_centered()
 
-    def show_left_widget(self):
+    def show_left_widget(self) -> None:
+        """
+        Expand the dropdown widget upon button press
+        """
         self.left_widget.show()
         self.header_right.expand_left.hide()
 
@@ -136,7 +142,10 @@ class strata_window_main(QMainWindow):
         )
         self.anim.start()
 
-    def hide_right_widget(self):
+    def hide_right_widget(self) -> None:
+        """
+        Hide the dropdown widget upon button press
+        """
         start_width = self.left_widget.width()
         self.saved_width = start_width
         self.anim = QPropertyAnimation(self.left_widget, b"maximumWidth")
@@ -153,19 +162,12 @@ class strata_window_main(QMainWindow):
         self.anim.start()
 
 
-def load_styles(app):
+def load_styles(app) -> None:
+    """
+    Load the qss file into the application
+    """
     base_dir = os.path.dirname(__file__)
     style_path = os.path.join(base_dir, "styles", "style.qss")
     with open(style_path, "r") as f:
         qss = f.read()
         app.setStyleSheet(qss)
-
-
-if __name__ == "__main__":
-    # move this to main
-    app = QApplication(sys.argv)
-    load_styles(app)
-    app.setStyle("Fusion")
-    window = UsdDependencyViewerWindow()
-    window.show()
-    sys.exit(app.exec())

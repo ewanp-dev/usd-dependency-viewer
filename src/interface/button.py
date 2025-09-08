@@ -1,29 +1,22 @@
 import os
 
 from PyQt6.QtCore import QSize
-from PyQt6.QtGui import QFont, QIcon, QImage, QPixmap, QTransform, QColor
-from PyQt6.QtWidgets import QPushButton, QSizePolicy, QGraphicsDropShadowEffect
+from PyQt6.QtGui import QColor, QFont, QIcon, QImage, QPixmap, QTransform
+from PyQt6.QtWidgets import QGraphicsDropShadowEffect, QPushButton
 
 from .strata_globals import *
 
 
 class strata_widget_button(QPushButton):
     """
-    abstract button class to remove boilerplate code
-
-    TODO
-    * add inverted as a global variable for easy switching
-    * make better checks for missing icon path, you should be able to add just text
-    * add in better size policy control
-    * check to see if there is any more functionality we can add to this
-    * add in more checks for missing icons
+    Bespoke abstract button class to avoid boilerplate code
     """
 
     def __init__(
         self,
-        icon_name: str = None,
+        icon_name: str = "",
         text: str = "",
-        tooltip: str = None,
+        tooltip: str = "",
         width_policy=None,
         height_policy=None,
         width: int = 10,
@@ -32,7 +25,19 @@ class strata_widget_button(QPushButton):
         flipped=False,
         inverted=STRATA_ICONS_INVERTED,
         font_size: int = 9,
-    ):
+    ) -> None:
+        """
+        Cunstructor
+
+        :param icon_name:[Optional] Name of the icon file, full path is absolute
+        :param text: [Optional] Any text to add to the button
+        :param tooltip: [Optional] The button tooltip
+        :param width_policy: [Optional] The buttons width policy
+        :param height_policy: [Optional] The buttons height policy
+        :param flipped: [Optional] Flips the icon horizontallly
+        :param inverted: [Optional] Inverts the icon color
+        :param font_size: [Optional] Sets the font size for the button text
+        """
         super().__init__(parent)
 
         elements_folder = os.path.join(os.path.dirname(__file__), "elements")
@@ -80,11 +85,9 @@ class strata_widget_button(QPushButton):
         self.glow_effect.setColor(QColor(255, 0, 0))
         self.setGraphicsEffect(self.glow_effect)
 
-        # add in stylesheets later on down the line
-
-    def setPadding(self, horizontal_padding: int, vertical_padding: int):
+    def setPadding(self, horizontal_padding: int, vertical_padding: int) -> None:
         """
-        sets the vertical and horizontal padding in a stylesheet
+        Sets the vertical and horizontal padding in a stylesheet
         """
         self.setStyleSheet(
             f"""
@@ -94,13 +97,27 @@ class strata_widget_button(QPushButton):
         """
         )
 
-    def enterEvent(self, event):
+    def enterEvent(self, event) -> None:
+        """
+        !!TMP DEPRECATED!!
+
+        Adds a glow effect and increases the icon size when hovering
+
+        :param event: The input event type
+        """
         # NOTE default 10 but turned off for now
         # self.glow_effect.setBlurRadius(5)
         # self.setIconSize(QSize(self.base_width + 1, self.base_height + 1))
         super().enterEvent(event)
 
-    def leaveEvent(self, event):
+    def leaveEvent(self, event) -> None:
+        """
+        !! TMP DEPRECATED !!
+
+        Reverts eveything to default after hover event is finished
+
+        :param event: The input event type
+        """
         # self.glow_effect.setBlurRadius(0)
         # self.setIconSize(QSize(self.base_width, self.base_height))
         super().leaveEvent(event)

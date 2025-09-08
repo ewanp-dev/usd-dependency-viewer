@@ -1,11 +1,19 @@
-from PyQt6.QtWidgets import QWidget, QLineEdit, QVBoxLayout, QSizePolicy
 from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QLineEdit, QSizePolicy, QVBoxLayout, QWidget
 
 from ..button import strata_widget_button
 
-class strata_dropdown_results(QWidget):
 
-    def __init__(self):
+class strata_dropdown_results(QWidget):
+    """
+    Dropdown to control the amount of results returned
+    """
+
+    def __init__(self) -> None:
+        """
+        Constructor
+        """
+
         super().__init__()
         self.setWindowFlags(self.windowFlags() | Qt.WindowType.Popup)
 
@@ -21,5 +29,3 @@ class strata_dropdown_results(QWidget):
         _layout_main.addWidget(self.limit)
         _layout_main.addWidget(self.reset)
         _layout_main.addWidget(self.copy)
-
-

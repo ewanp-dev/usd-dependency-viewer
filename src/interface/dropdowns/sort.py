@@ -6,11 +6,14 @@ from PyQt6.QtWidgets import QComboBox, QHBoxLayout, QPushButton, QWidget
 
 class strata_dropdown_sort(QWidget):
     """
-    TODO
-    * connect to the main view to sort the list
+    Dropdown to sort the dependencies list
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
+        """
+        Constructor
+        """
+
         super().__init__()
         self.setWindowFlags(self.windowFlags() | Qt.WindowType.Popup)
         self.sort_type = QComboBox()
@@ -37,18 +40,17 @@ class strata_dropdown_sort(QWidget):
         self.sort_type.currentIndexChanged.connect(self.switch_rule)
         self.clear_sort.clicked.connect(self.clear_boxes)
 
-    def clear_boxes(self):
+    def clear_boxes(self) -> None:
         """
-        TODO
-        * find a better clearing method for the type combo box
+        Clears all the combo boxes
         """
         self.sort_type.clear()
         self.sort_rule.clear()
         self.sort_type.addItems(self.types_list)
 
-    def switch_rule(self):
+    def switch_rule(self) -> None:
         """
-        change the rule type based on the type index
+        Change the rule type based on the type index
         """
         self.sort_rule.clear()
         sort_rule_str = ["A->Z", "Z->A"]
@@ -66,7 +68,17 @@ class strata_dropdown_sort(QWidget):
             self.sort_rule.addItems(sort_rule_num)
 
     def sort_alphabetically(self, _list: List[str]) -> List[str]:
+        """
+        Sorts the input list aphabetically
+
+        :param _list: The input list to sort
+        """
         return sorted(_list)
 
     def sort_reverse_alphabetically(self, _list: List[str]) -> List[str]:
+        """
+        Sorts the input list reverse alphabetically
+
+        :param _list: The input list to sort
+        """
         return sorted(_list).reverse()

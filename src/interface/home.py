@@ -1,6 +1,6 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
-from PyQt6.QtWidgets import QHBoxLayout, QLabel, QPushButton, QVBoxLayout, QWidget
+from PyQt6.QtWidgets import QLabel, QVBoxLayout, QWidget
 
 from .button import strata_widget_button
 from .strata_globals import *
@@ -8,25 +8,29 @@ from .strata_globals import *
 
 class strata_widget_home(QWidget):
     """
-    home screen for when the application is first opened
-
-    TODO
-    * make the home screen more interactive and have the logo be animated
-    * remove spacing between the logo and the button
-    * fix button width and height
-    * add file browser functionality
-    * add in hotkeys to the home page to open other pages (low prio)
+    The home button/startup page
     """
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None) -> None:
+        """
+        Constructor
+
+        :param parent: QT parent object
+        """
         super().__init__(parent)
 
         self.initUI()
 
-    def initUI(self):
+    def initUI(self) -> None:
+        """
+        UI Constructor
+        """
+
         main_layout = QVBoxLayout()
         main_layout.setSpacing(10)
 
+        # TODO change splash text to logo
+        # TODO remove spacing between logo and search
         splash_text: str = """
 ███████╗████████╗██████╗  █████╗ ████████╗ █████╗ 
 ██╔════╝╚══██╔══╝██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗
