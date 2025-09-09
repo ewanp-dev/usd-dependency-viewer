@@ -1,5 +1,5 @@
-from PyQt6.QtCore import QEvent, QPoint, Qt
-from PyQt6.QtWidgets import QApplication, QVBoxLayout, QWidget
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QVBoxLayout, QWidget
 
 
 class StrataFloatingSearch(QWidget):
@@ -27,29 +27,3 @@ class StrataFloatingSearch(QWidget):
         self.setFixedSize(500, 500)
 
         _layout_main = QVBoxLayout(self)
-
-    def show_centered(self) -> None:
-        """
-        Shows the widget in the application center
-        """
-        if self.parent():
-            parent_geom = self.parent().geometry()
-            x = parent_geom.x() + (parent_geom.width() - self.width()) // 2
-            y = parent_geom.y() + (parent_geom.height() - self.height()) // 2
-            self.move(QPoint(x, y))
-        self.show()
-
-    def eventFilter(self, obj, event):
-        """
-        !!BROKEN!!
-
-        Exits the widget when the mouse is pressed outside the bounds
-        """
-        # NOTE run test to remove widget
-        if event.type() == QEvent.Type.MouseButtonPress:
-            self.close()
-            QApplication.instance().removeEventFilter(self)
-            if not self.geometry().contains(event.globalPosition().toPoint()):
-                self.close()
-                QApplication.instance().removeEventFilter(self)
-        return super().eventFilter(obj, event)
