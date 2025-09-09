@@ -11,8 +11,11 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
+from .grid import StrataGridPage
 from .home import StrataHomePage
 from .inspector import StrataListPage
+from .node import StrataNodePage
+from .settings import StrataSettingsPage
 from .widgets.dropdown import StrataDropdown
 from .widgets.header_left import StrataHeaderLeft
 from .widgets.header_right import StrataHeaderRight
@@ -59,6 +62,9 @@ class StrataApplication(QMainWindow):
         self.dropdown_list = StrataDropdown()
         self.details_view = StrataListPage(item=self.item)
         self.home_page = StrataHomePage()
+        self.grid_page = StrataGridPage()
+        self.node_page = StrataNodePage()
+        self.settings_page = StrataSettingsPage()
 
         self.header_right.expand_left.clicked.connect(self.show_left_widget)
         self.header_left.expand_left.clicked.connect(self.hide_right_widget)
@@ -83,6 +89,9 @@ class StrataApplication(QMainWindow):
         self.pages = QStackedWidget()
         self.pages.addWidget(self.home_page)
         self.pages.addWidget(self.details_view)
+        self.pages.addWidget(self.grid_page)
+        self.pages.addWidget(self.node_page)
+        self.pages.addWidget(self.settings_page)
 
         # connecting side buttons to different pages
         self.sidebar.win_database.clicked.connect(
@@ -90,6 +99,15 @@ class StrataApplication(QMainWindow):
         )
         self.sidebar.win_command.clicked.connect(
             lambda: self.pages.setCurrentWidget(self.home_page)
+        )
+        self.sidebar.win_library.clicked.connect(
+            lambda: self.pages.setCurrentWidget(self.grid_page)
+        )
+        self.sidebar.win_nodegraph.clicked.connect(
+            lambda: self.pages.setCurrentWidget(self.node_page)
+        )
+        self.sidebar.settings.clicked.connect(
+            lambda: self.pages.setCurrentWidget(self.settings_page)
         )
 
         right_main_layout.addWidget(self.pages)

@@ -18,7 +18,8 @@ class StrataFloatingSearch(QWidget):
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.Dialog)
 
         # NOTE might not be neccesary
-        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
+        # NOTE this is currently breaking outside of Linux
+        # self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
 
         self.setFocusPolicy(Qt.FocusPolicy.ClickFocus)
 
@@ -44,7 +45,10 @@ class StrataFloatingSearch(QWidget):
 
         Exits the widget when the mouse is pressed outside the bounds
         """
+        # NOTE run test to remove widget
         if event.type() == QEvent.Type.MouseButtonPress:
+            self.close()
+            QApplication.instance().removeEventFilter(self)
             if not self.geometry().contains(event.globalPosition().toPoint()):
                 self.close()
                 QApplication.instance().removeEventFilter(self)
