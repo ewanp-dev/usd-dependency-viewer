@@ -1,3 +1,4 @@
+from PyQt6.QtCore import QPoint, Qt
 from PyQt6.QtWidgets import QLabel, QVBoxLayout, QWidget
 
 
@@ -21,6 +22,9 @@ class StrataSettingsPage(QWidget):
         """
         UI Constructor
         """
+        self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.Dialog)
+        self.setFocusPolicy(Qt.FocusPolicy.ClickFocus)
+        self.setFixedSize(600, 600)
 
         _lyt = QVBoxLayout(self)
         lbl = QLabel("Settings Page")

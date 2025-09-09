@@ -1,5 +1,7 @@
 from PyQt6.QtWidgets import QLabel, QVBoxLayout, QWidget
 
+from .widgets.thumbnail import StrataObjectThumbnail
+
 
 class StrataGridPage(QWidget):
 
@@ -18,5 +20,6 @@ class StrataGridPage(QWidget):
         """
 
         _lyt = QVBoxLayout(self)
+        self.thumbnail = StrataObjectThumbnail()
         lbl = QLabel("Grid Page")
         _lyt.addWidget(lbl)

@@ -1,6 +1,6 @@
 import os
 
-from PyQt6.QtCore import QPropertyAnimation, Qt
+from PyQt6.QtCore import QPoint, QPropertyAnimation, Qt
 from PyQt6.QtWidgets import (
     QWIDGETSIZE_MAX,
     QHBoxLayout,
@@ -15,11 +15,11 @@ from .grid import StrataGridPage
 from .home import StrataHomePage
 from .inspector import StrataListPage
 from .node import StrataNodePage
-from .settings import StrataSettingsPage
+from .object import StrataObjectPage
 from .widgets.dropdown import StrataDropdown
-from .widgets.header_left import StrataHeaderLeft
-from .widgets.header_right import StrataHeaderRight
+from .widgets.header import StrataHeaderLeft, StrataHeaderRight
 from .widgets.search import StrataFloatingSearch
+from .widgets.settings import StrataSettingsPage
 from .widgets.sidebar import StrataPageSwitcher
 
 
@@ -44,8 +44,9 @@ class StrataApplication(QMainWindow):
         UI Cunstructor
         """
 
-        # temporary title
-        self.setWindowTitle("Usd Dependency Viewer")
+        self.setWindowTitle("Strata")
+
+        # TODO make geometry dynamic
         self.setGeometry(100, 100, 1280, 720)
 
         central_widget = QWidget()
@@ -55,21 +56,30 @@ class StrataApplication(QMainWindow):
         central_layout = QHBoxLayout(central_widget)
         central_layout.setContentsMargins(0, 0, 0, 0)
 
+        # ----------------------------------------------------
         # WIDGETS
+
         self.header_left = StrataHeaderLeft()
         self.header_right = StrataHeaderRight()
         self.sidebar = StrataPageSwitcher()
         self.dropdown_list = StrataDropdown()
         self.details_view = StrataListPage(item=self.item)
+
+        # ----------------------------------------------------
+        # PAGES
+
         self.home_page = StrataHomePage()
         self.grid_page = StrataGridPage()
         self.node_page = StrataNodePage()
         self.settings_page = StrataSettingsPage()
+        self.object_page = StrataObjectPage()
 
         self.header_right.expand_left.clicked.connect(self.show_left_widget)
         self.header_left.expand_left.clicked.connect(self.hide_right_widget)
 
+        # ----------------------------------------------------
         # LEFT LAYOUT
+
         self.left_widget = QWidget()
         left_main_layout = QVBoxLayout(self.left_widget)
         left_main_layout.addWidget(self.header_left)
@@ -77,13 +87,13 @@ class StrataApplication(QMainWindow):
         self.left_widget.hide()
         left_main_layout.setContentsMargins(0, 0, 0, 0)
 
+        # ----------------------------------------------------
         # RIGHT LAYOUT
+
+        # TODO make right properties panel
         right_widget = QWidget()
         right_main_layout = QVBoxLayout(right_widget)
         right_main_layout.setContentsMargins(0, 0, 0, 0)
-
-        # NOTE need to account for the right properties panel later on
-
         right_main_layout.addWidget(self.header_right)
 
         self.pages = QStackedWidget()
@@ -92,8 +102,11 @@ class StrataApplication(QMainWindow):
         self.pages.addWidget(self.grid_page)
         self.pages.addWidget(self.node_page)
         self.pages.addWidget(self.settings_page)
+        right_main_layout.addWidget(self.pages)
 
-        # connecting side buttons to different pages
+        # ----------------------------------------------------
+        # SIDEBAR BUTTON SIGNALS
+
         self.sidebar.win_database.clicked.connect(
             lambda: self.pages.setCurrentWidget(self.details_view)
         )
@@ -106,13 +119,9 @@ class StrataApplication(QMainWindow):
         self.sidebar.win_nodegraph.clicked.connect(
             lambda: self.pages.setCurrentWidget(self.node_page)
         )
-        self.sidebar.settings.clicked.connect(
-            lambda: self.pages.setCurrentWidget(self.settings_page)
-        )
 
-        right_main_layout.addWidget(self.pages)
-
-        # middle section
+        # ----------------------------------------------------
+        # SPLITTER
 
         splitter = QSplitter(Qt.Orientation.Horizontal)
 
@@ -135,14 +144,24 @@ class StrataApplication(QMainWindow):
 
         # ----------------------------------------------------
         # FLOATING WIDGET
-        self.sidebar.win_quick_search.clicked.connect(self.show_floating_search)
 
-    def show_floating_search(self) -> None:
+        self.sidebar.win_quick_search.clicked.connect(
+            lambda: self.show_floating_widget(widget=StrataFloatingSearch(self))
+        )
+        self.sidebar.settings.clicked.connect(
+            lambda: self.show_floating_widget(widget=StrataSettingsPage(self))
+        )
+
+    def show_floating_widget(self, widget) -> None:
         """
         Show the floating searching widget upon button press
         """
-        self.floating_search = StrataFloatingSearch(self)
-        self.floating_search.show_centered()
+        if widget.parent():
+            parent_geom = widget.parent().geometry()
+            x = parent_geom.x() + (parent_geom.width() - widget.width()) // 2
+            y = parent_geom.y() + (parent_geom.height() - widget.height()) // 2
+            widget.move(QPoint(x, y))
+        widget.show()
 
     def show_left_widget(self) -> None:
         """
