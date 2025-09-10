@@ -15,7 +15,7 @@ QPushButton {
 }
 
 QPushButton:hover {
-    background-color: rgba(45.9, 45.9, 45.9, 0.1);
+    background-color: rgba(50, 50, 50, 0.8);
     border-radius: 5px;
 }
 

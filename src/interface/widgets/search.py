@@ -35,6 +35,7 @@ class StrataFloatingSearch(QWidget):
         # WIDGETS
 
         self.search = QLineEdit()
+        self.search.setPlaceholderText("Search for dependency...")
         self.exit = StrataAbstractButton(text="Exit")
         self.results = QListWidget()
 
@@ -52,6 +53,30 @@ class StrataFloatingSearch(QWidget):
 
         # NOTE might need to create a exit function if more control is needed
         self.exit.clicked.connect(lambda: self.close())
+
+        # ----------------------------------------------------
+        # SIGNALS
+        # NOTE need to match colors of both widgets
+        self.setStyleSheet(
+            """
+            QWidget {
+            background-color: rgb(40, 40, 40);
+            }
+
+            QLineEdit {
+            color: rgb(190, 190, 190);
+            border: 0px solid gray;
+            padding: 5px 5px;
+            border-radius: 0px;
+            background-color: rgba(25, 25, 25, 0);
+            }
+
+            QListWidget {
+            background-color: rgba(25, 25, 25, 0);
+            color: rgb(190, 190, 190);
+            }
+        """
+        )
 
     def filter_list(self, query: str) -> List[str] | None:
         """

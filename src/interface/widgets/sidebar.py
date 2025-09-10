@@ -30,7 +30,10 @@ class StrataPageSwitcher(QWidget):
 
         # using button widgets for each page
         self.win_database = StrataAbstractButton(
-            icon_name="meal/list.png", width=button_width, height=button_height
+            icon_name="meal/list.png",
+            width=button_width,
+            height=button_height,
+            tooltip="List View",
         )
         self.win_nodegraph = StrataAbstractButton(
             icon_name="meal/node.png",
@@ -39,16 +42,28 @@ class StrataPageSwitcher(QWidget):
             tooltip="Node View",
         )
         self.win_quick_search = StrataAbstractButton(
-            icon_name="meal/search.png", width=button_width, height=button_height
+            icon_name="meal/search.png",
+            width=button_width,
+            height=button_height,
+            tooltip="Search",
         )
         self.win_library = StrataAbstractButton(
-            icon_name="meal/grid.png", width=button_width, height=button_height
+            icon_name="meal/grid.png",
+            width=button_width,
+            height=button_height,
+            tooltip="Grid Selection",
         )
         self.win_command = StrataAbstractButton(
-            icon_name="meal/command.png", width=button_width, height=button_height
+            icon_name="meal/command.png",
+            width=button_width,
+            height=button_height,
+            tooltip="Home Page",
         )
         self.settings = StrataAbstractButton(
-            icon_name="meal/settings.png", width=button_width, height=button_height
+            icon_name="meal/settings.png",
+            width=button_width,
+            height=button_height,
+            tooltip="Setttings",
         )
 
         layout.addWidget(self.win_database)

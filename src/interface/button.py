@@ -78,12 +78,12 @@ class StrataAbstractButton(QPushButton):
         if tooltip:
             self.setToolTip(tooltip)
 
-        self.setStyleSheet("background: transparent; border: none;")
-        self.glow_effect = QGraphicsDropShadowEffect(self)
-        self.glow_effect.setBlurRadius(0)
-        self.glow_effect.setOffset(0, 0)
-        self.glow_effect.setColor(QColor(255, 0, 0))
-        self.setGraphicsEffect(self.glow_effect)
+        # self.setStyleSheet("background: transparent; border: none;")
+        # self.glow_effect = QGraphicsDropShadowEffect(self)
+        # self.glow_effect.setBlurRadius(0)
+        # self.glow_effect.setOffset(0, 0)
+        # self.glow_effect.setColor(QColor(255, 0, 0))
+        # self.setGraphicsEffect(self.glow_effect)
 
     def setPadding(self, horizontal_padding: int, vertical_padding: int) -> None:
         """
@@ -97,7 +97,7 @@ class StrataAbstractButton(QPushButton):
         """
         )
 
-    def enterEvent(self, event) -> None:
+        # def enterEvent(self, event) -> None:
         """
         !!TMP DEPRECATED!!
 
@@ -108,9 +108,9 @@ class StrataAbstractButton(QPushButton):
         # NOTE default 10 but turned off for now
         # self.glow_effect.setBlurRadius(5)
         # self.setIconSize(QSize(self.base_width + 1, self.base_height + 1))
-        super().enterEvent(event)
+        # super().enterEvent(event)
 
-    def leaveEvent(self, event) -> None:
+        # def leaveEvent(self, event) -> None:
         """
         !! TMP DEPRECATED !!
 
@@ -120,4 +120,4 @@ class StrataAbstractButton(QPushButton):
         """
         # self.glow_effect.setBlurRadius(0)
         # self.setIconSize(QSize(self.base_width, self.base_height))
-        super().leaveEvent(event)
+        # super().leaveEvent(event)
