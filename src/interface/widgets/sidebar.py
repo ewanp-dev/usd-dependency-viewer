@@ -26,41 +26,44 @@ class StrataPageSwitcher(QWidget):
         layout.setSpacing(10)
         layout.setContentsMargins(10, 60, 0, 10)
 
-        button_width, button_height = STRATA_BUTTON_WIDTH, STRATA_BUTTON_HEIGHT
+        button_width, button_height = (
+            STRATA_BUTTON_WIDTH - 15,
+            STRATA_BUTTON_HEIGHT - 15,
+        )
 
         # using button widgets for each page
         self.win_database = StrataAbstractButton(
-            icon_name="meal/list.png",
+            icon_name="mansha/list.png",
             width=button_width,
             height=button_height,
             tooltip="List View",
         )
         self.win_nodegraph = StrataAbstractButton(
-            icon_name="meal/node.png",
+            icon_name="mansha/node.png",
             width=button_width,
             height=button_height,
             tooltip="Node View",
         )
         self.win_quick_search = StrataAbstractButton(
-            icon_name="meal/search.png",
+            icon_name="mansha/search.png",
             width=button_width,
             height=button_height,
             tooltip="Search",
         )
         self.win_library = StrataAbstractButton(
-            icon_name="meal/grid.png",
+            icon_name="mansha/grid.png",
             width=button_width,
             height=button_height,
             tooltip="Grid Selection",
         )
         self.win_command = StrataAbstractButton(
-            icon_name="meal/command.png",
+            icon_name="mansha/home.png",
             width=button_width,
             height=button_height,
             tooltip="Home Page",
         )
         self.settings = StrataAbstractButton(
-            icon_name="meal/settings.png",
+            icon_name="mansha/settings.png",
             width=button_width,
             height=button_height,
             tooltip="Setttings",
@@ -79,4 +82,4 @@ class StrataPageSwitcher(QWidget):
         layout.addWidget(self.settings)
 
         self.setLayout(layout)
-        self.setFixedWidth(50)
+        self.setFixedWidth(35)

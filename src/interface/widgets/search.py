@@ -30,6 +30,7 @@ class StrataFloatingSearch(QWidget):
 
         # TODO make dynamic
         self.setFixedSize(500, 500)
+        self.setObjectName("searchBar")
 
         # ----------------------------------------------------
         # WIDGETS
@@ -59,21 +60,14 @@ class StrataFloatingSearch(QWidget):
         # NOTE need to match colors of both widgets
         self.setStyleSheet(
             """
-            QWidget {
-            background-color: rgb(40, 40, 40);
-            }
+                background-color: rgb(30, 33, 37);
 
             QLineEdit {
-            color: rgb(190, 190, 190);
-            border: 0px solid gray;
-            padding: 5px 5px;
-            border-radius: 0px;
-            background-color: rgba(25, 25, 25, 0);
+                background-color: rgba(30, 33, 37, 0);
             }
-
             QListWidget {
-            background-color: rgba(25, 25, 25, 0);
-            color: rgb(190, 190, 190);
+                background-color: rgba(30, 33, 37, 0);
+                color: rgb(190, 190, 190);
             }
         """
         )

@@ -47,7 +47,7 @@ class StrataHomePage(QWidget):
         self.home_label.setWordWrap(False)
 
         self.open = StrataAbstractButton(
-            icon_name="meal/search.png", width=150, height=STRATA_BUTTON_HEIGHT
+            icon_name="mansha/search.png", width=150, height=STRATA_BUTTON_HEIGHT - 20
         )
         self.open.setText(" Select File")
 

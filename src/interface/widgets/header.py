@@ -29,11 +29,16 @@ class StrataHeaderLeft(QWidget):
         layout.setSpacing(10)
 
         self.expand_left = StrataAbstractButton(
-            icon_name="meal/sidebar.png",
-            width=STRATA_BUTTON_WIDTH,
-            height=STRATA_BUTTON_HEIGHT,
+            icon_name="mansha/sidebar.png",
+            width=STRATA_BUTTON_WIDTH - 15,
+            height=STRATA_BUTTON_HEIGHT - 15,
         )
         self.expand_left.setCheckable(True)
+        self.setStyleSheet(
+            """
+                           background-color: red;
+                           """
+        )
 
         layout.addWidget(self.expand_left, alignment=Qt.AlignmentFlag.AlignRight)
         self.setLayout(layout)
@@ -62,9 +67,9 @@ class StrataHeaderRight(QWidget):
         layout.setSpacing(10)
 
         self.expand_left = StrataAbstractButton(
-            icon_name="meal/sidebar.png",
-            width=STRATA_BUTTON_WIDTH,
-            height=STRATA_BUTTON_HEIGHT,
+            icon_name="mansha/sidebar.png",
+            width=STRATA_BUTTON_WIDTH - 15,
+            height=STRATA_BUTTON_HEIGHT - 15,
             flipped=True,
         )
         self.expand_left.setCheckable(True)
