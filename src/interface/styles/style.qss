@@ -1,4 +1,7 @@
 /* style.qss */
+QMainWindow {
+    background-color: rgb(28, 32, 38);
+}
 
 QLabel {
     color: rgb(190, 190, 190);

@@ -26,7 +26,7 @@ class StrataDropdown(QWidget):
         # TODO clean up layout and add stylesheet
         _layout_main = QVBoxLayout()
         _layout_header = QHBoxLayout()
-        _layout_main.setContentsMargins(0, 0, 0, 0)
+        _layout_main.setContentsMargins(10, 15, 15, 0)
 
         self.search_bar = QLineEdit()
         self.search_bar.setPlaceholderText("Search...")
