@@ -34,13 +34,8 @@ class StrataHeaderLeft(QWidget):
             height=STRATA_BUTTON_HEIGHT - 15,
         )
         self.expand_left.setCheckable(True)
-        self.setStyleSheet(
-            """
-                           background-color: red;
-                           """
-        )
-
         layout.addWidget(self.expand_left, alignment=Qt.AlignmentFlag.AlignRight)
+
         self.setLayout(layout)
         self.setFixedHeight(50)
 

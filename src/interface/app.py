@@ -65,6 +65,16 @@ class StrataApplication(QMainWindow):
         self.dropdown_list = StrataDropdown()
         self.details_view = StrataListPage(item=self.item)
 
+        self.sidebar.setObjectName("sidebar")
+        self.sidebar.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
+        # self.setStyleSheet(
+        # """
+        # sidebar QWidget {
+        # background-color: blue;
+        # }
+        # """
+        # )
+
         # ----------------------------------------------------
         # PAGES
 
@@ -132,9 +142,9 @@ class StrataApplication(QMainWindow):
         splitter.setStyleSheet(
             """
         QSplitter::handle {
-            background: transparent;
-            border: 1px rgb(190, 190, 190);
-            width: 0px;  /* make the handle invisible */
+            color: red;
+            background-color: red;
+            width: 3px;  /* make the handle invisible */
         }
         """
         )

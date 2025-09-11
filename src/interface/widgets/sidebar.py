@@ -14,7 +14,15 @@ class StrataPageSwitcher(QWidget):
         Cunstructor
         """
         super().__init__()
+        self.setAutoFillBackground(True)
 
+        self.setStyleSheet(
+            """
+            QWidget {
+            background-color: blue;
+            }
+                           """
+        )
         self.initUI()
 
     def initUI(self) -> None:
@@ -24,7 +32,7 @@ class StrataPageSwitcher(QWidget):
 
         layout = QVBoxLayout()
         layout.setSpacing(10)
-        layout.setContentsMargins(10, 60, 0, 10)
+        layout.setContentsMargins(10, 60, 10, 10)
 
         button_width, button_height = (
             STRATA_BUTTON_WIDTH - 15,
@@ -82,4 +90,5 @@ class StrataPageSwitcher(QWidget):
         layout.addWidget(self.settings)
 
         self.setLayout(layout)
-        self.setFixedWidth(35)
+        self.setFixedWidth(40)
+        self.setObjectName("testObject")
