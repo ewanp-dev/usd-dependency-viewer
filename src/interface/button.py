@@ -75,6 +75,15 @@ class StrataAbstractButton(QPushButton):
 
         self.setText(text)
 
+        self.setStyleSheet(
+            f"""
+            QPushButton:hover {{
+                background-color: {STRATA_APPLICATION_COLORS['color3']};
+                padding: 3px;
+            }}
+                           """
+        )
+
         if tooltip:
             self.setToolTip(tooltip)
 

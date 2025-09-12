@@ -1,4 +1,4 @@
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtWidgets import QSizePolicy, QSpacerItem, QVBoxLayout, QWidget
 
 from ..button import StrataAbstractButton
@@ -25,7 +25,7 @@ class StrataPageSwitcher(QWidget):
         self.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
         layout = QVBoxLayout()
         layout.setSpacing(10)
-        layout.setContentsMargins(10, 60, 15, 10)
+        layout.setContentsMargins(10, 60, 10, 10)
 
         button_width, button_height = (
             STRATA_BUTTON_WIDTH - 15,
@@ -83,7 +83,7 @@ class StrataPageSwitcher(QWidget):
         layout.addWidget(self.settings)
 
         self.setLayout(layout)
-        self.setFixedWidth(40)
+        # self.setFixedWidth(40)
 
         self.setStyleSheet(
             f"""

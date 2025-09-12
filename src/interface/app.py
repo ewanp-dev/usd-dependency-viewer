@@ -132,7 +132,7 @@ class StrataApplication(QMainWindow):
         splitter.setStyleSheet(
             """
         QSplitter::handle {
-            color: rgb(0, 0, 0, 0);
+            color: rgb(0, 0, 0);
             background-color: rgb(136, 143, 153);
             width: 5px;  /* make the handle invisible */
         }

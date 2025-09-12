@@ -1,6 +1,6 @@
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import QRect, Qt
 from PyQt6.QtGui import QFont
-from PyQt6.QtWidgets import QLabel, QVBoxLayout, QWidget
+from PyQt6.QtWidgets import QLabel, QSizePolicy, QSpacerItem, QVBoxLayout, QWidget
 
 from .button import StrataAbstractButton
 from .strata_globals import *
@@ -45,7 +45,6 @@ class StrataHomePage(QWidget):
         font = QFont("Luxi Mono", 15)
         self.home_label.setFont(font)
         self.home_label.setWordWrap(False)
-
         self.open = StrataAbstractButton(
             icon_name="mansha/search.png", width=150, height=STRATA_BUTTON_HEIGHT - 20
         )
@@ -54,3 +53,4 @@ class StrataHomePage(QWidget):
         main_layout.addWidget(self.home_label, alignment=Qt.AlignmentFlag.AlignCenter)
         main_layout.addWidget(self.open, alignment=Qt.AlignmentFlag.AlignCenter)
         self.setLayout(main_layout)
+        main_layout.setSpacing(10)
