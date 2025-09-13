@@ -54,7 +54,7 @@ class StrataListPage(QWidget):
         _layout_main.setContentsMargins(*DETAILS_MARGINS)
 
         self.view_switcher = StrataAbstractButton(
-            icon_name="meal/view.png",
+            icon_name="view.png",
             width=BUTTON_WIDTH,
             height=BUTTON_HEIGHT,
             width_policy=QSizePolicy.Policy.Preferred,
@@ -66,14 +66,14 @@ class StrataListPage(QWidget):
             height_policy=QSizePolicy.Policy.Fixed,
         )
         self.sort = StrataAbstractButton(
-            icon_name="meal/sort.png",
+            icon_name="sort.png",
             width=BUTTON_WIDTH,
             height=BUTTON_HEIGHT,
             width_policy=QSizePolicy.Policy.Preferred,
             height_policy=QSizePolicy.Policy.Fixed,
         )
         self.properties = StrataAbstractButton(
-            icon_name="meal/filter.png",
+            icon_name="filter.png",
             width=BUTTON_WIDTH,
             height=BUTTON_HEIGHT,
             width_policy=QSizePolicy.Policy.Preferred,

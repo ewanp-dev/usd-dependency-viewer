@@ -38,7 +38,7 @@ class StrataHeaderLeft(QWidget):
         layout.setSpacing(10)
 
         self.expand_left = StrataAbstractButton(
-            icon_name="mansha/sidebar.png",
+            icon_name="sidebar.png",
             width=STRATA_BUTTON_WIDTH - 15,
             height=STRATA_BUTTON_HEIGHT - 15,
         )
@@ -79,7 +79,7 @@ class StrataHeaderRight(QWidget):
         layout.setSpacing(10)
 
         self.expand_left = StrataAbstractButton(
-            icon_name="mansha/sidebar.png",
+            icon_name="sidebar.png",
             width=STRATA_BUTTON_WIDTH - 15,
             height=STRATA_BUTTON_HEIGHT - 15,
             flipped=True,

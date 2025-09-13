@@ -39,7 +39,7 @@ class StrataDropdown(QWidget):
         )
 
         self.filter_button = StrataAbstractButton(
-            icon_name="mansha/filter.png", width=18, height=18
+            icon_name="filter.png", width=18, height=18
         )
 
         _layout_header.addWidget(self.search_bar)
