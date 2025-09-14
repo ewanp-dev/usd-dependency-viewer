@@ -1,6 +1,7 @@
 import os
 
 from PyQt6.QtCore import QPoint, QPropertyAnimation, Qt
+from PyQt6.QtGui import QIcon, QImage, QPixmap, QTransform
 from PyQt6.QtWidgets import (
     QWIDGETSIZE_MAX,
     QHBoxLayout,
@@ -9,8 +10,10 @@ from PyQt6.QtWidgets import (
     QStackedWidget,
     QVBoxLayout,
     QWidget,
+    QWidgetItem,
 )
 
+from .button import StrataAbstractButton
 from .grid import StrataGridPage
 from .home import StrataHomePage
 from .inspector import StrataListPage
@@ -63,7 +66,6 @@ class StrataApplication(QMainWindow):
         self.header = StrataHeader()
         self.sidebar = StrataPageSwitcher()
         self.dropdown_list = StrataDropdown()
-        self.details_view = StrataListPage(item=self.item)
         self.dropdown_list.hide()
 
         self.header.expand.clicked.connect(
@@ -74,10 +76,13 @@ class StrataApplication(QMainWindow):
         # PAGES
 
         self.home_page = StrataHomePage()
+        self.details_view = StrataListPage(item=self.item)
         self.grid_page = StrataGridPage()
         self.node_page = StrataNodePage()
         self.settings_page = StrataSettingsPage()
         self.object_page = StrataObjectPage()
+
+        self.details_view.table.itemClicked.connect(self.open_item_page)
 
         # ----------------------------------------------------
         # RIGHT LAYOUT
@@ -141,6 +146,13 @@ class StrataApplication(QMainWindow):
             lambda: self.show_floating_widget(widget=StrataSettingsPage(self))
         )
 
+    def open_item_page(self, item: QWidgetItem) -> None:
+        row: int = item.row()
+        file_path: str = self.details_view.table.item(row, 1).text()
+        page = StrataObjectPage(object=file_path)
+        print(page.get_object())
+        return None
+
     def show_floating_widget(self, widget) -> None:
         """
         Show the floating searching widget upon button press
@@ -157,6 +169,7 @@ class StrataApplication(QMainWindow):
         Expands the dropdown widget when the button is enabled
         """
         if checked:
+            self.rotate_icon(widget=self.header.expand, angle=90)
             self.dropdown_list.show()
             self.anim = QPropertyAnimation(self.dropdown_list, b"maximumWidth")
             self.anim.setDuration(150)  # ms
@@ -167,6 +180,7 @@ class StrataApplication(QMainWindow):
             )
             self.anim.start()
         else:
+            self.rotate_icon(widget=self.header.expand, angle=0)
             start_width = self.dropdown_list.width()
             self.saved_width = start_width
             self.anim = QPropertyAnimation(self.dropdown_list, b"maximumWidth")
@@ -180,6 +194,21 @@ class StrataApplication(QMainWindow):
 
             self.anim.finished.connect(hide_widget)  # hide fully when collapsed
             self.anim.start()
+
+    def rotate_icon(self, widget: StrataAbstractButton, angle: int = 0) -> None:
+        """
+        Rotates the icon of the given button widget
+
+        :param widget: The button widget with the icon to rotate
+        :param angle: The angle at which to rotate
+        """
+        # TODO expand this outside of the StrataAbstractButton class
+        # NOTE this breaks the stylesheet of the button
+        path: str | None = widget.icon_path
+        img = QImage(path)
+        pixmap = QPixmap.fromImage(img)
+        widget.setIcon(QIcon(pixmap.transformed(QTransform().rotate(angle))))
+        return None
 
 
 def load_styles(app) -> None:

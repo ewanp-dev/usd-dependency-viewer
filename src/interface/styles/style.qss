@@ -29,6 +29,14 @@ QTableWidget {
     color: rgb(190, 190, 190);
 }
 
+QTableWidget::item:hover {
+    color: rgb(210, 210, 210);
+}
+
+QTableWidget::item:focus {
+    background-color: rgb(28, 32, 38);
+}
+
 QTableWidget::item {
     border-bottom: 1px solid rgba(190, 190, 190, 0);
 

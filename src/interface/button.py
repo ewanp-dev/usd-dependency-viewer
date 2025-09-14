@@ -41,7 +41,7 @@ class StrataAbstractButton(QPushButton):
         super().__init__(parent)
 
         elements_folder = os.path.join(os.path.dirname(__file__), "elements")
-        icon_path = os.path.join(elements_folder, icon_name) if icon_name else None
+        self.icon_path = os.path.join(elements_folder, icon_name) if icon_name else None
 
         self.base_width, self.base_height = width, height
         self.setFont(QFont("San Francisco", font_size))
@@ -53,15 +53,17 @@ class StrataAbstractButton(QPushButton):
             self.setFixedSize(self.base_width, self.base_height)
 
         # setting qicon
-        if icon_path:
-            if os.path.exists(icon_path):
-                self.img = QImage(icon_path)
+        if self.icon_path:
+            if os.path.exists(self.icon_path):
+                self.img = QImage(self.icon_path)
                 if inverted:
                     # NOTE need to find a better color method
                     self.img.invertPixels(QImage.InvertMode.InvertRgb)
 
                 if flipped:
                     pixmap = QPixmap.fromImage(self.img)
+
+                    # NOTE tmp rotation instead of flip for testing
                     flipped_pixmap = pixmap.transformed(QTransform().rotate(90))
                     icon = QIcon(flipped_pixmap)
                 else:

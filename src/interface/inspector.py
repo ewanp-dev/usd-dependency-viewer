@@ -100,24 +100,20 @@ class StrataListPage(QWidget):
         self.properties.setPadding(5, 5)
         self.properties.setIconSize(QSize(*DETAILS_ICON_SIZE))
 
-        space = QSpacerItem(
-            0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum
-        )
-
         # CONNECTIONS
         self.view_switcher.clicked.connect(
-            lambda checked: self.show_dropdown(self.view_switcher, self.dropdown_view)
+            lambda: self.show_dropdown(self.view_switcher, self.dropdown_view)
         )
         self.results_list.clicked.connect(
-            lambda checked: self.show_dropdown(self.results_list, self.dropdown_results)
+            lambda: self.show_dropdown(self.results_list, self.dropdown_results)
         )
         self.properties.clicked.connect(
-            lambda checked: self.show_dropdown(
+            lambda: self.show_dropdown(
                 self.properties, self.dropdown_properties, shift=75
             )
         )
         self.sort.clicked.connect(
-            lambda checked: self.show_dropdown(self.sort, self.dropdown_sort, shift=100)
+            lambda: self.show_dropdown(self.sort, self.dropdown_sort, shift=100)
         )
 
         _layout_header.addWidget(self.view_switcher)
@@ -164,18 +160,16 @@ class StrataListPage(QWidget):
         self.table.setColumnHidden(3, True)
 
         self.dropdown_properties.check_name.stateChanged.connect(
-            lambda checked: self.hide_column(0, self.dropdown_properties.check_name)
+            lambda: self.hide_column(0, self.dropdown_properties.check_name)
         )
         self.dropdown_properties.check_path.stateChanged.connect(
-            lambda checked: self.hide_column(1, self.dropdown_properties.check_path)
+            lambda: self.hide_column(1, self.dropdown_properties.check_path)
         )
         self.dropdown_properties.check_size.stateChanged.connect(
-            lambda checked: self.hide_column(2, self.dropdown_properties.check_size)
+            lambda: self.hide_column(2, self.dropdown_properties.check_size)
         )
         self.dropdown_properties.check_extension.stateChanged.connect(
-            lambda checked: self.hide_column(
-                3, self.dropdown_properties.check_extension
-            )
+            lambda: self.hide_column(3, self.dropdown_properties.check_extension)
         )
 
         _layout_main.setContentsMargins(0, 0, 0, 0)
