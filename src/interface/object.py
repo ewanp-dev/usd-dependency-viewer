@@ -6,7 +6,7 @@ class StrataObjectPage(QWidget):
     The page for standalone selected USD objects
     """
 
-    def __init__(self, parent=None, object: str = None) -> None:
+    def __init__(self, parent=None, object: str = "") -> None:
         """
         Constructor
 
@@ -22,7 +22,22 @@ class StrataObjectPage(QWidget):
         UI Constructor
         """
         _lyt = QVBoxLayout(self)
-        _lyt.addWidget(QLabel("Object Page"))
+        self.label = QLabel(self.object)
+        _lyt.addWidget(self.label)
+
+    def set_object(self, object: str = "") -> None:
+        """
+        Sets the core object
+
+        :param object: TMP the path to the usd object
+        """
+        self.object = object
+        self.label.setText(self.object)
 
     def get_object(self) -> str:
+        """
+        Gets the path of the current object
+
+        :returns str: The object path
+        """
         return self.object

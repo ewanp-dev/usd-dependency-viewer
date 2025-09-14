@@ -40,7 +40,6 @@ class StrataHeader(QWidget):
             icon_name="sidebar.png",
             width=STRATA_BUTTON_WIDTH - 15,
             height=STRATA_BUTTON_HEIGHT - 15,
-            flipped=True,
         )
         self.expand.setCheckable(True)
         _lyt.addWidget(self.expand, alignment=Qt.AlignmentFlag.AlignLeft)

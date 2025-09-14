@@ -94,6 +94,7 @@ class StrataApplication(QMainWindow):
         self.pages.addWidget(self.grid_page)
         self.pages.addWidget(self.node_page)
         self.pages.addWidget(self.settings_page)
+        self.pages.addWidget(self.object_page)
 
         # ----------------------------------------------------
         # SIDEBAR BUTTON SIGNALS
@@ -149,8 +150,8 @@ class StrataApplication(QMainWindow):
     def open_item_page(self, item: QWidgetItem) -> None:
         row: int = item.row()
         file_path: str = self.details_view.table.item(row, 1).text()
-        page = StrataObjectPage(object=file_path)
-        print(page.get_object())
+        self.object_page.set_object(object=file_path)
+        self.pages.setCurrentWidget(self.object_page)
         return None
 
     def show_floating_widget(self, widget) -> None:
@@ -195,7 +196,12 @@ class StrataApplication(QMainWindow):
             self.anim.finished.connect(hide_widget)  # hide fully when collapsed
             self.anim.start()
 
-    def rotate_icon(self, widget: StrataAbstractButton, angle: int = 0) -> None:
+    def rotate_icon(
+        self,
+        widget: StrataAbstractButton,
+        angle: int = 0,
+        invert: bool = STRATA_ICONS_INVERTED,
+    ) -> None:
         """
         Rotates the icon of the given button widget
 
@@ -203,9 +209,14 @@ class StrataApplication(QMainWindow):
         :param angle: The angle at which to rotate
         """
         # TODO expand this outside of the StrataAbstractButton class
-        # NOTE this breaks the stylesheet of the button
+        # NOTE this breaks the buttons color being inverted
         path: str | None = widget.icon_path
         img = QImage(path)
+
+        # NOTE this needs to be removed later on down the line
+        if invert:
+            img.invertPixels(QImage.InvertMode.InvertRgb)
+
         pixmap = QPixmap.fromImage(img)
         widget.setIcon(QIcon(pixmap.transformed(QTransform().rotate(angle))))
         return None
