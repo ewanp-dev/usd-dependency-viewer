@@ -23,12 +23,6 @@ QPushButton:pressed {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-QHeaderView::section {
-    background-color: rgb(46, 46, 46);
-    border-style: none;
-    border-bottom: 1px solid rgba(190, 190, 190, 0);
-    color: rgb(190, 190, 190);
-}
 
 QTableWidget {
     background-color: rgba(45.9, 45.9, 45.9, 0.1);

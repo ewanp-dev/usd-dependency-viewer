@@ -16,8 +16,9 @@ from .home import StrataHomePage
 from .inspector import StrataListPage
 from .node import StrataNodePage
 from .object import StrataObjectPage
+from .strata_globals import *
 from .widgets.dropdown import StrataDropdown
-from .widgets.header import StrataHeaderLeft, StrataHeaderRight
+from .widgets.header import StrataHeader
 from .widgets.search import StrataFloatingSearch
 from .widgets.settings import StrataSettingsPage
 from .widgets.sidebar import StrataPageSwitcher
@@ -53,17 +54,21 @@ class StrataApplication(QMainWindow):
         central_widget.setContentsMargins(0, 0, 0, 0)
         self.setCentralWidget(central_widget)
 
-        central_layout = QHBoxLayout(central_widget)
+        central_layout = QVBoxLayout(central_widget)
         central_layout.setContentsMargins(0, 0, 0, 0)
 
         # ----------------------------------------------------
         # WIDGETS
 
-        self.header_left = StrataHeaderLeft()
-        self.header_right = StrataHeaderRight()
+        self.header = StrataHeader()
         self.sidebar = StrataPageSwitcher()
         self.dropdown_list = StrataDropdown()
         self.details_view = StrataListPage(item=self.item)
+        self.dropdown_list.hide()
+
+        self.header.expand.clicked.connect(
+            lambda: self.expand_dropdown(checked=self.header.expand.isChecked())
+        )
 
         # ----------------------------------------------------
         # PAGES
@@ -74,35 +79,16 @@ class StrataApplication(QMainWindow):
         self.settings_page = StrataSettingsPage()
         self.object_page = StrataObjectPage()
 
-        self.header_right.expand_left.clicked.connect(self.show_left_widget)
-        self.header_left.expand_left.clicked.connect(self.hide_right_widget)
-
-        # ----------------------------------------------------
-        # LEFT LAYOUT
-
-        self.left_widget = QWidget()
-        left_main_layout = QVBoxLayout(self.left_widget)
-        left_main_layout.addWidget(self.header_left)
-        left_main_layout.addWidget(self.dropdown_list)
-        self.left_widget.hide()
-        left_main_layout.setContentsMargins(0, 0, 0, 0)
-
         # ----------------------------------------------------
         # RIGHT LAYOUT
 
         # TODO make right properties panel
-        right_widget = QWidget()
-        right_main_layout = QVBoxLayout(right_widget)
-        right_main_layout.setContentsMargins(0, 0, 0, 0)
-        right_main_layout.addWidget(self.header_right)
-
         self.pages = QStackedWidget()
         self.pages.addWidget(self.home_page)
         self.pages.addWidget(self.details_view)
         self.pages.addWidget(self.grid_page)
         self.pages.addWidget(self.node_page)
         self.pages.addWidget(self.settings_page)
-        right_main_layout.addWidget(self.pages)
 
         # ----------------------------------------------------
         # SIDEBAR BUTTON SIGNALS
@@ -125,22 +111,25 @@ class StrataApplication(QMainWindow):
 
         splitter = QSplitter(Qt.Orientation.Horizontal)
 
-        splitter.addWidget(self.left_widget)
-        splitter.addWidget(right_widget)
+        splitter.setContentsMargins(0, 0, 0, 10)
+        splitter.addWidget(self.dropdown_list)
+        splitter.addWidget(self.pages)
         splitter.setSizes([90, 600])
 
         splitter.setStyleSheet(
-            """
-        QSplitter::handle {
-            color: rgb(0, 0, 0);
-            background-color: rgb(136, 143, 153);
-            width: 5px;  /* make the handle invisible */
-        }
+            f"""
+        QSplitter::handle {{
+            background-color: {STRATA_APPLICATION_COLORS['color3']};
+            width: 10px;  /* make the handle invisible */
+        }}
         """
         )
 
-        central_layout.addWidget(self.sidebar)
-        central_layout.addWidget(splitter)
+        bottom_layout = QHBoxLayout()
+        bottom_layout.addWidget(self.sidebar)
+        bottom_layout.addWidget(splitter)
+        central_layout.addWidget(self.header)
+        central_layout.addLayout(bottom_layout)
 
         # ----------------------------------------------------
         # FLOATING WIDGET
@@ -163,40 +152,34 @@ class StrataApplication(QMainWindow):
             widget.move(QPoint(x, y))
         widget.show()
 
-    def show_left_widget(self) -> None:
+    def expand_dropdown(self, checked: bool = False) -> None:
         """
-        Expand the dropdown widget upon button press
+        Expands the dropdown widget when the button is enabled
         """
-        self.left_widget.show()
-        self.header_right.expand_left.hide()
+        if checked:
+            self.dropdown_list.show()
+            self.anim = QPropertyAnimation(self.dropdown_list, b"maximumWidth")
+            self.anim.setDuration(150)  # ms
+            self.anim.setStartValue(0)
+            self.anim.setEndValue(self.saved_width)  # target width
+            self.anim.finished.connect(
+                lambda: self.dropdown_list.setMaximumWidth(QWIDGETSIZE_MAX)
+            )
+            self.anim.start()
+        else:
+            start_width = self.dropdown_list.width()
+            self.saved_width = start_width
+            self.anim = QPropertyAnimation(self.dropdown_list, b"maximumWidth")
+            self.anim.setDuration(150)
+            self.anim.setStartValue(start_width)
+            self.anim.setEndValue(0)
 
-        self.anim = QPropertyAnimation(self.left_widget, b"maximumWidth")
-        self.anim.setDuration(150)  # ms
-        self.anim.setStartValue(0)
-        self.anim.setEndValue(self.saved_width)  # target width
-        self.anim.finished.connect(
-            lambda: self.left_widget.setMaximumWidth(QWIDGETSIZE_MAX)
-        )
-        self.anim.start()
+            def hide_widget():
+                self.dropdown_list.hide()
+                self.dropdown_list.setMaximumWidth(QWIDGETSIZE_MAX)
 
-    def hide_right_widget(self) -> None:
-        """
-        Hide the dropdown widget upon button press
-        """
-        start_width = self.left_widget.width()
-        self.saved_width = start_width
-        self.anim = QPropertyAnimation(self.left_widget, b"maximumWidth")
-        self.anim.setDuration(150)
-        self.anim.setStartValue(start_width)
-        self.anim.setEndValue(0)
-
-        def hide_widget():
-            self.left_widget.hide()
-            self.header_right.expand_left.show()
-            self.left_widget.setMaximumWidth(QWIDGETSIZE_MAX)
-
-        self.anim.finished.connect(hide_widget)  # hide fully when collapsed
-        self.anim.start()
+            self.anim.finished.connect(hide_widget)  # hide fully when collapsed
+            self.anim.start()
 
 
 def load_styles(app) -> None:

@@ -62,7 +62,7 @@ class StrataAbstractButton(QPushButton):
 
                 if flipped:
                     pixmap = QPixmap.fromImage(self.img)
-                    flipped_pixmap = pixmap.transformed(QTransform().scale(-1, 1))
+                    flipped_pixmap = pixmap.transformed(QTransform().rotate(90))
                     icon = QIcon(flipped_pixmap)
                 else:
                     icon = QIcon(QPixmap.fromImage(self.img))

@@ -25,7 +25,7 @@ class StrataPageSwitcher(QWidget):
         self.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
         layout = QVBoxLayout()
         layout.setSpacing(10)
-        layout.setContentsMargins(10, 60, 10, 10)
+        layout.setContentsMargins(10, 10, 10, 10)
 
         button_width, button_height = (
             STRATA_BUTTON_WIDTH - 15,
@@ -85,10 +85,10 @@ class StrataPageSwitcher(QWidget):
         self.setLayout(layout)
         # self.setFixedWidth(40)
 
-        self.setStyleSheet(
-            f"""
-            QWidget {{
-                background-color: {STRATA_APPLICATION_COLORS['color2']};
-            }}
-        """
-        )
+        # self.setStyleSheet(
+        # f"""
+        # QWidget {{
+        # background-color: {STRATA_APPLICATION_COLORS['color2']};
+        # }}
+        # """
+        # )
