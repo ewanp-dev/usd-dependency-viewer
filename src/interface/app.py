@@ -20,6 +20,7 @@ from .inspector import StrataListPage
 from .node import StrataNodePage
 from .object import StrataObjectPage
 from .strata_globals import *
+from .utils import StrataInterfaceUtils
 from .widgets.dropdown import StrataDropdown
 from .widgets.header import StrataHeader
 from .widgets.search import StrataFloatingSearch
@@ -170,7 +171,7 @@ class StrataApplication(QMainWindow):
         Expands the dropdown widget when the button is enabled
         """
         if checked:
-            self.rotate_icon(widget=self.header.expand, angle=90)
+            StrataInterfaceUtils().rotate_icon(widget=self.header.expand, angle=90)
             self.dropdown_list.show()
             self.anim = QPropertyAnimation(self.dropdown_list, b"maximumWidth")
             self.anim.setDuration(150)  # ms
@@ -181,7 +182,7 @@ class StrataApplication(QMainWindow):
             )
             self.anim.start()
         else:
-            self.rotate_icon(widget=self.header.expand, angle=0)
+            StrataInterfaceUtils().rotate_icon(widget=self.header.expand, angle=0)
             start_width = self.dropdown_list.width()
             self.saved_width = start_width
             self.anim = QPropertyAnimation(self.dropdown_list, b"maximumWidth")

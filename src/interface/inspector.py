@@ -1,7 +1,7 @@
 import os
 
 from PyQt6.QtCore import QSize, Qt
-from PyQt6.QtGui import QFont
+from PyQt6.QtGui import QBrush, QColor, QFont
 from PyQt6.QtWidgets import (
     QHBoxLayout,
     QSizePolicy,
@@ -54,7 +54,7 @@ class StrataListPage(QWidget):
         _layout_main.setContentsMargins(*DETAILS_MARGINS)
 
         self.view_switcher = StrataAbstractButton(
-            icon_name="view.png",
+            icon_name="viewer.png",
             width=BUTTON_WIDTH,
             height=BUTTON_HEIGHT,
             width_policy=QSizePolicy.Policy.Preferred,
@@ -66,7 +66,7 @@ class StrataListPage(QWidget):
             height_policy=QSizePolicy.Policy.Fixed,
         )
         self.sort = StrataAbstractButton(
-            icon_name="sort.png",
+            icon_name="properties.png",
             width=BUTTON_WIDTH,
             height=BUTTON_HEIGHT,
             width_policy=QSizePolicy.Policy.Preferred,
@@ -142,6 +142,7 @@ class StrataListPage(QWidget):
         stylesheet = "QTableWidgetItem { color: red; }"
         for row, name in enumerate(self.item_dependencies):
             name_item = QTableWidgetItem(os.path.splitext(os.path.basename(name))[0])
+            name_item.setForeground(QBrush(QColor(143, 131, 106)))
             name_item.setFont(item_font)
             self.table.setItem(row, 0, name_item)
             self.table.setItem(row, 1, QTableWidgetItem(name))
