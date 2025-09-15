@@ -5,7 +5,6 @@ from PyQt6.QtGui import QBrush, QColor, QFont
 from PyQt6.QtWidgets import (
     QHBoxLayout,
     QSizePolicy,
-    QSpacerItem,
     QTableWidget,
     QTableWidgetItem,
     QVBoxLayout,
@@ -66,19 +65,22 @@ class StrataListPage(QWidget):
             height_policy=QSizePolicy.Policy.Fixed,
         )
         self.sort = StrataAbstractButton(
-            icon_name="properties.png",
-            width=BUTTON_WIDTH,
-            height=BUTTON_HEIGHT,
-            width_policy=QSizePolicy.Policy.Preferred,
-            height_policy=QSizePolicy.Policy.Fixed,
-        )
-        self.properties = StrataAbstractButton(
             icon_name="filter.png",
             width=BUTTON_WIDTH,
             height=BUTTON_HEIGHT,
             width_policy=QSizePolicy.Policy.Preferred,
             height_policy=QSizePolicy.Policy.Fixed,
         )
+        self.properties = StrataAbstractButton(
+            icon_name="properties.png",
+            width=BUTTON_WIDTH,
+            height=BUTTON_HEIGHT,
+            width_policy=QSizePolicy.Policy.Preferred,
+            height_policy=QSizePolicy.Policy.Fixed,
+        )
+
+        self.sort.setText("Filter")
+        self.properties.setText("Properties")
 
         # creating dropdown widget
         self.dropdown_view = StrataDropdownView()
@@ -136,13 +138,13 @@ class StrataListPage(QWidget):
         )
 
         # setting bespoke font for underline
-        # TODO set a specific color for the first item only
+        # TODO set a specific color for the first itrm only
         item_font = QFont("Sans Serif", 10)
         item_font.setUnderline(True)
         stylesheet = "QTableWidgetItem { color: red; }"
         for row, name in enumerate(self.item_dependencies):
             name_item = QTableWidgetItem(os.path.splitext(os.path.basename(name))[0])
-            name_item.setForeground(QBrush(QColor(143, 131, 106)))
+            name_item.setForeground(QBrush(QColor(210, 186, 146)))
             name_item.setFont(item_font)
             self.table.setItem(row, 0, name_item)
             self.table.setItem(row, 1, QTableWidgetItem(name))
@@ -155,10 +157,11 @@ class StrataListPage(QWidget):
 
         # ---------------------------------------------------------------
         # COLUMN PROPERTIES FUNCTIONALITY
-        self.table.setColumnWidth(0, 230)
+        self.table.setColumnWidth(0, 400)
         self.table.setColumnHidden(1, True)
         self.table.setColumnHidden(2, True)
         self.table.setColumnHidden(3, True)
+        self.table.setColumnHidden(4, True)
 
         self.dropdown_properties.check_name.stateChanged.connect(
             lambda: self.hide_column(0, self.dropdown_properties.check_name)
@@ -173,7 +176,7 @@ class StrataListPage(QWidget):
             lambda: self.hide_column(3, self.dropdown_properties.check_extension)
         )
 
-        _layout_main.setContentsMargins(0, 0, 0, 0)
+        _layout_main.setContentsMargins(10, 10, 10, 10)
         _layout_main.addLayout(_layout_header)
         _layout_main.addWidget(self.table)
         self.setLayout(_layout_main)

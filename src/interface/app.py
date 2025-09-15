@@ -150,6 +150,11 @@ class StrataApplication(QMainWindow):
 
     def open_item_page(self, item: QWidgetItem) -> None:
         row: int = item.row()
+        column: int = item.column()
+
+        # do nothing if anything but the first column is selected
+        if column:
+            return
         file_path: str = self.details_view.table.item(row, 1).text()
         self.object_page.set_object(object=file_path)
         self.pages.setCurrentWidget(self.object_page)

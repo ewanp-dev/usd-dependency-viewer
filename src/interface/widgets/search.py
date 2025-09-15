@@ -21,7 +21,7 @@ class StrataFloatingSearch(QWidget):
         super().__init__(parent)
 
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.Dialog)
-
+        self.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
         # NOTE might not be neccesary
         # NOTE this is currently breaking outside of Linux
         # self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
@@ -37,6 +37,7 @@ class StrataFloatingSearch(QWidget):
 
         self.search = QLineEdit()
         self.search.setPlaceholderText("Search for dependency...")
+        self.search.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
         self.exit = StrataAbstractButton(text="Exit")
         self.results = QListWidget()
 
@@ -60,10 +61,12 @@ class StrataFloatingSearch(QWidget):
         # NOTE need to match colors of both widgets
         self.setStyleSheet(
             """
-                background-color: rgb(30, 33, 37);
-
             QLineEdit {
-                background-color: rgba(30, 33, 37, 0);
+                background-color: rgba(0, 0, 0, 0);
+                background: transparent;
+            }
+            QLineEdit:focus {
+                background-color: rgba(0, 0, 0, 0);
             }
             QListWidget {
                 background-color: rgba(30, 33, 37, 0);
