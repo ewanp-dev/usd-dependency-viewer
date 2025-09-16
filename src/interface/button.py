@@ -25,6 +25,7 @@ class StrataAbstractButton(QPushButton):
         flipped=False,
         inverted=STRATA_ICONS_INVERTED,
         font_size: int = 9,
+        default_stylesheet: bool = True,
     ) -> None:
         """
         Cunstructor
@@ -89,12 +90,44 @@ class StrataAbstractButton(QPushButton):
         if tooltip:
             self.setToolTip(tooltip)
 
+        self.set_default_stylesheet(enable=default_stylesheet)
+
         # self.setStyleSheet("background: transparent; border: none;")
         # self.glow_effect = QGraphicsDropShadowEffect(self)
         # self.glow_effect.setBlurRadius(0)
         # self.glow_effect.setOffset(0, 0)
         # self.glow_effect.setColor(QColor(255, 0, 0))
         # self.setGraphicsEffect(self.glow_effect)
+
+    def set_default_stylesheet(self, enable: bool = True) -> None:
+        """
+        Sets a default style sheet
+
+        :param enable: Choose whether to enable or disable the stylesheet in the class
+        """
+        # TODO remove the class argument and find a more efficient way to emable this
+        if enable:
+            self.setStyleSheet(
+                """
+                               
+QPushButton {
+    font: 10pt "Sans Serif";
+    color: rgb(190, 190, 190);
+    background: transparent;
+    border: none;
+}
+
+QPushButton:hover {
+    background-color: rgba(50, 50, 50, 0.8);
+    border-radius: 5px;
+}
+
+QPushButton:pressed {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+                               """
+            )
+        return None
 
     def setPadding(self, horizontal_padding: int, vertical_padding: int) -> None:
         """
