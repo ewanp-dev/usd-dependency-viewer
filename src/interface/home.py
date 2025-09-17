@@ -1,7 +1,7 @@
-from typing import List, Optional
+from typing import List, Optional, Text
 
 from PyQt6.QtCore import QRect, Qt
-from PyQt6.QtGui import QEnterEvent, QFont
+from PyQt6.QtGui import QEnterEvent, QFont, QFontDatabase
 from PyQt6.QtWidgets import QLabel, QSizePolicy, QSpacerItem, QVBoxLayout, QWidget
 
 from .button import StrataAbstractButton
@@ -28,7 +28,8 @@ class StrataHomePage(QWidget):
         """
         UI Constructor
         """
-
+        db = QFontDatabase
+        print(db.families())
         main_layout = QVBoxLayout()
         main_layout.setSpacing(10)
 
@@ -43,11 +44,14 @@ class StrataHomePage(QWidget):
 ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝                                                 
         """
 
-        self.home_label = QLabel(splash_text.strip())
-        self.home_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        font = QFont("Luxi Mono", 15)
-        self.home_label.setFont(font)
-        self.home_label.setWordWrap(False)
+        text = "STRATA"
+        label_a, label_b, label_c = QLabel(text), QLabel(text), QLabel(text)
+        # self.home_label = QLabel(splash_text.strip())
+        # self.home_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        font = QFont("MesloLGL Nerd Font", 15)
+        label_a.setFont(font)
+        # self.home_label.setFont(font)
+        # self.home_label.setWordWrap(False)
         self.open = StrataAbstractButton(
             icon_name="search.png",
             width=150,
@@ -75,7 +79,9 @@ class StrataHomePage(QWidget):
         self.open.setFixedHeight(30)
         self.open.setFixedWidth(100)
 
-        main_layout.addWidget(self.home_label, alignment=Qt.AlignmentFlag.AlignCenter)
+        main_layout.addWidget(label_a, alignment=Qt.AlignmentFlag.AlignCenter)
+        main_layout.addWidget(label_b, alignment=Qt.AlignmentFlag.AlignCenter)
+        main_layout.addWidget(label_c, alignment=Qt.AlignmentFlag.AlignCenter)
         main_layout.addWidget(self.open, alignment=Qt.AlignmentFlag.AlignCenter)
         self.setLayout(main_layout)
         main_layout.setSpacing(10)

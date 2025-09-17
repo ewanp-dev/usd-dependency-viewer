@@ -61,6 +61,9 @@ class StrataFloatingSearch(QWidget):
         # NOTE need to match colors of both widgets
         self.setStyleSheet(
             """
+            QWidget {
+                border-radius: 20px;
+            }
             QLineEdit {
                 background-color: rgba(0, 0, 0, 0);
                 background: transparent;
