@@ -28,8 +28,6 @@ class StrataHomePage(QWidget):
         """
         UI Constructor
         """
-        db = QFontDatabase
-        print(db.families())
         main_layout = QVBoxLayout()
         main_layout.setSpacing(10)
 
@@ -87,5 +85,4 @@ class StrataHomePage(QWidget):
         main_layout.setSpacing(10)
 
     def enterEvent(self, event: Optional[QEnterEvent]) -> None:
-        print("This is an enter event")
         return super().enterEvent(event)

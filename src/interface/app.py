@@ -141,9 +141,9 @@ class StrataApplication(QMainWindow):
         # ----------------------------------------------------
         # FLOATING WIDGET
 
-        self.sidebar.win_quick_search.clicked.connect(
-            lambda: self.show_floating_widget(widget=StrataFloatingSearch(self))
-        )
+        # self.sidebar.win_quick_search.clicked.connect(
+        # lambda: self.show_floating_widget(widget=StrataFloatingSearch(self))
+        # )
         self.sidebar.settings.clicked.connect(
             lambda: self.show_floating_widget(widget=StrataSettingsPage(self))
         )

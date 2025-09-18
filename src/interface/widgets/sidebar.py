@@ -72,7 +72,7 @@ class StrataPageSwitcher(QWidget):
 
         layout.addWidget(self.win_database)
         layout.addWidget(self.win_nodegraph)
-        layout.addWidget(self.win_quick_search)
+        # layout.addWidget(self.win_quick_search)
         layout.addWidget(self.win_library)
         layout.addWidget(self.win_command)
 
