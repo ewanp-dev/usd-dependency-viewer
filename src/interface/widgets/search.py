@@ -1,3 +1,4 @@
+import os
 from typing import List, Optional
 
 from PyQt6.QtCore import Qt
@@ -12,7 +13,7 @@ class StrataFloatingSearch(QWidget):
     Floating search widget
     """
 
-    def __init__(self, parent=None) -> None:
+    def __init__(self, parent=None, dependencies: List[str] = []) -> None:
         """
         Constructor
 
@@ -20,6 +21,7 @@ class StrataFloatingSearch(QWidget):
         """
         super().__init__(parent)
 
+        self.dependencies = dependencies
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.Dialog)
         self.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
         # NOTE might not be neccesary
@@ -56,6 +58,7 @@ class StrataFloatingSearch(QWidget):
         # NOTE might need to create a exit function if more control is needed
         self.exit.clicked.connect(lambda: self.close())
 
+        self.populate_default_list(list_widget=self.results)
         # ----------------------------------------------------
         # SIGNALS
         # NOTE need to match colors of both widgets
@@ -77,6 +80,18 @@ class StrataFloatingSearch(QWidget):
             }
         """
         )
+
+    def populate_default_list(self, list_widget: QListWidget) -> None:
+        """
+        Populates the search list with the first ten items in dependencies
+
+        :param list_widget: List to add items to
+        """
+        for i, val in enumerate(self.dependencies):
+            if i > 10:
+                break
+            list_widget.addItem(os.path.splitext(os.path.basename(val))[0])
+        return None
 
     def filter_list(self, query: str) -> List[str] | None:
         """

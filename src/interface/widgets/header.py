@@ -41,5 +41,11 @@ class StrataHeader(QWidget):
             width=STRATA_BUTTON_WIDTH - 15,
             height=STRATA_BUTTON_HEIGHT - 15,
         )
+        self.search: StrataAbstractButton = StrataAbstractButton(
+            icon_name="search.png",
+            width=STRATA_BUTTON_WIDTH - 15,
+            height=STRATA_BUTTON_HEIGHT - 15,
+        )
         self.expand.setCheckable(True)
         _lyt.addWidget(self.expand, alignment=Qt.AlignmentFlag.AlignLeft)
+        _lyt.addWidget(self.search, alignment=Qt.AlignmentFlag.AlignRight)
