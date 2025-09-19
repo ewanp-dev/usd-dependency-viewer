@@ -27,11 +27,6 @@ class StrataPageSwitcher(QWidget):
         layout.setSpacing(10)
         layout.setContentsMargins(10, 10, 10, 10)
 
-        self.setStyleSheet(
-            """
-                           background-color: red;
-                           border-radius: 20px;"""
-        )
         button_width, button_height = (
             STRATA_BUTTON_WIDTH - 15,
             STRATA_BUTTON_HEIGHT - 15,

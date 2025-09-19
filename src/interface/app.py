@@ -43,6 +43,7 @@ class StrataApplication(QMainWindow):
         self.saved_width = 200
         self.item = item
         self.initUI()
+        self.setMouseTracking(True)
 
     def initUI(self):
         """

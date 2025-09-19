@@ -1,7 +1,17 @@
+import math
 from typing import List, Optional, Text
 
-from PyQt6.QtCore import QRect, Qt
-from PyQt6.QtGui import QEnterEvent, QFont, QFontDatabase
+from PyQt6.QtCore import QPointF, QRect, Qt, QTimer
+from PyQt6.QtGui import (
+    QBrush,
+    QColor,
+    QEnterEvent,
+    QFont,
+    QFontDatabase,
+    QLinearGradient,
+    QPainter,
+    QPen,
+)
 from PyQt6.QtWidgets import QLabel, QSizePolicy, QSpacerItem, QVBoxLayout, QWidget
 
 from .button import StrataAbstractButton
@@ -10,79 +20,74 @@ from .utils import HoverFilter
 
 
 class StrataHomePage(QWidget):
-    """
-    The home button/startup page
-    """
+    def __init__(self):
+        super().__init__()
+        self.offset: int = 0
 
-    def __init__(self, parent=None) -> None:
-        """
-        Constructor
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.update_animation)
+        self.timer.start(30)
 
-        :param parent: QT parent object
-        """
-        super().__init__(parent)
+        self.mouse_pos: QPointF = QPointF(self.width() / 2, self.height() / 2)
 
-        self.initUI()
+        self.text: str = "STRATA"
+        self.font: QFont = QFont("Arial", 72, QFont.Weight.Bold)
+        self.setMouseTracking(True)
 
-    def initUI(self) -> None:
-        """
-        UI Constructor
-        """
-        main_layout = QVBoxLayout()
-        main_layout.setSpacing(10)
+    def update_animation(self, speed: float = 0.002) -> None:
+        # NOTE make speed into a variable
+        self.offset += speed
+        self.update()
 
-        # TODO change splash text to logo
-        # TODO remove spacing between logo and search
-        splash_text: str = """  
-███████╗████████╗██████╗  █████╗ ████████╗ █████╗ 
-██╔════╝╚══██╔══╝██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗
-███████╗   ██║   ██████╔╝███████║   ██║   ███████║
-╚════██║   ██║   ██╔══██╗██╔══██║   ██║   ██╔══██║
-███████║   ██║   ██║  ██║██║  ██║   ██║   ██║  ██║
-╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝                                                 
-        """
+    def mouseMoveEvent(self, a0) -> None:
+        self.mouse_pos = a0.position()
+        self.update()
 
-        text = "STRATA"
-        label_a, label_b, label_c = QLabel(text), QLabel(text), QLabel(text)
-        # self.home_label = QLabel(splash_text.strip())
-        # self.home_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        font = QFont("MesloLGL Nerd Font", 15)
-        label_a.setFont(font)
-        # self.home_label.setFont(font)
-        # self.home_label.setWordWrap(False)
-        self.open = StrataAbstractButton(
-            icon_name="search.png",
-            width=150,
-            height=STRATA_BUTTON_HEIGHT - 20,
-            default_stylesheet=False,
-        )
+    def paintEvent(self, a0) -> None:
+        painter: QPainter = QPainter(self)
 
-        self.setStyleSheet(
-            """
-            QPushButton {
-                font: 10pt 'Sans Serif';
-                color: rgb(28, 32, 38);
-                background-color: rgb(190, 190, 190);
-                border-radius: 15px;
-            }
-            QPushButton:hover {
-                background-color: rgb(50, 50, 50);
-                color: rgb(190, 190, 190);
-            }
-                           """
-        )
-        hover_filter = HoverFilter(widget=self.open)
-        self.open.installEventFilter(hover_filter)
-        self.open.setText(" Select File")
-        self.open.setFixedHeight(30)
-        self.open.setFixedWidth(100)
+        w, h = self.width(), self.height()
 
-        main_layout.addWidget(label_a, alignment=Qt.AlignmentFlag.AlignCenter)
-        main_layout.addWidget(label_b, alignment=Qt.AlignmentFlag.AlignCenter)
-        main_layout.addWidget(label_c, alignment=Qt.AlignmentFlag.AlignCenter)
-        main_layout.addWidget(self.open, alignment=Qt.AlignmentFlag.AlignCenter)
-        self.setLayout(main_layout)
-        main_layout.setSpacing(10)
+        bg_dx = (self.mouse_pos.x() - w / 2) * 0.01
+        bg_dy = (self.mouse_pos.y() - h / 2) * 0.01
 
-    def enterEvent(self, event: Optional[QEnterEvent]) -> None:
-        return super().enterEvent(event)
+        gradient = QLinearGradient(0 + bg_dx, 0 + bg_dy, w + bg_dx, h + bg_dy)
+        shift: int = int(math.sin(self.offset) * 200)
+
+        colors: List[QColor] = [
+            QColor("#1C2026"),  # deep blue-black
+            QColor("#1C2026"),  # midnight blue
+            QColor("#282D35"),  # rich blue
+            QColor("#282D35"),  # muted purple
+            QColor("#282D35"),  # neon red-pink
+        ]
+
+        stops: List[float] = [0.0, 0.25, 0.5, 0.75, 1.0]
+        for stop, color in zip(stops, colors):
+            gradient.setColorAt(stop, color)
+
+        gradient.setStart((shift % w) + bg_dx, 0 + bg_dy)
+        gradient.setFinalStop(((shift + w) % w) + bg_dx, h + bg_dy)
+
+        painter.fillRect(self.rect(), QBrush(gradient))
+
+        # text with parallax
+        painter.setFont(self.font)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+
+        base_x = self.width() // 2 - 150
+        base_y = self.height() // 2
+
+        dx = (self.mouse_pos.x() - w / 2) * 0.05
+        dy = (self.mouse_pos.y() - h / 2) * 0.05
+
+        pen = QPen(QColor("white"), 3)
+        painter.setPen(pen)
+        painter.setBrush(Qt.BrushStyle.NoBrush)
+        painter.drawText(QPointF(base_x + dx, base_y - 80 + dy), self.text)
+        painter.drawText(QPointF(base_x + dx, base_y + 80 + dy), self.text)
+
+        # Filled text (middle)
+        painter.setPen(pen)
+        painter.setBrush(QColor("white"))
+        painter.drawText(QPointF(base_x + dx, base_y + dy), self.text)
