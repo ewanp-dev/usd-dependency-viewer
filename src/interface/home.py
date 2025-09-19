@@ -12,7 +12,14 @@ from PyQt6.QtGui import (
     QPainter,
     QPen,
 )
-from PyQt6.QtWidgets import QLabel, QSizePolicy, QSpacerItem, QVBoxLayout, QWidget
+from PyQt6.QtWidgets import (
+    QLabel,
+    QPushButton,
+    QSizePolicy,
+    QSpacerItem,
+    QVBoxLayout,
+    QWidget,
+)
 
 from .button import StrataAbstractButton
 from .strata_globals import *
@@ -32,7 +39,24 @@ class StrataHomePage(QWidget):
 
         self.text: str = "STRATA"
         self.font: QFont = QFont("Arial", 72, QFont.Weight.Bold)
-        self.setMouseTracking(True)
+        self.setMouseTracking(True)  # Create button
+
+        self.my_button = QPushButton("Click Me", self)
+
+        # Style button
+        self.my_button.setStyleSheet(
+            """
+            QPushButton {
+                background-color: white;
+                color: black;
+                border-radius: 8px;
+                padding: 6px 12px;
+            }
+            QPushButton:hover {
+                background-color: lightgray;
+            }
+        """
+        )
 
     def update_animation(self, speed: float = 0.002) -> None:
         # NOTE make speed into a variable
@@ -41,6 +65,16 @@ class StrataHomePage(QWidget):
 
     def mouseMoveEvent(self, a0) -> None:
         self.mouse_pos = a0.position()
+
+        # button move event
+        w, h = self.width(), self.height()
+        dx = (self.mouse_pos.x() - w / 2) * 0.05
+        dy = (self.mouse_pos.y() - h / 2) * 0.05
+
+        base_x = self.width() // 2 - 150
+        base_y = self.height() // 2
+
+        self.my_button.move(int(base_x + dx), int(base_y - 80 + dy))  #
         self.update()
 
     def paintEvent(self, a0) -> None:
