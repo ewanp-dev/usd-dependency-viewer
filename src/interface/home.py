@@ -43,6 +43,18 @@ class StrataHomePage(QWidget):
 
         self.my_button = QPushButton("Click Me", self)
 
+        self.my_button.move(
+            int(
+                (self.width() // 2)
+                + self.width() / 2
+                + ((self.mouse_pos.x() - self.width() / 2) * 0.05)
+            ),
+            int(
+                (self.height() // 2)
+                + 300
+                + ((self.mouse_pos.y() - self.height() / 2) * 0.05)
+            ),
+        )
         # Style button
         self.my_button.setStyleSheet(
             """
@@ -71,10 +83,10 @@ class StrataHomePage(QWidget):
         dx = (self.mouse_pos.x() - w / 2) * 0.05
         dy = (self.mouse_pos.y() - h / 2) * 0.05
 
-        base_x = self.width() // 2 - 150
+        base_x = self.width() // 2
         base_y = self.height() // 2
 
-        self.my_button.move(int(base_x + dx), int(base_y - 80 + dy))  #
+        self.my_button.move(int(base_x + dx), int(base_y + 200 + dy))  #
         self.update()
 
     def paintEvent(self, a0) -> None:
