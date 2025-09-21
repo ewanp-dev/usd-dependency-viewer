@@ -41,7 +41,8 @@ class StrataHomePage(QWidget):
         self.font: QFont = QFont("Arial", 72, QFont.Weight.Bold)
         self.setMouseTracking(True)  # Create button
 
-        self.my_button = QPushButton("Click Me", self)
+        # NOTE move the move function to another function
+        self.my_button = QPushButton("Load File", self)
 
         self.my_button.move(
             int(
@@ -51,7 +52,7 @@ class StrataHomePage(QWidget):
             ),
             int(
                 (self.height() // 2)
-                + 300
+                + 10
                 + ((self.mouse_pos.y() - self.height() / 2) * 0.05)
             ),
         )
@@ -86,7 +87,7 @@ class StrataHomePage(QWidget):
         base_x = self.width() // 2
         base_y = self.height() // 2
 
-        self.my_button.move(int(base_x + dx), int(base_y + 200 + dy))  #
+        self.my_button.move(int(base_x - 50 + dx), int(base_y + 100 + dy))  #
         self.update()
 
     def paintEvent(self, a0) -> None:
