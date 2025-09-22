@@ -44,6 +44,8 @@ class StrataHomePage(QWidget):
         # NOTE move the move function to another function
         self.my_button = QPushButton("Load File", self)
 
+        # intial button position
+        # TODO make this more absolute
         self.my_button.move(
             int(
                 (self.width() // 2)
@@ -71,24 +73,17 @@ class StrataHomePage(QWidget):
         """
         )
 
-    def update_animation(self, speed: float = 0.002) -> None:
+    def update_animation(self, speed: float = 0.001) -> None:
         # NOTE make speed into a variable
         self.offset += speed
         self.update()
 
     def mouseMoveEvent(self, a0) -> None:
         self.mouse_pos = a0.position()
-
-        # button move event
-        w, h = self.width(), self.height()
-        dx = (self.mouse_pos.x() - w / 2) * 0.05
-        dy = (self.mouse_pos.y() - h / 2) * 0.05
-
-        base_x = self.width() // 2
-        base_y = self.height() // 2
-
-        self.my_button.move(int(base_x - 50 + dx), int(base_y + 100 + dy))  #
         self.update()
+
+    def test(self) -> None:
+        print("this is doing something")
 
     def paintEvent(self, a0) -> None:
         painter: QPainter = QPainter(self)
@@ -122,12 +117,14 @@ class StrataHomePage(QWidget):
         painter.setFont(self.font)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
+        # TODO convert text to qlabel to fix stuttering
         base_x = self.width() // 2 - 150
         base_y = self.height() // 2
 
         dx = (self.mouse_pos.x() - w / 2) * 0.05
         dy = (self.mouse_pos.y() - h / 2) * 0.05
 
+        self.my_button.move(int(base_x - 50 + dx), int(base_y + 100 + dy))  #
         pen = QPen(QColor("white"), 3)
         painter.setPen(pen)
         painter.setBrush(Qt.BrushStyle.NoBrush)
