@@ -7,6 +7,11 @@ from PyQt6.QtWidgets import QApplication
 from core.item import strata_core_usditem
 from interface.app import StrataApplication, load_styles
 
+sys.path.append(
+    os.path.expanduser("~/repos/local/qt-force-directed-graph-framework/src")
+)
+from widget import FDNodeGraphWidget
+
 
 def main():
     """

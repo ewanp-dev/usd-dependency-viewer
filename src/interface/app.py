@@ -1,4 +1,5 @@
 import os
+import sys
 
 from PyQt6.QtCore import QPoint, QPropertyAnimation, Qt
 from PyQt6.QtGui import QIcon, QImage, QPixmap, QTransform
@@ -26,6 +27,11 @@ from .widgets.header import StrataHeader
 from .widgets.search import StrataFloatingSearch
 from .widgets.settings import StrataSettingsPage
 from .widgets.sidebar import StrataPageSwitcher
+
+sys.path.append(
+    os.path.expanduser("~/repos/local/qt-force-directed-graph-framework/src")
+)
+from widget import FDNodeGraphWidget
 
 
 class StrataApplication(QMainWindow):
@@ -80,11 +86,16 @@ class StrataApplication(QMainWindow):
         self.home_page = StrataHomePage()
         self.details_view = StrataListPage(item=self.item)
         self.grid_page = StrataGridPage()
-        self.node_page = StrataNodePage()
+        self.node_page = FDNodeGraphWidget()
         self.settings_page = StrataSettingsPage()
         self.object_page = StrataObjectPage()
 
         self.details_view.table.itemClicked.connect(self.open_item_page)
+
+        # ----------------------------------------------------
+        # TMP -- NODEGRAPH
+        graph = self.node_page.view
+        node_a = graph.createNode(node_name="Something")
 
         # ----------------------------------------------------
         # RIGHT LAYOUT
