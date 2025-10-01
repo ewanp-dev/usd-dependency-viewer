@@ -6,9 +6,9 @@ from pxr import Sdf, Usd, UsdUtils
 # workaround so I can continue to run tests
 try:
     from decorators import *
-    from item import UsdItem
-except ModuleNotFoundError:
-    from .item import UsdItem
+    from item import strata_core_usditem
+except Exception:
+    from .item import strata_core_usditem
 
 
 class UsdDependencies:

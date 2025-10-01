@@ -2,8 +2,8 @@ import os
 from pathlib import Path
 
 import pytest
-import src.dependencies as dep_item
-import src.item as usd_item
+import src.core.dependencies as dep_item
+import src.core.item as usd_item
 
 # TODO: make a wildcard fixture to pick up all assets for easy parametrize
 
