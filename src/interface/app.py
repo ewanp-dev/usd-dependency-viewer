@@ -50,6 +50,7 @@ class StrataApplication(QMainWindow):
         self.item = item
         self.initUI()
         self.setMouseTracking(True)
+        self.dependencies = self.item.get_flattened_dependencies()
 
     def initUI(self):
         """
@@ -95,7 +96,11 @@ class StrataApplication(QMainWindow):
         # ----------------------------------------------------
         # TMP -- NODEGRAPH
         graph = self.node_page.view
-        node_a = graph.createNode(node_name="Something")
+        for i, value in enumerate(self.item.get_flattened_dependencies()):
+            # SLOWWWWWWWW
+            graph.createNode(node_name=str(value))
+
+        # node_a = graph.createNode(node_name="Something")
 
         # ----------------------------------------------------
         # RIGHT LAYOUT
