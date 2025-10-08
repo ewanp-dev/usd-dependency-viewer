@@ -16,7 +16,9 @@ project(force_directed_graph_qt)
 set(ENZO_DEV_LIB_DIR "${CMAKE_SOURCE_DIR}/build/src/OpDefs/")
 
 set(SOURCES
-    src/dependency_viewer/Application.cpp    
+    src/dependency_viewer/Main.cpp
+    src/dependency_viewer/interface/Application.cpp    
+    src/dependency_viewer/interface/AbstractButton.cpp
 )
 
 set(ENGINE_INCLUDE_DIRECTORIES
