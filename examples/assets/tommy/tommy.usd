@@ -1,0 +1,56 @@
+#usda 1.0
+(
+    defaultPrim = "tommy"
+    framesPerSecond = 24
+    metersPerUnit = 1
+    timeCodesPerSecond = 24
+    upAxis = "Y"
+)
+
+def Xform "tommy" (
+    assetInfo = {
+        asset identifier = @./tommy.usd@
+        string name = "tommy"
+        asset thumbnail = @./thumbnail.png@
+    }
+    prepend inherits = </__class__/tommy>
+    kind = "component"
+    prepend payload = @./payload.usdc@
+    variants = {
+        string geo = "high_res_clothes"
+    }
+    prepend variantSets = "geo"
+)
+{
+    variantSet "geo" = {
+        "high_res_clothes" (
+            prepend apiSchemas = ["GeomModelAPI"]
+            kind = "component"
+        ) {
+            float3[] extentsHint = [(-0.50574994, -0.0075240247, -0.18172643), (0.50574994, 1.77375, 0.16593601)]
+
+        }
+        "high_res_noclothes" (
+            prepend apiSchemas = ["GeomModelAPI"]
+            kind = "component"
+        ) {
+            float3[] extentsHint = [(-0.50574994, -0.0075240247, -0.18172643), (0.50574994, 1.77375, 0.16384102)]
+
+        }
+        "low_res" (
+            prepend apiSchemas = ["GeomModelAPI"]
+            kind = "component"
+        ) {
+            float3[] extentsHint = [(-0.5056109, -0.0075240247, -0.18093145), (0.5056109, 1.7733599, 0.16512775)]
+
+        }
+    }
+}
+
+class "__class__"
+{
+    class "tommy"
+    {
+    }
+}
+

@@ -1,0 +1,58 @@
+#usda 1.0
+(
+    defaultPrim = "barrel"
+    framesPerSecond = 24
+    metersPerUnit = 1
+    timeCodesPerSecond = 24
+    upAxis = "Y"
+)
+
+def Xform "barrel" (
+    assetInfo = {
+        asset identifier = @./barrel.usd@
+        string name = "barrel"
+        asset thumbnail = @./thumbnail.png@
+    }
+    customData = {
+        string license = "CC0 - Public Domain"
+        string[] source_credits = ["PolyHaven|Jorge Camacho", "PolyHaven|Jorge Camacho", "PolyHaven|Serhii Khromv"]
+        string[] source_urls = ["https://polyhaven.com/a/Barrel_01", "https://polyhaven.com/a/Barrel_02", "https://polyhaven.com/a/barrel_03"]
+    }
+    prepend inherits = </__class__/barrel>
+    kind = "component"
+    prepend payload = @./payload.usdc@
+    prepend variantSets = "geo"
+)
+{
+    variantSet "geo" = {
+        "A" (
+            prepend apiSchemas = ["GeomModelAPI"]
+            kind = "component"
+        ) {
+            float3[] extentsHint = [(-0.31697172, -1.1793933e-7, -0.31929946), (0.31697178, 0.9304735, 0.31930006)]
+
+        }
+        "B" (
+            prepend apiSchemas = ["GeomModelAPI"]
+            kind = "component"
+        ) {
+            float3[] extentsHint = [(-0.24408777, 0.0046373634, -0.24230832), (0.2440878, 0.88463736, 0.24230812)]
+
+        }
+        "C" (
+            prepend apiSchemas = ["GeomModelAPI"]
+            kind = "component"
+        ) {
+            float3[] extentsHint = [(-0.2815176, -0.0066142776, -0.2815175), (0.28151754, 0.8733857, 0.2815177)]
+
+        }
+    }
+}
+
+class "__class__"
+{
+    class "barrel"
+    {
+    }
+}
+

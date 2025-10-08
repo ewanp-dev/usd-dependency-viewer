@@ -1,0 +1,31 @@
+#usda 1.0
+(
+    defaultPrim = "rubbertoy"
+    framesPerSecond = 24
+    metersPerUnit = 1
+    timeCodesPerSecond = 24
+    upAxis = "Y"
+)
+
+def Xform "rubbertoy" (
+    prepend apiSchemas = ["GeomModelAPI"]
+    assetInfo = {
+        asset identifier = @./rubbertoy.usd@
+        string name = "rubbertoy"
+        asset thumbnail = @./thumbnail.png@
+    }
+    prepend inherits = </__class__/rubbertoy>
+    kind = "component"
+    prepend payload = @./payload.usdc@
+)
+{
+    float3[] extentsHint = [(-1.012149, -0.26760602, -0.972831), (1.012149, 1.3846359, 0.847423)]
+}
+
+class "__class__"
+{
+    class "rubbertoy"
+    {
+    }
+}
+

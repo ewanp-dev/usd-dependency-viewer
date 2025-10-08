@@ -1,0 +1,56 @@
+#usda 1.0
+(
+    defaultPrim = "squab"
+    framesPerSecond = 24
+    metersPerUnit = 1
+    timeCodesPerSecond = 24
+    upAxis = "Y"
+)
+
+def Xform "squab" (
+    assetInfo = {
+        asset identifier = @./squab.usd@
+        string name = "squab"
+        asset thumbnail = @./thumbnail.png@
+    }
+    prepend inherits = </__class__/squab>
+    kind = "component"
+    prepend payload = @./payload.usdc@
+    variants = {
+        string geo = "medium"
+    }
+    prepend variantSets = "geo"
+)
+{
+    variantSet "geo" = {
+        "easy" (
+            prepend apiSchemas = ["GeomModelAPI"]
+            kind = "component"
+        ) {
+            float3[] extentsHint = [(-1.2845603, -1.4565705, -2.520351), (1.2845603, 1.0074894, 2.6183062)]
+
+        }
+        "hard" (
+            prepend apiSchemas = ["GeomModelAPI"]
+            kind = "component"
+        ) {
+            float3[] extentsHint = [(-1.3676513, -1.4689231, -2.5831285), (1.2290243, 1.0284393, 2.6321752)]
+
+        }
+        "medium" (
+            prepend apiSchemas = ["GeomModelAPI"]
+            kind = "component"
+        ) {
+            float3[] extentsHint = [(-1.3676513, -1.4689231, -2.5831285), (1.2290243, 1.0284392, 2.6321752)]
+
+        }
+    }
+}
+
+class "__class__"
+{
+    class "squab"
+    {
+    }
+}
+

@@ -1,0 +1,36 @@
+#usda 1.0
+(
+    defaultPrim = "wineBarrel"
+    framesPerSecond = 24
+    metersPerUnit = 1
+    timeCodesPerSecond = 24
+    upAxis = "Y"
+)
+
+def Xform "wineBarrel" (
+    prepend apiSchemas = ["GeomModelAPI"]
+    assetInfo = {
+        asset identifier = @./wineBarrel.usd@
+        string name = "wineBarrel"
+        asset thumbnail = @./thumbnail.png@
+    }
+    customData = {
+        string license = "CC0 - Public Domain"
+        string[] source_credits = ["PolyHaven|James Ray Cook"]
+        string[] source_urls = ["https://polyhaven.com/a/wine_barrel_01"]
+    }
+    prepend inherits = </__class__/wineBarrel>
+    kind = "component"
+    prepend payload = @./payload.usdc@
+)
+{
+    float3[] extentsHint = [(-0.37094924, 0.0006841719, -0.37095293), (0.37095228, 0.8719475, 0.38508278)]
+}
+
+class "__class__"
+{
+    class "wineBarrel"
+    {
+    }
+}
+
