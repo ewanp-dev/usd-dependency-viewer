@@ -19,6 +19,9 @@ set(SOURCES
     src/dependency_viewer/Main.cpp
     src/dependency_viewer/interface/Application.cpp    
     src/dependency_viewer/interface/AbstractButton.cpp
+    src/dependency_viewer/interface/Home.cpp
+    src/dependency_viewer/interface/widgets/Sidebar.cpp
+    src/dependency_viewer/interface/widgets/Header.cpp
 )
 
 set(ENGINE_INCLUDE_DIRECTORIES
