@@ -1,5 +1,7 @@
 #include "Sidebar.h"
+#include "../Globals.h"
 #include <QVBoxLayout>
+#include <iostream>
 
 Sidebar::Sidebar() {
     setAttribute(Qt::WidgetAttribute::WA_StyledBackground, true);
@@ -12,37 +14,17 @@ Sidebar::Sidebar() {
     unsigned int BUTTON_WIDTH = 25;
     unsigned int BUTTON_HEIGHT = 25;
 
-    database = new AbstractButton(
-        this,
-        "list.png",
-        "Dependencies Database Page",
-        BUTTON_WIDTH,
-        BUTTON_HEIGHT
-    ); 
+    database = new AbstractButton(); 
+    database->setIconFromImage(DV_ELEMENTS_DIRECTORY + "list.png");
     
-    nodegraph = new AbstractButton(
-        this,
-        "node.png",
-        "Nodegraph Page",
-        BUTTON_WIDTH,
-        BUTTON_HEIGHT
-    ); 
+    nodegraph = new AbstractButton(); 
+    nodegraph->setIconFromImage(DV_ELEMENTS_DIRECTORY + "node.png");
     
-    home = new AbstractButton(
-        this,
-        "home.png",
-        "Home Page",
-        BUTTON_WIDTH,
-        BUTTON_HEIGHT
-    ); 
+    home = new AbstractButton(); 
+    home->setIconFromImage(DV_ELEMENTS_DIRECTORY + "home.png");
     
-    settings = new AbstractButton(
-        this,
-        "settings.png",
-        "Settings Page",
-        BUTTON_WIDTH,
-        BUTTON_HEIGHT
-    ); 
+    settings = new AbstractButton(); 
+    settings->setIconFromImage(DV_ELEMENTS_DIRECTORY + "settings.png");
 
     layout->addWidget(database);
     layout->addWidget(nodegraph);

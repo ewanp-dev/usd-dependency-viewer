@@ -1,22 +1,15 @@
 #pragma once
 
 #include <QWidget>
-#include <QPushButton>
-#include <QTimer>
-#include <QElapsedTimer>
+#include <QLineEdit>
+#include <QLabel>
 
 class HomePage : public QWidget
 {
     public:
-        HomePage();
-        void mouseMoveEvent(QMouseEvent *event) override;
-        // void paintEvent(QPaintEvent *event) override;
-        QPushButton *searchButton;
+        HomePage(QWidget *parent = nullptr);
 
     private:
-        void updateAnimation();
-        int offset_;
-        QPointF mousePos_;
-        QTimer *timer_;
-        
+        QLabel* homeLabel_;
+        QLineEdit* search_;
 };

@@ -1,4 +1,5 @@
 #include "Header.h"
+#include "../Globals.h"
 #include <QHBoxLayout>
 
 Header::Header() {
@@ -10,26 +11,18 @@ Header::Header() {
     layout->setContentsMargins(10, 0, 10, 0);
     layout->setSpacing(10);
 
-    expand = new AbstractButton(
-        this,
-        "sidebar.png",
-        "Open and close dropdown view",
-        25,
-        25
-    );
+    expand = new AbstractButton();
+    expand->setIconFromImage(DV_ELEMENTS_DIRECTORY + "sidebar.png");
 
-    search = new AbstractButton(
-        this,
-        "search.png",
-        "Search for dependencies",
-        25,
-        25
-    );
+    // TODO: Convert this to a QLineEdit or something similar to Githubs search function
+    search = new AbstractButton();
+    search->setIconFromImage(DV_ELEMENTS_DIRECTORY + "search.png");
 
     expand->setCheckable(true);
 
-    layout->addWidget(expand, Qt::AlignmentFlag::AlignLeft);
-    layout->addWidget(search, Qt::AlignmentFlag::AlignRight);
+    layout->addWidget(expand);
+    layout->addStretch();
+    layout->addWidget(search);
 }
 
 

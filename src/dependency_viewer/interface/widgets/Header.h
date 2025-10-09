@@ -7,7 +7,6 @@ class Header : public QWidget
 {
     public:
         Header();
-    private:
-        AbstractButton *expand;
         AbstractButton *search;
+        AbstractButton *expand;
 };

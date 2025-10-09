@@ -3,15 +3,29 @@
 #include <QMainWindow>
 #include <QVBoxLayout>
 #include "Home.h"
+#include "Database.h"
+#include "Nodegraph.h"
+#include "widgets/Tree.h"
 #include "widgets/Sidebar.h"
+#include "widgets/Settings.h"
 #include "widgets/Header.h"
+#include "widgets/Search.h"
 
 class DependencyViewer : public QMainWindow 
 {
     public:
         DependencyViewer(QWidget *parent = nullptr);
     private:
+        void showFloatingWidget_(QWidget* widget);
+        void expandDropdown_(bool checked);
+        std::vector<std::string> itemDependencies_;
+        int savedWidth_;
+        SearchWidget* searchWidget_;
+        SettingsWidget* settingsWidget_;
+        DependenciesTreeWidget* treeWidget_;
         Sidebar *sidebar_;
         Header *header_;
+        DatabasePage *databasePage_;
+        NodegraphPage *nodegraphPage_;
         HomePage *homePage_;
 };

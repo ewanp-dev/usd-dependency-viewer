@@ -1,18 +1,24 @@
 #pragma once
+
+#include "Globals.h"
 #include <QPushButton>
+#include <QImage>
+#include <QPixmap>
 
 class AbstractButton : public QPushButton 
 {
     public:
         AbstractButton(
-        QWidget* parent, 
-        std::string iconName,
-        std::string tooltip,
-        unsigned int width,
-        unsigned int height
+            unsigned int width = DV_BUTTON_WIDTH,
+            unsigned int height = DV_BUTTON_HEIGHT, 
+            QWidget* parent = nullptr 
         );
+        void setIconFromImage(const std::string& filePath, bool flipped = false, bool inverted = DV_ICONS_INVERTED);
+        void setPadding(int x, int y);
+        std::string iconPath();
 
     private:
-        std::string iconPath;
-
+        QImage invertImage_(QImage &img);
+        QPixmap flipPixmap_(QPixmap &pixmap);
+        std::string filePath_;
 };

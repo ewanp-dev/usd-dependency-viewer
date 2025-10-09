@@ -19,8 +19,13 @@ set(SOURCES
     src/dependency_viewer/Main.cpp
     src/dependency_viewer/interface/Application.cpp    
     src/dependency_viewer/interface/AbstractButton.cpp
+    src/dependency_viewer/interface/Database.cpp
+    src/dependency_viewer/interface/Nodegraph.cpp
     src/dependency_viewer/interface/Home.cpp
     src/dependency_viewer/interface/widgets/Sidebar.cpp
+    src/dependency_viewer/interface/widgets/Search.cpp
+    src/dependency_viewer/interface/widgets/Settings.cpp
+    src/dependency_viewer/interface/widgets/Tree.cpp
     src/dependency_viewer/interface/widgets/Header.cpp
 )
 

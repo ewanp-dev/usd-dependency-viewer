@@ -1,37 +1,51 @@
 #include "AbstractButton.h"
 #include <iostream>
 #include <filesystem>
-#include <QImage>
-#include <QPixmap>
 
 AbstractButton::AbstractButton(
-    QWidget *parent,
-    std::string iconName,
-    std::string tooltip,
     unsigned int width,
-    unsigned int height
+    unsigned int height,
+    QWidget *parent
 ) 
-{
-    
+{ 
     setFixedSize(width, height);
-    std::string currentDirectory = std::filesystem::current_path().string();
-    if (!iconName.empty()) 
-    { 
-        iconPath = currentDirectory + "/src/dependency_viewer/interface/elements/"+ iconName;
-        
-        if (!std::filesystem::exists(iconPath))
-        {
-            std::cerr << "Warning: Icon file not found at " << iconPath << '\n';
-        } else
-        {
-        std::cout << iconPath << '\n';
-        QImage img = QImage(iconPath.c_str());
-        QPixmap pixmap = QPixmap::fromImage(img);
-        QIcon icon = QIcon(pixmap);
+}
 
-        this->setIcon(icon);
-        setIconSize(QSize(width - 2, height - 2));
+void AbstractButton::setIconFromImage(const std::string& filePath, bool flipped, bool inverted) {
+    this->filePath_ = filePath;
+    setFlat(true);
+    if (!std::filesystem::exists(filePath)) {
+        std::cerr << "Warning: Icon file not found at " << filePath << '\n';
+    } else {
+        QImage img = QImage(filePath.c_str());
+        if (inverted) {
+            invertImage_(img);
         }
+        QPixmap pixmap = QPixmap::fromImage(img);
+        if (flipped) {
+            pixmap = flipPixmap_(pixmap);
+        }
+        QIcon icon = QIcon(pixmap);
+        setIcon(icon);
+        setIconSize(QSize(width() - 2, height() - 2));
     }
+}
 
+void AbstractButton::setPadding(int x, int y) {
+    QString style = QString("padding: %1px %2px;").arg(x).arg(y);
+    setStyleSheet(style);
+}
+
+std::string AbstractButton::iconPath() {
+    return filePath_;
+}
+
+QImage AbstractButton::invertImage_(QImage &image) {
+    image.invertPixels(QImage::InvertMode::InvertRgb);
+    return image;
+}
+
+QPixmap AbstractButton::flipPixmap_(QPixmap &pixmap) {
+    QPixmap flipped = pixmap.transformed(QTransform().scale(-1, 1));
+    return flipped;
 }

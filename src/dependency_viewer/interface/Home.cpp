@@ -1,42 +1,23 @@
 #include "Home.h"
-#include <QMouseEvent>
+#include <QVBoxLayout>
 
-HomePage::HomePage() {
-    offset_ = 0;
-    
-    timer_ = new QTimer(this);
-    timer_->setTimerType(Qt::TimerType::PreciseTimer);
-    connect(timer_, &QTimer::timeout, this, &HomePage::updateAnimation);
+HomePage::HomePage(QWidget *parent) {
+    QVBoxLayout *layout = new QVBoxLayout(this);
 
-    const int fps = 60;
-    constexpr int interval = static_cast<float>(1000) / fps;
+    homeLabel_ = new QLabel(R"(
+██╗   ██╗███████╗██████╗         ██████╗ ███████╗██████╗ ███████╗███╗   ██╗██████╗ 
+██║   ██║██╔════╝██╔══██╗        ██╔══██╗██╔════╝██╔══██╗██╔════╝████╗  ██║██╔══██╗
+██║   ██║███████╗██║  ██║        ██║  ██║█████╗  ██████╔╝█████╗  ██╔██╗ ██║██║  ██║
+██║   ██║╚════██║██║  ██║        ██║  ██║██╔══╝  ██╔═══╝ ██╔══╝  ██║╚██╗██║██║  ██║
+╚██████╔╝███████║██████╔╝███████╗██████╔╝███████╗██║     ███████╗██║ ╚████║██████╔╝
+ ╚═════╝ ╚══════╝╚═════╝ ╚══════╝╚═════╝ ╚══════╝╚═╝     ╚══════╝╚═╝  ╚═══╝╚═════╝ 
+    )");
+    search_ = new QLineEdit();
+    search_->setPlaceholderText("Search for dependency...");
+    search_->setFixedWidth(800);
 
-    timer_->start(interval);
-
-    setMouseTracking(true);
-    mousePos_ = QPointF(static_cast<float>(width()) / 2, static_cast<float>(height()) / 2);
-
-    searchButton = new QPushButton("Search", this);
-
-    searchButton->move(
-        static_cast<int>(
-            (static_cast<float>(width()) / 2)
-            + static_cast<float>(width()) / 2
-            - ((mousePos_.x() - static_cast<float>(width()) / 2) * 0.05)
-        ),
-        static_cast<int>(
-            (static_cast<float>(height()) / 2)
-            + 10
-            - ((mousePos_.y() - static_cast<float>(height()) / 2) * 0.05)
-        )
-    );
+    layout->addStretch();
+    layout->addWidget(homeLabel_, 0, Qt::AlignmentFlag::AlignHCenter);
+    layout->addWidget(search_, 0, Qt::AlignmentFlag::AlignHCenter);
+    layout->addStretch();
 }
-
-void HomePage::updateAnimation() {
-    offset_ += 0.05;
-    update();
-}
-
-void HomePage::mouseMoveEvent(QMouseEvent *event) {
-    mousePos_ = event->position();
-} 

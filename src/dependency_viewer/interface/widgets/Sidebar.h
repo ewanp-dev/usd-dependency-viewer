@@ -7,7 +7,6 @@ class Sidebar : public QWidget
 {
     public:
         Sidebar();
-    private:
         AbstractButton *database;
         AbstractButton *nodegraph;
         AbstractButton *home;
