@@ -9,11 +9,21 @@ AbstractButton::AbstractButton(
 ) 
 { 
     setFixedSize(width, height);
+    setStyleSheet(R"(
+        QPushButton {
+            border: none;
+            color: rgb(210, 210, 210);
+            background: transparent;
+            padding: 4px 4px;
+        }
+        QPushButton:hover {
+            background-color: rgb(60, 60, 60);
+        }
+    )");
 }
 
 void AbstractButton::setIconFromImage(const std::string& filePath, bool flipped, bool inverted) {
     this->filePath_ = filePath;
-    setFlat(true);
     if (!std::filesystem::exists(filePath)) {
         std::cerr << "Warning: Icon file not found at " << filePath << '\n';
     } else {

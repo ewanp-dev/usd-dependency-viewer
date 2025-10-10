@@ -19,6 +19,12 @@ SettingsWidget::SettingsWidget (QWidget *parent) {
     layout->addLayout(topLayout);
 
     connect(exitButton_, &AbstractButton::clicked, this, &QWidget::close);
+
+    setStyleSheet(R"(
+        QWidget {
+            background-color: rgb(12, 12, 12);
+        }
+    )");
 }
 
 void SettingsWidget::keyPressEvent(QKeyEvent *event) {

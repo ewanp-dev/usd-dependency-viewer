@@ -27,6 +27,9 @@ set(SOURCES
     src/dependency_viewer/interface/widgets/Settings.cpp
     src/dependency_viewer/interface/widgets/Tree.cpp
     src/dependency_viewer/interface/widgets/Header.cpp
+    src/dependency_viewer/interface/widgets/dropdown/Properties.cpp
+    src/dependency_viewer/interface/widgets/dropdown/Results.cpp
+    src/dependency_viewer/interface/widgets/dropdown/Sort.cpp
 )
 
 set(ENGINE_INCLUDE_DIRECTORIES

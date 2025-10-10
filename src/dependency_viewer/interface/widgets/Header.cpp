@@ -8,7 +8,7 @@ Header::Header() {
     setAttribute(Qt::WidgetAttribute::WA_StyledBackground, true);
 
     QHBoxLayout *layout = new QHBoxLayout(this);
-    layout->setContentsMargins(10, 0, 10, 0);
+    // layout->setContentsMargins(10, 0, 10, 0);
     layout->setSpacing(10);
 
     expand = new AbstractButton();
@@ -23,6 +23,12 @@ Header::Header() {
     layout->addWidget(expand);
     layout->addStretch();
     layout->addWidget(search);
+
+    setStyleSheet(R"(
+        QWidget {
+            background-color: rgb(20, 20, 20);
+        }
+    )");
 }
 
 
