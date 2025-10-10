@@ -1,0 +1,56 @@
+#usda 1.0
+(
+    defaultPrim = "pig"
+    framesPerSecond = 24
+    metersPerUnit = 1
+    timeCodesPerSecond = 24
+    upAxis = "Y"
+)
+
+def Xform "pig" (
+    assetInfo = {
+        asset identifier = @./pig.usd@
+        string name = "pig"
+        asset thumbnail = @./thumbnail.png@
+    }
+    prepend inherits = </__class__/pig>
+    kind = "component"
+    prepend payload = @./payload.usdc@
+    variants = {
+        string geo = "medium"
+    }
+    prepend variantSets = "geo"
+)
+{
+    variantSet "geo" = {
+        "easy" (
+            prepend apiSchemas = ["GeomModelAPI"]
+            kind = "component"
+        ) {
+            float3[] extentsHint = [(-1.0663073, -1.4105058, -0.9685813), (1.0663073, 0.56533927, 1.3301908)]
+
+        }
+        "hard" (
+            prepend apiSchemas = ["GeomModelAPI"]
+            kind = "component"
+        ) {
+            float3[] extentsHint = [(-1.0745918, -1.3646212, -0.9410989), (1.0745918, 0.56757134, 1.2750921)]
+
+        }
+        "medium" (
+            prepend apiSchemas = ["GeomModelAPI"]
+            kind = "component"
+        ) {
+            float3[] extentsHint = [(-1.0025358, -1.3353765, -0.9231264), (0.9976697, 0.56609946, 1.2734325)]
+
+        }
+    }
+}
+
+class "__class__"
+{
+    class "pig"
+    {
+    }
+}
+
