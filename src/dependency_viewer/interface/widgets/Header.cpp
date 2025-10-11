@@ -12,11 +12,11 @@ Header::Header() {
     layout->setSpacing(10);
 
     expand = new AbstractButton();
-    expand->setIconFromImage(DV_ELEMENTS_DIRECTORY + "sidebar.png");
+    expand->setIconFromImage(":icons/sidebar.png");
 
     // TODO: Convert this to a QLineEdit or something similar to Githubs search function
     search = new AbstractButton();
-    search->setIconFromImage(DV_ELEMENTS_DIRECTORY + "search.png");
+    search->setIconFromImage(":/icons/search.png");
 
     expand->setCheckable(true);
 

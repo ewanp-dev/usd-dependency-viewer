@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QWidget>
+#include <QPushButton>
 #include "../AbstractButton.h"
 
 class Sidebar : public QWidget

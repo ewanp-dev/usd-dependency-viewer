@@ -14,17 +14,17 @@ Sidebar::Sidebar() {
     unsigned int BUTTON_WIDTH = 25;
     unsigned int BUTTON_HEIGHT = 25;
 
-    database = new AbstractButton(); 
-    database->setIconFromImage(DV_ELEMENTS_DIRECTORY + "list.png");
+    database = new AbstractButton();
+    database->setIconFromImage(":/icons/list.png");
     
     nodegraph = new AbstractButton(); 
-    nodegraph->setIconFromImage(DV_ELEMENTS_DIRECTORY + "node.png");
+    nodegraph->setIconFromImage(":/icons/node.png");
     
     home = new AbstractButton(); 
-    home->setIconFromImage(DV_ELEMENTS_DIRECTORY + "home.png");
+    home->setIconFromImage(":/icons/home.png");
     
     settings = new AbstractButton(); 
-    settings->setIconFromImage(DV_ELEMENTS_DIRECTORY + "settings.png");
+    settings->setIconFromImage(":/icons/settings.png");
 
     layout->addWidget(database);
     layout->addWidget(nodegraph);

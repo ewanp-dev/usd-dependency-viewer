@@ -24,21 +24,17 @@ AbstractButton::AbstractButton(
 
 void AbstractButton::setIconFromImage(const std::string& filePath, bool flipped, bool inverted) {
     this->filePath_ = filePath;
-    if (!std::filesystem::exists(filePath)) {
-        std::cerr << "Warning: Icon file not found at " << filePath << '\n';
-    } else {
-        QImage img = QImage(filePath.c_str());
-        if (inverted) {
-            invertImage_(img);
-        }
-        QPixmap pixmap = QPixmap::fromImage(img);
-        if (flipped) {
-            pixmap = flipPixmap_(pixmap);
-        }
-        QIcon icon = QIcon(pixmap);
-        setIcon(icon);
-        setIconSize(QSize(width() - 2, height() - 2));
+    QImage img = QImage(filePath.c_str());
+    if (inverted) {
+        invertImage_(img);
     }
+    QPixmap pixmap = QPixmap::fromImage(img);
+    if (flipped) {
+        pixmap = flipPixmap_(pixmap);
+    }
+    QIcon icon = QIcon(pixmap);
+    setIcon(icon);
+    setIconSize(QSize(width() - 2, height() - 2));
 }
 
 void AbstractButton::setPadding(int x, int y) {

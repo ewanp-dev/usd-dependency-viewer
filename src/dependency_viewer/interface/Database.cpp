@@ -28,11 +28,11 @@ DatabasePage::DatabasePage (const std::vector<std::string> &dependencies, QWidge
 
     sort_ = new AbstractButton();
     sort_->setSizePolicy(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Fixed);
-    sort_->setIconFromImage(DV_ELEMENTS_DIRECTORY + "filter.png");
+    sort_->setIconFromImage(":icons/filter.png");
 
     properties_ = new AbstractButton();
     properties_->setSizePolicy(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Fixed);
-    properties_->setIconFromImage(DV_ELEMENTS_DIRECTORY + "properties.png");
+    properties_->setIconFromImage(":icons/properties.png");
 
     resultsDropdown_ = new ResultsDropdownWidget();
     sortDropdown_ = new SortDropdownWidget();

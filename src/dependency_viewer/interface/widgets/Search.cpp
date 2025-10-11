@@ -14,7 +14,7 @@ SearchWidget::SearchWidget(std::vector<std::string> dependencies, QWidget* paren
     searchBar_ = new QLineEdit();
     results_ = new QListWidget();
     exitButton_ = new AbstractButton();
-    exitButton_->setIconFromImage(DV_ELEMENTS_DIRECTORY + "list.png");
+    exitButton_->setIconFromImage(":icons/list.png");
 
     searchBar_->setPlaceholderText("> Search for dependency...");
     searchBar_->setAttribute(Qt::WidgetAttribute::WA_StyledBackground, true);

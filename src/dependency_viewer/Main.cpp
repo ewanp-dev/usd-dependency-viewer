@@ -13,7 +13,7 @@ int main (int argc, char **argv) {
     QApplication::setCursorFlashTime(0);
 
     // NOTE: Setting embedded font
-    std::string fontName = DV_ELEMENTS_DIRECTORY + "FiraCodeNerdFontMono-Regular.ttf";
+    std::string fontName = ":/fonts/FiraCodeNerdFontMono-Regular.ttf";
     int id = QFontDatabase::addApplicationFont(fontName.c_str());
     QString family = QFontDatabase::applicationFontFamilies(id).at(0);
     QFont font = QFont(family, 10);

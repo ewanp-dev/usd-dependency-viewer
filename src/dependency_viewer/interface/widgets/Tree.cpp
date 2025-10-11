@@ -15,7 +15,7 @@ DependenciesTreeWidget::DependenciesTreeWidget(QWidget *parent) {
     searchBar_->setFixedHeight(25);
 
     filterButton_ = new AbstractButton();
-    filterButton_->setIconFromImage(DV_ELEMENTS_DIRECTORY + "filter.png");
+    filterButton_->setIconFromImage(":/icons/filter.png");
     filterButton_->setIconSize(QSize(filterButton_->width() - 4, filterButton_->height() - 4));
     // filterButton_->setFixedSize(18, 18);
 
