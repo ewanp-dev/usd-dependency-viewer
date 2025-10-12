@@ -47,6 +47,10 @@ ADD_DEFINITIONS(-DQT_NO_KEYWORDS)
 # tbb
 find_package(TBB REQUIRED COMPONENTS tbb)
 
+# usd
+find_package(pxr REQUIRED COMPONENTS usdGeom)
+
+
 
 qt_add_executable(${AppExec}
     ${SOURCES}

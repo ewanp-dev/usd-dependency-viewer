@@ -32,3 +32,8 @@ Built for VFX and animation pipelines where understanding complex USD hierarchie
 
 - **Search & Filtering**  
   Quickly locate assets by name, type, or dependency depth.
+
+## Build Dependencies
+- usd-devel
+- python3-devel
+- imath-devel
