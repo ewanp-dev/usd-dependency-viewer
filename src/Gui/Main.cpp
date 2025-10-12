@@ -21,11 +21,15 @@ int main (int argc, char **argv) {
 
     // NOTE: Setting embedded .qss stylesheet
     qDebug() << "Current working directory: " << QDir::currentPath();
-    QFile file("src/dependency_viewer/interface/elements/styles/style.qss");
+    QFile file(":/styles/style.qss");
     if (file.open(QFile::ReadOnly | QFile::Text)) {
         std::cout << "File is found " << '\n';
         QString stylesheet = file.readAll();
         app.setStyleSheet(stylesheet);
+    }
+    else
+    {
+        qDebug() << "Cannot read file :/styles/style.qss\n";
     }
 
     DependencyViewer* viewer = new DependencyViewer();

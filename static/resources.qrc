@@ -15,5 +15,7 @@
 
         <file>fonts/FiraCodeNerdFontMono-Regular.ttf</file>
         <file>fonts/CaskaydiaCoveNerdFontMono-Regular.ttf</file>
+
+        <file>styles/style.qss</file>
     </qresource>
 </RCC>

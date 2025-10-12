@@ -17,20 +17,20 @@ set(ENZO_DEV_LIB_DIR "${CMAKE_SOURCE_DIR}/build/src/OpDefs/")
 
 set(SOURCES
     static/resources.qrc
-    src/dependency_viewer/Main.cpp
-    src/dependency_viewer/interface/Application.cpp    
-    src/dependency_viewer/interface/AbstractButton.cpp
-    src/dependency_viewer/interface/Database.cpp
-    src/dependency_viewer/interface/Nodegraph.cpp
-    src/dependency_viewer/interface/Home.cpp
-    src/dependency_viewer/interface/widgets/Sidebar.cpp
-    src/dependency_viewer/interface/widgets/Search.cpp
-    src/dependency_viewer/interface/widgets/Settings.cpp
-    src/dependency_viewer/interface/widgets/Tree.cpp
-    src/dependency_viewer/interface/widgets/Header.cpp
-    src/dependency_viewer/interface/widgets/dropdown/Properties.cpp
-    src/dependency_viewer/interface/widgets/dropdown/Results.cpp
-    src/dependency_viewer/interface/widgets/dropdown/Sort.cpp
+    src/Gui/Main.cpp
+    src/Gui/interface/Application.cpp    
+    src/Gui/interface/AbstractButton.cpp
+    src/Gui/interface/Database.cpp
+    src/Gui/interface/Nodegraph.cpp
+    src/Gui/interface/Home.cpp
+    src/Gui/interface/widgets/Sidebar.cpp
+    src/Gui/interface/widgets/Search.cpp
+    src/Gui/interface/widgets/Settings.cpp
+    src/Gui/interface/widgets/Tree.cpp
+    src/Gui/interface/widgets/Header.cpp
+    src/Gui/interface/widgets/dropdown/Properties.cpp
+    src/Gui/interface/widgets/dropdown/Results.cpp
+    src/Gui/interface/widgets/dropdown/Sort.cpp
 )
 
 set(ENGINE_INCLUDE_DIRECTORIES
