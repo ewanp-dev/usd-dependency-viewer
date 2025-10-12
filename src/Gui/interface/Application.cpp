@@ -6,6 +6,9 @@
 #include <QPropertyAnimation>
 #include <iostream>
 #include <vector>
+#include <QFile>
+#include <QDir>
+#include <QApplication>
 
 DependencyViewer::DependencyViewer(QWidget *parent) {
     setWindowTitle("USD Dependency Viewer");
@@ -22,13 +25,15 @@ DependencyViewer::DependencyViewer(QWidget *parent) {
 
     std::vector<std::string> deps = {"Hello", "World"};
     itemDependencies_ = deps;
+    initStyleSheet();
+
     // ---------------------------------------
     // WIDGETS
     
     sidebar_ = new Sidebar();
     header_ = new Header();
     searchWidget_ = new SearchWidget(itemDependencies_);
-    settingsWidget_ = new SettingsWidget();
+    settingsWidget_ = new SettingsWidget(this);
     treeWidget_ = new DependenciesTreeWidget();
     treeWidget_->hide();
 
@@ -93,6 +98,63 @@ DependencyViewer::DependencyViewer(QWidget *parent) {
             settingsWidget_
         );
     });
+}
+
+void DependencyViewer::initStyleSheet()
+{
+    qDebug() << "Current working directory: " << QDir::currentPath();
+    QFile file(":/styles/style.qss");
+    QFile colorScheme(":/styles/default-color-scheme.qss");
+    if (!colorScheme.open(QFile::ReadOnly | QFile::Text)) {
+        qDebug() << "color sheme cannot be opened for read.";
+        return;
+    }
+    QTextStream in(&colorScheme);
+
+    std::unordered_map<QString, QString> styleVariables;
+    while(!in.atEnd()) {
+        QString line = in.readLine();    
+        if(line.length()<1) continue;
+        if(!line.startsWith('@')) continue;
+
+        QStringList fields = line.split("=");    
+        if(fields.length() != 2)
+        {
+            qDebug() << "Skipping parsing of line: " << line << "\n";
+            continue;
+        }
+        std::cout << "line: " << line.toStdString() << "\n";
+        QString variableName = fields.at(0).trimmed();
+        QString variableValue = fields.at(1).trimmed();
+
+        if(variableValue.endsWith(';'))
+        {
+            variableValue.chop(1);
+        }
+        
+        styleVariables.emplace(variableName, variableValue);
+
+        std::cout << "variableName: " << variableName.toStdString() << "\n";
+        std::cout << "variableName: " << variableValue.toStdString() << "\n";
+    }
+
+    colorScheme.close();
+
+    if (file.open(QFile::ReadOnly | QFile::Text)) {
+        std::cout << "Global style opened for read" << '\n';
+        QString stylesheet = file.readAll();
+        for(auto i : styleVariables)
+        {
+            stylesheet.replace(i.first, i.second);
+        }
+
+        qApp->setStyleSheet(stylesheet);
+    }
+    else
+    {
+        qDebug() << "Cannot read file :/styles/style.qss\n";
+    }
+
 }
 
 void DependencyViewer::showFloatingWidget_(QWidget* widget) {
