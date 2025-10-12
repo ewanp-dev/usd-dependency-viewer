@@ -19,6 +19,7 @@ class DependencyViewer : public QMainWindow
         void showFloatingWidget_(QWidget* widget);
         void expandDropdown_(bool checked);
         void initStyleSheet();
+        void initFonts();
         std::vector<std::string> itemDependencies_;
         int savedWidth_;
         SearchWidget* searchWidget_;

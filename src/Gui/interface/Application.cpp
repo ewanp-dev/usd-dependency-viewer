@@ -9,6 +9,7 @@
 #include <QFile>
 #include <QDir>
 #include <QApplication>
+#include <QFontDatabase>
 
 DependencyViewer::DependencyViewer(QWidget *parent) {
     setWindowTitle("USD Dependency Viewer");
@@ -25,7 +26,9 @@ DependencyViewer::DependencyViewer(QWidget *parent) {
 
     std::vector<std::string> deps = {"Hello", "World"};
     itemDependencies_ = deps;
+
     initStyleSheet();
+    initFonts();
 
     // ---------------------------------------
     // WIDGETS
@@ -155,6 +158,15 @@ void DependencyViewer::initStyleSheet()
         qDebug() << "Cannot read file :/styles/style.qss\n";
     }
 
+}
+
+void DependencyViewer::initFonts()
+{
+    std::string fontName = ":/fonts/FiraCodeNerdFontMono-Regular.ttf";
+    int id = QFontDatabase::addApplicationFont(fontName.c_str());
+    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
+    QFont font = QFont(family, 10);
+    qApp->setFont(font);
 }
 
 void DependencyViewer::showFloatingWidget_(QWidget* widget) {
