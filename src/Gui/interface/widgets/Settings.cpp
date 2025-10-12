@@ -20,11 +20,7 @@ SettingsWidget::SettingsWidget (QWidget *parent) {
 
     connect(exitButton_, &AbstractButton::clicked, this, &QWidget::close);
 
-    setStyleSheet(R"(
-        QWidget {
-            background-color: rgb(12, 12, 12);
-        }
-    )");
+    setProperty("class", "SettingsWidget");
 }
 
 void SettingsWidget::keyPressEvent(QKeyEvent *event) {

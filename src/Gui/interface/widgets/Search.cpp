@@ -35,29 +35,9 @@ SearchWidget::SearchWidget(std::vector<std::string> dependencies, QWidget* paren
 
     populateDefaultList();
 
-    searchBar_->setStyleSheet(R"(
-        QLineEdit {
-            background-color: rgb(60, 60, 60);
-            color: rgb(210, 210, 210);
-            padding-left: 6px;
-            padding-right: 6px;
-            border-radius: 0px;
-        }
-    )");
+    searchBar_->setProperty("class", "SearchBar");
 
-    results_->setStyleSheet(R"(
-        QListWidget {
-            background-transparent;
-            color: rgb(210, 210, 210);
-            padding: 6px 6px;
-        }
-    )");
-
-    setStyleSheet(R"(
-        QWidget {
-            background-color: rgb(12, 12, 12);
-        }
-    )");
+    setProperty("class", "SearchWidget");
 }
 
 void SearchWidget::keyPressEvent(QKeyEvent *event) {

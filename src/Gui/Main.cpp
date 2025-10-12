@@ -7,6 +7,7 @@
 #include <QFile>
 #include <QDir>
 #include <iostream>
+#include <unordered_map>
 
 int main (int argc, char **argv) {
     QApplication app (argc, argv);
@@ -22,10 +23,51 @@ int main (int argc, char **argv) {
     // NOTE: Setting embedded .qss stylesheet
     qDebug() << "Current working directory: " << QDir::currentPath();
     QFile file(":/styles/style.qss");
+    QFile colorScheme(":/styles/default-color-scheme.qss");
+    if (!colorScheme.open(QFile::ReadOnly | QFile::Text)) {
+        qDebug() << "color sheme cannot be opened for read.";
+        return 1;
+    }
+    QTextStream in(&colorScheme);
+
+    std::unordered_map<QString, QString> styleVariables;
+    while(!in.atEnd()) {
+        QString line = in.readLine();    
+        if(line.length()<1) continue;
+        if(!line.startsWith('@')) continue;
+
+        QStringList fields = line.split("=");    
+        if(fields.length() != 2)
+        {
+            qDebug() << "Skipping parsing of line: " << line << "\n";
+            continue;
+        }
+        std::cout << "line: " << line.toStdString() << "\n";
+        QString variableName = fields.at(0).trimmed();
+        QString variableValue = fields.at(1).trimmed();
+
+        if(variableValue.endsWith(';'))
+        {
+            variableValue.chop(1);
+        }
+        
+        styleVariables.emplace(variableName, variableValue);
+
+        std::cout << "variableName: " << variableName.toStdString() << "\n";
+        std::cout << "variableName: " << variableValue.toStdString() << "\n";
+    }
+
+    colorScheme.close();
+
     if (file.open(QFile::ReadOnly | QFile::Text)) {
-        std::cout << "File is found " << '\n';
+        std::cout << "Global style opened for read" << '\n';
         QString stylesheet = file.readAll();
+        for(auto i : styleVariables)
+        {
+            stylesheet.replace(i.first, i.second);
+        }
         app.setStyleSheet(stylesheet);
+        file.close();
     }
     else
     {

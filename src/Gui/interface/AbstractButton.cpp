@@ -9,17 +9,7 @@ AbstractButton::AbstractButton(
 ) 
 { 
     setFixedSize(width, height);
-    setStyleSheet(R"(
-        QPushButton {
-            border: none;
-            color: rgb(210, 210, 210);
-            background: transparent;
-            padding: 4px 4px;
-        }
-        QPushButton:hover {
-            background-color: rgb(60, 60, 60);
-        }
-    )");
+    setProperty("class", "AbstractButton");
 }
 
 void AbstractButton::setIconFromImage(const std::string& filePath, bool flipped, bool inverted) {
@@ -35,11 +25,6 @@ void AbstractButton::setIconFromImage(const std::string& filePath, bool flipped,
     QIcon icon = QIcon(pixmap);
     setIcon(icon);
     setIconSize(QSize(width() - 2, height() - 2));
-}
-
-void AbstractButton::setPadding(int x, int y) {
-    QString style = QString("padding: %1px %2px;").arg(x).arg(y);
-    setStyleSheet(style);
 }
 
 std::string AbstractButton::iconPath() {

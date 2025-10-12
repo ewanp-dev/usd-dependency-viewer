@@ -25,19 +25,6 @@ HomePage::HomePage(QWidget *parent) {
     layout->addWidget(search_, 0, Qt::AlignmentFlag::AlignHCenter);
     layout->addStretch();
 
-    homeLabel_->setStyleSheet(R"(
-        QLabel {
-            color: rgb(210, 210, 210);
-        }
-    )");
-
-    search_->setStyleSheet(R"(
-        QLineEdit {
-            background-color: rgb(40, 40, 40);
-            color: rgb(210, 210, 210);
-            padding-left: 6px;
-            padding-right: 6px;
-            border-radius: 0px;
-        }
-    )");
+    homeLabel_->setProperty("class", "Title");
+    search_->setProperty("class", "SearchBar");
 }

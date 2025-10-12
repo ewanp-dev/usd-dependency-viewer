@@ -24,11 +24,7 @@ Header::Header() {
     layout->addStretch();
     layout->addWidget(search);
 
-    setStyleSheet(R"(
-        QWidget {
-            background-color: rgb(20, 20, 20);
-        }
-    )");
+    setProperty("class", "WindowHeader");
 }
 
 

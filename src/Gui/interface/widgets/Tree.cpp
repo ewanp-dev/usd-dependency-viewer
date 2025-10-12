@@ -26,26 +26,6 @@ DependenciesTreeWidget::DependenciesTreeWidget(QWidget *parent) {
     layout->addLayout(topLayout);
     layout->addWidget(dependenciesList_);
 
-    searchBar_->setStyleSheet(R"(
-        QLineEdit {
-            background-color: rgb(60, 60, 60);
-            color: rgb(210, 210, 210);
-            padding-left: 6px;
-            padding-right: 6px;
-            border-radius: 0px;
-        }
-    )");
-
-    dependenciesList_->setStyleSheet(R"(
-        QListWidget {
-            background: transparent;
-            border: none;
-        }
-    )");
-
-    setStyleSheet(R"(
-        QWidget {
-            background-color: rgb(20, 20, 20);
-        }
-    )");
+    setProperty("class", "DependenciesTree");
+    searchBar_->setProperty("class", "SearchBar");
 }
