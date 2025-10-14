@@ -6,6 +6,7 @@
 #include <QString>
 #include <QFile>
 #include <QDir>
+#include "Core/DependencyEvaluation.h"
 
 int main (int argc, char **argv) {
     QApplication app (argc, argv);
@@ -14,6 +15,8 @@ int main (int argc, char **argv) {
     DependencyViewer* viewer = new DependencyViewer();
 
     viewer->show();
+
+    UsdDependencyGraph("/home/parker/Downloads/ALab-2.2.0/ALab/entry.usda");
 
     return app.exec();
 }
