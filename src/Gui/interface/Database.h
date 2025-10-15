@@ -6,12 +6,18 @@
 #include "widgets/dropdown/Properties.h"
 #include <QTableWidget>
 #include <vector>
+#include <QHBoxLayout>
 
 class DatabasePage : public QWidget
 {
     public:
         DatabasePage(const std::vector<std::string> &dependencies, QWidget* parent = nullptr);
     private:
+        void initHeader();
+        void initTable();
+
+        QVBoxLayout* mainLayout_;
+
         void hideColumn_();
         void showDropdown_(AbstractButton *button, QWidget *dropdown, int shift = 0);
         void switchSortType();

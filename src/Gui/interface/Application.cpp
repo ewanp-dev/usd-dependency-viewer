@@ -107,7 +107,7 @@ void DependencyViewer::initStyleSheet()
 {
     qDebug() << "Current working directory: " << QDir::currentPath();
     QFile file(":/styles/style.qss");
-    QFile colorScheme(":/styles/default-color-scheme.qss");
+    QFile colorScheme(":/styles/blue-color-scheme.qss");
     if (!colorScheme.open(QFile::ReadOnly | QFile::Text)) {
         qDebug() << "color sheme cannot be opened for read.";
         return;

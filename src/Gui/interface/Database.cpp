@@ -9,22 +9,26 @@
 #include <QHeaderView>
 #include <vector>
 
-DatabasePage::DatabasePage (const std::vector<std::string> &dependencies, QWidget* parent) {
-    itemDependencies_ = dependencies;
+DatabasePage::DatabasePage (const std::vector<std::string> &dependencies, QWidget* parent)
+: itemDependencies_{dependencies}
+{
+    mainLayout_ = new QVBoxLayout(this);
+    mainLayout_->setContentsMargins(10, 10, 10, 10);
 
-    int paddingX = 5, paddingY = 5;
-    QSize iconSize = QSize(18, 18);
+    initHeader();
+    initTable();
 
-    QVBoxLayout* layout = new QVBoxLayout(this);
+}
+
+void DatabasePage::initHeader()
+{
     QHBoxLayout* layoutHeader = new QHBoxLayout();
-
-    layout->setContentsMargins(10, 10, 10, 10);
     layoutHeader->setContentsMargins(10, 5, 10, 5);
 
     resultsList_ = new AbstractButton();
     resultsList_->setFixedWidth(100);
     resultsList_->setSizePolicy(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Fixed);
-    resultsList_->setText(QString::number(static_cast<qulonglong>(dependencies.size())) + " Results");
+    resultsList_->setText(QString::number(static_cast<qulonglong>(itemDependencies_.size())) + " Results");
 
     sort_ = new AbstractButton();
     sort_->setSizePolicy(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Fixed);
@@ -54,7 +58,12 @@ DatabasePage::DatabasePage (const std::vector<std::string> &dependencies, QWidge
     layoutHeader->addStretch(1);
     layoutHeader->addWidget(sort_);
     layoutHeader->addWidget(properties_);
-    
+
+    mainLayout_->addLayout(layoutHeader);
+}
+
+void DatabasePage::initTable()
+{
     table_ = new QTableWidget(); 
     table_->resizeRowsToContents();
     table_->verticalHeader()->setVisible(false);
@@ -75,6 +84,7 @@ DatabasePage::DatabasePage (const std::vector<std::string> &dependencies, QWidge
     // TODO: Convert the font to a global font so we can use across the interface
     QFont itemFont = QFont("Sans Serif", 10);
     itemFont.setUnderline(true);
+
     for (size_t i = 0; i < itemDependencies_.size(); i++) {
         QTableWidgetItem *nameItem =  new QTableWidgetItem(itemDependencies_[i].c_str());
         QTableWidgetItem *pathItem = new QTableWidgetItem(itemDependencies_[i].c_str());
@@ -100,8 +110,8 @@ DatabasePage::DatabasePage (const std::vector<std::string> &dependencies, QWidge
     // table_->setColumnHidden(3, true);
     // table_->setColumnHidden(4, true);
 
-    layout->addLayout(layoutHeader);
-    layout->addWidget(table_);
+
+    mainLayout_->addWidget(table_);
 }
 
 void DatabasePage::showDropdown_(AbstractButton *button, QWidget *dropdown, int shift) {
