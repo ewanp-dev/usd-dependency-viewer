@@ -16,20 +16,24 @@ project(force_directed_graph_qt)
 set(ENZO_DEV_LIB_DIR "${CMAKE_SOURCE_DIR}/build/src/OpDefs/")
 
 set(SOURCES
-    src/dependency_viewer/Main.cpp
-    src/dependency_viewer/interface/Application.cpp    
-    src/dependency_viewer/interface/AbstractButton.cpp
-    src/dependency_viewer/interface/Database.cpp
-    src/dependency_viewer/interface/Nodegraph.cpp
-    src/dependency_viewer/interface/Home.cpp
-    src/dependency_viewer/interface/widgets/Sidebar.cpp
-    src/dependency_viewer/interface/widgets/Search.cpp
-    src/dependency_viewer/interface/widgets/Settings.cpp
-    src/dependency_viewer/interface/widgets/Tree.cpp
-    src/dependency_viewer/interface/widgets/Header.cpp
-    src/dependency_viewer/interface/widgets/dropdown/Properties.cpp
-    src/dependency_viewer/interface/widgets/dropdown/Results.cpp
-    src/dependency_viewer/interface/widgets/dropdown/Sort.cpp
+    static/resources.qrc
+    src/Gui/Main.cpp
+    src/Gui/interface/Application.cpp    
+    src/Gui/interface/AbstractButton.cpp
+    src/Gui/interface/Database.cpp
+    src/Gui/interface/Nodegraph.cpp
+    src/Gui/interface/Home.cpp
+    src/Gui/interface/widgets/Sidebar.cpp
+    src/Gui/interface/widgets/Search.cpp
+    src/Gui/interface/widgets/Settings.cpp
+    src/Gui/interface/widgets/Tree.cpp
+    src/Gui/interface/widgets/Header.cpp
+    src/Gui/interface/widgets/dropdown/Properties.cpp
+    src/Gui/interface/widgets/dropdown/Results.cpp
+    src/Gui/interface/widgets/dropdown/Sort.cpp
+
+    src/Core/DependencyEvaluation.cpp
+    src/Core/DependencyNode.cpp
 )
 
 set(ENGINE_INCLUDE_DIRECTORIES
@@ -44,7 +48,16 @@ qt_standard_project_setup()
 ADD_DEFINITIONS(-DQT_NO_KEYWORDS)
 
 # tbb
-find_package(TBB REQUIRED COMPONENTS tbb)
+# find_package(TBB REQUIRED COMPONENTS tbb)
+
+find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
+include_directories(${Python3_INCLUDE_DIRS})
+
+# usd
+set(PXR_USD_LOCATION "$ENV{HOME}/USD")
+list(APPEND CMAKE_PREFIX_PATH "${PXR_USD_LOCATION}")
+find_package(pxr REQUIRED COMPONENTS Sdf Tf Vt Usd)
+
 
 
 qt_add_executable(${AppExec}
@@ -53,8 +66,15 @@ qt_add_executable(${AppExec}
 
 target_compile_definitions(${AppExec} PRIVATE ENZO_DEV_LIB_DIR="${ENZO_DEV_LIB_DIR}")
 
-
-target_link_libraries(${AppExec} PRIVATE Qt6::Core Qt6::Widgets Qt6::SvgWidgets Qt6::OpenGLWidgets TBB::tbb)
+target_link_libraries(${AppExec} PRIVATE
+    Qt6::Core
+    Qt6::Widgets
+    Qt6::SvgWidgets
+    Qt6::OpenGLWidgets
+    TBB::tbb
+    Python3::Python
+    ${PXR_LIBRARIES}
+)
 target_include_directories(${AppExec} PUBLIC
     ${ENGINE_INCLUDE_DIRECTORIES}
 )

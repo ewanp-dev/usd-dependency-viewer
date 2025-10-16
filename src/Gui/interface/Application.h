@@ -10,6 +10,7 @@
 #include "widgets/Settings.h"
 #include "widgets/Header.h"
 #include "widgets/Search.h"
+#include "Core/DependencyEvaluation.h"
 
 class DependencyViewer : public QMainWindow 
 {
@@ -18,6 +19,8 @@ class DependencyViewer : public QMainWindow
     private:
         void showFloatingWidget_(QWidget* widget);
         void expandDropdown_(bool checked);
+        void initStyleSheet();
+        void initFonts();
         std::vector<std::string> itemDependencies_;
         int savedWidth_;
         SearchWidget* searchWidget_;
@@ -28,4 +31,5 @@ class DependencyViewer : public QMainWindow
         DatabasePage *databasePage_;
         NodegraphPage *nodegraphPage_;
         HomePage *homePage_;
+        UsdDependencyGraph* dependencyGraph_;
 };

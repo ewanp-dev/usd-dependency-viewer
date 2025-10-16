@@ -14,7 +14,6 @@ class AbstractButton : public QPushButton
             QWidget* parent = nullptr 
         );
         void setIconFromImage(const std::string& filePath, bool flipped = false, bool inverted = DV_ICONS_INVERTED);
-        void setPadding(int x, int y);
         std::string iconPath();
 
     private:

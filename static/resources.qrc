@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/filter.png</file>
+        <file>icons/list.png</file>
+        <file>icons/search.png</file>
+        <file>icons/sort.png</file>
+        <file>icons/grid.png</file>
+        <file>icons/node.png</file>
+        <file>icons/viewer.png</file>
+        <file>icons/settings.png</file>
+        <file>icons/home.png</file>
+        <file>icons/properties.png</file>
+        <file>icons/sidebar.png</file>
+        <file>icons/view.png</file>
+
+        <file>fonts/FiraCodeNerdFontMono-Regular.ttf</file>
+        <file>fonts/CaskaydiaCoveNerdFontMono-Regular.ttf</file>
+
+        <file>styles/style.qss</file>
+        <file>styles/default-color-scheme.qss</file>
+        <file>styles/blue-color-scheme.qss</file>
+    </qresource>
+</RCC>

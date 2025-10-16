@@ -1,0 +1,9 @@
+@foo = "blue";
+@bg-main=rgb(12, 12, 12);
+@bg-dark-1=
+@bg-dark-2=
+@bg-light-1=rgb(20, 20, 20);
+@bg-light-2=rgb(40, 40, 40);
+@bg-light-3=rgb(60, 60, 60);
+@fg-main=rgb(190, 190, 190);
+@fg-light-1=rgb(210, 210, 210);
