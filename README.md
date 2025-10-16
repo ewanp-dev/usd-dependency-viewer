@@ -9,10 +9,12 @@
 
 A modern **C++ & Qt application** for exploring, visualizing, and managing **USD (Universal Scene Description) asset dependencies**.  
 Built for VFX and animation pipelines where understanding complex USD hierarchies is critical.
+> [!NOTE]
+> Early wip
 
 ---
 
-## ✨ Features
+## Features
 
 - **Dependency Graph Visualization**
 
