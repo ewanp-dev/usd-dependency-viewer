@@ -12,9 +12,15 @@ UsdDependencyGraph::UsdDependencyGraph(std::string usdFilePath)
 {
     pxr::ArResolverScopedCache cache; // caches resolves while within scope
 
+    rootNode_ = createNode(usdFilePath);
     walkTreeRecursive(usdFilePath);
 
     printDebug();
+}
+
+DependencyNode* UsdDependencyGraph::getRootNode()
+{
+    return rootNode_;
 }
 
 void UsdDependencyGraph::printDebug()
@@ -62,7 +68,6 @@ void UsdDependencyGraph::walkTreeRecursive(std::string startPath)
         return;
     }
 
-    // TODO deduplication
     DependencyNode* startNode = createNode(startPath);
 
     std::string resolvedPath = layer->GetResolvedPath();

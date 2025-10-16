@@ -10,6 +10,7 @@
 #include "widgets/Settings.h"
 #include "widgets/Header.h"
 #include "widgets/Search.h"
+#include "Core/DependencyEvaluation.h"
 
 class DependencyViewer : public QMainWindow 
 {
@@ -30,4 +31,5 @@ class DependencyViewer : public QMainWindow
         DatabasePage *databasePage_;
         NodegraphPage *nodegraphPage_;
         HomePage *homePage_;
+        UsdDependencyGraph* dependencyGraph_;
 };

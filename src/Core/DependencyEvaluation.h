@@ -9,8 +9,11 @@ class UsdDependencyGraph
     public:
         UsdDependencyGraph(std::string usdFilePath);
         void printDebug();
+        DependencyNode* getRootNode();
     private:
         DependencyNode* createNode(std::string usdFilePath);
+
+        DependencyNode* rootNode_;
         
         // using ChildList = std::vector<std::vector<size_t>>;
         // ChildList nodeConnections_;

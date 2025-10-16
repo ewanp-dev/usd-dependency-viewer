@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "Core/DependencyEvaluation.h"
 #include "widgets/Search.h"
 #include <QStackedWidget>
 #include <QSplitter>
@@ -11,9 +12,13 @@
 #include <QApplication>
 #include <QFontDatabase>
 
-DependencyViewer::DependencyViewer(QWidget *parent) {
+DependencyViewer::DependencyViewer(QWidget *parent)
+    : dependencyGraph_(new UsdDependencyGraph("/home/parker/Downloads/ALab-2.2.0/ALab/entry.usda"))
+{
     setWindowTitle("USD Dependency Viewer");
     setGeometry(100, 100, 1280, 720);
+
+    // dependencyGraph_ = UsdDependencyGraph("/home/parker/Downloads/ALab-2.2.0/ALab/entry.usda");
 
     savedWidth_ = 200;
 
@@ -43,6 +48,7 @@ DependencyViewer::DependencyViewer(QWidget *parent) {
     // ---------------------------------------
     // PAGES SETUP
     databasePage_ = new DatabasePage(itemDependencies_);
+    databasePage_->setDependencyGraph(dependencyGraph_);
     nodegraphPage_ = new NodegraphPage();
     homePage_ = new HomePage();
     
