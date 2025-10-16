@@ -7,7 +7,7 @@
   </a>
 </p>
 
-A modern **Python + Qt application** for exploring, visualizing, and managing **USD (Universal Scene Description) asset dependencies**.  
+A modern **C++ & Qt application** for exploring, visualizing, and managing **USD (Universal Scene Description) asset dependencies**.  
 Built for VFX and animation pipelines where understanding complex USD hierarchies is critical.
 
 ---
