@@ -27,10 +27,12 @@ class DatabasePage : public QWidget
         void initTable();
 
         QVBoxLayout* mainLayout_;
+        DependencyNode* activeNode_;
 
         void hideColumn_();
         void showDropdown_(AbstractButton *button, QWidget *dropdown, int shift = 0);
         void switchSortType();
+        void onCellDoubleClicked(int row, int column);
         AbstractButton* resultsList_;
         AbstractButton* sort_;
         AbstractButton* properties_;

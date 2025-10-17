@@ -10,6 +10,8 @@
 #include <QHeaderView>
 #include <vector>
 
+#include <iostream>
+
 DatabasePage::DatabasePage (const std::vector<std::string> &dependencies, QWidget* parent)
 {
     mainLayout_ = new QVBoxLayout(this);
@@ -75,29 +77,8 @@ void DatabasePage::initTable()
 
     // NOTE: We might want to add some more columns later on down the line
     // might be worth converting this to its own QStringList as a variable
-    table_->setHorizontalHeaderLabels({ "File Name", "File Path", "File Size", "Extension", "Date Modified" });
+    table_->setHorizontalHeaderLabels({ "File Name", "File Path", "Children", "File Size", "Date Modified" });
     table_->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeMode::Stretch);
-
-    // TODO: Replace TableWidgetItems with correct options after USD Implementation
-    // TODO: Look into making this more memory/speed efficient
-    // TODO: Convert the font to a global font so we can use across the interface
-
-    // for (size_t i = 0; i < itemDependencies_.size(); i++) {
-    //     QTableWidgetItem *nameItem =  new QTableWidgetItem(itemDependencies_[i].c_str());
-    //     QTableWidgetItem *pathItem = new QTableWidgetItem(itemDependencies_[i].c_str());
-    //     QTableWidgetItem *fileSizeItem = new QTableWidgetItem(QString::number(static_cast<qulonglong>(i)));
-    //     QTableWidgetItem *extensionItem = new QTableWidgetItem(QString::number(static_cast<qulonglong>(i)));
-    //     QTableWidgetItem *dateModifiedItem = new QTableWidgetItem(QString::number(static_cast<qulonglong>(i)));
-    //
-    //     nameItem->setForeground(QBrush(QColor(210, 186, 146)));
-    //     nameItem->setFont(itemFont);
-    //
-    //     table_->setItem(i, 0, nameItem);
-    //     table_->setItem(i, 1, pathItem);
-    //     table_->setItem(i, 2, fileSizeItem);
-    //     table_->setItem(i, 3, extensionItem);
-    //     table_->setItem(i, 4, dateModifiedItem);
-    // }
 
     mainLayout_->addWidget(table_);
 }
@@ -109,10 +90,17 @@ void DatabasePage::setDependencyGraph(UsdDependencyGraph* graph)
 
 void DatabasePage::setActiveNode(DependencyNode* node)
 {
+    activeNode_ = node;
+
+    table_->clearContents();
+    connect(table_, &QTableWidget::cellDoubleClicked, this, &DatabasePage::onCellDoubleClicked);
+
     size_t numDependencies = node->getNumChildren();
+    std::cout << "num children: " << numDependencies << "\n";
     std::vector<DependencyNode*> dependencyNodes = node->getChildNodes();
     resultsList_->setText(QString::number(static_cast<qulonglong>(numDependencies)) + " Results");
 
+    // TODO: Convert the font to a global font so we can use across the interface
     QFont itemFont = QFont("Sans Serif", 10);
     itemFont.setUnderline(true);
 
@@ -122,7 +110,7 @@ void DatabasePage::setActiveNode(DependencyNode* node)
         QTableWidgetItem *nameItem =  new QTableWidgetItem(dependencyNode->getFileName().c_str());
         QTableWidgetItem *pathItem = new QTableWidgetItem(dependencyNode->getFilePath().c_str());
         QTableWidgetItem *fileSizeItem = new QTableWidgetItem(QString::number(static_cast<qulonglong>(i)));
-        QTableWidgetItem *extensionItem = new QTableWidgetItem(QString::number(static_cast<qulonglong>(i)));
+        QTableWidgetItem *numChildrenItem = new QTableWidgetItem(QString::number(dependencyNode->getNumChildren()));
         QTableWidgetItem *dateModifiedItem = new QTableWidgetItem(QString::number(static_cast<qulonglong>(i)));
 
         nameItem->setForeground(QBrush(QColor(210, 186, 146)));
@@ -130,8 +118,8 @@ void DatabasePage::setActiveNode(DependencyNode* node)
 
         table_->setItem(i, 0, nameItem);
         table_->setItem(i, 1, pathItem);
-        table_->setItem(i, 2, fileSizeItem);
-        table_->setItem(i, 3, extensionItem);
+        table_->setItem(i, 2, numChildrenItem);
+        table_->setItem(i, 3, fileSizeItem);
         table_->setItem(i, 4, dateModifiedItem);
     }
 }
@@ -146,4 +134,35 @@ void DatabasePage::showDropdown_(AbstractButton *button, QWidget *dropdown, int 
 
     dropdown->move(pos.x(), pos.y());
     dropdown->show();
+}
+
+void DatabasePage::onCellDoubleClicked(int row, int column)
+{
+    // NOTE: not the best way to get the graph nod3 but it's fine.
+
+    std::cout << "double clicked\n";
+    auto tableItem = table_->item(row, 1);
+    if(!tableItem)
+    {
+        std::cout << "table item doesn't exist\n";
+        return;
+    }
+    std::string filePath = tableItem->text().toStdString();
+
+    std::vector<DependencyNode*> childNodes = activeNode_->getChildNodes();
+    for(auto node : childNodes)
+    {
+        if(node->getFilePath() == filePath)
+        {
+            if(node->getNumChildren()==0)
+            {
+                std::cout << "Node has no children\n";
+                break;
+            }
+            std::cout << "setting active node\n";
+            std::cout << "path: " << filePath << "\n";
+            setActiveNode(node);
+            break;
+        }
+    }
 }
