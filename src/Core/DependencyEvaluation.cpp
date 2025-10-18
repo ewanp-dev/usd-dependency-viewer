@@ -18,7 +18,7 @@ UsdDependencyGraph::UsdDependencyGraph(std::string usdFilePath)
     printDebug();
 }
 
-DependencyNode* UsdDependencyGraph::getRootNode()
+std::shared_ptr<DependencyNode> UsdDependencyGraph::getRootNode()
 {
     return rootNode_;
 }
@@ -41,7 +41,7 @@ void UsdDependencyGraph::printDebug()
 
 }
     
-DependencyNode* UsdDependencyGraph::createNode(std::string usdFilePath)
+std::shared_ptr<DependencyNode> UsdDependencyGraph::createNode(std::string usdFilePath)
 {
     // check if node already exists
     auto it = pathNodeMap_.find(usdFilePath);
@@ -52,7 +52,7 @@ DependencyNode* UsdDependencyGraph::createNode(std::string usdFilePath)
         return it->second;
     }
 
-    DependencyNode* newNode = new DependencyNode(usdFilePath);
+    std::shared_ptr<DependencyNode> newNode = std::make_shared<DependencyNode>(usdFilePath);
     nodesStore_.push_back(newNode);
     pathNodeMap_[usdFilePath] = newNode;
 
@@ -68,7 +68,7 @@ void UsdDependencyGraph::walkTreeRecursive(std::string startPath)
         return;
     }
 
-    DependencyNode* startNode = createNode(startPath);
+    std::shared_ptr<DependencyNode> startNode = createNode(startPath);
 
     std::string resolvedPath = layer->GetResolvedPath();
 
@@ -80,7 +80,7 @@ void UsdDependencyGraph::walkTreeRecursive(std::string startPath)
     {
         std::string resolvedSubPath = pxr::SdfComputeAssetPathRelativeToLayer(layer, reference);
 
-        DependencyNode* childNode = createNode(resolvedSubPath);
+        std::shared_ptr<DependencyNode> childNode = createNode(resolvedSubPath);
         startNode->addChildNode(childNode);
 
         // std::cout << startPath << " -> " << resolvedSubPath << "\n";

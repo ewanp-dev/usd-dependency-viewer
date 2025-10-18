@@ -88,7 +88,7 @@ void DatabasePage::setDependencyGraph(UsdDependencyGraph* graph)
     setActiveNode(graph->getRootNode());
 }
 
-void DatabasePage::setActiveNode(DependencyNode* node)
+void DatabasePage::setActiveNode(std::shared_ptr<DependencyNode> node)
 {
     activeNode_ = node;
 
@@ -97,7 +97,7 @@ void DatabasePage::setActiveNode(DependencyNode* node)
 
     size_t numDependencies = node->getNumChildren();
     std::cout << "num children: " << numDependencies << "\n";
-    std::vector<DependencyNode*> dependencyNodes = node->getChildNodes();
+    std::vector<std::shared_ptr<DependencyNode>> dependencyNodes = node->getChildNodes();
     resultsList_->setText(QString::number(static_cast<qulonglong>(numDependencies)) + " Results");
 
     // TODO: Convert the font to a global font so we can use across the interface
@@ -106,7 +106,7 @@ void DatabasePage::setActiveNode(DependencyNode* node)
 
     table_->setRowCount(static_cast<int>(numDependencies));
     for (size_t i = 0; i < numDependencies; i++) {
-        DependencyNode* dependencyNode = dependencyNodes[i];
+        std::shared_ptr<DependencyNode> dependencyNode = dependencyNodes[i];
         QTableWidgetItem *nameItem =  new QTableWidgetItem(dependencyNode->getFileName().c_str());
         QTableWidgetItem *pathItem = new QTableWidgetItem(dependencyNode->getFilePath().c_str());
         QTableWidgetItem *fileSizeItem = new QTableWidgetItem(QString::number(static_cast<qulonglong>(i)));
@@ -149,7 +149,7 @@ void DatabasePage::onCellDoubleClicked(int row, int column)
     }
     std::string filePath = tableItem->text().toStdString();
 
-    std::vector<DependencyNode*> childNodes = activeNode_->getChildNodes();
+    std::vector<std::shared_ptr<DependencyNode>> childNodes = activeNode_->getChildNodes();
     for(auto node : childNodes)
     {
         if(node->getFilePath() == filePath)

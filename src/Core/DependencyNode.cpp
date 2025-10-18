@@ -7,12 +7,12 @@ DependencyNode::DependencyNode(std::string filePath)
 
 }
 
-void DependencyNode::addChildNode(DependencyNode* childNode)
+void DependencyNode::addChildNode(std::shared_ptr<DependencyNode> childNode)
 {
     childrenNodes_.push_back(childNode);
 }
 
-DependencyNode* DependencyNode::getChildNode(size_t index)
+std::shared_ptr<DependencyNode> DependencyNode::getChildNode(size_t index)
 {
     return childrenNodes_.at(index);
 }
@@ -22,7 +22,7 @@ size_t DependencyNode::getNumChildren() const
     return childrenNodes_.size();
 }
 
-const std::vector<DependencyNode*>& DependencyNode::getChildNodes() const
+const std::vector<std::shared_ptr<DependencyNode>>& DependencyNode::getChildNodes() const
 {
     return childrenNodes_;
 }

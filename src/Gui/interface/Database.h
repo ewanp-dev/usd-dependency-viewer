@@ -14,7 +14,7 @@ class DatabasePage : public QWidget
 {
     public:
         DatabasePage(const std::vector<std::string> &dependencies, QWidget* parent = nullptr);
-        void setActiveNode(DependencyNode* node);
+        void setActiveNode(std::shared_ptr<DependencyNode> node);
         void setDependencyGraph(UsdDependencyGraph* graph);
     private:
         /**
@@ -27,7 +27,7 @@ class DatabasePage : public QWidget
         void initTable();
 
         QVBoxLayout* mainLayout_;
-        DependencyNode* activeNode_;
+        std::shared_ptr<DependencyNode> activeNode_;
 
         void hideColumn_();
         void showDropdown_(AbstractButton *button, QWidget *dropdown, int shift = 0);
