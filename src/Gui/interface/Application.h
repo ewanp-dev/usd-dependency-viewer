@@ -3,14 +3,14 @@
 #include <QMainWindow>
 #include <QVBoxLayout>
 #include "Home.h"
-#include "Database.h"
+#include "RecursiveViewPage.h"
 #include "Nodegraph.h"
 #include "widgets/Tree.h"
 #include "widgets/Sidebar.h"
 #include "widgets/Settings.h"
 #include "widgets/Header.h"
 #include "widgets/Search.h"
-#include "Core/DependencyEvaluation.h"
+#include "Core/UsdDependencyGraph.h"
 
 class DependencyViewer : public QMainWindow 
 {
@@ -28,7 +28,7 @@ class DependencyViewer : public QMainWindow
         DependenciesTreeWidget* treeWidget_;
         Sidebar *sidebar_;
         Header *header_;
-        DatabasePage *databasePage_;
+        RecursiveViewPage *databasePage_;
         NodegraphPage *nodegraphPage_;
         HomePage *homePage_;
         UsdDependencyGraph* dependencyGraph_;

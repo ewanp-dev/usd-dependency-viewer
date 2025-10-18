@@ -1,5 +1,5 @@
 #include "Application.h"
-#include "Core/DependencyEvaluation.h"
+#include "Core/UsdDependencyGraph.h"
 #include "widgets/Search.h"
 #include <QStackedWidget>
 #include <QSplitter>
@@ -47,7 +47,7 @@ DependencyViewer::DependencyViewer(QWidget *parent)
 
     // ---------------------------------------
     // PAGES SETUP
-    databasePage_ = new DatabasePage(itemDependencies_);
+    databasePage_ = new RecursiveViewPage(itemDependencies_);
     databasePage_->setDependencyGraph(dependencyGraph_);
     nodegraphPage_ = new NodegraphPage();
     homePage_ = new HomePage();

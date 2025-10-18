@@ -1,4 +1,4 @@
-#include "Database.h"
+#include "RecursiveViewPage.h"
 #include "Core/DependencyNode.h"
 #include "Globals.h"
 #include <QWidget>
@@ -12,7 +12,7 @@
 
 #include <iostream>
 
-DatabasePage::DatabasePage (const std::vector<std::string> &dependencies, QWidget* parent)
+RecursiveViewPage::RecursiveViewPage (const std::vector<std::string> &dependencies, QWidget* parent)
 {
     mainLayout_ = new QVBoxLayout(this);
     mainLayout_->setContentsMargins(10, 10, 10, 10);
@@ -22,7 +22,7 @@ DatabasePage::DatabasePage (const std::vector<std::string> &dependencies, QWidge
 
 }
 
-void DatabasePage::initHeader()
+void RecursiveViewPage::initHeader()
 {
     QHBoxLayout* layoutHeader = new QHBoxLayout();
     layoutHeader->setContentsMargins(10, 5, 10, 5);
@@ -63,7 +63,7 @@ void DatabasePage::initHeader()
     mainLayout_->addLayout(layoutHeader);
 }
 
-void DatabasePage::initTable()
+void RecursiveViewPage::initTable()
 {
     table_ = new QTableWidget(); 
     table_->resizeRowsToContents();
@@ -83,17 +83,17 @@ void DatabasePage::initTable()
     mainLayout_->addWidget(table_);
 }
 
-void DatabasePage::setDependencyGraph(UsdDependencyGraph* graph)
+void RecursiveViewPage::setDependencyGraph(UsdDependencyGraph* graph)
 {
     setActiveNode(graph->getRootNode());
 }
 
-void DatabasePage::setActiveNode(std::shared_ptr<DependencyNode> node)
+void RecursiveViewPage::setActiveNode(std::shared_ptr<DependencyNode> node)
 {
     activeNode_ = node;
 
     table_->clearContents();
-    connect(table_, &QTableWidget::cellDoubleClicked, this, &DatabasePage::onCellDoubleClicked);
+    connect(table_, &QTableWidget::cellDoubleClicked, this, &RecursiveViewPage::onCellDoubleClicked);
 
     size_t numDependencies = node->getNumChildren();
     std::cout << "num children: " << numDependencies << "\n";
@@ -125,7 +125,7 @@ void DatabasePage::setActiveNode(std::shared_ptr<DependencyNode> node)
 }
 
 
-void DatabasePage::showDropdown_(AbstractButton *button, QWidget *dropdown, int shift) {
+void RecursiveViewPage::showDropdown_(AbstractButton *button, QWidget *dropdown, int shift) {
     QPointF pos = button->mapToGlobal(button->rect().bottomLeft());
     if (shift > 0) {
         int posX = pos.x() - shift;
@@ -136,7 +136,7 @@ void DatabasePage::showDropdown_(AbstractButton *button, QWidget *dropdown, int 
     dropdown->show();
 }
 
-void DatabasePage::onCellDoubleClicked(int row, int column)
+void RecursiveViewPage::onCellDoubleClicked(int row, int column)
 {
     // NOTE: not the best way to get the graph nod3 but it's fine.
 

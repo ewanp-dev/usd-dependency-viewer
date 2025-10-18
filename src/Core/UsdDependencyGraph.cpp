@@ -5,7 +5,7 @@
 #include <pxr/usd/ar/resolver.h>
 #include <pxr/usd/ar/resolverContextBinder.h>
 #include <pxr/usd/ar/resolverScopedCache.h>
-#include "Core/DependencyEvaluation.h"
+#include "Core/UsdDependencyGraph.h"
 #include "Core/DependencyNode.h"
 
 UsdDependencyGraph::UsdDependencyGraph(std::string usdFilePath)

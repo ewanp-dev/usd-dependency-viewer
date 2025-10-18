@@ -20,7 +20,7 @@ set(SOURCES
     src/Gui/Main.cpp
     src/Gui/interface/Application.cpp    
     src/Gui/interface/AbstractButton.cpp
-    src/Gui/interface/Database.cpp
+    src/Gui/interface/RecursiveViewPage.cpp
     src/Gui/interface/Nodegraph.cpp
     src/Gui/interface/Home.cpp
     src/Gui/interface/widgets/Sidebar.cpp
@@ -32,7 +32,7 @@ set(SOURCES
     src/Gui/interface/widgets/dropdown/Results.cpp
     src/Gui/interface/widgets/dropdown/Sort.cpp
 
-    src/Core/DependencyEvaluation.cpp
+    src/Core/UsdDependencyGraph.cpp
     src/Core/DependencyNode.cpp
 )
 

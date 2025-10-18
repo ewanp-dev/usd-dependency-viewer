@@ -2,7 +2,7 @@
 
 #include "AbstractButton.h"
 #include "Core/DependencyNode.h"
-#include "Core/DependencyEvaluation.h"
+#include "Core/UsdDependencyGraph.h"
 #include "widgets/dropdown/Results.h"
 #include "widgets/dropdown/Sort.h"
 #include "widgets/dropdown/Properties.h"
@@ -10,10 +10,10 @@
 #include <vector>
 #include <QHBoxLayout>
 
-class DatabasePage : public QWidget
+class RecursiveViewPage : public QWidget
 {
     public:
-        DatabasePage(const std::vector<std::string> &dependencies, QWidget* parent = nullptr);
+        RecursiveViewPage(const std::vector<std::string> &dependencies, QWidget* parent = nullptr);
         void setActiveNode(std::shared_ptr<DependencyNode> node);
         void setDependencyGraph(UsdDependencyGraph* graph);
     private:
