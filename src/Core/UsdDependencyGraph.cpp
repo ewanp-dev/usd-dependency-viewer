@@ -62,6 +62,14 @@ std::shared_ptr<DependencyNode> UsdDependencyGraph::createNode(std::string usdFi
 void UsdDependencyGraph::walkTreeRecursive(std::string startPath)
 {
     pxr::SdfLayerRefPtr layer = pxr::SdfLayer::FindOrOpen(startPath);
+
+    // temp band aid solution for resolving usdc -> usd
+    if(!layer)
+    {
+        startPath = startPath.substr(0, startPath.size()-1);
+        layer = pxr::SdfLayer::FindOrOpen(startPath);
+    }
+
     if(!layer)
     {
         std::cout<<"Failed to open file: " << startPath << "\n";
