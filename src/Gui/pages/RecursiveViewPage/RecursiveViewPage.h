@@ -6,7 +6,7 @@
 #include "Gui/interface/widgets/dropdown/Results.h"
 #include "Gui/interface/widgets/dropdown/Sort.h"
 #include "Gui/interface/widgets/dropdown/Properties.h"
-#include <QTableWidget>
+#include "RecursiveTableWidget.h"
 #include <vector>
 #include <QHBoxLayout>
 
@@ -36,7 +36,7 @@ class RecursiveViewPage : public QWidget
         AbstractButton* resultsList_;
         AbstractButton* sort_;
         AbstractButton* properties_;
-        QTableWidget* table_;
+        RecursiveTableWidget* table_;
         ResultsDropdownWidget* resultsDropdown_;
         SortDropdownWidget* sortDropdown_;
         PropertiesDropdownWidget* propertiesDropdown_;

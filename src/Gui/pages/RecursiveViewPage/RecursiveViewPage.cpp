@@ -6,7 +6,6 @@
 #include <QSizePolicy>
 #include <QTableWidget>
 #include <QTableWidgetItem>
-#include <QHeaderView>
 #include <vector>
 
 #include <iostream>
@@ -64,20 +63,7 @@ void RecursiveViewPage::initHeader()
 
 void RecursiveViewPage::initTable()
 {
-    table_ = new QTableWidget(); 
-    table_->resizeRowsToContents();
-    table_->verticalHeader()->setVisible(false);
-    // table_->setRowCount(static_cast<int>(itemDependencies_.size()));
-    table_->setColumnCount(5);
-    table_->setColumnWidth(0, 400);
-    table_->setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
-    table_->setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
-    table_->setEditTriggers(QAbstractItemView::NoEditTriggers);
-
-    // NOTE: We might want to add some more columns later on down the line
-    // might be worth converting this to its own QStringList as a variable
-    table_->setHorizontalHeaderLabels({ "File Name", "File Path", "Children", "File Size", "Date Modified" });
-    table_->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeMode::Stretch);
+    table_ = new RecursiveTableWidget(); 
 
     mainLayout_->addWidget(table_);
 }
