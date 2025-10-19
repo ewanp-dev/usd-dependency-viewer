@@ -34,6 +34,26 @@ Built for VFX and animation pipelines where understanding complex USD hierarchie
   Quickly locate assets by name, type, or dependency depth.
 
 ## Build Dependencies
-- usd-devel
-- python3-devel
-- imath-devel
+
+### Fedora
+```bash
+usd-devel
+python3-devel
+imath-devel
+
+double-conversion-devel
+alembic-devel
+hdf5-devel
+draco-devel
+openshadinglanguage-devel
+OpenImageIO-devel
+opensubdiv-devel
+openvdb-devel
+ptex-devel
+OpenColorIO-devel
+embree-devel
+lz4-devel
+libavif-devel
+```
+
+### Arch
