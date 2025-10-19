@@ -1,6 +1,5 @@
 #include "RecursiveViewPage.h"
 #include "Core/DependencyNode.h"
-#include "Globals.h"
 #include <QWidget>
 #include <QHBoxLayout>
 #include <QVBoxLayout>

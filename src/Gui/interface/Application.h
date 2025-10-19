@@ -3,7 +3,7 @@
 #include <QMainWindow>
 #include <QVBoxLayout>
 #include "Home.h"
-#include "RecursiveViewPage.h"
+#include "Gui/pages/RecursiveViewPage/RecursiveViewPage.h"
 #include "Nodegraph.h"
 #include "widgets/Tree.h"
 #include "widgets/Sidebar.h"

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "AbstractButton.h"
+#include "Gui/interface/AbstractButton.h"
 #include "Core/DependencyNode.h"
 #include "Core/UsdDependencyGraph.h"
-#include "widgets/dropdown/Results.h"
-#include "widgets/dropdown/Sort.h"
-#include "widgets/dropdown/Properties.h"
+#include "Gui/interface/widgets/dropdown/Results.h"
+#include "Gui/interface/widgets/dropdown/Sort.h"
+#include "Gui/interface/widgets/dropdown/Properties.h"
 #include <QTableWidget>
 #include <vector>
 #include <QHBoxLayout>
