@@ -72,7 +72,7 @@ target_link_libraries(${AppExec} PRIVATE
     Qt6::Widgets
     Qt6::SvgWidgets
     Qt6::OpenGLWidgets
-    TBB::tbb
+    # TBB::tbb
     Python3::Python
     ${PXR_LIBRARIES}
 )

@@ -9,6 +9,7 @@
 #include "RecursiveTableWidget.h"
 #include <vector>
 #include <QHBoxLayout>
+#include <QSplitter>
 
 class RecursiveViewPage : public QWidget
 {
@@ -27,6 +28,7 @@ class RecursiveViewPage : public QWidget
         void initTable();
 
         QVBoxLayout* mainLayout_;
+        QSplitter* mainSplitter_;
         std::shared_ptr<DependencyNode> activeNode_;
 
         void hideColumn_();

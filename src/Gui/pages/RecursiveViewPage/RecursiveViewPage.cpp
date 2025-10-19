@@ -6,7 +6,10 @@
 #include <QSizePolicy>
 #include <QTableWidget>
 #include <QTableWidgetItem>
+#include <qsplitter.h>
+#include <qstackedwidget.h>
 #include <vector>
+#include <QLabel>
 
 #include <iostream>
 
@@ -15,9 +18,16 @@ RecursiveViewPage::RecursiveViewPage (const std::vector<std::string> &dependenci
     mainLayout_ = new QVBoxLayout(this);
     mainLayout_->setContentsMargins(10, 10, 10, 10);
 
+    mainSplitter_ = new QSplitter();
+
+    mainLayout_->addWidget(mainSplitter_);
+
     initHeader();
     initTable();
 
+    QStackedWidget* stackedWidget = new QStackedWidget();
+
+    mainSplitter_->addWidget(stackedWidget);
 }
 
 void RecursiveViewPage::initHeader()
@@ -65,7 +75,7 @@ void RecursiveViewPage::initTable()
 {
     table_ = new RecursiveTableWidget(); 
 
-    mainLayout_->addWidget(table_);
+    mainSplitter_->addWidget(table_);
 }
 
 void RecursiveViewPage::setDependencyGraph(UsdDependencyGraph* graph)
