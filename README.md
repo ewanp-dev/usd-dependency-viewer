@@ -1,10 +1,8 @@
 # USD Dependency Viewer
 
 <p align="center">
-  <a href="https://skillicons.dev">
-    <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" />
-    <img src="https://img.shields.io/badge/Qt-41CD52?style=for-the-badge&logo=qt&logoColor=white" />
-  </a>
+  <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" />
+  <img src="https://img.shields.io/badge/Qt-41CD52?style=for-the-badge&logo=qt&logoColor=white" />
 </p>
 
 A modern **C++ & Qt application** for exploring, visualizing, and managing **USD (Universal Scene Description) asset dependencies**.  
