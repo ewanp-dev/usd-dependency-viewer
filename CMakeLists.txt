@@ -22,6 +22,7 @@ set(SOURCES
     src/Gui/interface/AbstractButton.cpp
     src/Gui/pages/RecursiveViewPage/RecursiveViewPage.cpp
     src/Gui/pages/RecursiveViewPage/RecursiveTableWidget.cpp
+    src/Gui/pages/ForceDirectedGraphPage/ForceDirectedGraphPage.cpp
     src/Gui/interface/Nodegraph.cpp
     src/Gui/interface/Home.cpp
     src/Gui/interface/widgets/Sidebar.cpp
@@ -55,10 +56,16 @@ find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
 include_directories(${Python3_INCLUDE_DIRS})
 
 # usd
+find_package(X11 REQUIRED)
 set(PXR_USD_LOCATION "$ENV{HOME}/USD")
 list(APPEND CMAKE_PREFIX_PATH "${PXR_USD_LOCATION}")
 find_package(pxr REQUIRED COMPONENTS Sdf Tf Vt Usd)
+add_compile_options(-Wno-deprecated)
 
+# force directed graph
+set(FDG_FRAMEWORK_DIR "${CMAKE_SOURCE_DIR}/../qt-force-directed-graph-framework")
+include_directories(${FDG_FRAMEWORK_DIR}/include)
+link_directories(${FDG_FRAMEWORK_DIR}/build)
 
 
 qt_add_executable(${AppExec}
@@ -74,6 +81,7 @@ target_link_libraries(${AppExec} PRIVATE
     Qt6::OpenGLWidgets
     # TBB::tbb
     Python3::Python
+    ForceDirectedGraphQt
     ${PXR_LIBRARIES}
 )
 target_include_directories(${AppExec} PUBLIC

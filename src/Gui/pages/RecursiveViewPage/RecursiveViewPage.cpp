@@ -22,10 +22,14 @@ RecursiveViewPage::RecursiveViewPage (const std::vector<std::string> &dependenci
 
     mainLayout_->addWidget(mainSplitter_);
 
+
     initHeader();
     initTable();
 
     QStackedWidget* stackedWidget = new QStackedWidget();
+
+    graph_ = new ForceDirectedGraph(stackedWidget);
+    stackedWidget->addWidget(graph_);
 
     mainSplitter_->addWidget(stackedWidget);
 }
