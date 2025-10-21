@@ -13,7 +13,7 @@
 #include <QFontDatabase>
 
 DependencyViewer::DependencyViewer(QWidget *parent)
-    : dependencyGraph_(new UsdDependencyGraph("/home/parker/Downloads/ALab-2.2.0/ALab/entry.usda"))
+    : dependencyGraph_(new UsdDependencyGraph("/home/tpe/lib/usd/ALab-main/ALab/entry.usda"))
 {
     setWindowTitle("USD Dependency Viewer");
     setGeometry(100, 100, 1280, 720);
@@ -49,23 +49,23 @@ DependencyViewer::DependencyViewer(QWidget *parent)
     // PAGES SETUP
     databasePage_ = new RecursiveViewPage(itemDependencies_);
     databasePage_->setDependencyGraph(dependencyGraph_);
-    nodegraphPage_ = new NodegraphPage();
+    // nodegraphPage_ = new ForceDirectedGraphPage();
     homePage_ = new HomePage();
     
     QStackedWidget *pages = new QStackedWidget();
 
     pages->addWidget(homePage_);
     pages->addWidget(databasePage_);
-    pages->addWidget(nodegraphPage_);
+    // pages->addWidget(nodegraphPage_);
 
     // NOTE: I might move these connections to a function inside of the sidebar class
     connect(sidebar_->database, &QPushButton::clicked, this, [this, pages]() {
         pages->setCurrentWidget(databasePage_);
     });
 
-    connect(sidebar_->nodegraph, &QPushButton::clicked, this, [this, pages]() {
-        pages->setCurrentWidget(nodegraphPage_);
-    });
+    // connect(sidebar_->nodegraph, &QPushButton::clicked, this, [this, pages]() {
+        // pages->setCurrentWidget(nodegraphPage_);
+    // });
 
     connect(sidebar_->home, &QPushButton::clicked, this, [this, pages]() {
         pages->setCurrentWidget(homePage_);
@@ -132,7 +132,6 @@ void DependencyViewer::initStyleSheet()
             qDebug() << "Skipping parsing of line: " << line << "\n";
             continue;
         }
-        std::cout << "line: " << line.toStdString() << "\n";
         QString variableName = fields.at(0).trimmed();
         QString variableValue = fields.at(1).trimmed();
 
@@ -142,15 +141,11 @@ void DependencyViewer::initStyleSheet()
         }
         
         styleVariables.emplace(variableName, variableValue);
-
-        std::cout << "variableName: " << variableName.toStdString() << "\n";
-        std::cout << "variableName: " << variableValue.toStdString() << "\n";
     }
 
     colorScheme.close();
 
     if (file.open(QFile::ReadOnly | QFile::Text)) {
-        std::cout << "Global style opened for read" << '\n';
         QString stylesheet = file.readAll();
         for(auto i : styleVariables)
         {

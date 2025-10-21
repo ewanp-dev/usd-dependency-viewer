@@ -4,7 +4,7 @@
 #include <QVBoxLayout>
 #include "Home.h"
 #include "Gui/pages/RecursiveViewPage/RecursiveViewPage.h"
-#include "Nodegraph.h"
+#include "Gui/pages/ForceDirectedGraphPage/ForceDirectedGraphPage.h"
 #include "widgets/Tree.h"
 #include "widgets/Sidebar.h"
 #include "widgets/Settings.h"
@@ -29,7 +29,7 @@ class DependencyViewer : public QMainWindow
         Sidebar *sidebar_;
         Header *header_;
         RecursiveViewPage *databasePage_;
-        NodegraphPage *nodegraphPage_;
+        // ForceDirectedGraphPage *nodegraphPage_;
         HomePage *homePage_;
         UsdDependencyGraph* dependencyGraph_;
 };

@@ -44,5 +44,5 @@ class RecursiveViewPage : public QWidget
         ResultsDropdownWidget* resultsDropdown_;
         SortDropdownWidget* sortDropdown_;
         PropertiesDropdownWidget* propertiesDropdown_;
-        ForceDirectedGraph* graph_;
+        ForceDirectedGraphPage* nodegraphPage_;
 };
