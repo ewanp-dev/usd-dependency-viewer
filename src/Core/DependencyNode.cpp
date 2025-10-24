@@ -38,3 +38,9 @@ std::string DependencyNode::getFileName()
     // TODO: os specific delimeter. Maybe use a file library
     return std::filesystem::path(filePath_).filename();
 }
+
+std::string DependencyNode::getFileStem()
+{
+    return std::filesystem::path(filePath_).stem();
+}
+

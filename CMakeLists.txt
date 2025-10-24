@@ -35,6 +35,7 @@ set(SOURCES
 
     src/Core/UsdDependencyGraph.cpp
     src/Core/DependencyNode.cpp
+    src/Core/NodePath.cpp
 )
 
 set(ENGINE_INCLUDE_DIRECTORIES

@@ -25,6 +25,14 @@ QPushButton:pressed {
 }
 */
 
+QLineEdit
+{
+    background-color: @bg-dark-1;
+    border: 1px solid @bg-light-2;
+    color: @fg-main;
+    padding: 4px;
+    border-radius: 8px;
+}
 
 QTableWidget {
     background: transparent;
@@ -83,7 +91,7 @@ QHeaderView::section {
     color: @fg-light-1;
 }
 
-.AbstractButton
+.AbstractButton, QPushButton
 {
     border: none;
     color: @fg-main;
@@ -91,7 +99,7 @@ QHeaderView::section {
     padding: 4px 4px;
 }
 
-.AbstractButton:hover
+.AbstractButton:hover, QPushButton:hover
 {
     background-color: @bg-light-3;
 }
