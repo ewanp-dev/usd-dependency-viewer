@@ -47,7 +47,26 @@ NodePath NodePath::appendNode(std::shared_ptr<DependencyNode> node) const
     return newPath;
 }
 
-std::shared_ptr<DependencyNode> NodePath::popNode(size_t index)
+std::shared_ptr<DependencyNode> NodePath::popNode()
+{
+    if(nodes_.size()<1)
+    {
+        return nullptr;
+    }
+
+    std::shared_ptr<DependencyNode> node = removeNode(getSize()-1);
+    
+    return node;
+}
+
+NodePath NodePath::popNode() const
+{
+    NodePath newPath = *this;
+    newPath.popNode();
+    return newPath;
+}
+
+std::shared_ptr<DependencyNode> NodePath::removeNode(size_t index)
 {
     if(index>=nodes_.size())
     {
@@ -60,6 +79,13 @@ std::shared_ptr<DependencyNode> NodePath::popNode(size_t index)
     nodes_.erase(it);
     
     return node;
+}
+
+NodePath NodePath::removeNode(size_t index) const
+{
+    NodePath newPath = *this;
+    newPath.removeNode(index);
+    return newPath;
 }
 
 bool NodePath::hasRootNode() const

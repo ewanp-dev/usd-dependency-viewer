@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QLineEdit>
 #include <QTextEdit>
+#include <QToolTip>
 #include <qtablewidget.h>
 #include <qtextedit.h>
 #include "Gui/interface/AbstractButton.h"
@@ -34,10 +35,15 @@ void RecursiveTableWidget::initHeader()
     headerPathWidget_->setReadOnly(true);
     headerLayout->addWidget(headerPathWidget_);
 
-    AbstractButton* homeButton = new AbstractButton();
-    homeButton->setIconFromImage(":/icons/home.png");
-    headerLayout->addWidget(homeButton);
-    connect(homeButton, &AbstractButton::clicked, this, [this](){setActivePath(NodePath(getActivePath().getRootNode()));});
+    AbstractButton* navHomeButton = new AbstractButton();
+    navHomeButton->setIconFromImage(":/icons/home.png");
+    headerLayout->addWidget(navHomeButton);
+    connect(navHomeButton, &AbstractButton::clicked, this, [this](){setActivePath(NodePath(getActivePath().getRootNode()));});
+
+    AbstractButton* navUpButton = new AbstractButton();
+    navUpButton->setIconFromImage(":/icons/nav-arrow-up.png");
+    headerLayout->addWidget(navUpButton);
+    connect(navUpButton, &AbstractButton::clicked, this, [this](){setActivePath(getActivePath().popNode());});
 
     // AbstractButton* upButton = new AbstractButton();
     // upButton->setIconFromImage(":/icons/home.png");
@@ -78,8 +84,15 @@ void RecursiveTableWidget::setActivePath(NodePath nodePath)
     table_->setRowCount(static_cast<int>(numDependencies));
     for (size_t i = 0; i < numDependencies; i++) {
         std::shared_ptr<DependencyNode> dependencyNode = dependencyNodes[i];
-        QTableWidgetItem *nameItem =  new QTableWidgetItem(dependencyNode->getFileName().c_str());
-        QTableWidgetItem *pathItem = new QTableWidgetItem(dependencyNode->getFilePath().c_str());
+
+        QString fileName = dependencyNode->getFileName().c_str();
+        QTableWidgetItem *nameItem =  new QTableWidgetItem(fileName);
+        nameItem->setToolTip(fileName);
+
+        QString filePath = dependencyNode->getFilePath().c_str();
+        QTableWidgetItem *pathItem = new QTableWidgetItem(filePath);
+        pathItem->setToolTip(filePath);
+
         QTableWidgetItem *fileSizeItem = new QTableWidgetItem(QString::number(static_cast<qulonglong>(i)));
         QTableWidgetItem *numChildrenItem = new QTableWidgetItem(QString::number(dependencyNode->getNumChildren()));
         QTableWidgetItem *dateModifiedItem = new QTableWidgetItem(QString::number(static_cast<qulonglong>(i)));

@@ -9,7 +9,13 @@ class NodePath
         NodePath(std::shared_ptr<DependencyNode> node);
         void appendNode(std::shared_ptr<DependencyNode> node);
         NodePath appendNode(std::shared_ptr<DependencyNode> node) const;
-        std::shared_ptr<DependencyNode> popNode(size_t index);
+
+        std::shared_ptr<DependencyNode> popNode();
+        NodePath popNode() const;
+
+        std::shared_ptr<DependencyNode> removeNode(size_t index);
+        NodePath removeNode(size_t index) const;
+
         std::shared_ptr<DependencyNode> getNodeFromIndex(size_t index) const;
         std::shared_ptr<DependencyNode> getRootNode() const;
         std::shared_ptr<DependencyNode> getLeafNode() const;
