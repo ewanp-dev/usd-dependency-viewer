@@ -3,6 +3,11 @@ QMainWindow {
     background-color: @bg-main;
 }
 
+QHeaderView
+{
+    background: @bg-light-1;
+}
+
 QLabel {
     color: @fg-main;
 }

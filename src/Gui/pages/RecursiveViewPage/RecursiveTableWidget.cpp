@@ -11,6 +11,7 @@
 #include <qtablewidget.h>
 #include <qtextedit.h>
 #include "Gui/interface/AbstractButton.h"
+#include <QResizeEvent>
 
 RecursiveTableWidget::RecursiveTableWidget()
 {
@@ -111,23 +112,39 @@ void RecursiveTableWidget::setActivePath(NodePath nodePath)
 void RecursiveTableWidget::initTable()
 {
     table_ = new QTableWidget();
-    table_->resizeRowsToContents();
     table_->verticalHeader()->setVisible(false);
     // table_->setRowCount(static_cast<int>(itemDependencies_.size()));
     table_->setColumnCount(5);
-    table_->setColumnWidth(0, 400);
     table_->setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
     table_->setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
     table_->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    // table_->horizontalHeader()->setStretchLastSection(true);
 
     // NOTE: We might want to add some more columns later on down the line
     // might be worth converting table_ to its own QStringList as a variable
     table_->setHorizontalHeaderLabels({ "File Name", "File Path", "Children", "File Size", "Date Modified" });
-    table_->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeMode::Stretch);
+    // table_->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeMode::Stretch);
 
     connect(table_, &QTableWidget::cellDoubleClicked, this, &RecursiveTableWidget::onCellDoubleClicked);
 
     mainLayout_->addWidget(table_);
+}
+
+void RecursiveTableWidget::resizeEvent(QResizeEvent *event)
+{
+    std::cout << "resize\n";
+    std::cout << "old size: " << event->oldSize().width() << " " << event->oldSize().height() << "\n";
+    std::cout << "new size: " << event->size().width() << " " << event->size().height() << "\n";
+    double sizeDelta = static_cast<float>(event->size().width())/event->oldSize().width();
+
+    auto numColumns = table_->columnCount();
+    for(int i=0; i<numColumns; i++)
+    {
+        double newWidth = sizeDelta*table_->columnWidth(i);
+        table_->setColumnWidth(i, newWidth);
+    }
+    std::cout<< "size delta: " << sizeDelta << "\n";
+
 }
 
 void RecursiveTableWidget::initFooter()

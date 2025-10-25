@@ -31,5 +31,8 @@ class RecursiveTableWidget
         void initFooter();
 
         void onCellDoubleClicked(int row, int column);
+
+    protected:
+        virtual void resizeEvent(QResizeEvent *event);
 };
 
