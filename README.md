@@ -57,4 +57,9 @@ libavif-devel
 ```
 
 ### Arch
-WIP
+```bash
+usd
+cuda
+hdf5
+materialx
+```
