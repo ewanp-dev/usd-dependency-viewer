@@ -2,14 +2,26 @@
 
 #include <QWidget>
 #include <QVBoxLayout>
-
 #include <ForceDirectedGraph.h>
+#include <memory>
+
+#include "Core/DependencyNode.h"
+#include "Core/UsdDependencyGraph.h"
 
 class ForceDirectedGraphPage : public QWidget
 {
     public:
-        ForceDirectedGraphPage(QWidget* parent = nullptr);
+        ForceDirectedGraphPage(const std::vector<std::string>& dependencies, QWidget* parent = nullptr);
+        void setDependencyGraph(UsdDependencyGraph* graph);
+        void setActiveNode(std::shared_ptr<DependencyNode> node);
+        void clear();
+
     private:
-        ForceDirectedGraph* graph_;
+        void initGraph();
+
+        fdg::ForceDirectedGraph* graph_;
+        std::shared_ptr<DependencyNode> activeNode_;
+
         QVBoxLayout* mainLayout_;
+
 };

@@ -1,6 +1,5 @@
 #include "RecursiveViewPage.h"
 #include "Core/DependencyNode.h"
-#include "Gui/pages/ForceDirectedGraphPage/ForceDirectedGraphPage.h"
 #include <QWidget>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -11,6 +10,7 @@
 #include <qstackedwidget.h>
 #include <vector>
 #include <QLabel>
+#include <iostream>
 
 RecursiveViewPage::RecursiveViewPage (const std::vector<std::string> &dependencies, QWidget* parent)
 {
@@ -25,7 +25,7 @@ RecursiveViewPage::RecursiveViewPage (const std::vector<std::string> &dependenci
     initHeader();
     initTable();
 
-    nodegraphPage_ = new ForceDirectedGraphPage();
+    nodegraphPage_ = new ForceDirectedGraphPage(dependencies);
 
     QStackedWidget* stackedWidget = new QStackedWidget();
     stackedWidget->addWidget(nodegraphPage_);
@@ -83,7 +83,9 @@ void RecursiveViewPage::initTable()
 
 void RecursiveViewPage::setDependencyGraph(UsdDependencyGraph* graph)
 {
-    setActiveNode(graph->getRootNode());
+    std::cout << "Setting dependency graph" << '\n';
+    nodegraphPage_->setDependencyGraph(graph); // TODO: Move this to a more approprate place
+    setActiveNode(graph->getRootNode()); 
 }
 
 void RecursiveViewPage::setActiveNode(std::shared_ptr<DependencyNode> node)
@@ -154,6 +156,7 @@ void RecursiveViewPage::onCellDoubleClicked(int row, int column)
                 break;
             }
             setActiveNode(node);
+            nodegraphPage_->setActiveNode(node);
             break;
         }
     }
