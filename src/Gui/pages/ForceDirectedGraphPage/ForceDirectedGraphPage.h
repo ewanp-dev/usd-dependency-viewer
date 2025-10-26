@@ -2,7 +2,7 @@
 
 #include <QWidget>
 #include <QVBoxLayout>
-#include <ForceDirectedGraph.h>
+#include "Gui/interface/widgets/nodegraph/ForceDirectedGraph.h"
 #include <memory>
 
 #include "Core/DependencyNode.h"

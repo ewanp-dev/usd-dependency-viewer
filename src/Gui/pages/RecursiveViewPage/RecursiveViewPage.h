@@ -11,7 +11,6 @@
 #include <vector>
 #include <QHBoxLayout>
 #include <QSplitter>
-#include <ForceDirectedGraph.h>
 
 class RecursiveViewPage : public QWidget
 {
