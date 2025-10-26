@@ -10,7 +10,6 @@
 #include <qstackedwidget.h>
 #include <vector>
 #include <QLabel>
-
 #include <iostream>
 
 RecursiveViewPage::RecursiveViewPage (const std::vector<std::string> &dependencies, QWidget* parent)
@@ -22,10 +21,14 @@ RecursiveViewPage::RecursiveViewPage (const std::vector<std::string> &dependenci
 
     mainLayout_->addWidget(mainSplitter_);
 
+
     initHeader();
     initTable();
 
+    nodegraphPage_ = new ForceDirectedGraphPage(dependencies);
+
     QStackedWidget* stackedWidget = new QStackedWidget();
+    stackedWidget->addWidget(nodegraphPage_);
 
     mainSplitter_->addWidget(stackedWidget);
 }
@@ -80,7 +83,9 @@ void RecursiveViewPage::initTable()
 
 void RecursiveViewPage::setDependencyGraph(UsdDependencyGraph* graph)
 {
-    setActiveNode(graph->getRootNode());
+    std::cout << "Setting dependency graph" << '\n';
+    nodegraphPage_->setDependencyGraph(graph); // TODO: Move this to a more approprate place
+    setActiveNode(graph->getRootNode()); 
 }
 
 void RecursiveViewPage::setActiveNode(std::shared_ptr<DependencyNode> node)
@@ -91,7 +96,6 @@ void RecursiveViewPage::setActiveNode(std::shared_ptr<DependencyNode> node)
     connect(table_, &QTableWidget::cellDoubleClicked, this, &RecursiveViewPage::onCellDoubleClicked);
 
     size_t numDependencies = node->getNumChildren();
-    std::cout << "num children: " << numDependencies << "\n";
     std::vector<std::shared_ptr<DependencyNode>> dependencyNodes = node->getChildNodes();
     resultsList_->setText(QString::number(static_cast<qulonglong>(numDependencies)) + " Results");
 
@@ -135,11 +139,9 @@ void RecursiveViewPage::onCellDoubleClicked(int row, int column)
 {
     // NOTE: not the best way to get the graph nod3 but it's fine.
 
-    std::cout << "double clicked\n";
     auto tableItem = table_->item(row, 1);
     if(!tableItem)
     {
-        std::cout << "table item doesn't exist\n";
         return;
     }
     std::string filePath = tableItem->text().toStdString();
@@ -151,12 +153,10 @@ void RecursiveViewPage::onCellDoubleClicked(int row, int column)
         {
             if(node->getNumChildren()==0)
             {
-                std::cout << "Node has no children\n";
                 break;
             }
-            std::cout << "setting active node\n";
-            std::cout << "path: " << filePath << "\n";
             setActiveNode(node);
+            nodegraphPage_->setActiveNode(node);
             break;
         }
     }

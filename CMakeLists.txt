@@ -20,8 +20,16 @@ set(SOURCES
     src/Gui/Main.cpp
     src/Gui/interface/Application.cpp    
     src/Gui/interface/AbstractButton.cpp
+
+    src/Gui/interface/widgets/nodegraph/ForceDirectedGraph.cpp
+    src/Gui/interface/widgets/nodegraph/GraphicsScene.cpp
+    src/Gui/interface/widgets/nodegraph/GraphicsView.cpp
+    src/Gui/interface/widgets/nodegraph/Edge.cpp
+    src/Gui/interface/widgets/nodegraph/Node.cpp
+
     src/Gui/pages/RecursiveViewPage/RecursiveViewPage.cpp
     src/Gui/pages/RecursiveViewPage/RecursiveTableWidget.cpp
+    src/Gui/pages/ForceDirectedGraphPage/ForceDirectedGraphPage.cpp
     src/Gui/interface/Nodegraph.cpp
     src/Gui/interface/Home.cpp
     src/Gui/interface/widgets/Sidebar.cpp
@@ -55,10 +63,16 @@ find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
 include_directories(${Python3_INCLUDE_DIRS})
 
 # usd
+find_package(X11 REQUIRED)
 set(PXR_USD_LOCATION "$ENV{HOME}/USD")
 list(APPEND CMAKE_PREFIX_PATH "${PXR_USD_LOCATION}")
 find_package(pxr REQUIRED COMPONENTS Sdf Tf Vt Usd)
+add_compile_options(-Wno-deprecated)
 
+# force directed graph
+# set(FDG_FRAMEWORK_DIR "${CMAKE_SOURCE_DIR}/../qt-force-directed-graph-framework")
+# include_directories(${FDG_FRAMEWORK_DIR}/include)
+# link_directories(${FDG_FRAMEWORK_DIR}/build)
 
 
 qt_add_executable(${AppExec}
@@ -79,33 +93,3 @@ target_link_libraries(${AppExec} PRIVATE
 target_include_directories(${AppExec} PUBLIC
     ${ENGINE_INCLUDE_DIRECTORIES}
 )
-
-# ----
-# start tests
-# ----
-# Include(FetchContent)
-
-# FetchContent_Declare(
-#   Catch2
-#   GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-#   GIT_TAG        v3.8.1 # or a later release
-# )
-
-# FetchContent_MakeAvailable(Catch2)
-
-# add_executable(${TestExec}
-#     ${SOURCES}
-#     tests/main-tests.cpp
-# )
-
-# target_link_libraries(${TestExec} PRIVATE Catch2::Catch2WithMain Eigen3::Eigen Qt6::Core TBB::tbb)
-
-# target_compile_definitions(${TestExec} PRIVATE UNIT_TEST)
-# target_include_directories(${TestExec} PUBLIC
-#     ${ENGINE_INCLUDE_DIRECTORIES}
-#     ${BOOST_INCLUDE_DIRS}
-# )
-# target_compile_definitions(${TestExec} PRIVATE ENZO_DEV_LIB_DIR="${ENZO_DEV_LIB_DIR}")
-# ----
-# end tests
-#
