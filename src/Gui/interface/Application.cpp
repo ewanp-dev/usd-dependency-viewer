@@ -49,23 +49,17 @@ DependencyViewer::DependencyViewer(QWidget *parent)
     // PAGES SETUP
     databasePage_ = new RecursiveViewPage(itemDependencies_);
     databasePage_->setDependencyGraph(dependencyGraph_);
-    // nodegraphPage_ = new ForceDirectedGraphPage();
     homePage_ = new HomePage();
     
     QStackedWidget *pages = new QStackedWidget();
 
     pages->addWidget(homePage_);
     pages->addWidget(databasePage_);
-    // pages->addWidget(nodegraphPage_);
 
     // NOTE: I might move these connections to a function inside of the sidebar class
     connect(sidebar_->database, &QPushButton::clicked, this, [this, pages]() {
         pages->setCurrentWidget(databasePage_);
     });
-
-    // connect(sidebar_->nodegraph, &QPushButton::clicked, this, [this, pages]() {
-        // pages->setCurrentWidget(nodegraphPage_);
-    // });
 
     connect(sidebar_->home, &QPushButton::clicked, this, [this, pages]() {
         pages->setCurrentWidget(homePage_);
