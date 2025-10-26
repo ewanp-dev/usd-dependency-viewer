@@ -6,6 +6,7 @@
 #include "Gui/interface/widgets/dropdown/Results.h"
 #include "Gui/interface/widgets/dropdown/Sort.h"
 #include "Gui/interface/widgets/dropdown/Properties.h"
+#include "Gui/pages/ForceDirectedGraphPage/ForceDirectedGraphPage.h"
 #include "RecursiveTableWidget.h"
 #include <vector>
 #include <QHBoxLayout>
@@ -41,4 +42,6 @@ class RecursiveViewPage : public QWidget
         ResultsDropdownWidget* resultsDropdown_;
         SortDropdownWidget* sortDropdown_;
         PropertiesDropdownWidget* propertiesDropdown_;
+        ForceDirectedGraphPage* nodegraphPage_;
+        // ForceDirectedGraphPage* nodegraphPage_;
 };
