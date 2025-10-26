@@ -136,3 +136,20 @@ QToolTip
     background: transparent;
     border: none;
 }
+
+QTableView
+{
+    background: @bg-dark-1;
+    color: @fg-main;
+}
+
+.TableHeader
+{
+    background: @bg-light-1;
+    border-radius: 10px;
+}
+
+.TableHeader QPushButton
+{
+    border-radius: 10px;
+}

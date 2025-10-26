@@ -12,6 +12,7 @@
 #include <qtextedit.h>
 #include "Gui/interface/AbstractButton.h"
 #include <QResizeEvent>
+#include "./TableWidget.h"
 
 RecursiveTableWidget::RecursiveTableWidget()
 {
@@ -111,6 +112,8 @@ void RecursiveTableWidget::setActivePath(NodePath nodePath)
 
 void RecursiveTableWidget::initTable()
 {
+    mainLayout_->addWidget(new TableWidget());
+
     table_ = new QTableWidget();
     table_->verticalHeader()->setVisible(false);
     // table_->setRowCount(static_cast<int>(itemDependencies_.size()));
@@ -127,7 +130,7 @@ void RecursiveTableWidget::initTable()
 
     connect(table_, &QTableWidget::cellDoubleClicked, this, &RecursiveTableWidget::onCellDoubleClicked);
 
-    mainLayout_->addWidget(table_);
+    // mainLayout_->addWidget(table_);
 }
 
 void RecursiveTableWidget::resizeEvent(QResizeEvent *event)

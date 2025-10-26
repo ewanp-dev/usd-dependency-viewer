@@ -22,6 +22,7 @@ set(SOURCES
     src/Gui/interface/AbstractButton.cpp
     src/Gui/pages/RecursiveViewPage/RecursiveViewPage.cpp
     src/Gui/pages/RecursiveViewPage/RecursiveTableWidget.cpp
+    src/Gui/pages/RecursiveViewPage/TableWidget.cpp
     src/Gui/interface/Nodegraph.cpp
     src/Gui/interface/Home.cpp
     src/Gui/interface/widgets/Sidebar.cpp
