@@ -9,6 +9,7 @@ class DependencyNode
         DependencyNode(std::string filePath);
         std::string getFilePath();
         std::string getFileName();
+        std::string getFileStem();
 
         void addChildNode(std::shared_ptr<DependencyNode> childNode);
         const std::vector<std::shared_ptr<DependencyNode>>& getChildNodes() const;

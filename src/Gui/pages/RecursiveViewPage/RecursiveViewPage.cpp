@@ -1,5 +1,6 @@
 #include "RecursiveViewPage.h"
 #include "Core/DependencyNode.h"
+#include "Core/NodePath.h"
 #include <QWidget>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -99,28 +100,7 @@ void RecursiveViewPage::setActiveNode(std::shared_ptr<DependencyNode> node)
     std::vector<std::shared_ptr<DependencyNode>> dependencyNodes = node->getChildNodes();
     resultsList_->setText(QString::number(static_cast<qulonglong>(numDependencies)) + " Results");
 
-    // TODO: Convert the font to a global font so we can use across the interface
-    QFont itemFont = QFont("Sans Serif", 10);
-    itemFont.setUnderline(true);
-
-    table_->setRowCount(static_cast<int>(numDependencies));
-    for (size_t i = 0; i < numDependencies; i++) {
-        std::shared_ptr<DependencyNode> dependencyNode = dependencyNodes[i];
-        QTableWidgetItem *nameItem =  new QTableWidgetItem(dependencyNode->getFileName().c_str());
-        QTableWidgetItem *pathItem = new QTableWidgetItem(dependencyNode->getFilePath().c_str());
-        QTableWidgetItem *fileSizeItem = new QTableWidgetItem(QString::number(static_cast<qulonglong>(i)));
-        QTableWidgetItem *numChildrenItem = new QTableWidgetItem(QString::number(dependencyNode->getNumChildren()));
-        QTableWidgetItem *dateModifiedItem = new QTableWidgetItem(QString::number(static_cast<qulonglong>(i)));
-
-        nameItem->setForeground(QBrush(QColor(210, 186, 146)));
-        nameItem->setFont(itemFont);
-
-        table_->setItem(i, 0, nameItem);
-        table_->setItem(i, 1, pathItem);
-        table_->setItem(i, 2, numChildrenItem);
-        table_->setItem(i, 3, fileSizeItem);
-        table_->setItem(i, 4, dateModifiedItem);
-    }
+    table_->setActivePath(NodePath(node));
 }
 
 

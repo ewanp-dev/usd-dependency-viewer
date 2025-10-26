@@ -29,6 +29,7 @@ set(SOURCES
 
     src/Gui/pages/RecursiveViewPage/RecursiveViewPage.cpp
     src/Gui/pages/RecursiveViewPage/RecursiveTableWidget.cpp
+    src/Gui/pages/RecursiveViewPage/TableWidget.cpp
     src/Gui/pages/ForceDirectedGraphPage/ForceDirectedGraphPage.cpp
     src/Gui/interface/Nodegraph.cpp
     src/Gui/interface/Home.cpp
@@ -43,6 +44,7 @@ set(SOURCES
 
     src/Core/UsdDependencyGraph.cpp
     src/Core/DependencyNode.cpp
+    src/Core/NodePath.cpp
 )
 
 set(ENGINE_INCLUDE_DIRECTORIES
