@@ -93,8 +93,8 @@ void RecursiveViewPage::setActiveNode(std::shared_ptr<DependencyNode> node)
 {
     activeNode_ = node;
 
-    table_->clearContents();
-    connect(table_, &QTableWidget::cellDoubleClicked, this, &RecursiveViewPage::onCellDoubleClicked);
+    // table_->clearContents();
+    // connect(table_, &QTableWidget::cellDoubleClicked, this, &RecursiveViewPage::onCellDoubleClicked);
 
     size_t numDependencies = node->getNumChildren();
     std::vector<std::shared_ptr<DependencyNode>> dependencyNodes = node->getChildNodes();
@@ -115,29 +115,29 @@ void RecursiveViewPage::showDropdown_(AbstractButton *button, QWidget *dropdown,
     dropdown->show();
 }
 
-void RecursiveViewPage::onCellDoubleClicked(int row, int column)
-{
-    // NOTE: not the best way to get the graph nod3 but it's fine.
+// void RecursiveViewPage::onCellDoubleClicked(int row, int column)
+// {
+//     // NOTE: not the best way to get the graph nod3 but it's fine.
 
-    auto tableItem = table_->item(row, 1);
-    if(!tableItem)
-    {
-        return;
-    }
-    std::string filePath = tableItem->text().toStdString();
+//     auto tableItem = table_->item(row, 1);
+//     if(!tableItem)
+//     {
+//         return;
+//     }
+//     std::string filePath = tableItem->text().toStdString();
 
-    std::vector<std::shared_ptr<DependencyNode>> childNodes = activeNode_->getChildNodes();
-    for(auto node : childNodes)
-    {
-        if(node->getFilePath() == filePath)
-        {
-            if(node->getNumChildren()==0)
-            {
-                break;
-            }
-            setActiveNode(node);
-            nodegraphPage_->setActiveNode(node);
-            break;
-        }
-    }
-}
+//     std::vector<std::shared_ptr<DependencyNode>> childNodes = activeNode_->getChildNodes();
+//     for(auto node : childNodes)
+//     {
+//         if(node->getFilePath() == filePath)
+//         {
+//             if(node->getNumChildren()==0)
+//             {
+//                 break;
+//             }
+//             setActiveNode(node);
+//             nodegraphPage_->setActiveNode(node);
+//             break;
+//         }
+//     }
+// }

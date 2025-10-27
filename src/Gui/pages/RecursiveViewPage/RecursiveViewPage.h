@@ -39,6 +39,7 @@ class RecursiveViewPage : public QWidget
         AbstractButton* sort_;
         AbstractButton* properties_;
         RecursiveTableWidget* table_;
+        void onCellDoubleClicked(int row, int column);
         ResultsDropdownWidget* resultsDropdown_;
         SortDropdownWidget* sortDropdown_;
         PropertiesDropdownWidget* propertiesDropdown_;
