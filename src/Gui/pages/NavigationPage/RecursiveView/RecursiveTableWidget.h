@@ -4,7 +4,7 @@
 #include <qtablewidget.h>
 #include "Core/DependencyNode.h"
 #include "Core/NodePath.h"
-#include "Gui/pages/RecursiveViewPage/TableWidget.h"
+#include "Gui/interface/widgets/table/TableWidget.h"
 #include <QStandardItemModel>
 #include <QTextEdit>
 

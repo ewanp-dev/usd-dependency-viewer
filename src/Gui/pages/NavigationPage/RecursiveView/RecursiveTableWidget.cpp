@@ -12,7 +12,6 @@
 #include <qtextedit.h>
 #include "Gui/interface/AbstractButton.h"
 #include <QResizeEvent>
-#include "./TableWidget.h"
 
 RecursiveTableWidget::RecursiveTableWidget()
 {
