@@ -33,12 +33,12 @@ class TableWidget
         void setModel(QAbstractItemModel* model) {view_->setModel(model);}
         // TODO: support replacing existing labels with fewer labels
         void setHorizontalHeaderLabels(const QStringList &labels);
+        void onHeaderResized();
     private:
         void initHeader();
         void initBody();
 
         void onHeaderMoved(int pos, int index);
-        void onHeaderResized();
 
         TableWidgetHeaderSplitter* headerSplitter_;
         // std::vector<QSplitter*> splitters_;

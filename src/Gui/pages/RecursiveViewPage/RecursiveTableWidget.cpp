@@ -114,6 +114,8 @@ void RecursiveTableWidget::setActivePath(NodePath nodePath)
         model_->setItem(i, 3, fileSizeItem);
         model_->setItem(i, 4, dateModifiedItem);
     }
+
+    table_->onHeaderResized();
 }
 
 void RecursiveTableWidget::initTable()
