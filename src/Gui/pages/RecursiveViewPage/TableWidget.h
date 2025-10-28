@@ -4,6 +4,19 @@
 #include <QTableView>
 #include <qevent.h>
 #include <QSplitter>
+#include <qtmetamacros.h>
+
+class TableWidgetHeaderSplitter
+: public QSplitter
+{
+    Q_OBJECT
+    public:
+        using QSplitter::QSplitter;
+    protected:
+        void resizeEvent(QResizeEvent *) override;
+    Q_SIGNALS:
+        void resized();
+};
 
 class TableWidget
 : public QWidget
@@ -14,9 +27,10 @@ class TableWidget
         void initHeader();
         void initBody();
 
-        void onHeaderResize(int pos, int index);
+        void onHeaderMoved(int pos, int index);
+        void onHeaderResized();
 
-        QSplitter* headerSplitter_;
+        TableWidgetHeaderSplitter* headerSplitter_;
         // std::vector<QSplitter*> splitters_;
 
         QVBoxLayout* mainLayout_;

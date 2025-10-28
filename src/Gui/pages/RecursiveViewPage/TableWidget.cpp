@@ -1,10 +1,10 @@
 #include "./TableWidget.h"
 #include <qboxlayout.h>
+#include <qevent.h>
 #include <qpushbutton.h>
 #include <qsplitter.h>
 #include <qtableview.h>
 #include <qheaderview.h>
-#include <iostream>
 
 class SimpleModel : public QAbstractTableModel {
 public:
@@ -39,7 +39,7 @@ void TableWidget::initHeader()
     headerLayout->setContentsMargins(0,0,0,0);
 
     // QSplitter* splitter1 = new QSplitter();
-    headerSplitter_ = new QSplitter();;
+    headerSplitter_ = new TableWidgetHeaderSplitter();
     // QSplitter* splitter2 = new QSplitter();
     // QSplitter* splitter3 = new QSplitter();
 
@@ -57,7 +57,8 @@ void TableWidget::initHeader()
     //     connect(splitter, &QSplitter::splitterMoved, this, &TableWidget::onHeaderResize);
     // }
 
-    connect(headerSplitter_, &QSplitter::splitterMoved, this, &TableWidget::onHeaderResize);
+    connect(headerSplitter_, &QSplitter::splitterMoved, this, &TableWidget::onHeaderMoved);
+    connect(headerSplitter_, &TableWidgetHeaderSplitter::resized, this, &TableWidget::onHeaderResized);
 
     headerSplitter_->addWidget(button1);
     // splitter1->addWidget(splitter2);
@@ -71,10 +72,22 @@ void TableWidget::initHeader()
         headerSplitter_->setCollapsible(i, false);
     }
 
+    // headerSplitter_->installEventFilter(this);
     mainLayout_->addWidget(header_);
 }
 
-void TableWidget::onHeaderResize(int pos, int index)
+void TableWidget::onHeaderResized()
+{
+    auto sizes = headerSplitter_->sizes();
+    int pos = 0;
+    for(size_t i=0; i<headerSplitter_->count(); ++i)
+    {
+        pos+=sizes[i];
+        onHeaderMoved(pos, i);
+    }
+}
+
+void TableWidget::onHeaderMoved(int pos, int index)
 {
     for(size_t i=0; i<headerSplitter_->count(); ++i)
     {
@@ -99,5 +112,11 @@ void TableWidget::initBody()
     view_->setModel(model);
 
     mainLayout_->addWidget(view_);
+}
+
+void TableWidgetHeaderSplitter::resizeEvent(QResizeEvent* event)
+{
+    QSplitter::resizeEvent(event);
+    Q_EMIT resized();
 }
 
