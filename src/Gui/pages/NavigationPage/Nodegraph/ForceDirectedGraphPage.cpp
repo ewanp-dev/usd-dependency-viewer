@@ -41,3 +41,4 @@ void ForceDirectedGraphPage::clear()
 {
     graph_->clearNodes();
 }
+
