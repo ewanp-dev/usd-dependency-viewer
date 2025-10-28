@@ -12,7 +12,7 @@ class ForceDirectedGraphPage : public QWidget
 {
     public:
         ForceDirectedGraphPage(const std::vector<std::string>& dependencies, QWidget* parent = nullptr);
-        void setDependencyGraph(UsdDependencyGraph* graph);
+        void setDependencyGraph(std::shared_ptr<UsdDependencyGraph> graph);
         void setActiveNode(std::shared_ptr<DependencyNode> node);
         void clear();
 

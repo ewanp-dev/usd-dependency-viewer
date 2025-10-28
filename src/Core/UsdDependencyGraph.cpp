@@ -1,3 +1,4 @@
+#include <memory>
 #include <string>
 #include <iostream>
 #include <pxr/usd/sdf/layer.h>
@@ -7,6 +8,7 @@
 #include <pxr/usd/ar/resolverScopedCache.h>
 #include "Core/UsdDependencyGraph.h"
 #include "Core/DependencyNode.h"
+#include <QFileDialog>
 
 UsdDependencyGraph::UsdDependencyGraph(std::string usdFilePath)
 {
@@ -17,6 +19,16 @@ UsdDependencyGraph::UsdDependencyGraph(std::string usdFilePath)
 
     printDebug();
 }
+
+std::shared_ptr<UsdDependencyGraph> UsdDependencyGraph::fromFileDialog()
+{
+    QFileDialog* dialog = new QFileDialog();
+    // dialog->show();
+    QUrl url = dialog->getOpenFileUrl();
+    std::cout << "url: " << url.path().toStdString() << "\n";
+    return std::make_shared<UsdDependencyGraph>(url.path().toStdString());
+}
+
 
 std::shared_ptr<DependencyNode> UsdDependencyGraph::getRootNode()
 {

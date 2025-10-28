@@ -9,6 +9,7 @@ class UsdDependencyGraph
 {
     public:
         UsdDependencyGraph(std::string usdFilePath);
+        static std::shared_ptr<UsdDependencyGraph> fromFileDialog();
         void printDebug();
         std::shared_ptr<DependencyNode> getRootNode();
     private:

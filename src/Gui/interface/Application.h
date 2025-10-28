@@ -29,5 +29,5 @@ class DependencyViewer : public QMainWindow
         Header *header_;
         RecursiveViewPage *databasePage_;
         HomePage *homePage_;
-        UsdDependencyGraph* dependencyGraph_;
+        std::shared_ptr<UsdDependencyGraph> dependencyGraph_;
 };

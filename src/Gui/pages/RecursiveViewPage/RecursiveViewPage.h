@@ -17,7 +17,7 @@ class RecursiveViewPage : public QWidget
     public:
         RecursiveViewPage(const std::vector<std::string> &dependencies, QWidget* parent = nullptr);
         void setActiveNode(std::shared_ptr<DependencyNode> node);
-        void setDependencyGraph(UsdDependencyGraph* graph);
+        void setDependencyGraph(std::shared_ptr<UsdDependencyGraph> graph);
     private:
         /**
          * @brief Setup header view only

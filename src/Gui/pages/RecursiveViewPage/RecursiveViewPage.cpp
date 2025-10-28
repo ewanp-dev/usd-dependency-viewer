@@ -82,7 +82,7 @@ void RecursiveViewPage::initTable()
     mainSplitter_->addWidget(table_);
 }
 
-void RecursiveViewPage::setDependencyGraph(UsdDependencyGraph* graph)
+void RecursiveViewPage::setDependencyGraph(std::shared_ptr<UsdDependencyGraph> graph)
 {
     std::cout << "Setting dependency graph" << '\n';
     nodegraphPage_->setDependencyGraph(graph); // TODO: Move this to a more approprate place

@@ -11,7 +11,7 @@ ForceDirectedGraphPage::ForceDirectedGraphPage(const std::vector<std::string>& d
     QTimer::singleShot(0, graph_, &fdg::ForceDirectedGraph::initSimulation);
 }
 
-void ForceDirectedGraphPage::setDependencyGraph(UsdDependencyGraph* graph)
+void ForceDirectedGraphPage::setDependencyGraph(std::shared_ptr<UsdDependencyGraph> graph)
 {
     setActiveNode(graph->getRootNode());
 }
