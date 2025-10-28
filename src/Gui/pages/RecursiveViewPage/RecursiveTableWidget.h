@@ -4,6 +4,8 @@
 #include <qtablewidget.h>
 #include "Core/DependencyNode.h"
 #include "Core/NodePath.h"
+#include "Gui/pages/RecursiveViewPage/TableWidget.h"
+#include <QStandardItemModel>
 #include <QTextEdit>
 
 class RecursiveTableWidget
@@ -15,8 +17,9 @@ class RecursiveTableWidget
         void setActivePath(NodePath);
         const NodePath getActivePath() const;
     private:
-        QTableWidget* table_;
+        QStandardItemModel* model_;
         QVBoxLayout* mainLayout_;
+        TableWidget* table_;
 
         QWidget* header_;
         QLineEdit* headerPathWidget_;
@@ -30,9 +33,6 @@ class RecursiveTableWidget
         void initTable();
         void initFooter();
 
-        void onCellDoubleClicked(int row, int column);
-
-    protected:
-        virtual void resizeEvent(QResizeEvent *event);
+        void onCellDoubleClicked(const QModelIndex &);
 };
 

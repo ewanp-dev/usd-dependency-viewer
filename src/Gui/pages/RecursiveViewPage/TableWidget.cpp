@@ -5,18 +5,7 @@
 #include <qsplitter.h>
 #include <qtableview.h>
 #include <qheaderview.h>
-
-class SimpleModel : public QAbstractTableModel {
-public:
-    int rowCount(const QModelIndex & = QModelIndex()) const override { return 3; }
-    int columnCount(const QModelIndex & = QModelIndex()) const override { return 3; }
-
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override {
-        if (role == Qt::DisplayRole)
-            return QString("Hello World R%1C%2").arg(index.row()).arg(index.column());
-        return {};
-    }
-};
+#include <QLabel>
 
 TableWidget::TableWidget()
 {
@@ -38,34 +27,12 @@ void TableWidget::initHeader()
     QHBoxLayout* headerLayout = new QHBoxLayout(header_);
     headerLayout->setContentsMargins(0,0,0,0);
 
-    // QSplitter* splitter1 = new QSplitter();
     headerSplitter_ = new TableWidgetHeaderSplitter();
-    // QSplitter* splitter2 = new QSplitter();
-    // QSplitter* splitter3 = new QSplitter();
-
-    // splitters_.push_back(splitter1);
-    // splitters_.push_back(splitter2);
-    // splitters_.push_back(splitter3);
 
     headerLayout->addWidget(headerSplitter_);
 
-    QPushButton* button1 = new QPushButton("hello");
-    // for(auto splitter : splitters_)
-    // {
-    //     splitter->setCollapsible(0, false);
-    //     splitter->setCollapsible(2, false);
-    //     connect(splitter, &QSplitter::splitterMoved, this, &TableWidget::onHeaderResize);
-    // }
-
     connect(headerSplitter_, &QSplitter::splitterMoved, this, &TableWidget::onHeaderMoved);
     connect(headerSplitter_, &TableWidgetHeaderSplitter::resized, this, &TableWidget::onHeaderResized);
-
-    headerSplitter_->addWidget(button1);
-    // splitter1->addWidget(splitter2);
-    headerSplitter_->addWidget(new QPushButton("world"));
-    // splitter2->addWidget(splitter3);
-    headerSplitter_->addWidget(new QPushButton("foo"));
-    // splitter3->addWidget(new QPushButton("bar"));
 
     for(size_t i=0; i<headerSplitter_->count(); ++i)
     {
@@ -98,25 +65,30 @@ void TableWidget::onHeaderMoved(int pos, int index)
 
 void TableWidget::initBody()
 {
-    // body_ = new QWidget();
-    // columnLayout_ = new QHBoxLayout();
-    // body_->setLayout(columnLayout_);
-    //
-    // mainLayout_->addWidget(body_);
-    
     view_ = new QTableView();
     view_->verticalHeader()->setVisible(false);
     view_->horizontalHeader()->setVisible(false);
-
-    QAbstractItemModel* model = new SimpleModel();
-    view_->setModel(model);
+    view_->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     mainLayout_->addWidget(view_);
 }
 
-void TableWidgetHeaderSplitter::resizeEvent(QResizeEvent* event)
+void TableWidget::setHorizontalHeaderLabels(const QStringList &labels)
 {
-    QSplitter::resizeEvent(event);
-    Q_EMIT resized();
+    size_t i=0;
+    for(QString label : labels)
+    {
+        if(i<headerSplitter_->count())
+        {
+            QLabel* labelWidget = static_cast<QLabel*>(headerSplitter_->widget(i));
+            labelWidget->setText(label);
+        }
+        {
+            QLabel* labelWidget = new QLabel(label);
+            labelWidget->setAlignment(Qt::AlignCenter);
+            headerSplitter_->addWidget(labelWidget);
+        }
+        ++i;
+    }
 }
 

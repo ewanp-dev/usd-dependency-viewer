@@ -6,6 +6,8 @@
 #include <QSplitter>
 #include <qtmetamacros.h>
 
+// NOTE: I put this class with the table widget one, we might want to move it
+// to it's own file in the future. It's just a tiny wrapper to promote the resized event.
 class TableWidgetHeaderSplitter
 : public QSplitter
 {
@@ -13,7 +15,11 @@ class TableWidgetHeaderSplitter
     public:
         using QSplitter::QSplitter;
     protected:
-        void resizeEvent(QResizeEvent *) override;
+        void resizeEvent(QResizeEvent* event) override
+        {
+            QSplitter::resizeEvent(event);
+            Q_EMIT resized();
+        }
     Q_SIGNALS:
         void resized();
 };
@@ -23,6 +29,10 @@ class TableWidget
 {
     public:
         TableWidget();
+        QTableView* getView() {return view_;}
+        void setModel(QAbstractItemModel* model) {view_->setModel(model);}
+        // TODO: support replacing existing labels with fewer labels
+        void setHorizontalHeaderLabels(const QStringList &labels);
     private:
         void initHeader();
         void initBody();

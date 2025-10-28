@@ -74,7 +74,7 @@ void RecursiveTableWidget::setActivePath(NodePath nodePath)
     QFontMetrics metrics(headerPathWidget_->font());
     headerPathWidget_->setText(pathString);
 
-    table_->clearContents();
+    model_->clear();
 
     size_t numDependencies = activeNode_->getNumChildren();
     std::vector<std::shared_ptr<DependencyNode>> dependencyNodes = activeNode_->getChildNodes();
@@ -83,44 +83,46 @@ void RecursiveTableWidget::setActivePath(NodePath nodePath)
     QFont itemFont = QFont("Sans Serif", 10);
     itemFont.setUnderline(true);
 
-    table_->setRowCount(static_cast<int>(numDependencies));
+    model_->setRowCount(static_cast<int>(numDependencies));
     for (size_t i = 0; i < numDependencies; i++) {
         std::shared_ptr<DependencyNode> dependencyNode = dependencyNodes[i];
 
         QString fileName = dependencyNode->getFileName().c_str();
-        QTableWidgetItem *nameItem =  new QTableWidgetItem(fileName);
+        QStandardItem *nameItem =  new QStandardItem(fileName);
         nameItem->setToolTip(fileName);
-
-        QString filePath = dependencyNode->getFilePath().c_str();
-        QTableWidgetItem *pathItem = new QTableWidgetItem(filePath);
-        pathItem->setToolTip(filePath);
-
-        QTableWidgetItem *fileSizeItem = new QTableWidgetItem(QString::number(static_cast<qulonglong>(i)));
-        QTableWidgetItem *numChildrenItem = new QTableWidgetItem(QString::number(dependencyNode->getNumChildren()));
-        QTableWidgetItem *dateModifiedItem = new QTableWidgetItem(QString::number(static_cast<qulonglong>(i)));
-
+        nameItem->setEditable(false);
         nameItem->setForeground(QBrush(QColor(210, 186, 146)));
         nameItem->setFont(itemFont);
 
-        table_->setItem(i, 0, nameItem);
-        table_->setItem(i, 1, pathItem);
-        table_->setItem(i, 2, numChildrenItem);
-        table_->setItem(i, 3, fileSizeItem);
-        table_->setItem(i, 4, dateModifiedItem);
+        QString filePath = dependencyNode->getFilePath().c_str();
+        QStandardItem *pathItem = new QStandardItem(filePath);
+        pathItem->setToolTip(filePath);
+        pathItem->setEditable(false);
+
+        QStandardItem *fileSizeItem = new QStandardItem(QString::number(static_cast<qulonglong>(i)));
+        fileSizeItem->setEditable(false);
+
+        QStandardItem *numChildrenItem = new QStandardItem(QString::number(dependencyNode->getNumChildren()));
+        numChildrenItem->setEditable(false);
+
+        QStandardItem *dateModifiedItem = new QStandardItem(QString::number(static_cast<qulonglong>(i)));
+        dateModifiedItem->setEditable(false);
+
+        model_->setItem(i, 0, nameItem);
+        model_->setItem(i, 1, pathItem);
+        model_->setItem(i, 2, numChildrenItem);
+        model_->setItem(i, 3, fileSizeItem);
+        model_->setItem(i, 4, dateModifiedItem);
     }
 }
 
 void RecursiveTableWidget::initTable()
 {
-    mainLayout_->addWidget(new TableWidget());
-
-    table_ = new QTableWidget();
-    table_->verticalHeader()->setVisible(false);
+    table_ = new TableWidget();
+    model_ = new QStandardItemModel();
+    table_->setModel(model_);
     // table_->setRowCount(static_cast<int>(itemDependencies_.size()));
-    table_->setColumnCount(5);
-    table_->setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
-    table_->setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
-    table_->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    model_->setColumnCount(5);
     // table_->horizontalHeader()->setStretchLastSection(true);
 
     // NOTE: We might want to add some more columns later on down the line
@@ -128,26 +130,9 @@ void RecursiveTableWidget::initTable()
     table_->setHorizontalHeaderLabels({ "File Name", "File Path", "Children", "File Size", "Date Modified" });
     // table_->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeMode::Stretch);
 
-    connect(table_, &QTableWidget::cellDoubleClicked, this, &RecursiveTableWidget::onCellDoubleClicked);
+    connect(table_->getView(), &QTableWidget::doubleClicked, this, &RecursiveTableWidget::onCellDoubleClicked);
 
-    // mainLayout_->addWidget(table_);
-}
-
-void RecursiveTableWidget::resizeEvent(QResizeEvent *event)
-{
-    std::cout << "resize\n";
-    std::cout << "old size: " << event->oldSize().width() << " " << event->oldSize().height() << "\n";
-    std::cout << "new size: " << event->size().width() << " " << event->size().height() << "\n";
-    double sizeDelta = static_cast<float>(event->size().width())/event->oldSize().width();
-
-    auto numColumns = table_->columnCount();
-    for(int i=0; i<numColumns; i++)
-    {
-        double newWidth = sizeDelta*table_->columnWidth(i);
-        table_->setColumnWidth(i, newWidth);
-    }
-    std::cout<< "size delta: " << sizeDelta << "\n";
-
+    mainLayout_->addWidget(table_);
 }
 
 void RecursiveTableWidget::initFooter()
@@ -155,13 +140,16 @@ void RecursiveTableWidget::initFooter()
 
 }
 
-void RecursiveTableWidget::onCellDoubleClicked(int row, int column)
+void RecursiveTableWidget::onCellDoubleClicked(const QModelIndex& index)
 {
     // NOTE: not the best way to get the graph nod3 but it's fine.
 
+    int row = index.row();
+    int column = index.column();
+
     std::cout << "double clicked\n";
     std::cout << "row: " << row << "column: " << column << "\n";
-    auto tableItem = table_->item(row, 1);
+    auto tableItem = model_->item(row, 1);
     if(!tableItem)
     {
         std::cout << "table item doesn't exist\n";

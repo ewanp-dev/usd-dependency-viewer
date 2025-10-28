@@ -13,7 +13,7 @@
 #include <QFontDatabase>
 
 DependencyViewer::DependencyViewer(QWidget *parent)
-    : dependencyGraph_(new UsdDependencyGraph("/home/tpe/lib/usd/ALab-main/ALab/entry.usda"))
+    : dependencyGraph_(new UsdDependencyGraph("/home/parker/Downloads/ALab-2.2.0/ALab/entry.usda"))
 {
     setWindowTitle("USD Dependency Viewer");
     setGeometry(100, 100, 1280, 720);
