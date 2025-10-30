@@ -1,5 +1,5 @@
-#include "interface/Application.h"
-#include "interface/Globals.h"
+#include <Gui/MainWindow/Application.h>
+#include <Gui/MainWindow/Globals.h>
 #include <QApplication>
 #include <QFontDatabase>
 #include <QFont>
