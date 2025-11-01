@@ -18,29 +18,34 @@ set(ENZO_DEV_LIB_DIR "${CMAKE_SOURCE_DIR}/build/src/OpDefs/")
 set(SOURCES
     static/resources.qrc
     src/Gui/Main.cpp
-    src/Gui/interface/Application.cpp    
-    src/Gui/interface/AbstractButton.cpp
 
-    src/Gui/interface/widgets/nodegraph/ForceDirectedGraph.cpp
-    src/Gui/interface/widgets/nodegraph/GraphicsScene.cpp
-    src/Gui/interface/widgets/nodegraph/GraphicsView.cpp
-    src/Gui/interface/widgets/nodegraph/Edge.cpp
-    src/Gui/interface/widgets/nodegraph/Node.cpp
+    src/Gui/MainWindow/Application.cpp
+    src/Gui/MainWindow/Widgets/Header.cpp
+    src/Gui/MainWindow/Widgets/Search.cpp
+    src/Gui/MainWindow/Widgets/Sidebar.cpp
+    src/Gui/MainWindow/Widgets/Tree.cpp
 
-    src/Gui/pages/RecursiveViewPage/RecursiveViewPage.cpp
-    src/Gui/pages/RecursiveViewPage/RecursiveTableWidget.cpp
-    src/Gui/pages/RecursiveViewPage/TableWidget.cpp
-    src/Gui/pages/ForceDirectedGraphPage/ForceDirectedGraphPage.cpp
-    src/Gui/interface/Nodegraph.cpp
-    src/Gui/interface/Home.cpp
-    src/Gui/interface/widgets/Sidebar.cpp
-    src/Gui/interface/widgets/Search.cpp
-    src/Gui/interface/widgets/Settings.cpp
-    src/Gui/interface/widgets/Tree.cpp
-    src/Gui/interface/widgets/Header.cpp
-    src/Gui/interface/widgets/dropdown/Properties.cpp
-    src/Gui/interface/widgets/dropdown/Results.cpp
-    src/Gui/interface/widgets/dropdown/Sort.cpp
+    src/Gui/Pages/Home/Home.cpp
+    src/Gui/Pages/Settings/Settings.cpp
+
+    src/Gui/Pages/Navigation/NavigationPage.cpp
+    src/Gui/Pages/Navigation/Frameworks/Nodegraph/Edge.cpp
+    src/Gui/Pages/Navigation/Frameworks/Nodegraph/ForceDirectedGraph.cpp
+    src/Gui/Pages/Navigation/Frameworks/Nodegraph/GraphicsScene.cpp
+    src/Gui/Pages/Navigation/Frameworks/Nodegraph/GraphicsView.cpp
+    src/Gui/Pages/Navigation/Frameworks/Nodegraph/Node.cpp
+
+    src/Gui/Pages/Navigation/Widgets/Header/Header.cpp
+    src/Gui/Pages/Navigation/Widgets/Nodegraph/ForceDirectedGraphPage.cpp
+    src/Gui/Pages/Navigation/Widgets/RecursiveView/RecursiveTableWidget.cpp
+    src/Gui/Pages/Navigation/Widgets/RecursiveView/RecursiveViewPage.cpp
+
+    src/Gui/Widgets/AbstractButton.cpp
+    src/Gui/Widgets/AbstractTable.cpp
+
+    src/Gui/Widgets/DropdownWidgets/Properties.cpp
+    src/Gui/Widgets/DropdownWidgets/Results.cpp
+    src/Gui/Widgets/DropdownWidgets/Sort.cpp
 
     src/Core/UsdDependencyGraph.cpp
     src/Core/DependencyNode.cpp

@@ -1,4 +1,4 @@
-#include "./TableWidget.h"
+#include "AbstractTable.h"
 #include <qboxlayout.h>
 #include <qevent.h>
 #include <qpushbutton.h>

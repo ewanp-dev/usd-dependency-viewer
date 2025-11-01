@@ -5,7 +5,7 @@
 #include <QStandardItemModel>
 #include <QTextEdit>
 
-#include <Gui/Widgets/TableWidget.h>
+#include <Gui/Widgets/AbstractTable.h>
 #include <Core/NodePath.h>
 #include <Core/DependencyNode.h>
 
