@@ -20,7 +20,7 @@ class RecursiveTableWidget
     private:
         QStandardItemModel* model_;
         QVBoxLayout* mainLayout_;
-        TableWidget* table_;
+        AbstractTable* table_;
 
         QWidget* header_;
         QLineEdit* headerPathWidget_;

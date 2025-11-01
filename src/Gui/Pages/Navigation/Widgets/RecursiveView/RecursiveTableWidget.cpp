@@ -119,7 +119,7 @@ void RecursiveTableWidget::setActivePath(NodePath nodePath)
 
 void RecursiveTableWidget::initTable()
 {
-    table_ = new TableWidget();
+    table_ = new AbstractTable();
     model_ = new QStandardItemModel();
     table_->setModel(model_);
     // table_->setRowCount(static_cast<int>(itemDependencies_.size()));

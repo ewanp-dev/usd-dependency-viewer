@@ -9,7 +9,7 @@
 
 // NOTE: I put this class with the table widget one, we might want to move it
 // to it's own file in the future. It's just a tiny wrapper to promote the resized event.
-class TableWidgetHeaderSplitter
+class AbstractTableHeaderSplitter
 : public QSplitter
 {
     Q_OBJECT
@@ -25,11 +25,11 @@ class TableWidgetHeaderSplitter
         void resized();
 };
 
-class TableWidget
+class AbstractTable
 : public QWidget
 {
     public:
-        TableWidget();
+        AbstractTable();
         QTableView* getView() {return view_;}
         void setModel(QAbstractItemModel* model) {view_->setModel(model);}
         // TODO: support replacing existing labels with fewer labels
@@ -41,7 +41,7 @@ class TableWidget
 
         void onHeaderMoved(int pos, int index);
 
-        TableWidgetHeaderSplitter* headerSplitter_;
+        AbstractTableHeaderSplitter* headerSplitter_;
         // std::vector<QSplitter*> splitters_;
 
         QVBoxLayout* mainLayout_;
