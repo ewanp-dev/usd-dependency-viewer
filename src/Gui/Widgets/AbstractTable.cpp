@@ -7,7 +7,7 @@
 #include <qheaderview.h>
 #include <QLabel>
 
-TableWidget::TableWidget()
+AbstractTable::AbstractTable()
 {
     mainLayout_ = new QVBoxLayout();
     setLayout(mainLayout_);
@@ -16,7 +16,7 @@ TableWidget::TableWidget()
     initBody();
 }
 
-void TableWidget::initHeader()
+void AbstractTable::initHeader()
 {
 
     header_ = new QWidget();
@@ -27,12 +27,12 @@ void TableWidget::initHeader()
     QHBoxLayout* headerLayout = new QHBoxLayout(header_);
     headerLayout->setContentsMargins(0,0,0,0);
 
-    headerSplitter_ = new TableWidgetHeaderSplitter();
+    headerSplitter_ = new AbstractTableHeaderSplitter();
 
     headerLayout->addWidget(headerSplitter_);
 
-    connect(headerSplitter_, &QSplitter::splitterMoved, this, &TableWidget::onHeaderMoved);
-    connect(headerSplitter_, &TableWidgetHeaderSplitter::resized, this, &TableWidget::onHeaderResized);
+    connect(headerSplitter_, &QSplitter::splitterMoved, this, &AbstractTable::onHeaderMoved);
+    connect(headerSplitter_, &AbstractTableHeaderSplitter::resized, this, &AbstractTable::onHeaderResized);
 
     for(size_t i=0; i<headerSplitter_->count(); ++i)
     {
@@ -43,7 +43,7 @@ void TableWidget::initHeader()
     mainLayout_->addWidget(header_);
 }
 
-void TableWidget::onHeaderResized()
+void AbstractTable::onHeaderResized()
 {
     auto sizes = headerSplitter_->sizes();
     int pos = 0;
@@ -54,7 +54,7 @@ void TableWidget::onHeaderResized()
     }
 }
 
-void TableWidget::onHeaderMoved(int pos, int index)
+void AbstractTable::onHeaderMoved(int pos, int index)
 {
     for(size_t i=0; i<headerSplitter_->count(); ++i)
     {
@@ -63,7 +63,7 @@ void TableWidget::onHeaderMoved(int pos, int index)
     }
 }
 
-void TableWidget::initBody()
+void AbstractTable::initBody()
 {
     view_ = new QTableView();
     view_->verticalHeader()->setVisible(false);
@@ -73,7 +73,7 @@ void TableWidget::initBody()
     mainLayout_->addWidget(view_);
 }
 
-void TableWidget::setHorizontalHeaderLabels(const QStringList &labels)
+void AbstractTable::setHorizontalHeaderLabels(const QStringList &labels)
 {
     size_t i=0;
     for(QString label : labels)
