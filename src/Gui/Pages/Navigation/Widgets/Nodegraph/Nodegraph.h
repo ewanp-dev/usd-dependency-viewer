@@ -8,10 +8,10 @@
 #include <Core/DependencyNode.h>
 #include <Core/UsdDependencyGraph.h>
 
-class ForceDirectedGraphPage : public QWidget
+class Nodegraph : public QWidget
 {
     public:
-        ForceDirectedGraphPage(const std::vector<std::string>& dependencies, QWidget* parent = nullptr);
+        Nodegraph(const std::vector<std::string>& dependencies, QWidget* parent = nullptr);
         void setDependencyGraph(std::shared_ptr<UsdDependencyGraph> graph);
         void setActiveNode(std::shared_ptr<DependencyNode> node);
         void clear();
