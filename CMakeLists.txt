@@ -99,4 +99,5 @@ target_link_libraries(${AppExec} PRIVATE
 )
 target_include_directories(${AppExec} PUBLIC
     ${ENGINE_INCLUDE_DIRECTORIES}
+    ${PXR_INCLUDE_DIRS}
 )

@@ -12,7 +12,7 @@
 
 DependencyViewer::DependencyViewer(QWidget *parent)
 {
-    setWindowTitle("USD Dependency Viewer");
+    setWindowTitle("USD Depedency Viewer");
     setGeometry(100, 100, 1280, 720);
 
     dependencyGraph_ = UsdDependencyGraph::fromFileDialog();
@@ -46,18 +46,17 @@ DependencyViewer::DependencyViewer(QWidget *parent)
 
     // ---------------------------------------
     // PAGES SETUP
-    databasePage_ = new RecursiveViewPage(itemDependencies_);
-    databasePage_->setDependencyGraph(dependencyGraph_);
+    navPage_ = new NavigationPage(itemDependencies_, dependencyGraph_);
     homePage_ = new HomePage();
     
     QStackedWidget *pages = new QStackedWidget();
 
     pages->addWidget(homePage_);
-    pages->addWidget(databasePage_);
+    pages->addWidget(navPage_);
 
     // NOTE: I might move these connections to a function inside of the sidebar class
     connect(sidebar_->database, &QPushButton::clicked, this, [this, pages]() {
-        pages->setCurrentWidget(databasePage_);
+        pages->setCurrentWidget(navPage_);
     });
 
     connect(sidebar_->home, &QPushButton::clicked, this, [this, pages]() {

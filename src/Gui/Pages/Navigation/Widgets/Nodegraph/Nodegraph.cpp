@@ -1,8 +1,8 @@
-#include "ForceDirectedGraphPage.h"
+#include "Nodegraph.h"
 #include <QTimer>
 #include <memory>
 
-ForceDirectedGraphPage::ForceDirectedGraphPage(const std::vector<std::string>& dependencies, QWidget* parent)
+Nodegraph::Nodegraph(const std::vector<std::string>& dependencies, QWidget* parent)
     : QWidget(parent), graph_(new fdg::ForceDirectedGraph(this))
 {
     mainLayout_ = new QVBoxLayout(this);
@@ -11,18 +11,18 @@ ForceDirectedGraphPage::ForceDirectedGraphPage(const std::vector<std::string>& d
     QTimer::singleShot(0, graph_, &fdg::ForceDirectedGraph::initSimulation);
 }
 
-void ForceDirectedGraphPage::setDependencyGraph(std::shared_ptr<UsdDependencyGraph> graph)
+void Nodegraph::setDependencyGraph(std::shared_ptr<UsdDependencyGraph> graph)
 {
     setActiveNode(graph->getRootNode());
 }
 
-void ForceDirectedGraphPage::setActiveNode(std::shared_ptr<DependencyNode> node)
+void Nodegraph::setActiveNode(std::shared_ptr<DependencyNode> node)
 {
     activeNode_ = node;
     initGraph();
 }
 
-void ForceDirectedGraphPage::initGraph()
+void Nodegraph::initGraph()
 {
     clear();
     std::vector<std::shared_ptr<DependencyNode>> dependencyNodes = activeNode_->getChildNodes();
@@ -37,7 +37,7 @@ void ForceDirectedGraphPage::initGraph()
     }
 }
 
-void ForceDirectedGraphPage::clear()
+void Nodegraph::clear()
 {
     graph_->clearNodes();
 }
