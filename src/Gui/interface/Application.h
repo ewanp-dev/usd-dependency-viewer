@@ -14,7 +14,7 @@
 class DependencyViewer : public QMainWindow 
 {
     public:
-        DependencyViewer(QWidget *parent = nullptr);
+        DependencyViewer(QWidget *parent = nullptr, std::string startFile="");
     private:
         void showFloatingWidget_(QWidget* widget);
         void expandDropdown_(bool checked);
