@@ -44,3 +44,9 @@ std::string DependencyNode::getFileStem()
     return std::filesystem::path(filePath_).stem();
 }
 
+std::ostream& operator<<(std::ostream stream, DependencyNode& node)
+{
+    stream << node.getFileName();
+    return stream;
+}
+

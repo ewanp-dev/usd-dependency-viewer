@@ -14,6 +14,7 @@ class Nodegraph : public QWidget
         Nodegraph(const std::vector<std::string>& dependencies, QWidget* parent = nullptr);
         void setDependencyGraph(std::shared_ptr<UsdDependencyGraph> graph);
         void setActiveNode(std::shared_ptr<DependencyNode> node);
+        void setRootNode(std::shared_ptr<DependencyNode> node);
         void clear();
 
     private:
@@ -21,6 +22,7 @@ class Nodegraph : public QWidget
 
         fdg::ForceDirectedGraph* graph_;
         std::shared_ptr<DependencyNode> activeNode_;
+        std::shared_ptr<DependencyNode> rootNode_;
 
         QVBoxLayout* mainLayout_;
 

@@ -22,6 +22,11 @@ void Nodegraph::setActiveNode(std::shared_ptr<DependencyNode> node)
     initGraph();
 }
 
+void Nodegraph::setRootNode(std::shared_ptr<DependencyNode> node)
+{
+    rootNode_ = node;
+}
+
 void Nodegraph::initGraph()
 {
     clear();

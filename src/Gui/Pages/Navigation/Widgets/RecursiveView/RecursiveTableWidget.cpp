@@ -44,7 +44,7 @@ void RecursiveTableWidget::initHeader()
     AbstractButton* navUpButton = new AbstractButton();
     navUpButton->setIconFromImage(":/icons/nav-arrow-up.png");
     headerLayout->addWidget(navUpButton);
-    connect(navUpButton, &AbstractButton::clicked, this, [this](){setActivePath(getActivePath().popNode());});
+    connect(navUpButton, &AbstractButton::clicked, this, &RecursiveTableWidget::onNavUpButtonClicked);
 
     // AbstractButton* upButton = new AbstractButton();
     // upButton->setIconFromImage(":/icons/home.png");
@@ -62,6 +62,8 @@ void RecursiveTableWidget::setActivePath(NodePath nodePath)
 {
     nodePath_ = nodePath;
     activeNode_ = nodePath.getLeafNode();
+
+    Q_EMIT navUpButtonClicked(activeNode_);
     std::cout << "new path: " << getActivePath() << "\n";
     std::cout << "activeNode: " << activeNode_->getFilePath() << "\n";
 
@@ -141,6 +143,12 @@ void RecursiveTableWidget::initFooter()
 
 }
 
+void RecursiveTableWidget::onNavUpButtonClicked()
+{
+    setActivePath(getActivePath().popNode());
+    // TODO This is breaking the software when trying to get back to entity
+}
+
 void RecursiveTableWidget::onCellDoubleClicked(const QModelIndex& index)
 {
     // NOTE: not the best way to get the graph nod3 but it's fine.
@@ -148,12 +156,9 @@ void RecursiveTableWidget::onCellDoubleClicked(const QModelIndex& index)
     int row = index.row();
     int column = index.column();
 
-    std::cout << "double clicked\n";
-    std::cout << "row: " << row << "column: " << column << "\n";
     auto tableItem = model_->item(row, 1);
     if(!tableItem)
     {
-        std::cout << "table item doesn't exist\n";
         return;
     }
     std::string filePath = tableItem->text().toStdString();
@@ -165,12 +170,11 @@ void RecursiveTableWidget::onCellDoubleClicked(const QModelIndex& index)
         {
             if(node->getNumChildren()==0)
             {
-                std::cout << "Node has no children\n";
                 break;
             }
-            std::cout << "setting active node\n";
 
             setActivePath(getActivePath().appendNode(node));
+            Q_EMIT cellDoubleClicked(node);
             break;
         }
     }

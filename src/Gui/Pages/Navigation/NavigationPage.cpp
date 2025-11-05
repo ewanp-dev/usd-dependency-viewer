@@ -18,12 +18,16 @@ NavigationPage::NavigationPage(const std::vector<std::string>& dependencies, std
 
     nodegraph_ = new Nodegraph(dependencies);
     nodegraph_->setDependencyGraph(graph);
+    nodegraph_->setRootNode(graph->getRootNode());
 
     stackedWidget_->addWidget(nodegraph_);
     mainSplitter_->addWidget(table_);
     mainSplitter_->addWidget(stackedWidget_);
     mainLayout_->addWidget(header_);
     mainLayout_->addWidget(mainSplitter_);
+
+    connect(table_, &RecursiveTableWidget::cellDoubleClicked, this, &NavigationPage::onTableCellDoubleClicked);
+    connect(table_, &RecursiveTableWidget::navUpButtonClicked, this, &NavigationPage::onTableNavUpButtonClicked);
 }
 
 void NavigationPage::setActiveNode(std::shared_ptr<DependencyNode> node)
@@ -31,4 +35,15 @@ void NavigationPage::setActiveNode(std::shared_ptr<DependencyNode> node)
     activeNode_ = node;
     std::vector<std::shared_ptr<DependencyNode>> dependencyNodes = node->getChildNodes();
     table_->setActivePath(NodePath(node));
+}
+
+void NavigationPage::onTableCellDoubleClicked(std::shared_ptr<DependencyNode> node)
+{
+    nodegraph_->setActiveNode(node);
+}
+
+void NavigationPage::onTableNavUpButtonClicked(std::shared_ptr<DependencyNode> node)
+{
+    std::cout << node->getFileName() << '\n';
+    nodegraph_->setActiveNode(node);
 }

@@ -12,11 +12,18 @@
 class RecursiveTableWidget
 : public QWidget
 {
+    Q_OBJECT
+
+    Q_SIGNALS:
+        void cellDoubleClicked(std::shared_ptr<DependencyNode> node);
+        void navUpButtonClicked(std::shared_ptr<DependencyNode> node);
+
     public:
         RecursiveTableWidget();
         // void setActiveNode(std::shared_ptr<DependencyNode> node);
         void setActivePath(NodePath);
         const NodePath getActivePath() const;
+
     private:
         QStandardItemModel* model_;
         QVBoxLayout* mainLayout_;
@@ -35,5 +42,6 @@ class RecursiveTableWidget
         void initFooter();
 
         void onCellDoubleClicked(const QModelIndex &);
+        void onNavUpButtonClicked();
 };
 

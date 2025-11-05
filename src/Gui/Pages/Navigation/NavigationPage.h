@@ -16,9 +16,15 @@
 
 class NavigationPage : public QWidget
 {
+    Q_OBJECT
+
     public: 
         NavigationPage(const std::vector<std::string>& dependencies, std::shared_ptr<UsdDependencyGraph> graph, QWidget* parent = nullptr);
         void setActiveNode(std::shared_ptr<DependencyNode> node);
+
+    private Q_SLOTS:
+        void onTableCellDoubleClicked(std::shared_ptr<DependencyNode> node);
+        void onTableNavUpButtonClicked(std::shared_ptr<DependencyNode> node);
 
     private:
         QVBoxLayout* mainLayout_;
