@@ -8,8 +8,9 @@
 #include <QDir>
 #include <argparse/argparse.hpp>
 
-int main (int argc, char **argv) {
-    QApplication app (argc, argv);
+int main(int argc, char **argv)
+{
+    QApplication app(argc, argv);
     QApplication::setCursorFlashTime(0);
 
     // Argument parsing
@@ -21,8 +22,7 @@ int main (int argc, char **argv) {
 
     try {
         parser.parse_args(argc, argv);
-    }
-    catch (const std::exception& err) {
+    } catch (const std::exception &err) {
         std::cerr << err.what() << std::endl;
         std::cerr << parser;
         return 1;
@@ -31,7 +31,7 @@ int main (int argc, char **argv) {
     auto filePath = parser.get<std::string>("filePath");
 
     // interface
-    DependencyViewer* viewer = new DependencyViewer(nullptr, filePath);
+    DependencyViewer *viewer = new DependencyViewer(filePath);
     viewer->show();
 
     return app.exec();
