@@ -36,9 +36,8 @@ set(SOURCES
     src/Gui/Pages/Navigation/Frameworks/Nodegraph/Node.cpp
 
     src/Gui/Pages/Navigation/Widgets/Header/Header.cpp
-    src/Gui/Pages/Navigation/Widgets/Nodegraph/ForceDirectedGraphPage.cpp
+    src/Gui/Pages/Navigation/Widgets/Nodegraph/Nodegraph.cpp
     src/Gui/Pages/Navigation/Widgets/RecursiveView/RecursiveTableWidget.cpp
-    src/Gui/Pages/Navigation/Widgets/RecursiveView/RecursiveViewPage.cpp
 
     src/Gui/Widgets/AbstractButton.cpp
     src/Gui/Widgets/AbstractTable.cpp

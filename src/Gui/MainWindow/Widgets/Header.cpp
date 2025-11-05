@@ -2,6 +2,8 @@
 #include <QHBoxLayout>
 #include <Gui/MainWindow/Globals.h>
 
+// TODO Add in connections
+
 Header::Header() {
     int FIXED_HEIGHT = 40;
     setFixedHeight(FIXED_HEIGHT);
