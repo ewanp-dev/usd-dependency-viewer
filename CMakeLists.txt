@@ -62,6 +62,14 @@ find_package(Qt6 REQUIRED COMPONENTS Core Widgets SvgWidgets OpenGLWidgets)
 qt_standard_project_setup()
 ADD_DEFINITIONS(-DQT_NO_KEYWORDS)
 
+# argparse
+include(FetchContent)
+FetchContent_Declare(
+    argparse
+    GIT_REPOSITORY https://github.com/p-ranav/argparse.git
+)
+FetchContent_MakeAvailable(argparse)
+
 # tbb
 # find_package(TBB REQUIRED COMPONENTS tbb)
 
@@ -92,6 +100,7 @@ target_link_libraries(${AppExec} PRIVATE
     Qt6::Widgets
     Qt6::SvgWidgets
     Qt6::OpenGLWidgets
+    argparse
     # TBB::tbb
     Python3::Python
     ${PXR_LIBRARIES}

@@ -6,13 +6,34 @@
 #include <QString>
 #include <QFile>
 #include <QDir>
+#include <argparse/argparse.hpp>
 
 int main (int argc, char **argv) {
     QApplication app (argc, argv);
     QApplication::setCursorFlashTime(0);
 
-    DependencyViewer* viewer = new DependencyViewer();
+    // DependencyViewer* viewer = new DependencyViewer();
+    // Argument Parsing
+    argparse::ArgumentParser parser("dependencyViewer");
 
+    parser.add_argument("filePath")
+        .help("launch dependency viewer interface")
+        .default_value("");
+
+    try
+    {
+        parser.parse_args(argc, argv);
+    }
+    catch (const std::exception& err)
+    {
+        std::cerr << err.what() << std::endl;
+        std::cerr << parser;
+        return 1;
+    }
+
+    auto filePath = parser.get<std::string>("filePath");
+
+    DependencyViewer* viewer = new DependencyViewer(filePath);
     viewer->show();
 
     return app.exec();

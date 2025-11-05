@@ -10,14 +10,12 @@
 #include <QFontDatabase>
 #include <Gui/MainWindow/Widgets/Search.h>
 
-DependencyViewer::DependencyViewer(QWidget *parent)
+DependencyViewer::DependencyViewer(std::string startFile, QWidget *parent)
 {
     setWindowTitle("USD Depedency Viewer");
     setGeometry(100, 100, 1280, 720);
 
-    dependencyGraph_ = UsdDependencyGraph::fromFileDialog();
-
-    // dependencyGraph_ = UsdDependencyGraph("/home/parker/Downloads/ALab-2.2.0/ALab/entry.usda");
+    dependencyGraph_ = std::make_shared<UsdDependencyGraph>(startFile);
 
     savedWidth_ = 200;
 
