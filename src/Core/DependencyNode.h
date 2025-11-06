@@ -16,8 +16,6 @@ class DependencyNode
         const std::vector<std::shared_ptr<DependencyNode>>& getChildNodes() const;
         size_t getNumChildren() const;
         std::shared_ptr<DependencyNode> getChildNode(size_t index);
-        friend std::ostream &operator<<(std::ostream& out, const DependencyNode& node);
-
 
     private:
         std::string filePath_;

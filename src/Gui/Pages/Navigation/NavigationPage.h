@@ -35,5 +35,6 @@ class NavigationPage : public QWidget
         NavigationHeader* header_;
 
         std::shared_ptr<DependencyNode> activeNode_;
+        std::shared_ptr<DependencyNode> rootNode_;
 
 };
