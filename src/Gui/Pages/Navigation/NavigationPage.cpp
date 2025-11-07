@@ -24,7 +24,7 @@ NavigationPage::NavigationPage(const std::vector<std::string>& dependencies, std
     stackedWidget_->addWidget(nodegraph_);
     mainSplitter_->addWidget(table_);
     mainSplitter_->addWidget(stackedWidget_);
-    mainLayout_->addWidget(header_);
+    // mainLayout_->addWidget(header_);
     mainLayout_->addWidget(mainSplitter_);
 
     connect(table_, &RecursiveTableWidget::cellDoubleClicked, this, &NavigationPage::onTableCellDoubleClicked);
