@@ -145,8 +145,12 @@ void RecursiveTableWidget::initFooter()
 
 void RecursiveTableWidget::onNavUpButtonClicked()
 {
-    setActivePath(getActivePath().popNode());
-    // TODO This is breaking the software when trying to get back to entity
+    const NodePath& nodePath = getActivePath();
+
+    // guard against emptying path
+    if(nodePath.getLeafNode() == nodePath.getRootNode()) return;
+
+    setActivePath(nodePath.popNode());
 }
 
 void RecursiveTableWidget::onCellDoubleClicked(const QModelIndex& index)
