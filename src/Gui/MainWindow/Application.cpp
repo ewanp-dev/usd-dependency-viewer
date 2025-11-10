@@ -35,7 +35,6 @@ DependencyViewer::DependencyViewer(std::string startFile, QWidget *parent)
     // ---------------------------------------
     // WIDGETS
     
-    sidebar_ = new Sidebar();
     header_ = new Header();
     searchWidget_ = new SearchWidget(itemDependencies_);
     settingsWidget_ = new SettingsWidget(this);
@@ -52,15 +51,6 @@ DependencyViewer::DependencyViewer(std::string startFile, QWidget *parent)
     pages->addWidget(homePage_);
     pages->addWidget(navPage_);
 
-    // NOTE: I might move these connections to a function inside of the sidebar class
-    connect(sidebar_->database, &QPushButton::clicked, this, [this, pages]() {
-        pages->setCurrentWidget(navPage_);
-    });
-
-    connect(sidebar_->home, &QPushButton::clicked, this, [this, pages]() {
-        pages->setCurrentWidget(homePage_);
-    });
-
     // ---------------------------------------
     // LAYOUT
 
@@ -71,7 +61,6 @@ DependencyViewer::DependencyViewer(std::string startFile, QWidget *parent)
 
     QHBoxLayout *bottomLayout = new QHBoxLayout();
 
-    bottomLayout->addWidget(sidebar_);
     bottomLayout->addWidget(splitter);
 
     layout->addWidget(header_);
@@ -92,11 +81,6 @@ DependencyViewer::DependencyViewer(std::string startFile, QWidget *parent)
         );
     });
 
-    connect(sidebar_->settings, &QPushButton::clicked, this, [this]() {
-        showFloatingWidget_(
-            settingsWidget_
-        );
-    });
 }
 
 void DependencyViewer::initStyleSheet()
@@ -153,7 +137,7 @@ void DependencyViewer::initStyleSheet()
 
 void DependencyViewer::initFonts()
 {
-    std::string fontName = ":/fonts/FiraCodeNerdFontMono-Regular.ttf";
+    std::string fontName = ":/fonts/JetBrainsMonoNerdFont-Regular.ttf";
     int id = QFontDatabase::addApplicationFont(fontName.c_str());
     QString family = QFontDatabase::applicationFontFamilies(id).at(0);
     QFont font = QFont(family, 10);
