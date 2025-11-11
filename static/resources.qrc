@@ -14,12 +14,26 @@
         <file>icons/sidebar.png</file>
         <file>icons/view.png</file>
 
+        <file>icons/DarkMode/asset.png</file>
+        <file>icons/DarkMode/bullet_point.png</file>
+        <file>icons/DarkMode/file.png</file>
+        <file>icons/DarkMode/filter.png</file>
+        <file>icons/DarkMode/folder.png</file>
+        <file>icons/DarkMode/graph.png</file>
+        <file>icons/DarkMode/home.png</file>
+        <file>icons/DarkMode/leaf.png</file>
+        <file>icons/DarkMode/list.png</file>
+        <file>icons/DarkMode/settings.png</file>
+        <file>icons/DarkMode/up.png</file>
+        <file>icons/DarkMode/leaf_colored.png</file>
+
         <file>fonts/FiraCodeNerdFontMono-Regular.ttf</file>
         <file>fonts/CaskaydiaCoveNerdFontMono-Regular.ttf</file>
         <file>fonts/JetBrainsMonoNerdFont-Regular.ttf</file>
 
         <file>styles/style.qss</file>
         <file>styles/default-color-scheme.qss</file>
+        <file>styles/darkmode-color-scheme.qss</file>
         <file>styles/blue-color-scheme.qss</file>
     </qresource>
 </RCC>

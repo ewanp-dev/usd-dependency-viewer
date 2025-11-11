@@ -13,7 +13,12 @@
 DependencyViewer::DependencyViewer(std::string startFile, QWidget *parent)
 {
     setWindowTitle("USD Depedency Viewer");
-    setGeometry(100, 100, 1280, 720);
+    QRect screenGeometry = QGuiApplication::primaryScreen()->availableGeometry();
+    int width = screenGeometry.width() * 0.8;
+    int height = screenGeometry.height() * 0.8;
+    resize(width, height);
+
+    // setGeometry(100, 100, 1280, 720);
 
     dependencyGraph_ = std::make_shared<UsdDependencyGraph>(startFile);
 
@@ -49,7 +54,8 @@ DependencyViewer::DependencyViewer(std::string startFile, QWidget *parent)
     QStackedWidget *pages = new QStackedWidget();
 
     pages->addWidget(homePage_);
-    pages->addWidget(navPage_);
+    // BUG: navPage is havving horizontal expanding issues
+    // pages->addWidget(navPage_);
 
     // ---------------------------------------
     // LAYOUT
@@ -75,7 +81,7 @@ void DependencyViewer::initStyleSheet()
 {
     qDebug() << "Current working directory: " << QDir::currentPath();
     QFile file(":/styles/style.qss");
-    QFile colorScheme(":/styles/blue-color-scheme.qss");
+    QFile colorScheme(":/styles/darkmode-color-scheme.qss");
     if (!colorScheme.open(QFile::ReadOnly | QFile::Text)) {
         qDebug() << "color sheme cannot be opened for read.";
         return;

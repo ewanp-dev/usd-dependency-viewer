@@ -9,34 +9,32 @@ QHeaderView
 }
 
 QLabel {
-    color: @fg-main;
+    color: @text-white-1;
 }
 
 /*
 QPushButton {
-    font: 10pt "Sans Serif";
-    color: @fg-main;
-    background: transparent;
+    color: @text-white-1;
+    background: @bg-dark-1;
     border: none;
 }
 
 QPushButton:hover {
-    background-color: red;
-    border-radius: 5px;
+    background-color: @bg-accent-1;
 }
 
 QPushButton:pressed {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: @bg-dark-1;
 }
 */
 
 QLineEdit
 {
-    background-color: @bg-dark-1;
-    border: 1px solid @bg-light-1;
-    color: @fg-main;
+    background-color: @bg-main;
+    border: 1px solid @bg-dark-1;
+    color: @text-white-1;
     padding: 4px;
-    border-radius: 8px;
+    border-radius: 0px;
 }
 
 QTableWidget {
@@ -59,7 +57,16 @@ QTableWidget::item {
 }
 
 .WindowHeader {
-    background-color: @bg-light-1;
+    background-color: transparent;
+}
+
+.HeaderButton {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.HomeButton:hover {
+    background-color: transparent;
 }
 
 QTableWidgetItem {
@@ -107,14 +114,14 @@ QToolTip
 .AbstractButton, QPushButton
 {
     border: none;
-    color: @fg-main;
-    background: transparent;
+    color: @text-white-1;
+    background: @bg-dark-1;
     padding: 4px 4px;
 }
 
 .AbstractButton:hover, QPushButton:hover
 {
-    background-color: @bg-light-2;
+    background-color: @bg-accent-1;
 }
 
 .SettingsWidget
