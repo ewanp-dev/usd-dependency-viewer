@@ -9,6 +9,9 @@
 
 // NOTE: I put this class with the table widget one, we might want to move it
 // to it's own file in the future. It's just a tiny wrapper to promote the resized event.
+namespace dvWidgets
+{
+
 class AbstractTableHeaderSplitter
 : public QSplitter
 {
@@ -51,3 +54,5 @@ class AbstractTable
         QWidget* body_;
         QWidget* header_;
 };
+
+}

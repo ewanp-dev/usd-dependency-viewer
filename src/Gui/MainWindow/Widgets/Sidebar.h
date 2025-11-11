@@ -8,8 +8,8 @@ class Sidebar : public QWidget
 {
     public:
         Sidebar();
-        AbstractButton *database;
-        AbstractButton *nodegraph;
-        AbstractButton *home;
-        AbstractButton *settings;
+        dvWidgets::AbstractButton *database;
+        dvWidgets::AbstractButton *nodegraph;
+        dvWidgets::AbstractButton *home;
+        dvWidgets::AbstractButton *settings;
 };

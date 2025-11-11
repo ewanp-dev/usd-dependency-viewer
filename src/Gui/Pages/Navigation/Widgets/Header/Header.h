@@ -14,11 +14,11 @@ class NavigationHeader : public QWidget
         NavigationHeader(QWidget* parent = nullptr);
 
     private:
-        void showDropdown_(AbstractButton* button, QWidget* dropdown, int shift = 0); 
+        void showDropdown_(dvWidgets::AbstractButton* button, QWidget* dropdown, int shift = 0); 
         QHBoxLayout* mainLayout_;
-        AbstractButton* resultsList_;
-        AbstractButton* sort_;
-        AbstractButton* properties_;
+        dvWidgets::AbstractButton* resultsList_;
+        dvWidgets::AbstractButton* sort_;
+        dvWidgets::AbstractButton* properties_;
         ResultsDropdownWidget* resultsDropdown_;
         SortDropdownWidget* sortDropdown_;
         PropertiesDropdownWidget* propertiesDropdown_;

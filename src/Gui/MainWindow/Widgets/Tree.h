@@ -11,6 +11,6 @@ class DependenciesTreeWidget : public QWidget
         DependenciesTreeWidget(QWidget *parent = nullptr);
     private:
         QLineEdit* searchBar_;
-        AbstractButton* filterButton_;
+        dvWidgets::AbstractButton* filterButton_;
         QListWidget* dependenciesList_;
 };

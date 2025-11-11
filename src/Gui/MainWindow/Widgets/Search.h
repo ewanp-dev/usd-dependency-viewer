@@ -16,6 +16,6 @@ class SearchWidget : public QWidget
         void populateDefaultList();
         QLineEdit* searchBar_;
         QListWidget* results_;
-        AbstractButton* exitButton_;
+        dvWidgets::AbstractButton* exitButton_;
         std::vector<std::string> dependencies_;
 };

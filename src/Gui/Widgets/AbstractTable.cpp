@@ -7,7 +7,7 @@
 #include <qheaderview.h>
 #include <QLabel>
 
-AbstractTable::AbstractTable()
+dvWidgets::AbstractTable::AbstractTable()
 {
     mainLayout_ = new QVBoxLayout();
     setLayout(mainLayout_);
@@ -16,7 +16,7 @@ AbstractTable::AbstractTable()
     initBody();
 }
 
-void AbstractTable::initHeader()
+void dvWidgets::AbstractTable::initHeader()
 {
 
     header_ = new QWidget();
@@ -27,12 +27,12 @@ void AbstractTable::initHeader()
     QHBoxLayout* headerLayout = new QHBoxLayout(header_);
     headerLayout->setContentsMargins(0,0,0,0);
 
-    headerSplitter_ = new AbstractTableHeaderSplitter();
+    headerSplitter_ = new dvWidgets::AbstractTableHeaderSplitter();
 
     headerLayout->addWidget(headerSplitter_);
 
-    connect(headerSplitter_, &QSplitter::splitterMoved, this, &AbstractTable::onHeaderMoved);
-    connect(headerSplitter_, &AbstractTableHeaderSplitter::resized, this, &AbstractTable::onHeaderResized);
+    connect(headerSplitter_, &QSplitter::splitterMoved, this, &dvWidgets::AbstractTable::onHeaderMoved);
+    connect(headerSplitter_, &dvWidgets::AbstractTableHeaderSplitter::resized, this, &dvWidgets::AbstractTable::onHeaderResized);
 
     for(size_t i=0; i<headerSplitter_->count(); ++i)
     {
@@ -43,7 +43,7 @@ void AbstractTable::initHeader()
     mainLayout_->addWidget(header_);
 }
 
-void AbstractTable::onHeaderResized()
+void dvWidgets::AbstractTable::onHeaderResized()
 {
     auto sizes = headerSplitter_->sizes();
     int pos = 0;
@@ -54,7 +54,7 @@ void AbstractTable::onHeaderResized()
     }
 }
 
-void AbstractTable::onHeaderMoved(int pos, int index)
+void dvWidgets::AbstractTable::onHeaderMoved(int pos, int index)
 {
     for(size_t i=0; i<headerSplitter_->count(); ++i)
     {
@@ -63,7 +63,7 @@ void AbstractTable::onHeaderMoved(int pos, int index)
     }
 }
 
-void AbstractTable::initBody()
+void dvWidgets::AbstractTable::initBody()
 {
     view_ = new QTableView();
     view_->verticalHeader()->setVisible(false);
@@ -73,7 +73,7 @@ void AbstractTable::initBody()
     mainLayout_->addWidget(view_);
 }
 
-void AbstractTable::setHorizontalHeaderLabels(const QStringList &labels)
+void dvWidgets::AbstractTable::setHorizontalHeaderLabels(const QStringList &labels)
 {
     size_t i=0;
     for(QString label : labels)

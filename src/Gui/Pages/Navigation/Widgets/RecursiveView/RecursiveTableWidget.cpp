@@ -36,17 +36,17 @@ void RecursiveTableWidget::initHeader()
     headerPathWidget_->setReadOnly(true);
     headerLayout->addWidget(headerPathWidget_);
 
-    AbstractButton* navHomeButton = new AbstractButton();
+    dvWidgets::AbstractButton* navHomeButton = new dvWidgets::AbstractButton();
     navHomeButton->setIconFromImage(":/icons/home.png");
     headerLayout->addWidget(navHomeButton);
-    connect(navHomeButton, &AbstractButton::clicked, this, [this](){setActivePath(NodePath(getActivePath().getRootNode()));});
+    connect(navHomeButton, &dvWidgets::AbstractButton::clicked, this, [this](){setActivePath(NodePath(getActivePath().getRootNode()));});
 
-    AbstractButton* navUpButton = new AbstractButton();
+    dvWidgets::AbstractButton* navUpButton = new dvWidgets::AbstractButton();
     navUpButton->setIconFromImage(":/icons/nav-arrow-up.png");
     headerLayout->addWidget(navUpButton);
-    connect(navUpButton, &AbstractButton::clicked, this, &RecursiveTableWidget::onNavUpButtonClicked);
+    connect(navUpButton, &dvWidgets::AbstractButton::clicked, this, &RecursiveTableWidget::onNavUpButtonClicked);
 
-    // AbstractButton* upButton = new AbstractButton();
+    // dvWidgets::AbstractButton* upButton = new dvWidgets::AbstractButton();
     // upButton->setIconFromImage(":/icons/home.png");
     // headerLayout->addWidget(upButton);
 
@@ -121,7 +121,7 @@ void RecursiveTableWidget::setActivePath(NodePath nodePath)
 
 void RecursiveTableWidget::initTable()
 {
-    table_ = new AbstractTable();
+    table_ = new dvWidgets::AbstractTable();
     model_ = new QStandardItemModel();
     table_->setModel(model_);
     // table_->setRowCount(static_cast<int>(itemDependencies_.size()));

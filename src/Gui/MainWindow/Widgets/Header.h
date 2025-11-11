@@ -10,11 +10,11 @@ class Header : public QWidget
         Header();
 
     private:
-        AbstractButton* homeButton_;
-        AbstractButton* visButton_;
-        AbstractButton* listButton_;
-        AbstractButton* assetButton_;
-        AbstractButton* settingsButton_;
+        dvWidgets::AbstractButton* homeButton_;
+        dvWidgets::AbstractButton* visButton_;
+        dvWidgets::AbstractButton* listButton_;
+        dvWidgets::AbstractButton* assetButton_;
+        dvWidgets::AbstractButton* settingsButton_;
 
         QHBoxLayout* mainLayout_;
 };

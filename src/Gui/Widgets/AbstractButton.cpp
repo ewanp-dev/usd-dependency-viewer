@@ -1,6 +1,6 @@
 #include "AbstractButton.h"
 
-AbstractButton::AbstractButton(
+dvWidgets::AbstractButton::AbstractButton(
     unsigned int width,
     unsigned int height,
     QWidget *parent
@@ -10,7 +10,7 @@ AbstractButton::AbstractButton(
     setProperty("class", "AbstractButton");
 }
 
-void AbstractButton::setIconFromImage(const std::string& filePath, bool flipped, bool inverted) {
+void dvWidgets::AbstractButton::setIconFromImage(const std::string& filePath, bool flipped, bool inverted) {
     this->filePath_ = filePath;
     QImage img = QImage(filePath.c_str());
     if (inverted) {
@@ -25,16 +25,16 @@ void AbstractButton::setIconFromImage(const std::string& filePath, bool flipped,
     setIconSize(QSize(width() - 2, height() - 2));
 }
 
-std::string AbstractButton::iconPath() {
+std::string dvWidgets::AbstractButton::iconPath() {
     return filePath_;
 }
 
-QImage AbstractButton::invertImage_(QImage &image) {
+QImage dvWidgets::AbstractButton::invertImage_(QImage &image) {
     image.invertPixels(QImage::InvertMode::InvertRgb);
     return image;
 }
 
-QPixmap AbstractButton::flipPixmap_(QPixmap &pixmap) {
+QPixmap dvWidgets::AbstractButton::flipPixmap_(QPixmap &pixmap) {
     QPixmap flipped = pixmap.transformed(QTransform().scale(-1, 1));
     return flipped;
 }

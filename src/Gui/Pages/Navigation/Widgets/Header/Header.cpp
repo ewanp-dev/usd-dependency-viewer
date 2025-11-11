@@ -7,15 +7,15 @@ NavigationHeader::NavigationHeader(QWidget* parent)
     mainLayout_ = new QHBoxLayout(this);
     mainLayout_->setContentsMargins(10, 5, 10, 5);
 
-    resultsList_ = new AbstractButton();
+    resultsList_ = new dvWidgets::AbstractButton();
     resultsList_->setFixedWidth(100);
     resultsList_->setSizePolicy(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Fixed);
 
-    sort_ = new AbstractButton();
+    sort_ = new dvWidgets::AbstractButton();
     sort_->setSizePolicy(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Fixed);
     sort_->setIconFromImage(":icons/filter.png");
 
-    properties_ = new AbstractButton();
+    properties_ = new dvWidgets::AbstractButton();
     properties_->setSizePolicy(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Fixed);
     properties_->setIconFromImage(":icons/properties.png");
 
@@ -23,15 +23,15 @@ NavigationHeader::NavigationHeader(QWidget* parent)
     sortDropdown_ = new SortDropdownWidget();
     propertiesDropdown_ = new PropertiesDropdownWidget();
 
-    connect(resultsList_, &AbstractButton::clicked, this, [this]() {
+    connect(resultsList_, &dvWidgets::AbstractButton::clicked, this, [this]() {
         showDropdown_(resultsList_, resultsDropdown_);
     });
 
-    connect(sort_, &AbstractButton::clicked, this, [this]() {
+    connect(sort_, &dvWidgets::AbstractButton::clicked, this, [this]() {
         showDropdown_(sort_, sortDropdown_, 200);
     });
 
-    connect(properties_, &AbstractButton::clicked, this, [this]() {
+    connect(properties_, &dvWidgets::AbstractButton::clicked, this, [this]() {
         showDropdown_(properties_, propertiesDropdown_, 100);
     });
 
@@ -41,7 +41,7 @@ NavigationHeader::NavigationHeader(QWidget* parent)
     mainLayout_->addWidget(properties_);
 }
 
-void NavigationHeader::showDropdown_(AbstractButton* button, QWidget* dropdown, int shift)
+void NavigationHeader::showDropdown_(dvWidgets::AbstractButton* button, QWidget* dropdown, int shift)
 {
     QPointF pos = button->mapToGlobal(button->rect().bottomLeft());
     if (shift > 0)

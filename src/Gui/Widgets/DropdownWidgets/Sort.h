@@ -12,6 +12,6 @@ class SortDropdownWidget : public QWidget
     private:
         QComboBox *sortType_;
         QComboBox *sortRule_;
-        AbstractButton *clearSort_;
+        dvWidgets::AbstractButton *clearSort_;
         QStringList typesList_;
 };

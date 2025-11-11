@@ -69,18 +69,6 @@ DependencyViewer::DependencyViewer(std::string startFile, QWidget *parent)
     // ---------------------------------------
     // SIGNALS
 
-    connect(header_->expand, &AbstractButton::clicked, this, [this] {
-        expandDropdown_(
-            header_->expand->isChecked()
-        );
-    });
-
-    connect(header_->search, &QPushButton::clicked, this, [this]() {
-        showFloatingWidget_(
-            searchWidget_
-        );
-    });
-
 }
 
 void DependencyViewer::initStyleSheet()

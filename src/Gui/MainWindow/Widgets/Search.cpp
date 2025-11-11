@@ -13,7 +13,7 @@ SearchWidget::SearchWidget(std::vector<std::string> dependencies, QWidget* paren
     // WIDGETS
     searchBar_ = new QLineEdit();
     results_ = new QListWidget();
-    exitButton_ = new AbstractButton();
+    exitButton_ = new dvWidgets::AbstractButton();
     exitButton_->setIconFromImage(":icons/list.png");
 
     searchBar_->setPlaceholderText("> Search for dependency...");
@@ -29,7 +29,7 @@ SearchWidget::SearchWidget(std::vector<std::string> dependencies, QWidget* paren
     layout->addLayout(topLayout);
     layout->addWidget(results_);
 
-    connect(exitButton_, &AbstractButton::clicked, this, &QWidget::close);
+    connect(exitButton_, &dvWidgets::AbstractButton::clicked, this, &QWidget::close);
 
     dependencies_ = dependencies; 
 

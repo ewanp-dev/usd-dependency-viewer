@@ -10,7 +10,7 @@ SortDropdownWidget::SortDropdownWidget(QWidget *parent) {
     
     sortType_ = new QComboBox();
     sortRule_ = new QComboBox();
-    clearSort_ = new AbstractButton();
+    clearSort_ = new dvWidgets::AbstractButton();
     clearSort_->setText("Clear");
 
     typesList_ = {

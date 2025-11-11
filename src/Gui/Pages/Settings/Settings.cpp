@@ -8,7 +8,7 @@ SettingsWidget::SettingsWidget (QWidget *parent) {
     setFocusPolicy(Qt::FocusPolicy::ClickFocus);
     setFixedSize(600, 600);
 
-    exitButton_ = new AbstractButton();
+    exitButton_ = new dvWidgets::AbstractButton();
     exitButton_->setText("Exit");
     exitButton_->setFixedWidth(100);
 
@@ -18,7 +18,7 @@ SettingsWidget::SettingsWidget (QWidget *parent) {
     topLayout->addWidget(exitButton_);
     layout->addLayout(topLayout);
 
-    connect(exitButton_, &AbstractButton::clicked, this, &QWidget::close);
+    connect(exitButton_, &dvWidgets::AbstractButton::clicked, this, &QWidget::close);
 
     setProperty("class", "SettingsWidget");
 }
