@@ -6,7 +6,7 @@ dvWidgets::AbstractButton::AbstractButton(
     QWidget *parent
 ) 
 { 
-    setFixedSize(width, height);
+    // setFixedSize(width, height);
     setProperty("class", "AbstractButton");
 }
 

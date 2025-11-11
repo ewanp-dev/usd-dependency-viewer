@@ -12,9 +12,10 @@ class Header : public QWidget
     private:
         dvWidgets::AbstractButton* homeButton_;
         dvWidgets::AbstractButton* visButton_;
-        dvWidgets::AbstractButton* listButton_;
+        dvWidgets::AbstractButton* dependenciesButton_;
         dvWidgets::AbstractButton* assetButton_;
         dvWidgets::AbstractButton* settingsButton_;
+
 
         QHBoxLayout* mainLayout_;
 };
