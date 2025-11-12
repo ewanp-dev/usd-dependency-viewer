@@ -9,6 +9,12 @@ class Header : public QWidget
     public:
         Header();
 
+        dvWidgets::AbstractButton* homeButton();
+        dvWidgets::AbstractButton* visualizationButton();
+        dvWidgets::AbstractButton* dependenciesButton();
+        dvWidgets::AbstractButton* assetButton();
+        dvWidgets::AbstractButton* settingsButton();
+
     private:
         dvWidgets::AbstractButton* homeButton_;
         dvWidgets::AbstractButton* visButton_;

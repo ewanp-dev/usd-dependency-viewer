@@ -57,4 +57,27 @@ dvWidgets::AbstractButton* Header::initButton(const std::string& text, const std
     return button;
 }
 
+dvWidgets::AbstractButton* Header::homeButton()
+{
+    return homeButton_;
+}
 
+dvWidgets::AbstractButton* Header::visualizationButton()
+{
+    return visButton_;
+}
+
+dvWidgets::AbstractButton* Header::dependenciesButton()
+{
+    return dependenciesButton_;
+}
+
+dvWidgets::AbstractButton* Header::assetButton()
+{
+    return assetButton_;
+}
+
+dvWidgets::AbstractButton* Header::settingsButton()
+{
+    return settingsButton_;
+}

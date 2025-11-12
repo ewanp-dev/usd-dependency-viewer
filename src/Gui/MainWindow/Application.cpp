@@ -55,8 +55,24 @@ DependencyViewer::DependencyViewer(std::string startFile, QWidget *parent)
 
     pages->addWidget(homePage_);
     pages->addWidget(navigationPage_);
-    pages->addWidget(assetViewPage_);
     pages->addWidget(dependenciesListPage_);
+    pages->addWidget(assetViewPage_);
+
+    connect(header_->homeButton(), &dvWidgets::AbstractButton::clicked, this, [this, pages]() {
+        pages->setCurrentWidget(homePage_);
+    });
+
+    connect(header_->visualizationButton(), &dvWidgets::AbstractButton::clicked, this, [this, pages]() {
+        pages->setCurrentWidget(navigationPage_);
+    });
+
+    connect(header_->dependenciesButton(), &dvWidgets::AbstractButton::clicked, this, [this, pages]() {
+        pages->setCurrentWidget(dependenciesListPage_);
+    });
+
+    connect(header_->assetButton(), &dvWidgets::AbstractButton::clicked, this, [this, pages]() {
+        pages->setCurrentWidget(assetViewPage_);
+    });
 
     // ---------------------------------------
     // LAYOUT
