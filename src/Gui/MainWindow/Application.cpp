@@ -18,8 +18,6 @@ DependencyViewer::DependencyViewer(std::string startFile, QWidget *parent)
     int height = screenGeometry.height() * 0.8;
     resize(width, height);
 
-    // setGeometry(100, 100, 1280, 720);
-
     dependencyGraph_ = std::make_shared<UsdDependencyGraph>(startFile);
 
     savedWidth_ = 200;
@@ -48,14 +46,17 @@ DependencyViewer::DependencyViewer(std::string startFile, QWidget *parent)
 
     // ---------------------------------------
     // PAGES SETUP
-    navPage_ = new NavigationPage(itemDependencies_, dependencyGraph_);
+    navigationPage_ = new NavigationPage(itemDependencies_, dependencyGraph_);
+    assetViewPage_ = new AssetViewPage();
+    dependenciesListPage_ = new DependenciesListPage();
     homePage_ = new HomePage();
     
     QStackedWidget *pages = new QStackedWidget();
 
     pages->addWidget(homePage_);
-    // BUG: navPage is havving horizontal expanding issues
-    // pages->addWidget(navPage_);
+    pages->addWidget(navigationPage_);
+    pages->addWidget(assetViewPage_);
+    pages->addWidget(dependenciesListPage_);
 
     // ---------------------------------------
     // LAYOUT

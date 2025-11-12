@@ -7,6 +7,8 @@
 #include <Gui/MainWindow/Widgets/Search.h>
 #include <Gui/MainWindow/Widgets/Header.h>
 #include <Gui/MainWindow/Widgets/Tree.h>
+#include <Gui/Pages/AssetView/AssetView.h>
+#include <Gui/Pages/DependenciesList/DependenciesList.h>
 #include <Gui/Pages/Navigation/NavigationPage.h>
 #include <Gui/Pages/Settings/Settings.h>
 #include <Gui/Pages/Home/Home.h>
@@ -26,7 +28,12 @@ class DependencyViewer : public QMainWindow
         SettingsWidget* settingsWidget_;
         DependenciesTreeWidget* treeWidget_;
         Header *header_;
-        NavigationPage* navPage_;
         HomePage *homePage_;
         std::shared_ptr<UsdDependencyGraph> dependencyGraph_;
+
+        /// Pages
+        NavigationPage* navigationPage_;
+        AssetViewPage* assetViewPage_;
+        DependenciesListPage* dependenciesListPage_;
+
 };

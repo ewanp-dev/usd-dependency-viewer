@@ -35,6 +35,10 @@ set(SOURCES
     src/Gui/Pages/Navigation/Frameworks/Nodegraph/GraphicsView.cpp
     src/Gui/Pages/Navigation/Frameworks/Nodegraph/Node.cpp
 
+    src/Gui/Pages/AssetView/AssetView.cpp
+
+    src/Gui/Pages/DependenciesList/DependenciesList.cpp
+
     src/Gui/Pages/Navigation/Widgets/Header/Header.cpp
     src/Gui/Pages/Navigation/Widgets/Nodegraph/Nodegraph.cpp
     src/Gui/Pages/Navigation/Widgets/RecursiveView/RecursiveTableWidget.cpp
