@@ -39,9 +39,9 @@ set(SOURCES
 
     src/Gui/Pages/DependenciesList/DependenciesList.cpp
 
-    src/Gui/Pages/Navigation/Widgets/Header/Header.cpp
     src/Gui/Pages/Navigation/Widgets/Nodegraph/Nodegraph.cpp
-    src/Gui/Pages/Navigation/Widgets/RecursiveView/RecursiveTableWidget.cpp
+    src/Gui/Pages/Navigation/Widgets/RecursiveViewTable/TableHeader.cpp
+    src/Gui/Pages/Navigation/Widgets/RecursiveViewTable/RecursiveTableWidget.cpp
 
     src/Gui/Widgets/AbstractButton.cpp
     src/Gui/Widgets/AbstractTable.cpp

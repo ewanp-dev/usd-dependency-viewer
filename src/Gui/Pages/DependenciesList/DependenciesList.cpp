@@ -5,7 +5,7 @@ DependenciesListPage::DependenciesListPage(QWidget* parent)
 {
     mainLayout_ = new QVBoxLayout(this);
 
-    pageLabel_ = new QLabel("Asset View Page");
+    pageLabel_ = new QLabel("Dependencies List Page");
 
     mainLayout_->addWidget(pageLabel_);
 }

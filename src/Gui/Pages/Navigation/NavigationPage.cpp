@@ -9,22 +9,20 @@ NavigationPage::NavigationPage(const std::vector<std::string>& dependencies, std
 {
     mainLayout_ = new QVBoxLayout(this);
     mainLayout_->setContentsMargins(10, 10, 10, 10);
+
     mainSplitter_ = new QSplitter();
     stackedWidget_ = new QStackedWidget();
     table_ = new RecursiveTableWidget();
-    header_ = new NavigationHeader();
 
     rootNode_ = graph->getRootNode();
     setActiveNode(rootNode_);
 
     nodegraph_ = new Nodegraph(dependencies);
     nodegraph_->setDependencyGraph(graph);
-    std::cout << "THE ROOT IS: " << graph->getRootNode()->getFilePath() << '\n';
 
     stackedWidget_->addWidget(nodegraph_);
     mainSplitter_->addWidget(table_);
     mainSplitter_->addWidget(stackedWidget_);
-    // mainLayout_->addWidget(header_);
     mainLayout_->addWidget(mainSplitter_);
 
     connect(table_, &RecursiveTableWidget::cellDoubleClicked, this, &NavigationPage::onTableCellDoubleClicked);
@@ -45,9 +43,5 @@ void NavigationPage::onTableCellDoubleClicked(std::shared_ptr<DependencyNode> no
 
 void NavigationPage::onTableNavUpButtonClicked(std::shared_ptr<DependencyNode> node)
 {
-    if (node->getFilePath() == rootNode_->getFilePath())
-    {
-        std::cout << "THESE ARE THE SAME" << '\n';
-    }
     nodegraph_->setActiveNode(node);
 }

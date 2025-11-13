@@ -8,9 +8,8 @@
 #include <vector>
 #include <memory>
 
-#include <Gui/Pages/Navigation/Widgets/RecursiveView/RecursiveTableWidget.h>
+#include <Gui/Pages/Navigation/Widgets/RecursiveViewTable/RecursiveTableWidget.h>
 #include <Gui/Pages/Navigation/Widgets/Nodegraph/Nodegraph.h>
-#include <Gui/Pages/Navigation/Widgets/Header/Header.h>
 #include <Core/UsdDependencyGraph.h>
 #include <Core/DependencyNode.h>
 
@@ -32,7 +31,6 @@ class NavigationPage : public QWidget
         QStackedWidget* stackedWidget_;
         RecursiveTableWidget* table_;
         Nodegraph* nodegraph_;
-        NavigationHeader* header_;
 
         std::shared_ptr<DependencyNode> activeNode_;
         std::shared_ptr<DependencyNode> rootNode_;
