@@ -28,6 +28,7 @@ DependencyViewer::DependencyViewer(std::string startFile, QWidget *parent)
 
     QVBoxLayout *layout = new QVBoxLayout(centralWidget);
     layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(0);
 
     std::vector<std::string> deps = {"Hello", "World"};
     itemDependencies_ = deps;
@@ -80,9 +81,10 @@ DependencyViewer::DependencyViewer(std::string startFile, QWidget *parent)
     QSplitter *splitter = new QSplitter(Qt::Orientation::Horizontal);
     splitter->addWidget(treeWidget_);
     splitter->addWidget(pages);
-    splitter->setSizes({90, 600});
+    splitter->setSizes({400, 400});
 
     QHBoxLayout *bottomLayout = new QHBoxLayout();
+    bottomLayout->setContentsMargins(0, 0, 0, 0);
 
     bottomLayout->addWidget(splitter);
 
@@ -96,31 +98,36 @@ DependencyViewer::DependencyViewer(std::string startFile, QWidget *parent)
 
 void DependencyViewer::initStyleSheet()
 {
-    qDebug() << "Current working directory: " << QDir::currentPath();
     QFile file(":/styles/style.qss");
     QFile colorScheme(":/styles/darkmode-color-scheme.qss");
-    if (!colorScheme.open(QFile::ReadOnly | QFile::Text)) {
+
+    if (!colorScheme.open(QFile::ReadOnly | QFile::Text)) 
+    {
         qDebug() << "color sheme cannot be opened for read.";
         return;
     }
-    QTextStream in(&colorScheme);
 
+    QTextStream in(&colorScheme);
     std::unordered_map<QString, QString> styleVariables;
-    while(!in.atEnd()) {
+
+    while(!in.atEnd()) 
+    {
         QString line = in.readLine();    
-        if(line.length()<1) continue;
-        if(!line.startsWith('@')) continue;
+
+        if (line.length()<1) continue;
+        if (!line.startsWith('@')) continue;
 
         QStringList fields = line.split("=");    
-        if(fields.length() != 2)
+        if (fields.length() != 2)
         {
             qDebug() << "Skipping parsing of line: " << line << "\n";
             continue;
         }
+
         QString variableName = fields.at(0).trimmed();
         QString variableValue = fields.at(1).trimmed();
 
-        if(variableValue.endsWith(';'))
+        if (variableValue.endsWith(';'))
         {
             variableValue.chop(1);
         }
@@ -130,9 +137,11 @@ void DependencyViewer::initStyleSheet()
 
     colorScheme.close();
 
-    if (file.open(QFile::ReadOnly | QFile::Text)) {
+    if (file.open(QFile::ReadOnly | QFile::Text)) 
+    {
         QString stylesheet = file.readAll();
-        for(auto i : styleVariables)
+        
+        for (auto i : styleVariables)
         {
             stylesheet.replace(i.first, i.second);
         }
@@ -155,13 +164,17 @@ void DependencyViewer::initFonts()
     qApp->setFont(font);
 }
 
-void DependencyViewer::showFloatingWidget_(QWidget* widget) {
-    if (widget == nullptr) {
+void DependencyViewer::showFloatingWidget_(QWidget* widget) 
+{
+    if (widget == nullptr) 
+    {
         return;
     }
 
     QWidget* parent = widget->parentWidget();
-    if (parent) {
+
+    if (parent) 
+    {
         QRect parentGeom = parent->geometry();
 
         int x = parentGeom.x() + (parentGeom.width() - widget->width()) / 2;
@@ -170,11 +183,14 @@ void DependencyViewer::showFloatingWidget_(QWidget* widget) {
         widget->move(QPoint(x, y));
 
     }
+
     widget->show();
 }
 
-void DependencyViewer::expandDropdown_(bool checked) {
-    if (checked) {
+void DependencyViewer::expandDropdown_(bool checked) 
+{
+    if (checked) 
+    {
         treeWidget_->show();
         QPropertyAnimation *anim = new QPropertyAnimation(treeWidget_, "maximumWidth"); 
         anim->setDuration(150);
@@ -184,7 +200,9 @@ void DependencyViewer::expandDropdown_(bool checked) {
             treeWidget_->setMaximumWidth(QWIDGETSIZE_MAX);
         });
         anim->start();
-    } else {
+    } 
+    else 
+    {
         int startWidth = treeWidget_->width();
         savedWidth_ = startWidth;
         QPropertyAnimation *anim = new QPropertyAnimation(treeWidget_, "maximumWidth"); 

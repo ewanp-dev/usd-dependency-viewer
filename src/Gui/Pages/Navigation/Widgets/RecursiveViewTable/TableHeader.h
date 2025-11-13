@@ -21,8 +21,8 @@ class TableHeader : public QWidget
 
         QHBoxLayout* mainLayout_;
 
-        const int FIXED_BUTTON_SIZE_ = 26;
-        const QSize FIXED_ICON_SIZE_ = QSize(24, 24);
+        const int FIXED_BUTTON_SIZE_ = 20;
+        const QSize FIXED_ICON_SIZE_ = QSize(18, 18);
 
         dvWidgets::AbstractButton* initButton(const std::string& iconPath);
 };

@@ -10,6 +10,7 @@ Header::Header()
     setFixedHeight(FIXED_HEADER_HEIGHT_);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     setAttribute(Qt::WidgetAttribute::WA_StyledBackground, true);
+    setContentsMargins(0, 0, 0, 0);
 
     mainLayout_ = new QHBoxLayout(this);
 

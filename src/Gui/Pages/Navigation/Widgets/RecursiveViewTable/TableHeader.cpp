@@ -2,15 +2,16 @@
 
 TableHeader::TableHeader(QWidget* parent)
 {
-    setFixedHeight(FIXED_BUTTON_SIZE_ + 6);
-    setContentsMargins(8, 8, 8, 8);
+    setProperty("class", "standardWidget");
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+    setContentsMargins(0, 0, 0, 0);
 
     mainLayout_ = new QHBoxLayout(this);
+    mainLayout_->setContentsMargins(6, 6, 12, 6);
 
     dependencyPath_ = new QLineEdit("/");
     dependencyPath_->setReadOnly(true);
-    dependencyPath_->setFixedHeight(FIXED_BUTTON_SIZE_);
-    dependencyPath_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    dependencyPath_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
     dependencyPath_->setProperty("class", "lineEdit");
 
     propertiesButton_ = initButton(":/icons/DarkMode/filter.png");

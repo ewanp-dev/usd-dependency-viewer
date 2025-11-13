@@ -16,22 +16,24 @@
 class DependencyViewer : public QMainWindow 
 {
     public:
-        DependencyViewer(std::string startFile = "", QWidget *parent = nullptr);
+        DependencyViewer(std::string startFile = "", QWidget* parent = nullptr);
+
     private:
         void showFloatingWidget_(QWidget* widget);
         void expandDropdown_(bool checked);
         void initStyleSheet();
         void initFonts();
-        std::vector<std::string> itemDependencies_;
+
         int savedWidth_;
+        std::vector<std::string> itemDependencies_;
+        std::shared_ptr<UsdDependencyGraph> dependencyGraph_;
+
         SearchWidget* searchWidget_;
         SettingsWidget* settingsWidget_;
         DependenciesTreeWidget* treeWidget_;
         Header *header_;
         HomePage *homePage_;
-        std::shared_ptr<UsdDependencyGraph> dependencyGraph_;
 
-        /// Pages
         NavigationPage* navigationPage_;
         AssetViewPage* assetViewPage_;
         DependenciesListPage* dependenciesListPage_;

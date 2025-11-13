@@ -8,7 +8,7 @@
 NavigationPage::NavigationPage(const std::vector<std::string>& dependencies, std::shared_ptr<UsdDependencyGraph> graph, QWidget* parent)
 {
     mainLayout_ = new QVBoxLayout(this);
-    mainLayout_->setContentsMargins(10, 10, 10, 10);
+    mainLayout_->setContentsMargins(0, 0, 0, 0);
 
     mainSplitter_ = new QSplitter();
     stackedWidget_ = new QStackedWidget();

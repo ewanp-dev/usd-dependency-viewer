@@ -1,5 +1,6 @@
 /* style.qss */
-QMainWindow {
+QMainWindow 
+{
     background-color: @bg-main;
 }
 
@@ -8,25 +9,10 @@ QHeaderView
     background: @bg-light-1;
 }
 
-QLabel {
+QLabel 
+{
     color: @text-white-1;
 }
-
-/*
-QPushButton {
-    color: @text-white-1;
-    background: @bg-dark-1;
-    border: none;
-}
-
-QPushButton:hover {
-    background-color: @bg-accent-1;
-}
-
-QPushButton:pressed {
-    background-color: @bg-dark-1;
-}
-*/
 
 QLineEdit
 {
@@ -37,43 +23,52 @@ QLineEdit
     border-radius: 0px;
 }
 
-QTableWidget {
+QTableWidget 
+{
     background: transparent;
     color: @fg-main;
 }
 
-QTableWidget::item:hover {
+QTableWidget::item:hover 
+{
     color: rgb(210, 210, 210);
 }
 
-QTableWidget::item:focus {
+QTableWidget::item:focus 
+{
     background-color: @bg-light-1;
 }
 
-QTableWidget::item {
+QTableWidget::item 
+{
     border-right: 1px solid @bg-light-1;
     padding-left: 6px;
     padding-right: 6px;
 }
 
-.WindowHeader {
+.WindowHeader 
+{
     background-color: transparent;
 }
 
-.HeaderButton {
+.HeaderButton 
+{
     padding-left: 8px;
     padding-right: 8px;
 }
 
-.HomeButton:hover {
+.HomeButton:hover 
+{
     background-color: transparent;
 }
 
-QTableWidgetItem {
+QTableWidgetItem 
+{
     color: red;
 }
 
-QHeaderView::section {
+QHeaderView::section 
+{
     background-color: @bg-light-1;
     color: rgb(210, 210, 210);
     border: none;
@@ -109,6 +104,12 @@ QToolTip
 .Title
 {
     color: @fg-light-1;
+}
+
+.standardWidget
+{
+    border: none;
+    background-color: @bg-dark-2;
 }
 
 .AbstractButton, QPushButton
