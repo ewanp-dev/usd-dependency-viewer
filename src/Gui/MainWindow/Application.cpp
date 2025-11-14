@@ -1,8 +1,5 @@
 #include "Application.h"
-#include <QStackedWidget>
-#include <QSplitter>
 #include <QObject>
-#include <QPropertyAnimation>
 #include <vector>
 #include <QFile>
 #include <QDir>
@@ -10,17 +7,18 @@
 #include <QFontDatabase>
 #include <Gui/MainWindow/Widgets/Search.h>
 
-DependencyViewer::DependencyViewer(const std::string& startFile, QWidget* parent)
+DependencyViewer::DependencyViewer(const std::string& startFile, QWidget* parent) 
+    : startFile_(startFile)
 {
-    setWindowTitle("USD Depedency Viewer");
     QRect screenGeometry = QGuiApplication::primaryScreen()->availableGeometry();
     int width = screenGeometry.width() * 0.8;
     int height = screenGeometry.height() * 0.8;
-    resize(width, height);
-
-    dependencyGraph_ = std::make_shared<UsdDependencyGraph>(startFile);
-
     savedWidth_ = 200;
+
+    resize(width, height);
+    setWindowTitle("USD Depedency Viewer");
+
+    dependencyGraph_ = std::make_shared<UsdDependencyGraph>(startFile_);
 
     centralWidget_ = new QWidget(this);
     centralWidget_->setContentsMargins(2, 2, 2, 10);
@@ -30,72 +28,12 @@ DependencyViewer::DependencyViewer(const std::string& startFile, QWidget* parent
     mainLayout_->setContentsMargins(0, 0, 0, 0);
     mainLayout_->setSpacing(0);
 
-    std::vector<std::string> deps = {"Hello", "World"};
+    std::vector<std::string> deps = {};
     itemDependencies_ = deps;
 
     initStyleSheet();
     initFonts();
-
-    // ---------------------------------------
-    // WIDGETS
-    
-    header_ = new Header();
-    searchWidget_ = new SearchWidget(itemDependencies_);
-    settingsWidget_ = new SettingsWidget(this);
-    treeWidget_ = new DependenciesTreeWidget();
-    treeWidget_->hide();
-    footer_ = new Footer(startFile);
-
-    // ---------------------------------------
-    // PAGES SETUP
-    navigationPage_ = new NavigationPage(itemDependencies_, dependencyGraph_);
-    assetViewPage_ = new AssetViewPage();
-    dependenciesListPage_ = new DependenciesListPage();
-    homePage_ = new HomePage();
-    
-    QStackedWidget *pages = new QStackedWidget();
-
-    pages->setContentsMargins(0, 0, 0, 0);
-    pages->addWidget(homePage_);
-    pages->addWidget(navigationPage_);
-    pages->addWidget(dependenciesListPage_);
-    pages->addWidget(assetViewPage_);
-
-    connect(header_->homeButton(), &dvWidgets::AbstractButton::clicked, this, [this, pages]() {
-        pages->setCurrentWidget(homePage_);
-    });
-
-    connect(header_->visualizationButton(), &dvWidgets::AbstractButton::clicked, this, [this, pages]() {
-        pages->setCurrentWidget(navigationPage_);
-    });
-
-    connect(header_->dependenciesButton(), &dvWidgets::AbstractButton::clicked, this, [this, pages]() {
-        pages->setCurrentWidget(dependenciesListPage_);
-    });
-
-    connect(header_->assetButton(), &dvWidgets::AbstractButton::clicked, this, [this, pages]() {
-        pages->setCurrentWidget(assetViewPage_);
-    });
-
-    // ---------------------------------------
-    // LAYOUT
-
-    QSplitter *splitter = new QSplitter(Qt::Orientation::Horizontal);
-    splitter->addWidget(treeWidget_);
-    splitter->addWidget(pages);
-    splitter->setSizes({400, 400});
-
-    QHBoxLayout *bottomLayout = new QHBoxLayout();
-
-    bottomLayout->addWidget(splitter);
-
-    mainLayout_->addWidget(header_);
-    mainLayout_->addLayout(bottomLayout);
-    mainLayout_->addWidget(footer_);
-
-    // ---------------------------------------
-    // SIGNALS
-
+    initWidgets();
 }
 
 void DependencyViewer::initStyleSheet()
@@ -112,7 +50,7 @@ void DependencyViewer::initStyleSheet()
     QTextStream in(&colorScheme);
     std::unordered_map<QString, QString> styleVariables;
 
-    while(!in.atEnd()) 
+    while (!in.atEnd()) 
     {
         QString line = in.readLine();    
 
@@ -166,6 +104,49 @@ void DependencyViewer::initFonts()
     qApp->setFont(font);
 }
 
+void DependencyViewer::initPages()
+{
+    navigationPage_ = new NavigationPage(itemDependencies_, dependencyGraph_);
+    assetViewPage_ = new AssetViewPage();
+    dependenciesListPage_ = new DependenciesListPage();
+    homePage_ = new HomePage();
+    
+    mainPages_ = new QStackedWidget();
+    mainPages_->setContentsMargins(0, 0, 0, 0);
+    mainPages_->addWidget(homePage_);
+    mainPages_->addWidget(navigationPage_);
+    mainPages_->addWidget(dependenciesListPage_);
+    mainPages_->addWidget(assetViewPage_);
+
+    connect(header_->homeButton(), &dvWidgets::AbstractButton::clicked, this, [this]() {
+        mainPages_->setCurrentWidget(homePage_);
+    });
+
+    connect(header_->visualizationButton(), &dvWidgets::AbstractButton::clicked, this, [this]() {
+        mainPages_->setCurrentWidget(navigationPage_);
+    });
+
+    connect(header_->dependenciesButton(), &dvWidgets::AbstractButton::clicked, this, [this]() {
+        mainPages_->setCurrentWidget(dependenciesListPage_);
+    });
+
+    connect(header_->assetButton(), &dvWidgets::AbstractButton::clicked, this, [this]() {
+        mainPages_->setCurrentWidget(assetViewPage_);
+    });
+}
+
+void DependencyViewer::initWidgets()
+{
+    header_ = new Header();
+    footer_ = new Footer(startFile_);
+
+    initPages();
+
+    mainLayout_->addWidget(header_);
+    mainLayout_->addWidget(mainPages_);
+    mainLayout_->addWidget(footer_);
+}
+
 void DependencyViewer::showFloatingWidget(QWidget* widget) 
 {
     if (widget == nullptr) 
@@ -188,34 +169,3 @@ void DependencyViewer::showFloatingWidget(QWidget* widget)
 
     widget->show();
 }
-
-void DependencyViewer::expandDropdown_(bool checked) 
-{
-    if (checked) 
-    {
-        treeWidget_->show();
-        QPropertyAnimation *anim = new QPropertyAnimation(treeWidget_, "maximumWidth"); 
-        anim->setDuration(150);
-        anim->setStartValue(0);
-        anim->setEndValue(savedWidth_);
-        connect(anim, &QPropertyAnimation::finished, this, [this]() {
-            treeWidget_->setMaximumWidth(QWIDGETSIZE_MAX);
-        });
-        anim->start();
-    } 
-    else 
-    {
-        int startWidth = treeWidget_->width();
-        savedWidth_ = startWidth;
-        QPropertyAnimation *anim = new QPropertyAnimation(treeWidget_, "maximumWidth"); 
-        anim->setDuration(150);
-        anim->setStartValue(startWidth);
-        anim->setEndValue(0);
-        connect(anim, &QPropertyAnimation::finished, this, [this]() {
-            treeWidget_->hide();
-            treeWidget_->setMaximumWidth(QWIDGETSIZE_MAX);
-        });
-        anim->start();
-    }
-}
-

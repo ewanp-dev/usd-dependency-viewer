@@ -2,6 +2,8 @@
 
 #include <QMainWindow>
 #include <QVBoxLayout>
+#include <QStackedWidget>
+#include <QSplitter>
 #include <Gui/Pages/Home/Home.h>
 #include <Core/UsdDependencyGraph.h>
 #include <Gui/MainWindow/Widgets/Search.h>
@@ -20,29 +22,29 @@ class DependencyViewer : public QMainWindow
         DependencyViewer(const std::string& startFile = "", QWidget* parent = nullptr);
 
     private:
-        void showFloatingWidget(QWidget* widget);
-        void expandDropdown_(bool checked);
-        void initPages();
-        void initWidgets();
         void initStyleSheet();
         void initFonts();
+        void initPages();
+        void initWidgets();
+        void showFloatingWidget(QWidget* widget);
 
         int savedWidth_;
         std::vector<std::string> itemDependencies_;
         std::shared_ptr<UsdDependencyGraph> dependencyGraph_;
+        const std::string& startFile_;
 
         QWidget* centralWidget_;
         QVBoxLayout* mainLayout_;
+        QStackedWidget* mainPages_;
 
-        SearchWidget* searchWidget_;
-        SettingsWidget* settingsWidget_;
-        DependenciesTreeWidget* treeWidget_;
         Header *header_;
         HomePage *homePage_;
         Footer* footer_;
 
+        SearchWidget* searchWidget_;
+        SettingsWidget* settingsWidget_;
+
         NavigationPage* navigationPage_;
         AssetViewPage* assetViewPage_;
         DependenciesListPage* dependenciesListPage_;
-
 };
