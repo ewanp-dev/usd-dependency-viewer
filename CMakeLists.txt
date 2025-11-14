@@ -24,6 +24,7 @@ set(SOURCES
     src/Gui/MainWindow/Widgets/Search.cpp
     src/Gui/MainWindow/Widgets/Sidebar.cpp
     src/Gui/MainWindow/Widgets/Tree.cpp
+    src/Gui/MainWindow/Widgets/Footer.cpp
 
     src/Gui/Pages/Home/Home.cpp
     src/Gui/Pages/Settings/Settings.cpp

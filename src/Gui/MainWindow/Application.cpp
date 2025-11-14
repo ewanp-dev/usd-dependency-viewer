@@ -10,7 +10,7 @@
 #include <QFontDatabase>
 #include <Gui/MainWindow/Widgets/Search.h>
 
-DependencyViewer::DependencyViewer(std::string startFile, QWidget *parent)
+DependencyViewer::DependencyViewer(const std::string& startFile, QWidget* parent)
 {
     setWindowTitle("USD Depedency Viewer");
     QRect screenGeometry = QGuiApplication::primaryScreen()->availableGeometry();
@@ -22,13 +22,13 @@ DependencyViewer::DependencyViewer(std::string startFile, QWidget *parent)
 
     savedWidth_ = 200;
 
-    QWidget *centralWidget = new QWidget(this);
-    centralWidget->setContentsMargins(0, 0, 0, 0);
-    setCentralWidget(centralWidget);
+    centralWidget_ = new QWidget(this);
+    centralWidget_->setContentsMargins(2, 2, 2, 10);
+    setCentralWidget(centralWidget_);
 
-    QVBoxLayout *layout = new QVBoxLayout(centralWidget);
-    layout->setContentsMargins(0, 0, 0, 0);
-    layout->setSpacing(0);
+    mainLayout_ = new QVBoxLayout(centralWidget_);
+    mainLayout_->setContentsMargins(0, 0, 0, 0);
+    mainLayout_->setSpacing(0);
 
     std::vector<std::string> deps = {"Hello", "World"};
     itemDependencies_ = deps;
@@ -44,6 +44,7 @@ DependencyViewer::DependencyViewer(std::string startFile, QWidget *parent)
     settingsWidget_ = new SettingsWidget(this);
     treeWidget_ = new DependenciesTreeWidget();
     treeWidget_->hide();
+    footer_ = new Footer(startFile);
 
     // ---------------------------------------
     // PAGES SETUP
@@ -54,6 +55,7 @@ DependencyViewer::DependencyViewer(std::string startFile, QWidget *parent)
     
     QStackedWidget *pages = new QStackedWidget();
 
+    pages->setContentsMargins(0, 0, 0, 0);
     pages->addWidget(homePage_);
     pages->addWidget(navigationPage_);
     pages->addWidget(dependenciesListPage_);
@@ -84,12 +86,12 @@ DependencyViewer::DependencyViewer(std::string startFile, QWidget *parent)
     splitter->setSizes({400, 400});
 
     QHBoxLayout *bottomLayout = new QHBoxLayout();
-    bottomLayout->setContentsMargins(0, 0, 0, 0);
 
     bottomLayout->addWidget(splitter);
 
-    layout->addWidget(header_);
-    layout->addLayout(bottomLayout);
+    mainLayout_->addWidget(header_);
+    mainLayout_->addLayout(bottomLayout);
+    mainLayout_->addWidget(footer_);
 
     // ---------------------------------------
     // SIGNALS
@@ -164,7 +166,7 @@ void DependencyViewer::initFonts()
     qApp->setFont(font);
 }
 
-void DependencyViewer::showFloatingWidget_(QWidget* widget) 
+void DependencyViewer::showFloatingWidget(QWidget* widget) 
 {
     if (widget == nullptr) 
     {

@@ -53,8 +53,8 @@ QTableWidget::item
 
 .HeaderButton 
 {
-    padding-left: 8px;
-    padding-right: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .HomeButton:hover 
@@ -117,7 +117,7 @@ QToolTip
     border: none;
     color: @text-white-1;
     background: @bg-dark-1;
-    padding: 4px 4px;
+    padding: 8px 8px;
 }
 
 .AbstractButton:hover, QPushButton:hover

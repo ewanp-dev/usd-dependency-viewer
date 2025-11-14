@@ -1,6 +1,7 @@
 #include "Header.h"
 #include <QHBoxLayout>
 #include <Gui/MainWindow/Globals.h>
+#include <iostream>
 
 // TODO Add in connections
 // TODO Update hader to reflect latest interface updates
@@ -13,6 +14,7 @@ Header::Header()
     setContentsMargins(0, 0, 0, 0);
 
     mainLayout_ = new QHBoxLayout(this);
+    // std::cout << "MARGINS: " << mainLayout_->contentsMargins().left() << '\n';
 
     homeButton_ = initButton("", ":/icons/DarkMode/leaf_colored.png");
     homeButton_->setProperty("class", "HomeButton");
