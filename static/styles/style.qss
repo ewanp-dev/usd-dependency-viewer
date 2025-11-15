@@ -103,7 +103,7 @@ QToolTip
 
 .Title
 {
-    color: @fg-light-1;
+    color: @text-white-1;
 }
 
 .standardWidget
@@ -160,4 +160,16 @@ QTableView
 .TableHeader QPushButton
 {
     border-radius: 10px;
+}
+
+.PagesButtonUnchecked
+{
+    background-color: @bg-dark-2;
+    color: @text-white-1;
+}
+
+.PagesButtonChecked
+{
+    background-color: @bg-accent-1;
+    color: @text-white-1;
 }

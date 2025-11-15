@@ -5,6 +5,7 @@
 #include <memory>
 
 #include <Gui/Pages/Navigation/Frameworks/Nodegraph/ForceDirectedGraph.h>
+#include <Gui/Widgets/AbstractButton.h>
 #include <Core/DependencyNode.h>
 #include <Core/UsdDependencyGraph.h>
 
@@ -24,5 +25,4 @@ class Nodegraph : public QWidget
         std::shared_ptr<DependencyNode> rootNode_;
 
         QVBoxLayout* mainLayout_;
-
 };

@@ -40,6 +40,8 @@ set(SOURCES
 
     src/Gui/Pages/DependenciesList/DependenciesList.cpp
 
+    src/Gui/Pages/Navigation/Widgets/StackedWidget.cpp
+    src/Gui/Pages/Navigation/Widgets/Viewport/Viewport.cpp
     src/Gui/Pages/Navigation/Widgets/Nodegraph/Nodegraph.cpp
     src/Gui/Pages/Navigation/Widgets/RecursiveViewTable/TableHeader.cpp
     src/Gui/Pages/Navigation/Widgets/RecursiveViewTable/RecursiveTableWidget.cpp
