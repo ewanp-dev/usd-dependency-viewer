@@ -94,6 +94,10 @@ void NavigationStackedWidget::onButtonClicked(dvWidgets::AbstractButton* button,
 
     stackedPages_->setCurrentIndex(index);
 
+    // NOTE:
+    //  - This feels inefficient, need to revisit this later
+    //  - Also need to test setProperty as well as setStyleSheet
+
     for (dvWidgets::AbstractButton* btn : buttons_)
     {
         if (btn == button)

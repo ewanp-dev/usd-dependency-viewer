@@ -33,6 +33,9 @@ const NodePath RecursiveTableWidget::getActivePath() const
 
 void RecursiveTableWidget::setActivePath(NodePath nodePath)
 {
+    // TODO:
+    //  - Refactor this into multiple functions so it's more readable
+
     nodePath_ = nodePath;
     activeNode_ = nodePath.getLeafNode();
     QLineEdit* dependencyPathWidget = tableHeader_->dependencyPathWidget();

@@ -173,7 +173,7 @@ void fdg::ForceDirectedGraph::onNodeHoverEnter(fdg::Node* hoveredNode)
     std::unordered_set<fdg::Node*> family = { hoveredNode };
     for (fdg::Edge* connection : hoveredNode->getOutputs()) 
     {
-        connection->setFadeColor(QColor("#2c2f33"), QColor("#c9bf99"));
+        connection->setFadeColor(QColor("#2c2f33"), QColor("#749e94"));
         family.insert(connection->node);
     }
 
@@ -181,10 +181,10 @@ void fdg::ForceDirectedGraph::onNodeHoverEnter(fdg::Node* hoveredNode)
     {
         if (family.find(node) != family.end()) 
         {
-            node->setFadeColor(QColor("#bec4cf"), QColor("#c9bf99"));
+            node->setFadeColor(QColor("#e9e9e9"), QColor("#749e94"));
         } else 
         {
-            node->setFadeColor(QColor("#bec4cf"), QColor("#404040"));
+            node->setFadeColor(QColor("#e9e9e9"), QColor("#404040"));
         }
     }
 }
@@ -192,12 +192,12 @@ void fdg::ForceDirectedGraph::onNodeHoverEnter(fdg::Node* hoveredNode)
 void fdg::ForceDirectedGraph::onNodeHoverLeave(fdg::Node* hoveredNode) {
     for (fdg::Edge* connection : hoveredNode->getOutputs()) 
     {
-        connection->setFadeColor(QColor("#c9bf99"), QColor("#2c2f33"));
+        connection->setFadeColor(QColor("#749e94"), QColor("#2c2f33"));
     }
 
     for (fdg::Node* node : nodeStore_) 
     {
-        node->setFadeColor(node->brush().color(), QColor("#bec4cf"));
+        node->setFadeColor(node->brush().color(), QColor("#e9e9e9"));
     }
 }
 

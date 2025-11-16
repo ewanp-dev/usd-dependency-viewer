@@ -49,6 +49,8 @@ void NavigationPage::initWidgets()
 
     mainSplitter_->addWidget(table_);
     mainSplitter_->addWidget(stackedWidget_);
+    mainSplitter_->setSizes({200, 200});
+
     mainLayout_->addWidget(mainSplitter_);
 
     connect(table_, &RecursiveTableWidget::cellDoubleClicked, this, &NavigationPage::onTableCellDoubleClicked);
