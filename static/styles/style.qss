@@ -147,14 +147,16 @@ QToolTip
 
 QTableView
 {
-    background: @bg-dark-1;
-    color: @fg-main;
+    background: @bg-dark-2;
+    color: @text-white-1;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 .TableHeader
 {
-    background: @bg-light-1;
-    border-radius: 10px;
+    background: @bg-dark-2;
+    color: @text-white-1;
 }
 
 .TableHeader QPushButton
@@ -172,4 +174,11 @@ QTableView
 {
     background-color: @bg-accent-1;
     color: @text-white-1;
+}
+
+QSplitter::handle
+{
+    background: transparent;
+    border-left: 1px solid @bg-main;
+    width: 2px;
 }

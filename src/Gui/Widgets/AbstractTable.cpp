@@ -7,10 +7,19 @@
 #include <qheaderview.h>
 #include <QLabel>
 
+// TODO: 
+//  - Refactor code
+//  - Make sure the text is fitting nicely
+//  - Improve the look of the header splitters
+//  - Capitalize top text
+//  - Move the text to the right of the column on the header
+//  - Add in icons next to each item in the list
+
 dvWidgets::AbstractTable::AbstractTable()
 {
-    mainLayout_ = new QVBoxLayout();
-    setLayout(mainLayout_);
+    mainLayout_ = new QVBoxLayout(this);
+    mainLayout_->setSpacing(0);
+    mainLayout_->setContentsMargins(0, 0, 0, 0);
 
     initHeader();
     initBody();
@@ -28,6 +37,7 @@ void dvWidgets::AbstractTable::initHeader()
     headerLayout->setContentsMargins(0,0,0,0);
 
     headerSplitter_ = new dvWidgets::AbstractTableHeaderSplitter();
+    headerSplitter_->setProperty("class", "DefaultSplitter");
 
     headerLayout->addWidget(headerSplitter_);
 
@@ -56,7 +66,7 @@ void dvWidgets::AbstractTable::onHeaderResized()
 
 void dvWidgets::AbstractTable::onHeaderMoved(int pos, int index)
 {
-    for(size_t i=0; i<headerSplitter_->count(); ++i)
+    for (size_t i=0; i<headerSplitter_->count(); ++i)
     {
         int width = headerSplitter_->sizes()[i];
         view_->setColumnWidth(i, width);
@@ -66,6 +76,7 @@ void dvWidgets::AbstractTable::onHeaderMoved(int pos, int index)
 void dvWidgets::AbstractTable::initBody()
 {
     view_ = new QTableView();
+    view_->setContentsMargins(10, 0, 10, 0);
     view_->verticalHeader()->setVisible(false);
     view_->horizontalHeader()->setVisible(false);
     view_->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);

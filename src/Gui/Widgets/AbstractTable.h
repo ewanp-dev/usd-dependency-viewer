@@ -7,29 +7,33 @@
 #include <QSplitter>
 #include <qtmetamacros.h>
 
+// TODO:
+//  - Move the splitter into its own abstract widget class
+
 // NOTE: I put this class with the table widget one, we might want to move it
 // to it's own file in the future. It's just a tiny wrapper to promote the resized event.
 namespace dvWidgets
 {
 
-class AbstractTableHeaderSplitter
-: public QSplitter
+class AbstractTableHeaderSplitter : public QSplitter
 {
     Q_OBJECT
+        
     public:
         using QSplitter::QSplitter;
+
     protected:
         void resizeEvent(QResizeEvent* event) override
         {
             QSplitter::resizeEvent(event);
             Q_EMIT resized();
         }
+
     Q_SIGNALS:
         void resized();
 };
 
-class AbstractTable
-: public QWidget
+class AbstractTable : public QWidget
 {
     public:
         AbstractTable();
@@ -38,6 +42,7 @@ class AbstractTable
         // TODO: support replacing existing labels with fewer labels
         void setHorizontalHeaderLabels(const QStringList &labels);
         void onHeaderResized();
+
     private:
         void initHeader();
         void initBody();

@@ -1,8 +1,8 @@
 #include "NavigationPage.h"
 
-// TODO
-// Add in dependency graph to the nodegraph
-// Add in table signals and slots
+// TODO:
+//  - Remove outline from the nodegraph
+//  - Fix the splitter style
 
 
 NavigationPage::NavigationPage(const std::vector<std::string>& dependencies, std::shared_ptr<UsdDependencyGraph> graph, QWidget* parent)
