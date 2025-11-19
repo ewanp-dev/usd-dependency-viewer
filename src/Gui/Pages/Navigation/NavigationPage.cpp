@@ -2,6 +2,7 @@
 
 // TODO:
 //  - Remove outline from the nodegraph
+//  - Update stylesheet of the main QSplitter class
 
 
 NavigationPage::NavigationPage(const std::vector<std::string>& dependencies, std::shared_ptr<UsdDependencyGraph> graph, QWidget* parent)
