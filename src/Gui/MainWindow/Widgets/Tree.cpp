@@ -1,5 +1,4 @@
 #include "Tree.h"
-#include "../Globals.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
@@ -14,7 +13,7 @@ DependenciesTreeWidget::DependenciesTreeWidget(QWidget *parent) {
     searchBar_->setPlaceholderText("> Search...");
     searchBar_->setFixedHeight(25);
 
-    filterButton_ = new AbstractButton();
+    filterButton_ = new dvWidgets::AbstractButton();
     filterButton_->setIconFromImage(":/icons/filter.png");
     filterButton_->setIconSize(QSize(filterButton_->width() - 4, filterButton_->height() - 4));
     // filterButton_->setFixedSize(18, 18);

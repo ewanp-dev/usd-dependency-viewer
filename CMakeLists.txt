@@ -24,6 +24,7 @@ set(SOURCES
     src/Gui/MainWindow/Widgets/Search.cpp
     src/Gui/MainWindow/Widgets/Sidebar.cpp
     src/Gui/MainWindow/Widgets/Tree.cpp
+    src/Gui/MainWindow/Widgets/Footer.cpp
 
     src/Gui/Pages/Home/Home.cpp
     src/Gui/Pages/Settings/Settings.cpp
@@ -35,9 +36,15 @@ set(SOURCES
     src/Gui/Pages/Navigation/Frameworks/Nodegraph/GraphicsView.cpp
     src/Gui/Pages/Navigation/Frameworks/Nodegraph/Node.cpp
 
-    src/Gui/Pages/Navigation/Widgets/Header/Header.cpp
+    src/Gui/Pages/AssetView/AssetView.cpp
+
+    src/Gui/Pages/DependenciesList/DependenciesList.cpp
+
+    src/Gui/Pages/Navigation/Widgets/StackedWidget.cpp
+    src/Gui/Pages/Navigation/Widgets/Viewport/Viewport.cpp
     src/Gui/Pages/Navigation/Widgets/Nodegraph/Nodegraph.cpp
-    src/Gui/Pages/Navigation/Widgets/RecursiveView/RecursiveTableWidget.cpp
+    src/Gui/Pages/Navigation/Widgets/RecursiveViewTable/TableHeader.cpp
+    src/Gui/Pages/Navigation/Widgets/RecursiveViewTable/RecursiveTableWidget.cpp
 
     src/Gui/Widgets/AbstractButton.cpp
     src/Gui/Widgets/AbstractTable.cpp

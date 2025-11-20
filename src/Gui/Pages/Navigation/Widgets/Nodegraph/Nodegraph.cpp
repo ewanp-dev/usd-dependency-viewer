@@ -6,6 +6,7 @@ Nodegraph::Nodegraph(const std::vector<std::string>& dependencies, QWidget* pare
     : QWidget(parent), graph_(new fdg::ForceDirectedGraph(this))
 {
     mainLayout_ = new QVBoxLayout(this);
+    mainLayout_->setContentsMargins(0, 0, 0, 0);
     mainLayout_->addWidget(graph_);
 
     QTimer::singleShot(0, graph_, &fdg::ForceDirectedGraph::initSimulation);

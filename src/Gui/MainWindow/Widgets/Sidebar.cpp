@@ -13,16 +13,16 @@ Sidebar::Sidebar() {
     unsigned int BUTTON_WIDTH = 25;
     unsigned int BUTTON_HEIGHT = 25;
 
-    database = new AbstractButton();
+    database = new dvWidgets::AbstractButton();
     database->setIconFromImage(":/icons/list.png");
     
-    nodegraph = new AbstractButton(); 
+    nodegraph = new dvWidgets::AbstractButton(); 
     nodegraph->setIconFromImage(":/icons/node.png");
     
-    home = new AbstractButton(); 
+    home = new dvWidgets::AbstractButton(); 
     home->setIconFromImage(":/icons/home.png");
     
-    settings = new AbstractButton(); 
+    settings = new dvWidgets::AbstractButton(); 
     settings->setIconFromImage(":/icons/settings.png");
 
     layout->addWidget(database);

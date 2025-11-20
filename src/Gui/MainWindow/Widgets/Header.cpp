@@ -1,32 +1,86 @@
 #include "Header.h"
 #include <QHBoxLayout>
 #include <Gui/MainWindow/Globals.h>
+#include <iostream>
 
 // TODO Add in connections
+// TODO Update hader to reflect latest interface updates
 
-Header::Header() {
-    int FIXED_HEIGHT = 40;
-    setFixedHeight(FIXED_HEIGHT);
+Header::Header() 
+{
+    setFixedHeight(FIXED_HEADER_HEIGHT_);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     setAttribute(Qt::WidgetAttribute::WA_StyledBackground, true);
+    setContentsMargins(0, 0, 0, 0);
 
-    QHBoxLayout *layout = new QHBoxLayout(this);
-    // layout->setContentsMargins(10, 0, 10, 0);
-    layout->setSpacing(10);
+    mainLayout_ = new QHBoxLayout(this);
+    // std::cout << "MARGINS: " << mainLayout_->contentsMargins().left() << '\n';
 
-    expand = new AbstractButton();
-    expand->setIconFromImage(":icons/sidebar.png");
+    homeButton_ = initButton("", ":/icons/DarkMode/leaf_colored.png");
+    homeButton_->setProperty("class", "HomeButton");
+    homeButton_->setStyleSheet("background-color: transparent;");
+    homeButton_->setIconSize(QSize(FIXED_BUTTON_HEIGHT_, FIXED_BUTTON_HEIGHT_));
 
-    // TODO: Convert this to a QLineEdit or something similar to Githubs search function
-    search = new AbstractButton();
-    search->setIconFromImage(":/icons/search.png");
+    visButton_ = initButton(" Visualization", ":/icons/DarkMode/graph.png");
+    dependenciesButton_ = initButton(" Dependencies List", ":/icons/DarkMode/list.png");
+    assetButton_ = initButton(" Asset View", ":/icons/DarkMode/asset.png");
+    settingsButton_ = initButton(" Settings", ":/icons/DarkMode/settings.png");
 
-    expand->setCheckable(true);
-
-    layout->addWidget(expand);
-    layout->addStretch();
-    layout->addWidget(search);
+    mainLayout_->addWidget(homeButton_);
+    mainLayout_->addWidget(visButton_);
+    mainLayout_->addWidget(dependenciesButton_);
+    mainLayout_->addWidget(assetButton_);
+    mainLayout_->addStretch();
+    mainLayout_->addWidget(settingsButton_);
 
     setProperty("class", "WindowHeader");
 }
 
+dvWidgets::AbstractButton* Header::initButton(const std::string& text, const std::string& iconPath)
+{
+    /**
+     * @brief Sets up a header button with default properties
+     * to avoid boilerplate code
+     */
 
+    dvWidgets::AbstractButton* button = new dvWidgets::AbstractButton();
+
+    button->setFixedHeight(FIXED_BUTTON_HEIGHT_);
+    button->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+    button->adjustSize();
+    button->setText(text.c_str());
+    button->setIcon(QIcon(iconPath.c_str()));
+    button->setIconSize(FIXED_ICON_SIZE_);
+    button->setCursor(Qt::PointingHandCursor);
+    button->setProperty("class", "HeaderButton");
+
+    QFont headerButtonFont = button->font();
+    headerButtonFont.setPointSize(FIXED_FONT_SIZE_);
+
+    return button;
+}
+
+dvWidgets::AbstractButton* Header::homeButton()
+{
+    return homeButton_;
+}
+
+dvWidgets::AbstractButton* Header::visualizationButton()
+{
+    return visButton_;
+}
+
+dvWidgets::AbstractButton* Header::dependenciesButton()
+{
+    return dependenciesButton_;
+}
+
+dvWidgets::AbstractButton* Header::assetButton()
+{
+    return assetButton_;
+}
+
+dvWidgets::AbstractButton* Header::settingsButton()
+{
+    return settingsButton_;
+}

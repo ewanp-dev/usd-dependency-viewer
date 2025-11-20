@@ -10,5 +10,5 @@ class SettingsWidget : public QWidget
         SettingsWidget(QWidget *parent=nullptr);
     private:
         void keyPressEvent(QKeyEvent *event) override;
-        AbstractButton *exitButton_;
+        dvWidgets::AbstractButton *exitButton_;
 };

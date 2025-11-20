@@ -1,8 +1,5 @@
 #include "Application.h"
-#include <QStackedWidget>
-#include <QSplitter>
 #include <QObject>
-#include <QPropertyAnimation>
 #include <vector>
 #include <QFile>
 #include <QDir>
@@ -10,122 +7,67 @@
 #include <QFontDatabase>
 #include <Gui/MainWindow/Widgets/Search.h>
 
-DependencyViewer::DependencyViewer(std::string startFile, QWidget *parent)
+DependencyViewer::DependencyViewer(const std::string& startFile, QWidget* parent) 
+    : startFile_(startFile)
 {
-    setWindowTitle("USD Depedency Viewer");
-    setGeometry(100, 100, 1280, 720);
-
-    dependencyGraph_ = std::make_shared<UsdDependencyGraph>(startFile);
-
+    QRect screenGeometry = QGuiApplication::primaryScreen()->availableGeometry();
+    int width = screenGeometry.width() * 0.8;
+    int height = screenGeometry.height() * 0.8;
     savedWidth_ = 200;
 
-    QWidget *centralWidget = new QWidget(this);
-    centralWidget->setContentsMargins(0, 0, 0, 0);
-    setCentralWidget(centralWidget);
+    resize(width, height);
+    setWindowTitle("USD Depedency Viewer");
 
-    QVBoxLayout *layout = new QVBoxLayout(centralWidget);
-    layout->setContentsMargins(0, 0, 0, 0);
+    dependencyGraph_ = std::make_shared<UsdDependencyGraph>(startFile_);
 
-    std::vector<std::string> deps = {"Hello", "World"};
+    centralWidget_ = new QWidget(this);
+    centralWidget_->setContentsMargins(2, 2, 2, 10);
+    setCentralWidget(centralWidget_);
+
+    mainLayout_ = new QVBoxLayout(centralWidget_);
+    mainLayout_->setContentsMargins(0, 0, 0, 0);
+    mainLayout_->setSpacing(0);
+
+    std::vector<std::string> deps = {};
     itemDependencies_ = deps;
 
     initStyleSheet();
     initFonts();
-
-    // ---------------------------------------
-    // WIDGETS
-    
-    sidebar_ = new Sidebar();
-    header_ = new Header();
-    searchWidget_ = new SearchWidget(itemDependencies_);
-    settingsWidget_ = new SettingsWidget(this);
-    treeWidget_ = new DependenciesTreeWidget();
-    treeWidget_->hide();
-
-    // ---------------------------------------
-    // PAGES SETUP
-    navPage_ = new NavigationPage(itemDependencies_, dependencyGraph_);
-    homePage_ = new HomePage();
-    
-    QStackedWidget *pages = new QStackedWidget();
-
-    pages->addWidget(homePage_);
-    pages->addWidget(navPage_);
-
-    // NOTE: I might move these connections to a function inside of the sidebar class
-    connect(sidebar_->database, &QPushButton::clicked, this, [this, pages]() {
-        pages->setCurrentWidget(navPage_);
-    });
-
-    connect(sidebar_->home, &QPushButton::clicked, this, [this, pages]() {
-        pages->setCurrentWidget(homePage_);
-    });
-
-    // ---------------------------------------
-    // LAYOUT
-
-    QSplitter *splitter = new QSplitter(Qt::Orientation::Horizontal);
-    splitter->addWidget(treeWidget_);
-    splitter->addWidget(pages);
-    splitter->setSizes({90, 600});
-
-    QHBoxLayout *bottomLayout = new QHBoxLayout();
-
-    bottomLayout->addWidget(sidebar_);
-    bottomLayout->addWidget(splitter);
-
-    layout->addWidget(header_);
-    layout->addLayout(bottomLayout);
-
-    // ---------------------------------------
-    // SIGNALS
-
-    connect(header_->expand, &AbstractButton::clicked, this, [this] {
-        expandDropdown_(
-            header_->expand->isChecked()
-        );
-    });
-
-    connect(header_->search, &QPushButton::clicked, this, [this]() {
-        showFloatingWidget_(
-            searchWidget_
-        );
-    });
-
-    connect(sidebar_->settings, &QPushButton::clicked, this, [this]() {
-        showFloatingWidget_(
-            settingsWidget_
-        );
-    });
+    initWidgets();
 }
 
 void DependencyViewer::initStyleSheet()
 {
-    qDebug() << "Current working directory: " << QDir::currentPath();
     QFile file(":/styles/style.qss");
-    QFile colorScheme(":/styles/blue-color-scheme.qss");
-    if (!colorScheme.open(QFile::ReadOnly | QFile::Text)) {
+    QFile colorScheme(":/styles/darkmode-color-scheme.qss");
+
+    if (!colorScheme.open(QFile::ReadOnly | QFile::Text)) 
+    {
         qDebug() << "color sheme cannot be opened for read.";
         return;
     }
-    QTextStream in(&colorScheme);
 
+    QTextStream in(&colorScheme);
     std::unordered_map<QString, QString> styleVariables;
-    while(!in.atEnd()) {
+
+    while (!in.atEnd()) 
+    {
         QString line = in.readLine();    
-        if(line.length()<1) continue;
-        if(!line.startsWith('@')) continue;
+
+        if (line.length()<1) continue;
+        if (!line.startsWith('@')) continue;
 
         QStringList fields = line.split("=");    
-        if(fields.length() != 2)
+        if (fields.length() != 2)
         {
             qDebug() << "Skipping parsing of line: " << line << "\n";
             continue;
         }
+
         QString variableName = fields.at(0).trimmed();
         QString variableValue = fields.at(1).trimmed();
 
-        if(variableValue.endsWith(';'))
+        if (variableValue.endsWith(';'))
         {
             variableValue.chop(1);
         }
@@ -135,9 +77,11 @@ void DependencyViewer::initStyleSheet()
 
     colorScheme.close();
 
-    if (file.open(QFile::ReadOnly | QFile::Text)) {
+    if (file.open(QFile::ReadOnly | QFile::Text)) 
+    {
         QString stylesheet = file.readAll();
-        for(auto i : styleVariables)
+        
+        for (auto i : styleVariables)
         {
             stylesheet.replace(i.first, i.second);
         }
@@ -153,20 +97,67 @@ void DependencyViewer::initStyleSheet()
 
 void DependencyViewer::initFonts()
 {
-    std::string fontName = ":/fonts/FiraCodeNerdFontMono-Regular.ttf";
+    std::string fontName = ":/fonts/JetBrainsMonoNerdFont-Regular.ttf";
     int id = QFontDatabase::addApplicationFont(fontName.c_str());
     QString family = QFontDatabase::applicationFontFamilies(id).at(0);
     QFont font = QFont(family, 10);
     qApp->setFont(font);
 }
 
-void DependencyViewer::showFloatingWidget_(QWidget* widget) {
-    if (widget == nullptr) {
+void DependencyViewer::initPages()
+{
+    navigationPage_ = new NavigationPage(itemDependencies_, dependencyGraph_);
+    assetViewPage_ = new AssetViewPage();
+    dependenciesListPage_ = new DependenciesListPage();
+    homePage_ = new HomePage();
+    
+    mainPages_ = new QStackedWidget();
+    mainPages_->setContentsMargins(0, 0, 0, 0);
+    mainPages_->addWidget(homePage_);
+    mainPages_->addWidget(navigationPage_);
+    mainPages_->addWidget(dependenciesListPage_);
+    mainPages_->addWidget(assetViewPage_);
+
+    connect(header_->homeButton(), &dvWidgets::AbstractButton::clicked, this, [this]() {
+        mainPages_->setCurrentWidget(homePage_);
+    });
+
+    connect(header_->visualizationButton(), &dvWidgets::AbstractButton::clicked, this, [this]() {
+        mainPages_->setCurrentWidget(navigationPage_);
+    });
+
+    connect(header_->dependenciesButton(), &dvWidgets::AbstractButton::clicked, this, [this]() {
+        mainPages_->setCurrentWidget(dependenciesListPage_);
+    });
+
+    connect(header_->assetButton(), &dvWidgets::AbstractButton::clicked, this, [this]() {
+        mainPages_->setCurrentWidget(assetViewPage_);
+    });
+}
+
+void DependencyViewer::initWidgets()
+{
+    header_ = new Header();
+    footer_ = new Footer(startFile_);
+
+    initPages();
+
+    mainLayout_->addWidget(header_);
+    mainLayout_->addWidget(mainPages_);
+    mainLayout_->addWidget(footer_);
+}
+
+void DependencyViewer::showFloatingWidget(QWidget* widget) 
+{
+    if (widget == nullptr) 
+    {
         return;
     }
 
     QWidget* parent = widget->parentWidget();
-    if (parent) {
+
+    if (parent) 
+    {
         QRect parentGeom = parent->geometry();
 
         int x = parentGeom.x() + (parentGeom.width() - widget->width()) / 2;
@@ -175,32 +166,6 @@ void DependencyViewer::showFloatingWidget_(QWidget* widget) {
         widget->move(QPoint(x, y));
 
     }
+
     widget->show();
 }
-
-void DependencyViewer::expandDropdown_(bool checked) {
-    if (checked) {
-        treeWidget_->show();
-        QPropertyAnimation *anim = new QPropertyAnimation(treeWidget_, "maximumWidth"); 
-        anim->setDuration(150);
-        anim->setStartValue(0);
-        anim->setEndValue(savedWidth_);
-        connect(anim, &QPropertyAnimation::finished, this, [this]() {
-            treeWidget_->setMaximumWidth(QWIDGETSIZE_MAX);
-        });
-        anim->start();
-    } else {
-        int startWidth = treeWidget_->width();
-        savedWidth_ = startWidth;
-        QPropertyAnimation *anim = new QPropertyAnimation(treeWidget_, "maximumWidth"); 
-        anim->setDuration(150);
-        anim->setStartValue(startWidth);
-        anim->setEndValue(0);
-        connect(anim, &QPropertyAnimation::finished, this, [this]() {
-            treeWidget_->hide();
-            treeWidget_->setMaximumWidth(QWIDGETSIZE_MAX);
-        });
-        anim->start();
-    }
-}
-

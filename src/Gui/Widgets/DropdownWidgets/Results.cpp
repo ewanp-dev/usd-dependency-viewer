@@ -7,11 +7,11 @@ ResultsDropdownWidget::ResultsDropdownWidget(QWidget *parent) {
     QVBoxLayout *layout = new QVBoxLayout(this);
     limit_ = new QLineEdit();
 
-    reset_ = new AbstractButton();
+    reset_ = new dvWidgets::AbstractButton();
     reset_->setIconFromImage("sorting.png");
     reset_->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 
-    copy_ = new AbstractButton();
+    copy_ = new dvWidgets::AbstractButton();
 
     layout->addWidget(limit_);
     layout->addWidget(reset_);

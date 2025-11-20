@@ -9,6 +9,6 @@ class ResultsDropdownWidget : public QWidget
         ResultsDropdownWidget(QWidget *parent=nullptr);
     private:
         QLineEdit *limit_;
-        AbstractButton *reset_;
-        AbstractButton *copy_;
+        dvWidgets::AbstractButton *reset_;
+        dvWidgets::AbstractButton *copy_;
 };

@@ -4,7 +4,7 @@
 fdg::GraphicsScene::GraphicsScene(QObject *parent) : QGraphicsScene(parent) 
 {
     setSceneRect(x_, y_, sceneWidth_, sceneHeight_);
-    std::string background_color = "#1c2026";
+    std::string background_color = "#171717";
     setBackgroundColor(background_color);
 }
 

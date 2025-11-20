@@ -6,6 +6,8 @@
 
 #include <Gui/MainWindow/Globals.h>
 
+namespace dvWidgets
+{
 class AbstractButton : public QPushButton 
 {
     public:
@@ -22,3 +24,4 @@ class AbstractButton : public QPushButton
         QPixmap flipPixmap_(QPixmap &pixmap);
         std::string filePath_;
 };
+}

@@ -26,5 +26,5 @@ HomePage::HomePage(QWidget *parent) {
     layout->addStretch();
 
     homeLabel_->setProperty("class", "Title");
-    search_->setProperty("class", "SearchBar");
+    search_->setProperty("class", "lineEdit");
 }

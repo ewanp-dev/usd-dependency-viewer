@@ -1,34 +1,14 @@
 #include "NavigationPage.h"
 
-// TODO
-// Add in dependency graph to the nodegraph
-// Add in table signals and slots
+// TODO:
+//  - Remove outline from the nodegraph
+//  - Update stylesheet of the main QSplitter class
 
 
 NavigationPage::NavigationPage(const std::vector<std::string>& dependencies, std::shared_ptr<UsdDependencyGraph> graph, QWidget* parent)
+    : dependencies_(dependencies), graph_(graph)
 {
-    mainLayout_ = new QVBoxLayout(this);
-    mainLayout_->setContentsMargins(10, 10, 10, 10);
-    mainSplitter_ = new QSplitter();
-    stackedWidget_ = new QStackedWidget();
-    table_ = new RecursiveTableWidget();
-    header_ = new NavigationHeader();
-
-    rootNode_ = graph->getRootNode();
-    setActiveNode(rootNode_);
-
-    nodegraph_ = new Nodegraph(dependencies);
-    nodegraph_->setDependencyGraph(graph);
-    std::cout << "THE ROOT IS: " << graph->getRootNode()->getFilePath() << '\n';
-
-    stackedWidget_->addWidget(nodegraph_);
-    mainSplitter_->addWidget(table_);
-    mainSplitter_->addWidget(stackedWidget_);
-    // mainLayout_->addWidget(header_);
-    mainLayout_->addWidget(mainSplitter_);
-
-    connect(table_, &RecursiveTableWidget::cellDoubleClicked, this, &NavigationPage::onTableCellDoubleClicked);
-    connect(table_, &RecursiveTableWidget::navUpButtonClicked, this, &NavigationPage::onTableNavUpButtonClicked);
+    initWidgets();
 }
 
 void NavigationPage::setActiveNode(std::shared_ptr<DependencyNode> node)
@@ -45,9 +25,36 @@ void NavigationPage::onTableCellDoubleClicked(std::shared_ptr<DependencyNode> no
 
 void NavigationPage::onTableNavUpButtonClicked(std::shared_ptr<DependencyNode> node)
 {
-    if (node->getFilePath() == rootNode_->getFilePath())
-    {
-        std::cout << "THESE ARE THE SAME" << '\n';
-    }
     nodegraph_->setActiveNode(node);
 }
+
+void NavigationPage::initWidgets()
+{
+    // TODO:
+    //  - Move signals to somewhere more appropriate
+
+    mainLayout_ = new QVBoxLayout(this);
+    mainLayout_->setContentsMargins(0, 0, 0, 0);
+
+    mainSplitter_ = new QSplitter();
+
+    table_ = new RecursiveTableWidget();
+    stackedWidget_ = new NavigationStackedWidget(dependencies_);
+    nodegraph_ = stackedWidget_->nodegraph();
+
+    rootNode_ = graph_->getRootNode();
+    setActiveNode(rootNode_);
+
+    nodegraph_->setDependencyGraph(graph_);
+
+    mainSplitter_->addWidget(table_);
+    mainSplitter_->addWidget(stackedWidget_);
+    mainSplitter_->setSizes({200, 200});
+
+    mainLayout_->addWidget(mainSplitter_);
+
+    connect(table_, &RecursiveTableWidget::cellDoubleClicked, this, &NavigationPage::onTableCellDoubleClicked);
+    connect(table_, &RecursiveTableWidget::navUpButtonClicked, this, &NavigationPage::onTableNavUpButtonClicked);
+}
+
+
