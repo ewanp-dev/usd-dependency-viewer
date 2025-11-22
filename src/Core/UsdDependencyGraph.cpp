@@ -1,6 +1,8 @@
 #include <memory>
 #include <string>
+#include <fstream>
 #include <iostream>
+#include <algorithm>
 #include <pxr/usd/sdf/layer.h>
 #include <pxr/usd/sdf/layerUtils.h>
 #include <pxr/usd/ar/resolver.h>
@@ -16,6 +18,8 @@ UsdDependencyGraph::UsdDependencyGraph(std::string usdFilePath)
 
     rootNode_ = createNode(usdFilePath);
     walkTreeRecursive(usdFilePath);
+
+    writeDependencies("dependencies.txt");
 
     printDebug();
 }
@@ -73,6 +77,11 @@ std::shared_ptr<DependencyNode> UsdDependencyGraph::createNode(std::string usdFi
 
 void UsdDependencyGraph::walkTreeRecursive(std::string startPath)
 {
+    if (std::find(pathsStore_.begin(), pathsStore_.end(), startPath) == pathsStore_.end())
+    {
+        pathsStore_.push_back(startPath);
+    }
+
     pxr::SdfLayerRefPtr layer = pxr::SdfLayer::FindOrOpen(startPath);
 
     // temp band aid solution for resolving usdc -> usd
@@ -106,6 +115,20 @@ void UsdDependencyGraph::walkTreeRecursive(std::string startPath)
         // std::cout << startPath << " -> " << resolvedSubPath << "\n";
         walkTreeRecursive(resolvedSubPath);
     }
+}
+
+std::vector<std::string> UsdDependencyGraph::getFlattenedPaths()
+{
+    return pathsStore_;
+}
+
+void UsdDependencyGraph::writeDependencies(const std::string& fileName)
+{
+    std::ofstream out(fileName, std::ios::out | std::ios::trunc);
+    if (!out) return; // handle error as needed
+
+    for (const std::string& s : pathsStore_)
+        out << s << '\n';
 }
 
 void oldCode(std::string usdFilePath){
