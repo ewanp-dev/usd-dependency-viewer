@@ -16,7 +16,6 @@ class UsdDependencyGraph
         
     private:
         std::shared_ptr<DependencyNode> createNode(std::string usdFilePath);
-        void writeDependencies(const std::string& fileName);
 
         std::shared_ptr<DependencyNode> rootNode_;
         

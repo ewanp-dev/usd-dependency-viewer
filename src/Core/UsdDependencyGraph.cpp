@@ -19,8 +19,6 @@ UsdDependencyGraph::UsdDependencyGraph(std::string usdFilePath)
     rootNode_ = createNode(usdFilePath);
     walkTreeRecursive(usdFilePath);
 
-    writeDependencies("dependencies.txt");
-
     printDebug();
 }
 
@@ -120,15 +118,6 @@ void UsdDependencyGraph::walkTreeRecursive(std::string startPath)
 std::vector<std::string> UsdDependencyGraph::getFlattenedPaths()
 {
     return pathsStore_;
-}
-
-void UsdDependencyGraph::writeDependencies(const std::string& fileName)
-{
-    std::ofstream out(fileName, std::ios::out | std::ios::trunc);
-    if (!out) return; // handle error as needed
-
-    for (const std::string& s : pathsStore_)
-        out << s << '\n';
 }
 
 void oldCode(std::string usdFilePath){
