@@ -48,6 +48,7 @@ set(SOURCES
 
     src/Gui/Widgets/AbstractButton.cpp
     src/Gui/Widgets/AbstractTable.cpp
+    src/Gui/Widgets/AbstractTable/AbstractTable.cpp
 
     src/Gui/Widgets/DropdownWidgets/Properties.cpp
     src/Gui/Widgets/DropdownWidgets/Results.cpp

@@ -151,6 +151,90 @@ QTableView
     color: @text-white-1;
     padding-left: 8px;
     padding-right: 8px;
+    border: none;
+}
+
+QTableView::item
+{
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+QTableView::item:selected
+{
+    background: @bg-accent-1;
+    border: none;
+}
+
+QTableView::item:focus
+{
+    border: none;
+    outline: none;
+}
+
+QHeaderView::section
+{
+    background: @bg-dark-2;
+    color: @text-grey-1;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+QScrollBar
+{
+    height: 20px;
+    padding-bottom: 10px;
+    background: transparent;
+}
+
+QScrollBar::handle
+{
+    min-height: 22px;
+    background: @bg-dark-1;
+    border-radius: 5px;
+}
+
+QScrollBar::handle:hover
+{
+    background: #535353;
+}
+
+QScrollBar::sub-line,
+QScrollBar::sub-line:disabled,
+QScrollBar::sub-line:hover,
+QScrollBar::sub-line:off,
+QScrollBar::sub-line:on,
+QScrollBar::add-line,
+QScrollBar::add-line:disabled,
+QScrollBar::add-line:hover,
+QScrollBar::add-line:off,
+QScrollBar::add-line:on {
+    width: 0;
+    height: 0;
+    border: none;
+    background: none;
+}
+
+/* Disable the arrow indicators themselves */
+QScrollBar::left-arrow,
+QScrollBar::right-arrow {
+    width: 0;
+    height: 0;
+}
+
+/* Optional: make track transparent */
+QScrollBar::sub-page,
+QScrollBar::add-page {
+    background: none;
+}
+
+QScrollBar::up-arrow QScrollBar::down-arrow
+{
+    background: none;
 }
 
 .TableHeader

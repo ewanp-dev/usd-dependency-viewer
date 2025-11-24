@@ -24,7 +24,12 @@ fdg::ForceDirectedGraph::ForceDirectedGraph(QWidget* parent)
 
     mainLayout->addWidget(view_);
 
+    QPushButton* btn = new QPushButton("Push Me", this);
+    btn->setFixedSize(32, 32);
     setLayout(mainLayout);
+    btn->raise();
+    btn->move(4, 4);
+
 }
 
 void fdg::ForceDirectedGraph::initSimulation()

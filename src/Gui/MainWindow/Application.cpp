@@ -104,6 +104,7 @@ void DependencyViewer::initFonts()
     int id = QFontDatabase::addApplicationFont(fontName.c_str());
     QString family = QFontDatabase::applicationFontFamilies(id).at(0);
     QFont font = QFont(family, 10);
+    font.setStyleStrategy(QFont::PreferAntialias);
     qApp->setFont(font);
 }
 
