@@ -7,7 +7,9 @@
 class DependenciesListPage : public QWidget
 {
     public:
-        DependenciesListPage(QWidget* parent = nullptr);
+        DependenciesListPage(std::vector<std::string> dependencies, QWidget* parent = nullptr);
+
+        void setTable(std::vector<std::string> items);
 
     private:
         QVBoxLayout* mainLayout_;

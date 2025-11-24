@@ -2,8 +2,8 @@
 #include <QHeaderView>
 #include <qboxlayout.h>
 #include <QLabel>
-#include <iostream>
 #include <QObject>
+#include <QTimer>
 #include <QPushButton>
 #include <QLineEdit>
 #include <QTextEdit>
@@ -16,6 +16,7 @@
 RecursiveTableWidget::RecursiveTableWidget()
 {
     setContentsMargins(0,0,0,0);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     mainLayout_ = new QVBoxLayout(this);
     tableHeader_ = new TableHeader();
@@ -23,6 +24,9 @@ RecursiveTableWidget::RecursiveTableWidget()
     mainLayout_->addWidget(tableHeader_);
 
     initTable();
+
+
+    connect(tableHeader_->getNavigationButton(), &dvWidgets::AbstractButton::clicked, this, &RecursiveTableWidget::onNavUpButtonClicked);
 }
 
 
@@ -36,22 +40,22 @@ void RecursiveTableWidget::setActivePath(NodePath nodePath)
     // TODO:
     //  - Refactor this into multiple functions so it's more readable
 
-    nodePath_ = nodePath;
+    nodePath_   = nodePath;
     activeNode_ = nodePath.getLeafNode();
-    QLineEdit* dependencyPathWidget = tableHeader_->dependencyPathWidget();
-
     Q_EMIT navUpButtonClicked(activeNode_);
 
+    QLineEdit* dependencyPathWidget = tableHeader_->dependencyPathWidget();
     QString pathString;
 
     for (std::shared_ptr<DependencyNode> node : nodePath_)
     {
-        pathString.append(" / "+node->getFileStem());
+        pathString.append(" / " + node->getFileStem());
     }
 
     dependencyPathWidget->setText(pathString);
 
-    model_->clear();
+    // NOTE: This is removing the header labels which we don't want happening
+    // model_->clear();
 
     size_t numDependencies = activeNode_->getNumChildren();
     std::vector<std::shared_ptr<DependencyNode>> dependencyNodes = activeNode_->getChildNodes();
@@ -94,22 +98,42 @@ void RecursiveTableWidget::setActivePath(NodePath nodePath)
         model_->setItem(i, 4, dateModifiedItem);
     }
 
-    table_->onHeaderResized();
+    table_->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
+    table_->horizontalHeader()->setStretchLastSection(true);
+    table_->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+
+    QTimer::singleShot(0, table_, [this] {
+        int cols = model_->columnCount();
+        int total = table_->viewport()->width();
+        int each = total / cols;
+
+        for (int i = 0; i < cols; i++)
+        {
+            table_->horizontalHeader()->resizeSection(i, each);
+        }
+    });
+
+    table_->verticalHeader()->setVisible(false);
 }
 
 void RecursiveTableWidget::initTable()
 {
-    table_ = new dvWidgets::AbstractTable();
-    model_ = new QStandardItemModel();
+    table_ = new AbstractTable();
 
-    table_->setModel(model_);
+    // NOTE: Make this more dynamic incase we want to add more headers in the future
+    columns_ = QStringList({
+        "FILE NAME",
+        "FILE PATH",
+        "CHILDREN",
+        "FILE SIZE",
+        "DATE MODIFIED"
+    });
+
+    model_ = table_->getModel();
     model_->setColumnCount(5);
+    model_->setHorizontalHeaderLabels(columns_);
 
-    // NOTE: We might want to add some more columns later on down the line
-    // might be worth converting table_ to its own QStringList as a variable
-    table_->setHorizontalHeaderLabels({ "File Name", "File Path", "Children", "File Size", "Date Modified" });
-
-    connect(table_->getView(), &QTableWidget::doubleClicked, this, &RecursiveTableWidget::onCellDoubleClicked);
+    connect(table_, &QTableWidget::doubleClicked, this, &RecursiveTableWidget::onCellDoubleClicked);
 
     mainLayout_->addWidget(table_);
 }

@@ -24,12 +24,13 @@ class DependencyViewer : public QMainWindow
     private:
         void initStyleSheet();
         void initFonts();
-        void initPages();
-        void initWidgets();
+        void initPages(std::vector<std::string> dependencies);
+        void initWidgets(std::vector<std::string> dependencies);
         void showFloatingWidget(QWidget* widget);
 
         int savedWidth_;
         std::vector<std::string> itemDependencies_;
+        std::vector<std::string> flattenedDependencies_;
         std::shared_ptr<UsdDependencyGraph> dependencyGraph_;
         const std::string& startFile_;
 

@@ -6,5 +6,6 @@
 @bg-light-3=red;
 @bg-accent-1=#749E94;
 @text-white-1=#E9E9E9;
+@text-grey-1=#BBBBBB;
 @fg-main=white;
 @fg-light-1=white;

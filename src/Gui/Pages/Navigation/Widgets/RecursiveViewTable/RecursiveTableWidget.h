@@ -5,8 +5,8 @@
 #include <QStandardItemModel>
 #include <QTextEdit>
 
-#include <Gui/Widgets/AbstractTable.h>
 #include <Gui/Pages/Navigation/Widgets/RecursiveViewTable/TableHeader.h>
+#include <Gui/Widgets/AbstractTable.h>
 #include <Core/NodePath.h>
 #include <Core/DependencyNode.h>
 
@@ -29,7 +29,8 @@ class RecursiveTableWidget
 
         QStandardItemModel* model_;
         TableHeader* tableHeader_;
-        dvWidgets::AbstractTable* table_;
+        AbstractTable* table_;
+        QStringList columns_;
 
         // NOTE: do not modify directly, use getters and setters
         NodePath nodePath_;

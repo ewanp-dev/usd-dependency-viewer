@@ -19,6 +19,9 @@ DependencyViewer::DependencyViewer(const std::string& startFile, QWidget* parent
     setWindowTitle("USD Depedency Viewer");
 
     dependencyGraph_ = std::make_shared<UsdDependencyGraph>(startFile_);
+    std::vector<std::string> flattenedDependencies_ = dependencyGraph_->getFlattenedPaths();
+
+    std::cout << "NUMBER OF FLATTENED DEPENDENCIES: " << flattenedDependencies_.size() << '\n';
 
     centralWidget_ = new QWidget(this);
     centralWidget_->setContentsMargins(2, 2, 2, 10);
@@ -33,7 +36,7 @@ DependencyViewer::DependencyViewer(const std::string& startFile, QWidget* parent
 
     initStyleSheet();
     initFonts();
-    initWidgets();
+    initWidgets(flattenedDependencies_);
 }
 
 void DependencyViewer::initStyleSheet()
@@ -101,14 +104,16 @@ void DependencyViewer::initFonts()
     int id = QFontDatabase::addApplicationFont(fontName.c_str());
     QString family = QFontDatabase::applicationFontFamilies(id).at(0);
     QFont font = QFont(family, 10);
+    font.setStyleStrategy(QFont::PreferAntialias);
     qApp->setFont(font);
 }
 
-void DependencyViewer::initPages()
+void DependencyViewer::initPages(std::vector<std::string> dependencies)
 {
+    std::cout << "AJAJAJAJAAJAJ: " << flattenedDependencies_.size() <<'\n';
     navigationPage_ = new NavigationPage(itemDependencies_, dependencyGraph_);
     assetViewPage_ = new AssetViewPage();
-    dependenciesListPage_ = new DependenciesListPage();
+    dependenciesListPage_ = new DependenciesListPage(dependencies);
     homePage_ = new HomePage();
     
     mainPages_ = new QStackedWidget();
@@ -135,12 +140,12 @@ void DependencyViewer::initPages()
     });
 }
 
-void DependencyViewer::initWidgets()
+void DependencyViewer::initWidgets(std::vector<std::string> dependencies)
 {
     header_ = new Header();
     footer_ = new Footer(startFile_);
 
-    initPages();
+    initPages(dependencies);
 
     mainLayout_->addWidget(header_);
     mainLayout_->addWidget(mainPages_);
