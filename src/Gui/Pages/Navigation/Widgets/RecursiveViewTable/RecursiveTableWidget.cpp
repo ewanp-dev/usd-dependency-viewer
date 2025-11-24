@@ -24,6 +24,9 @@ RecursiveTableWidget::RecursiveTableWidget()
     mainLayout_->addWidget(tableHeader_);
 
     initTable();
+
+
+    connect(tableHeader_->getNavigationButton(), &dvWidgets::AbstractButton::clicked, this, &RecursiveTableWidget::onNavUpButtonClicked);
 }
 
 

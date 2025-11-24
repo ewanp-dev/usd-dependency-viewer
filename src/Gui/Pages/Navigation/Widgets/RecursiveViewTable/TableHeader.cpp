@@ -41,3 +41,18 @@ QLineEdit* TableHeader::dependencyPathWidget()
 {
     return dependencyPath_;
 }
+
+dvWidgets::AbstractButton* TableHeader::getPropertiesButton()
+{
+    return propertiesButton_;
+}
+
+dvWidgets::AbstractButton* TableHeader::getHomeButton()
+{
+    return homeButton_;
+}
+
+dvWidgets::AbstractButton* TableHeader::getNavigationButton()
+{
+    return upButton_;
+}

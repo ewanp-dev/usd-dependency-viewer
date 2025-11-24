@@ -11,6 +11,9 @@ class TableHeader : public QWidget
         TableHeader(QWidget* parent = nullptr);
 
         QLineEdit* dependencyPathWidget();
+        dvWidgets::AbstractButton* getPropertiesButton();
+        dvWidgets::AbstractButton* getHomeButton();
+        dvWidgets::AbstractButton* getNavigationButton();
 
     private:
         QLineEdit* dependencyPath_;
