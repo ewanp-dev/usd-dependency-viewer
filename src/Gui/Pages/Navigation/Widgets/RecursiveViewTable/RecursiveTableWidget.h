@@ -6,7 +6,7 @@
 #include <QTextEdit>
 
 #include <Gui/Pages/Navigation/Widgets/RecursiveViewTable/TableHeader.h>
-#include <Gui/Widgets/AbstractTable/AbstractTable.h>
+#include <Gui/Widgets/AbstractTable.h>
 #include <Core/NodePath.h>
 #include <Core/DependencyNode.h>
 
