@@ -19,7 +19,7 @@ UsdDependencyGraph::UsdDependencyGraph(std::string usdFilePath)
     rootNode_ = createNode(usdFilePath);
     walkTreeRecursive(usdFilePath);
 
-    printDebug();
+    // printDebug();
 }
 
 std::shared_ptr<UsdDependencyGraph> UsdDependencyGraph::fromFileDialog()
@@ -60,7 +60,7 @@ std::shared_ptr<DependencyNode> UsdDependencyGraph::createNode(std::string usdFi
     // check if node already exists
     auto it = pathNodeMap_.find(usdFilePath);
     const bool nodeExists = it != pathNodeMap_.end();
-    if(nodeExists)
+    if (nodeExists)
     {
         // std::cout << "returning node: " << it->second->getFilePath() << "\n";
         return it->second;
@@ -98,7 +98,6 @@ void UsdDependencyGraph::walkTreeRecursive(std::string startPath)
     std::shared_ptr<DependencyNode> startNode = createNode(startPath);
 
     std::string resolvedPath = layer->GetResolvedPath();
-
 
     std::set<std::string> externalReferences = layer->GetExternalReferences();
 
