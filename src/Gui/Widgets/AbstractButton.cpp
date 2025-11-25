@@ -8,12 +8,12 @@ dvWidgets::AbstractButton::AbstractButton(
     unsigned int height,
     QWidget *parent
 ) 
-    : startColor_(QColor("#262626")), endColor_(QColor("#799E94"))
+    : startColor_(QColor("#262626")), endColor_(QColor("#799E94")) // NOTE: Move to global at some point
 { 
-    // setFixedSize(width, height);
     setProperty("class", "AbstractButton");
     setAttribute(Qt::WA_Hover);
     setMouseTracking(true);
+    setCheckable(true);
 
     hoverEvents_ = true;
 }
@@ -54,12 +54,12 @@ QPixmap dvWidgets::AbstractButton::flipPixmap_(QPixmap &pixmap) {
 
 void dvWidgets::AbstractButton::enterEvent(QEnterEvent* event)
 {
-    if (hoverEvents_)
+    if (hoverEvents_ && (!isChecked()))
         dvWidgets::AbstractWidgetUtils::animateColor(this, startColor_, endColor_);
 }
 
 void dvWidgets::AbstractButton::leaveEvent(QEvent* event)
 {
-    if (hoverEvents_)
+    if (hoverEvents_ && (!isChecked()))
         dvWidgets::AbstractWidgetUtils::animateColor(this, endColor_, startColor_);
 }

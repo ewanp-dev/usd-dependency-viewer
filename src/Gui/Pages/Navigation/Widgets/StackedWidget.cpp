@@ -18,28 +18,11 @@ NavigationStackedWidget::NavigationStackedWidget(const std::vector<std::string>&
     mainLayout_ = new QVBoxLayout(this);
     mainLayout_->setSpacing(0);
 
-    buttonsLayout_ = new QHBoxLayout();
-    buttonsLayout_->setSpacing(0);
-
-    // NOTE:
-    //  - Might need to create a initButton class to avoid boilerplate code
-
-    nodegraphButton_ = initButton("Nodegraph", 0);
-    nodegraphButton_->setChecked(true); 
-    nodegraphButton_->setProperty("class", "PagesButtonChecked");
-
-    viewportButton_ = initButton("3D Viewport", 1);
-    filePropertiesButton_ = initButton("File Properties", 2);
-    usdInspectionButton_ = initButton("USD Inspect", 3);
-
-    buttonsLayout_->addWidget(nodegraphButton_);
-    buttonsLayout_->addWidget(viewportButton_);
-    buttonsLayout_->addWidget(filePropertiesButton_);
-    buttonsLayout_->addWidget(usdInspectionButton_);
+    header_ = new StackedWidgetHeader();
 
     initPages();
 
-    mainLayout_->addLayout(buttonsLayout_);
+    mainLayout_->addWidget(header_);
     mainLayout_->addWidget(stackedPages_);
 }
 
@@ -57,59 +40,36 @@ Nodegraph* NavigationStackedWidget::nodegraph()
 
 void NavigationStackedWidget::initPages()
 {
-    stackedPages_ = new QStackedWidget();
+    // NOTE:
+    //
+    // Need to change the page variable names so they
+    // all match the same convention
 
-    nodegraph_ = new Nodegraph(dependencies_);
-    viewport_ = new Viewport();
+    stackedPages_ = new QStackedWidget();
+    nodegraph_    = new Nodegraph(dependencies_);
+    viewport_     = new Viewport();
+    filePropertiesPage_ = new FilePropertiesPage();
+    usdInspectionPage_ = new UsdInspectionPage();
 
     stackedPages_->addWidget(nodegraph_);
     stackedPages_->addWidget(viewport_);
+    stackedPages_->addWidget(filePropertiesPage_);
+    stackedPages_->addWidget(usdInspectionPage_);
 
-    // TODO:
-    //  - Add in page switching connections
-}
-
-dvWidgets::AbstractButton* NavigationStackedWidget::initButton(const std::string& text, int index)
-{
-    dvWidgets::AbstractButton* button = new dvWidgets::AbstractButton();
-
-    buttons_.push_back(button);
-
-    button->setText(text.c_str());
-    button->setCheckable(true);
-    button->setChecked(false);
-    button->setProperty("class", "PagesButtonUnchecked");
-
-    connect(button, &dvWidgets::AbstractButton::clicked, this, [this, button, index] {
-        onButtonClicked(button, index);
+    connect(header_->nodegraphPageButton(), &dvWidgets::AbstractButton::clicked, this, [this]() {
+        stackedPages_->setCurrentWidget(nodegraph_);
     });
 
-    return button;
-}
+    connect(header_->viewportPageButton(), &dvWidgets::AbstractButton::clicked, this, [this]() {
+        stackedPages_->setCurrentWidget(viewport_);
+    });
 
-void NavigationStackedWidget::onButtonClicked(dvWidgets::AbstractButton* button, int index)
-{
-    // TODO:
-    //  - Uncheck all other pages when a new button is checked
+    connect(header_->filePropertiesPageButton(), &dvWidgets::AbstractButton::clicked, this, [this]() {
+        stackedPages_->setCurrentWidget(filePropertiesPage_);
+    });
 
-    stackedPages_->setCurrentIndex(index);
-
-    // NOTE:
-    //  - This feels inefficient, need to revisit this later
-    //  - Also need to test setProperty as well as setStyleSheet
-
-    for (dvWidgets::AbstractButton* btn : buttons_)
-    {
-        if (btn == button)
-        {
-            btn->setChecked(true);
-            btn->setStyleSheet("background-color: #749E94");
-        } 
-        else
-        {
-            btn->setChecked(false);
-            btn->setStyleSheet("background-color: #171717");
-        }
-    }
+    connect(header_->usdInspectionPageButton(), &dvWidgets::AbstractButton::clicked, this, [this]() {
+        stackedPages_->setCurrentWidget(usdInspectionPage_);
+    });
 }
 

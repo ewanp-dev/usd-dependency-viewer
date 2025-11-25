@@ -2,6 +2,8 @@
 
 #include <QWidget>
 #include <QHBoxLayout>
+#include <vector>
+
 #include <Gui/Widgets/AbstractButton.h>
 
 class Header : public QWidget
@@ -23,11 +25,13 @@ class Header : public QWidget
         dvWidgets::AbstractButton* settingsButton_;
 
         const int FIXED_HEADER_HEIGHT_ = 40;
-        const int FIXED_BUTTON_HEIGHT_ = 26;
+        const int FIXED_BUTTON_HEIGHT_ = 30;
         const int FIXED_FONT_SIZE_ = 10;
         const QSize FIXED_ICON_SIZE_ = QSize(FIXED_FONT_SIZE_ + 4, FIXED_FONT_SIZE_ + 4);
 
-        dvWidgets::AbstractButton* initButton(const std::string& text, const std::string& iconPath);
+        dvWidgets::AbstractButton* initButton(const std::string& text, const std::string& iconPath, bool enableSignals = true);
+
+        std::vector<dvWidgets::AbstractButton*> headerButtons_;
 
         QHBoxLayout* mainLayout_;
 };

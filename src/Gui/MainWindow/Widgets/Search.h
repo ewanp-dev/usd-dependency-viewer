@@ -11,9 +11,11 @@ class SearchWidget : public QWidget
 {
     public:
         SearchWidget(std::vector<std::string> dependencies, QWidget* parent = nullptr);
+
     private:
         void keyPressEvent(QKeyEvent *event) override;
         void populateDefaultList();
+
         QLineEdit* searchBar_;
         QListWidget* results_;
         dvWidgets::AbstractButton* exitButton_;
