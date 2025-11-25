@@ -41,13 +41,18 @@ set(SOURCES
     src/Gui/Pages/DependenciesList/DependenciesList.cpp
 
     src/Gui/Pages/Navigation/Widgets/StackedWidget.cpp
+    src/Gui/Pages/Navigation/Widgets/StackedWidgetHeader.cpp
     src/Gui/Pages/Navigation/Widgets/Viewport/Viewport.cpp
+    src/Gui/Pages/Navigation/Widgets/Nodegraph/Nodegraph.cpp
+    src/Gui/Pages/Navigation/Widgets/FileProperties/FilePropertiesPage.cpp
+    src/Gui/Pages/Navigation/Widgets/UsdInspection/UsdInspectionPage.cpp
     src/Gui/Pages/Navigation/Widgets/Nodegraph/Nodegraph.cpp
     src/Gui/Pages/Navigation/Widgets/RecursiveViewTable/TableHeader.cpp
     src/Gui/Pages/Navigation/Widgets/RecursiveViewTable/RecursiveTableWidget.cpp
 
     src/Gui/Widgets/AbstractButton.cpp
     src/Gui/Widgets/AbstractTable.cpp
+    src/Gui/Widgets/AbstractWidgetUtils.cpp
 
     src/Gui/Widgets/DropdownWidgets/Properties.cpp
     src/Gui/Widgets/DropdownWidgets/Results.cpp

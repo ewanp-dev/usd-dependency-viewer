@@ -4,6 +4,16 @@ QMainWindow
     background-color: @bg-main;
 }
 
+QWidget
+{
+    border: none;
+}
+
+QGraphicsView
+{
+    border: none;
+}
+
 QHeaderView
 {
     background: @bg-light-1;
@@ -120,10 +130,12 @@ QToolTip
     padding: 8px 8px;
 }
 
+/*
 .AbstractButton:hover, QPushButton:hover
 {
     background-color: @bg-accent-1;
 }
+*/
 
 .SettingsWidget
 {
@@ -212,28 +224,35 @@ QScrollBar::add-line,
 QScrollBar::add-line:disabled,
 QScrollBar::add-line:hover,
 QScrollBar::add-line:off,
-QScrollBar::add-line:on {
+QScrollBar::add-line:on 
+{
     width: 0;
     height: 0;
     border: none;
     background: none;
 }
 
-/* Disable the arrow indicators themselves */
 QScrollBar::left-arrow,
-QScrollBar::right-arrow {
+QScrollBar::right-arrow 
+{
     width: 0;
     height: 0;
-}
-
-/* Optional: make track transparent */
-QScrollBar::sub-page,
-QScrollBar::add-page {
     background: none;
 }
 
-QScrollBar::up-arrow QScrollBar::down-arrow
+QScrollBar::sub-page,
+QScrollBar::add-page 
 {
+    width: 0;
+    height: 0;
+    background: none;
+}
+
+QScrollBar::up-arrow, 
+QScrollBar::down-arrow
+{
+    width: 0;
+    height: 0;
     background: none;
 }
 

@@ -33,6 +33,7 @@ dvWidgets::AbstractButton* TableHeader::initButton(const std::string& iconPath)
     button->setFixedSize(FIXED_BUTTON_SIZE_, FIXED_BUTTON_SIZE_);
     button->setCursor(Qt::PointingHandCursor);
     button->setStyleSheet("background-color: transparent;");
+    button->enableHoverEvent(false);
 
     return button;
 }
