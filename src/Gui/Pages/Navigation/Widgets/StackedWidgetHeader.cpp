@@ -25,11 +25,11 @@ StackedWidgetHeader::StackedWidgetHeader(QWidget* parent)
     usdInspectionButton_ = initButton("USD Inspect");
 
     mainLayout_->addWidget(nodegraphButton_);
-    mainLayout_->addSpacing(12);
+    mainLayout_->addSpacing(8);
     mainLayout_->addWidget(viewportButton_);
-    mainLayout_->addSpacing(12);
+    mainLayout_->addSpacing(8);
     mainLayout_->addWidget(filePropertiesButton_);
-    mainLayout_->addSpacing(12);
+    mainLayout_->addSpacing(8);
     mainLayout_->addWidget(usdInspectionButton_);
 
 }

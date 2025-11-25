@@ -34,9 +34,9 @@ Header::Header()
 
     mainLayout_->addWidget(homeButton_);
     mainLayout_->addWidget(visButton_);
-    mainLayout_->addSpacing(8);
+    mainLayout_->addSpacing(6);
     mainLayout_->addWidget(dependenciesButton_);
-    mainLayout_->addSpacing(8);
+    mainLayout_->addSpacing(6);
     mainLayout_->addWidget(assetButton_);
     mainLayout_->addStretch();
     mainLayout_->addWidget(settingsButton_);
