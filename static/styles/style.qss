@@ -120,10 +120,12 @@ QToolTip
     padding: 8px 8px;
 }
 
+/*
 .AbstractButton:hover, QPushButton:hover
 {
     background-color: @bg-accent-1;
 }
+*/
 
 .SettingsWidget
 {

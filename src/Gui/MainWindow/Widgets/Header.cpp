@@ -20,6 +20,7 @@ Header::Header()
     homeButton_->setProperty("class", "HomeButton");
     homeButton_->setStyleSheet("background-color: transparent;");
     homeButton_->setIconSize(QSize(FIXED_BUTTON_HEIGHT_, FIXED_BUTTON_HEIGHT_));
+    homeButton_->enableHoverEvent(false);
 
     visButton_ = initButton(" Visualization", ":/icons/DarkMode/graph.png");
     dependenciesButton_ = initButton(" Dependencies List", ":/icons/DarkMode/list.png");
