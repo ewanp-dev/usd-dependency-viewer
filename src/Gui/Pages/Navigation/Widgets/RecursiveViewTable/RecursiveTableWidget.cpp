@@ -119,6 +119,10 @@ void RecursiveTableWidget::setActivePath(NodePath nodePath)
 void RecursiveTableWidget::initTable()
 {
     table_ = new AbstractTable();
+    table_->setStyleSheet(
+        "border-top-left-radius: 4px;"
+        "border-top-right-radius: 4px;"
+    );
 
     // NOTE: Make this more dynamic incase we want to add more headers in the future
     columns_ = QStringList({

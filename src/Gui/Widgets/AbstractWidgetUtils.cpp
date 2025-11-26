@@ -22,6 +22,7 @@ void dvWidgets::AbstractWidgetUtils::animateColor(QWidget* widget, const QColor&
                     "background-color: %1;"
                     "border: none;"
                     "padding: 8px 8px;"
+                    "border-radius: 4px;"
                 ).arg(c.name())
             );
         }
@@ -45,6 +46,7 @@ void dvWidgets::AbstractWidgetUtils::setSelectedButtonItem(const std::vector<dvW
                 "background-color: #799E94;"
                 "border: none;"
                 "padding: 8px 8px;"
+                "border-radius: 4px;"
             );
         } else
         {
@@ -53,6 +55,7 @@ void dvWidgets::AbstractWidgetUtils::setSelectedButtonItem(const std::vector<dvW
                 "background-color: #262626;"
                 "border: none;"
                 "padding: 8px 8px;"
+                "border-radius: 4px;"
             );
         }
     }

@@ -5,6 +5,9 @@ TableHeader::TableHeader(QWidget* parent)
     setProperty("class", "standardWidget");
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
     setContentsMargins(0, 0, 0, 0);
+    setStyleSheet(
+        "border-radius: 4px;"
+    );
 
     mainLayout_ = new QHBoxLayout(this);
     mainLayout_->setContentsMargins(6, 6, 12, 6);

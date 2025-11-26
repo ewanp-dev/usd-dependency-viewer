@@ -8,6 +8,10 @@ StackedWidgetHeader::StackedWidgetHeader(QWidget* parent)
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     setAttribute(Qt::WidgetAttribute::WA_StyledBackground, true);
     setProperty("class", "standardWidget");
+    setStyleSheet(
+        "border-top-left-radius: 4px;"
+        "border-top-right-radius: 4px;"
+    );
 
     mainLayout_    = new QHBoxLayout(this);
     mainLayout_->setContentsMargins(16, 8, 16, 8);

@@ -28,7 +28,7 @@ Header::Header()
     dependenciesButton_ = initButton(" Dependencies List", ":/icons/DarkMode/list.png");
     assetButton_ = initButton(" Asset View", ":/icons/DarkMode/asset.png");
     settingsButton_ = initButton("", ":/icons/DarkMode/settings.png");
-    settingsButton_->setIconSize(QSize(FIXED_BUTTON_HEIGHT_ - 6, FIXED_BUTTON_HEIGHT_ - 6));
+    settingsButton_->setIconSize(QSize(FIXED_BUTTON_HEIGHT_ - 10, FIXED_BUTTON_HEIGHT_ - 10));
     settingsButton_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     settingsButton_->setFixedWidth(FIXED_BUTTON_HEIGHT_);
 
