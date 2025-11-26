@@ -27,19 +27,19 @@ class ForceDirectedGraph : public QWidget
         void onNodeHoverLeave(fdg::Node* hoveredNode);
 
     private:
-        void tick();
-        void updatePhysics(double dt);
         QPointF computeRepulsion(fdg::Node* node);
         QPointF computeAttraction(fdg::Node* node);
         QPointF computeCenterGravity(fdg::Node* node);
+        void updatePhysics(double dt);
+        void tick();
 
-        QTimer* timer_;
-        QElapsedTimer elapsed_;
-        std::vector<fdg::Node*> nodeStore_;
+        QTimer*        timer_;
+        QElapsedTimer  elapsed_;
 
         GraphicsScene* scene_;
-        GraphicsView* view_;
+        GraphicsView*  view_;
 
+        std::vector<fdg::Node*> nodeStore_;
 };
 
 }

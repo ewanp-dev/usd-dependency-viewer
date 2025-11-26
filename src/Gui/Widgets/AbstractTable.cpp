@@ -12,8 +12,11 @@ struct NoFocusDelegate : QStyledItemDelegate {
 
     using QStyledItemDelegate::QStyledItemDelegate;
 
-    void paint(QPainter* p, const QStyleOptionViewItem& opt,
-               const QModelIndex& idx) const override
+    void paint(
+        QPainter* p, 
+        const QStyleOptionViewItem& opt,
+        const QModelIndex& idx
+    ) const override
     {
         QStyleOptionViewItem o(opt);
         o.state &= ~QStyle::State_HasFocus;   
@@ -26,13 +29,12 @@ AbstractTable::AbstractTable(QWidget* parent)
     model_ = new QStandardItemModel(this);
 
     setModel(model_);
-    // setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setShowGrid(false);
     setSelectionBehavior(QAbstractItemView::SelectRows);
     setSelectionMode(QAbstractItemView::SingleSelection);
     setEditTriggers(QAbstractItemView::NoEditTriggers);
     setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
-    setShowGrid(false);
     setItemDelegate(new NoFocusDelegate(this));
 }
 

@@ -6,12 +6,14 @@
 fdg::Edge::Edge(Node* node, Node* input, QGraphicsItem* parent) 
     : node(node), input(input), defaultColor_("#2c2f33")
 {
+    setPen(QPen(QColor(defaultColor_.c_str()), 2));
+    setZValue(-1.0);
+
     node->addInput(this);
     node->addConnection(this);
     input->addOutput(this);
     input->addConnection(this);
-    setPen(QPen(QColor(defaultColor_.c_str()), 2));
-    setZValue(-1.0);
+
     updatePosition();
 }
 

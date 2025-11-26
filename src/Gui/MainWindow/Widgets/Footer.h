@@ -10,10 +10,11 @@ class Footer : public QWidget
         Footer(const std::string& dependencyPath = "", QWidget* parent = nullptr);
 
     private:
-        QLabel* startText_;
-        QLabel* dependencyPath_;
-        QLabel* dependencyDepth_;
-        QLabel* softwareVersion_;
-
         QHBoxLayout* mainLayout_;
+
+        QLabel*      startText_;
+        QLabel*      dependencyPath_;
+        QLabel*      dependencyDepth_;
+        QLabel*      softwareVersion_;
+
 };

@@ -24,6 +24,12 @@ fdg::ForceDirectedGraph::ForceDirectedGraph(QWidget* parent)
 
     mainLayout->addWidget(view_);
 
+    // NOTE:
+    //
+    // This is a temporary implementation of a properties
+    // button on the nodegraph, will replace with a bespoke 
+    // class later on
+
     QPushButton* btn = new QPushButton("Push Me", this);
     btn->setFixedSize(48, 48);
     setLayout(mainLayout);
@@ -41,10 +47,8 @@ void fdg::ForceDirectedGraph::initSimulation()
     timer_->setTimerType(Qt::PreciseTimer);
     connect(timer_, &QTimer::timeout, this, &fdg::ForceDirectedGraph::tick);
 
-    const int fps = 60;
-
-    // pause between ticks in milliseconds
-    constexpr int interval = static_cast<float>(1000)/60;
+    const int fps          = 60;
+    constexpr int interval = static_cast<float>(1000) / 60;
 
     elapsed_.start();
     timer_->start(interval);
@@ -53,7 +57,6 @@ void fdg::ForceDirectedGraph::initSimulation()
 
 fdg::Node* fdg::ForceDirectedGraph::addNode(std::string name) 
 {
-    // placeholder
     fdg::Node* node = new fdg::Node(name);
 
     scene_->addItem(node);
@@ -105,8 +108,8 @@ QPointF fdg::ForceDirectedGraph::computeRepulsion(fdg::Node* node)
 
 QPointF fdg::ForceDirectedGraph::computeAttraction(fdg::Node* node)
 {
-    const double kSpring = 0.05;
-    const double restLength = 80.0; // distance between nodes
+    const double kSpring    = 0.05;
+    const double restLength = 80.0; // Distance between nodes
 
     QPointF velocityDelta(0.0, 0.0);
 
@@ -137,18 +140,17 @@ QPointF fdg::ForceDirectedGraph::computeCenterGravity(fdg::Node* node)
 
 void fdg::ForceDirectedGraph::updatePhysics(double dt) 
 {
-    // TODO: Stop nodes from glitching when moved too far away from nearest input
-    // TODO: Stop simulation when node speed gets to a certain threshold
     for (fdg::Node* node : nodeStore_) 
     {
-        QPointF repulsiveForce = computeRepulsion(node);
+        QPointF repulsiveForce  = computeRepulsion(node);
         QPointF attractiveForce = computeAttraction(node);
-        QPointF gravityForce = computeCenterGravity(node);
+        QPointF gravityForce    = computeCenterGravity(node);
 
         QPointF totalForce = repulsiveForce + attractiveForce + gravityForce;
 
         node->velocity += totalForce * dt;
         node->velocity *= 0.9;
+
         if (!node->isDragging()) 
         {
             node->setPos(node->pos() + node->velocity);
@@ -163,19 +165,18 @@ void fdg::ForceDirectedGraph::tick()
     const qint64 ns = elapsed_.nsecsElapsed();
     elapsed_.restart();
 
-    // ns to seconds
     double speedMultiplier = 5; // speed up or slow down the graph
     const double dt = ( ns * 1e-9 ) * speedMultiplier;
 
     updatePhysics(dt);
 
-    // Trigger a redraw
     scene_->update();
 }
 
 void fdg::ForceDirectedGraph::onNodeHoverEnter(fdg::Node* hoveredNode) 
 {
     std::unordered_set<fdg::Node*> family = { hoveredNode };
+
     for (fdg::Edge* connection : hoveredNode->getOutputs()) 
     {
         connection->setFadeColor(QColor("#2c2f33"), QColor("#749e94"));
@@ -194,7 +195,8 @@ void fdg::ForceDirectedGraph::onNodeHoverEnter(fdg::Node* hoveredNode)
     }
 }
 
-void fdg::ForceDirectedGraph::onNodeHoverLeave(fdg::Node* hoveredNode) {
+void fdg::ForceDirectedGraph::onNodeHoverLeave(fdg::Node* hoveredNode) 
+{
     for (fdg::Edge* connection : hoveredNode->getOutputs()) 
     {
         connection->setFadeColor(QColor("#749e94"), QColor("#2c2f33"));

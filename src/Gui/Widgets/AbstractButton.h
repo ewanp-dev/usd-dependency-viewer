@@ -25,14 +25,15 @@ class AbstractButton : public QPushButton
 
     protected:
         void enterEvent(QEnterEvent* event) override;
-        void leaveEvent(QEvent* event) override;
+        void leaveEvent(QEvent* event)      override;
 
     private:
         QImage invertImage_(QImage &img);
         QPixmap flipPixmap_(QPixmap &pixmap);
+        
         std::string filePath_;
-        bool hoverEvents_;
-        QColor startColor_;
-        QColor endColor_;
+        bool        hoverEvents_;
+        QColor      startColor_;
+        QColor      endColor_;
 };
 }
