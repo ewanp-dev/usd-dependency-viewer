@@ -11,17 +11,14 @@ DependencyViewer::DependencyViewer(const std::string& startFile, QWidget* parent
     : startFile_(startFile)
 {
     QRect screenGeometry = QGuiApplication::primaryScreen()->availableGeometry();
-    int width = screenGeometry.width() * 0.8;
-    int height = screenGeometry.height() * 0.8;
-    savedWidth_ = 200;
+    int width            = screenGeometry.width() * 0.8;
+    int height           = screenGeometry.height() * 0.8;
 
     resize(width, height);
     setWindowTitle("USD Depedency Viewer");
 
     dependencyGraph_ = std::make_shared<UsdDependencyGraph>(startFile_);
     std::vector<std::string> flattenedDependencies_ = dependencyGraph_->getFlattenedPaths();
-
-    std::cout << "NUMBER OF FLATTENED DEPENDENCIES: " << flattenedDependencies_.size() << '\n';
 
     centralWidget_ = new QWidget(this);
     centralWidget_->setContentsMargins(2, 2, 2, 10);
@@ -32,7 +29,7 @@ DependencyViewer::DependencyViewer(const std::string& startFile, QWidget* parent
     mainLayout_->setSpacing(0);
 
     std::vector<std::string> deps = {};
-    itemDependencies_ = deps;
+    itemDependencies_             = deps;
 
     initStyleSheet();
     initFonts();
@@ -90,8 +87,7 @@ void DependencyViewer::initStyleSheet()
         }
 
         qApp->setStyleSheet(stylesheet);
-    }
-    else
+    } else
     {
         qDebug() << "Cannot read file :/styles/style.qss\n";
     }
@@ -101,20 +97,20 @@ void DependencyViewer::initStyleSheet()
 void DependencyViewer::initFonts()
 {
     std::string fontName = ":/fonts/JetBrainsMonoNerdFont-Regular.ttf";
-    int id = QFontDatabase::addApplicationFont(fontName.c_str());
-    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
-    QFont font = QFont(family, 10);
+    int id               = QFontDatabase::addApplicationFont(fontName.c_str());
+    QString family       = QFontDatabase::applicationFontFamilies(id).at(0);
+    QFont font           = QFont(family, 10);
+    
     font.setStyleStrategy(QFont::PreferAntialias);
     qApp->setFont(font);
 }
 
 void DependencyViewer::initPages(std::vector<std::string> dependencies)
 {
-    std::cout << "AJAJAJAJAAJAJ: " << flattenedDependencies_.size() <<'\n';
-    navigationPage_ = new NavigationPage(itemDependencies_, dependencyGraph_);
-    assetViewPage_ = new AssetViewPage();
+    navigationPage_       = new NavigationPage(itemDependencies_, dependencyGraph_);
+    assetViewPage_        = new AssetViewPage();
     dependenciesListPage_ = new DependenciesListPage(dependencies);
-    homePage_ = new HomePage();
+    homePage_             = new HomePage();
     
     mainPages_ = new QStackedWidget();
     mainPages_->setContentsMargins(0, 0, 0, 0);

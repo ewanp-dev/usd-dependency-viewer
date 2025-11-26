@@ -1,12 +1,10 @@
 #include "Header.h"
+
 #include <QHBoxLayout>
 #include <Gui/MainWindow/Globals.h>
 #include <Gui/Widgets/AbstractWidgetUtils.h>
 
-// TODO Add in connections
-// TODO Update hader to reflect latest interface updates
-
-Header::Header() 
+Header::Header(QWidget* parent) 
 {
     setFixedHeight(FIXED_HEADER_HEIGHT_);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
@@ -24,11 +22,11 @@ Header::Header()
     homeButton_->enableHoverEvent(false);
     homeButton_->setCheckable(false);
 
-    visButton_ = initButton(" Visualization", ":/icons/DarkMode/graph.png");
+    visButton_          = initButton(" Visualization", ":/icons/DarkMode/graph.png");
     dependenciesButton_ = initButton(" Dependencies List", ":/icons/DarkMode/list.png");
-    assetButton_ = initButton(" Asset View", ":/icons/DarkMode/asset.png");
-    settingsButton_ = initButton("", ":/icons/DarkMode/settings.png");
-    settingsButton_->setIconSize(QSize(FIXED_BUTTON_HEIGHT_ - 6, FIXED_BUTTON_HEIGHT_ - 6));
+    assetButton_        = initButton(" Asset View", ":/icons/DarkMode/asset.png");
+    settingsButton_     = initButton("", ":/icons/DarkMode/settings.png");
+    settingsButton_->setIconSize(QSize(FIXED_BUTTON_HEIGHT_ - 10, FIXED_BUTTON_HEIGHT_ - 10));
     settingsButton_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     settingsButton_->setFixedWidth(FIXED_BUTTON_HEIGHT_);
 
@@ -46,11 +44,6 @@ Header::Header()
 
 dvWidgets::AbstractButton* Header::initButton(const std::string& text, const std::string& iconPath, bool enableSignals)
 {
-    /**
-     * @brief Sets up a header button with default properties
-     * to avoid boilerplate code
-     */
-
     dvWidgets::AbstractButton* button = new dvWidgets::AbstractButton();
 
     button->setFixedHeight(FIXED_BUTTON_HEIGHT_);

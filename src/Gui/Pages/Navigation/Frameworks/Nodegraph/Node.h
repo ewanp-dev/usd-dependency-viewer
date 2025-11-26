@@ -53,11 +53,14 @@ class Node : public QObject, public QGraphicsEllipseItem
         std::string nodeName_;
         std::string nodeColor_;
         std::string hoverColor_;
+
         std::vector<fdg::Edge*> inputs_;
         std::vector<fdg::Edge*> outputs_;
         std::vector<fdg::Edge*> connections_;
-        int charLimit_, x_, y_;
+        
+        int  charLimit_, x_, y_;
         bool isDragging_ = false;
+        
         QGraphicsTextItem* label_;
         QVariantAnimation* animation_ = nullptr;
 };

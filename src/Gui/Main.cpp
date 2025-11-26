@@ -1,11 +1,11 @@
-#include <Gui/MainWindow/Application.h>
-#include <Gui/MainWindow/Globals.h>
 #include <QApplication>
 #include <QFontDatabase>
 #include <QFont>
 #include <QString>
 #include <QFile>
 #include <QDir>
+#include <Gui/MainWindow/Application.h>
+#include <Gui/MainWindow/Globals.h>
 #include <argparse/argparse.hpp>
 
 int main(int argc, char **argv)
@@ -13,16 +13,17 @@ int main(int argc, char **argv)
     QApplication app(argc, argv);
     QApplication::setCursorFlashTime(0);
 
-    // Argument parsing
     argparse::ArgumentParser parser("dependencyViewer");
 
     parser.add_argument("filePath")
-        .help("launch dependency viewer interface")
-        .default_value("");
+          .help("launch dependency viewer interface")
+          .default_value("");
 
-    try {
+    try 
+    {
         parser.parse_args(argc, argv);
-    } catch (const std::exception &err) {
+    } catch (const std::exception& err) 
+    {
         std::cerr << err.what() << std::endl;
         std::cerr << parser;
         return 1;
@@ -30,8 +31,7 @@ int main(int argc, char **argv)
 
     auto filePath = parser.get<std::string>("filePath");
 
-    // interface
-    DependencyViewer *viewer = new DependencyViewer(filePath);
+    DependencyViewer* viewer = new DependencyViewer(filePath);
     viewer->show();
 
     return app.exec();

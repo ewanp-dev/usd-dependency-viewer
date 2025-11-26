@@ -8,11 +8,12 @@ SearchWidget::SearchWidget(std::vector<std::string> dependencies, QWidget* paren
     setWindowFlags(Qt::WindowFlags(Qt::FramelessWindowHint | Qt::Dialog));
     setAttribute(Qt::WidgetAttribute::WA_StyledBackground, true);
     setFocusPolicy(Qt::FocusPolicy::ClickFocus);
+    setProperty("class", "SearchWidget");
     setFixedSize(500, 500);
 
     // WIDGETS
-    searchBar_ = new QLineEdit();
-    results_ = new QListWidget();
+    searchBar_  = new QLineEdit();
+    results_    = new QListWidget();
     exitButton_ = new dvWidgets::AbstractButton();
     exitButton_->setIconFromImage(":icons/list.png");
 
@@ -20,7 +21,7 @@ SearchWidget::SearchWidget(std::vector<std::string> dependencies, QWidget* paren
     searchBar_->setAttribute(Qt::WidgetAttribute::WA_StyledBackground, true);
     searchBar_->setFixedHeight(DV_BUTTON_HEIGHT);
 
-    QVBoxLayout* layout = new QVBoxLayout(this);
+    QVBoxLayout* layout    = new QVBoxLayout(this);
     QHBoxLayout* topLayout = new QHBoxLayout();
 
     topLayout->addWidget(searchBar_);
@@ -36,23 +37,26 @@ SearchWidget::SearchWidget(std::vector<std::string> dependencies, QWidget* paren
     populateDefaultList();
 
     searchBar_->setProperty("class", "SearchBar");
-
-    setProperty("class", "SearchWidget");
 }
 
-void SearchWidget::keyPressEvent(QKeyEvent *event) {
-    if (event->key() == Qt::Key::Key_Escape) {
+void SearchWidget::keyPressEvent(QKeyEvent *event) 
+{
+    if (event->key() == Qt::Key::Key_Escape) 
+    {
         close();
-    } else {
+    } else 
+    {
         QWidget::keyPressEvent(event);
     }
 }
 
-void SearchWidget::populateDefaultList() {
+void SearchWidget::populateDefaultList() 
+{
     for (size_t i = 0; i < dependencies_.size(); i++) 
     {
         if (i > 10) 
             break;
+        
         results_->addItem(dependencies_[i].c_str());
     }
 }

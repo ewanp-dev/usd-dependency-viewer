@@ -78,6 +78,7 @@ QVariant fdg::Node::itemChange(GraphicsItemChange change, const QVariant &value)
     if (change == GraphicsItemChange::ItemPositionHasChanged) 
     {
         setSelected(false);
+
         for (Edge* conn : connections_) 
         {
             conn->updatePosition();
@@ -99,10 +100,12 @@ void fdg::Node::updateLabelPosition_(int y_pos)
 void fdg::Node::setName(std::string& name) 
 {
     nodeName_ = name;
+
     if (nodeName_.length() > this->charLimit_) 
     {
         nodeName_ = nodeName_.substr(0, 12);
     }
+
     label_->setPlainText(nodeName_.c_str());
     updateLabelPosition_(4);
 }
@@ -162,10 +165,12 @@ void fdg::Node::setColor(const std::string &color)
 
 void fdg::Node::setFadeColor(const QColor &start, const QColor &end, int duration) 
 {
-    // NOTE: Added the animation is a member, deleting it before starting another fadeColor
-    // as this was causing the enter and leave animations to overlap 
+    // NOTE:
+    //
+    // Added the animation is a member, deleting it before 
+    // starting another fadeColor as this was causing the 
+    // enter and leave animations to overlap 
 
-    // TODO: This is not the fastest way of going about this right now, integrate with QTimer at some point
     if ( animation_ )
     {
         animation_->stop();

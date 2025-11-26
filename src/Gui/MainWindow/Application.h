@@ -4,11 +4,10 @@
 #include <QVBoxLayout>
 #include <QStackedWidget>
 #include <QSplitter>
-#include <Gui/Pages/Home/Home.h>
 #include <Core/UsdDependencyGraph.h>
+#include <Gui/Pages/Home/Home.h>
 #include <Gui/MainWindow/Widgets/Search.h>
 #include <Gui/MainWindow/Widgets/Header.h>
-#include <Gui/MainWindow/Widgets/Tree.h>
 #include <Gui/MainWindow/Widgets/Footer.h>
 #include <Gui/Pages/AssetView/AssetView.h>
 #include <Gui/Pages/DependenciesList/DependenciesList.h>
@@ -28,24 +27,24 @@ class DependencyViewer : public QMainWindow
         void initWidgets(std::vector<std::string> dependencies);
         void showFloatingWidget(QWidget* widget);
 
-        int savedWidth_;
-        std::vector<std::string> itemDependencies_;
-        std::vector<std::string> flattenedDependencies_;
+        int savedWidth_ = 200;
+        const std::string&                  startFile_;
+        std::vector<std::string>            itemDependencies_;
+        std::vector<std::string>            flattenedDependencies_;
         std::shared_ptr<UsdDependencyGraph> dependencyGraph_;
-        const std::string& startFile_;
 
-        QWidget* centralWidget_;
-        QVBoxLayout* mainLayout_;
+        QWidget*        centralWidget_;
+        QVBoxLayout*    mainLayout_;
         QStackedWidget* mainPages_;
 
-        Header *header_;
-        HomePage *homePage_;
-        Footer* footer_;
+        Header*   header_;
+        HomePage* homePage_;
+        Footer*   footer_;
 
-        SearchWidget* searchWidget_;
+        SearchWidget*   searchWidget_;
         SettingsWidget* settingsWidget_;
 
-        NavigationPage* navigationPage_;
-        AssetViewPage* assetViewPage_;
+        NavigationPage*       navigationPage_;
+        AssetViewPage*        assetViewPage_;
         DependenciesListPage* dependenciesListPage_;
 };
