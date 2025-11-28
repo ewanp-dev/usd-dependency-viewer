@@ -38,7 +38,8 @@ void NavigationPage::initWidgets()
 
     mainSplitter_ = new QSplitter();
 
-    table_ = new RecursiveTableWidget();
+    // itemBackgroundWidget_ = new ItemBackgroundWidget();
+    // table_ = new RecursiveTableWidget();
     stackedWidget_ = new NavigationStackedWidget(dependencies_);
     nodegraph_ = stackedWidget_->nodegraph();
 
@@ -47,14 +48,14 @@ void NavigationPage::initWidgets()
 
     nodegraph_->setDependencyGraph(graph_);
 
-    mainSplitter_->addWidget(table_);
+    // mainSplitter_->addWidget(itemBackgroundWidget_);
     mainSplitter_->addWidget(stackedWidget_);
     mainSplitter_->setSizes({200, 200});
 
     mainLayout_->addWidget(mainSplitter_);
 
-    connect(table_, &RecursiveTableWidget::cellDoubleClicked, this, &NavigationPage::onTableCellDoubleClicked);
-    connect(table_, &RecursiveTableWidget::navUpButtonClicked, this, &NavigationPage::onTableNavUpButtonClicked);
+    // connect(table_, &RecursiveTableWidget::cellDoubleClicked, this, &NavigationPage::onTableCellDoubleClicked);
+    // connect(table_, &RecursiveTableWidget::navUpButtonClicked, this, &NavigationPage::onTableNavUpButtonClicked);
 }
 
 

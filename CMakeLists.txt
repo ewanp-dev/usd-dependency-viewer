@@ -40,6 +40,9 @@ set(SOURCES
 
     src/Gui/Pages/Navigation/Widgets/StackedWidget.cpp
     src/Gui/Pages/Navigation/Widgets/StackedWidgetHeader.cpp
+    src/Gui/Pages/Navigation/Widgets/ItemSelection/ItemBackgroundWidget.cpp
+    src/Gui/Pages/Navigation/Widgets/ItemSelection/ItemWidget.cpp
+    src/Gui/Pages/Navigation/Widgets/ItemSelection/ItemThumbnail.cpp
     src/Gui/Pages/Navigation/Widgets/Viewport/Viewport.cpp
     src/Gui/Pages/Navigation/Widgets/Nodegraph/Nodegraph.cpp
     src/Gui/Pages/Navigation/Widgets/FileProperties/FilePropertiesPage.cpp
