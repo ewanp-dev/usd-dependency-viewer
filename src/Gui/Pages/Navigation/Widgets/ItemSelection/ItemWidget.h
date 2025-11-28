@@ -35,6 +35,7 @@ class ItemWidget : public QWidget
         void leaveEvent(QEvent* event) override;
         void resizeEvent(QResizeEvent* event) override;
         void mouseDoubleClickEvent(QMouseEvent* event) override;
+        bool eventFilter(QObject* obj, QEvent* event) override;
 
     private:
         void initUI();

@@ -25,10 +25,12 @@ class NavigationPage : public QWidget
 
     public: 
         NavigationPage(const std::vector<std::string>& dependencies, std::shared_ptr<UsdDependencyGraph> graph, QWidget* parent = nullptr);
-        void setActiveNode(std::shared_ptr<DependencyNode> node);
+        void setActiveNode(NodePath nodePath);
+        const NodePath getActivePath() const;
 
     private:
         void initWidgets();
+        void onNavUpButtonClicked(std::shared_ptr<DependencyNode> node);
 
         const std::vector<std::string>& dependencies_;
         std::shared_ptr<UsdDependencyGraph> graph_;

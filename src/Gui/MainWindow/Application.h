@@ -32,6 +32,7 @@ class DependencyViewer : public QMainWindow
         std::vector<std::string>            itemDependencies_;
         std::vector<std::string>            flattenedDependencies_;
         std::shared_ptr<UsdDependencyGraph> dependencyGraph_;
+        int numDependencies_;
 
         QWidget*        centralWidget_;
         QVBoxLayout*    mainLayout_;

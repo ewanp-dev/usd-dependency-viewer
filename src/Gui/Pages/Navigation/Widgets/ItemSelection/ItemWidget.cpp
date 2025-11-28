@@ -17,6 +17,26 @@ ItemWidget::~ItemWidget()
     std::cout << "Item is deleted" << '\n';
 }
 
+bool ItemWidget::eventFilter(QObject* obj, QEvent* event)
+{
+    if (obj == favouriteButton_)
+    {
+        if (event->type() == QEvent::Enter)
+        {
+            favouriteButton_->setIcon(QIcon(":/icons/DarkMode/star_filled.png"));
+        }
+        else if (event->type() == QEvent::Leave)
+        {
+            if (!favouriteButton_->isChecked())
+            {
+
+                favouriteButton_->setIcon(QIcon(":/icons/DarkMode/star_outline.png"));
+            }
+        }
+    }
+    return QObject::eventFilter(obj, event);
+}
+
 void ItemWidget::initUI()
 {
 
@@ -37,10 +57,14 @@ favouriteLayout_ = new QVBoxLayout();
     favouriteButton_ = initButton();
     favouriteLayout_->addWidget(favouriteButton_);
     favouriteLayout_->addStretch();
+    favouriteButton_->setCheckable(true);
+    favouriteButton_->setChecked(false);
+    favouriteButton_->installEventFilter(this);
 
     mainLayout_->addLayout(favouriteLayout_);
 
     layout->addWidget(container);
+    container->setCursor(Qt::PointingHandCursor);
     container->setStyleSheet(
         "border: none;"
         "background-color: #262626;"

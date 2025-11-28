@@ -14,13 +14,24 @@ NavigationPage::NavigationPage(const std::vector<std::string>& dependencies, std
     initWidgets();
 }
 
-void NavigationPage::setActiveNode(std::shared_ptr<DependencyNode> node)
+void NavigationPage::setActiveNode(NodePath nodePath)
 {
-    activeNode_ = node;
+    nodePath_ = nodePath;
+    activeNode_ = nodePath.getLeafNode();
+
+    nodegraph_->setActiveNode(activeNode_);
 
     std::vector<std::shared_ptr<DependencyNode>> dependencyNodes = activeNode_->getChildNodes();
-    
-    header_->dependencyPathWidget()->setText(QString(" / ") + activeNode_->getFileStem().c_str());
+
+    QLineEdit* dependencyPathWidget = header_->dependencyPathWidget();
+    QString pathString;
+
+    for (std::shared_ptr<DependencyNode> node : nodePath_)
+    {
+        pathString.append(" / " + node->getFileStem());
+    }
+
+    dependencyPathWidget->setText(pathString);
 
     size_t numDependencies = activeNode_->getNumChildren();
     
@@ -29,6 +40,11 @@ void NavigationPage::setActiveNode(std::shared_ptr<DependencyNode> node)
         std::shared_ptr<DependencyNode> dependencyNode = dependencyNodes[i];
         itemArea_->addItem(dependencyNode);
     }
+}
+
+const NodePath NavigationPage::getActivePath() const
+{
+    return nodePath_;
 }
 
 void NavigationPage::onItemWidgetDoubleClicked(const std::string& filePath)
@@ -45,11 +61,27 @@ void NavigationPage::onItemWidgetDoubleClicked(const std::string& filePath)
                 break;
             }
 
-            setActiveNode(node);
-            nodegraph_->setActiveNode(node);
+            setActiveNode(getActivePath().appendNode(node));
             break;
         }
     }
+
+    for (ItemWidget* item : itemArea_->getItems())
+    {
+        connect(item, &ItemWidget::itemDoubleClicked, this, &NavigationPage::onItemWidgetDoubleClicked);
+    }
+}
+
+void NavigationPage::onNavUpButtonClicked(std::shared_ptr<DependencyNode> node)
+{
+
+    const NodePath& nodePath = getActivePath();
+
+    // guard against emptying path
+    if (nodePath.getLeafNode() == nodePath.getRootNode()) return;
+
+    itemArea_->clearItems();
+    setActiveNode(nodePath.popNode());
 
     for (ItemWidget* item : itemArea_->getItems())
     {
@@ -81,6 +113,9 @@ void NavigationPage::initWidgets()
     {
         connect(item, &ItemWidget::itemDoubleClicked, this, &NavigationPage::onItemWidgetDoubleClicked);
     }
+    connect(itemBackgroundWidget_->getNavigationButton(), &dvWidgets::AbstractButton::clicked, this, [this] () {
+        onNavUpButtonClicked(activeNode_);
+    });
 
     mainSplitter_->addWidget(itemBackgroundWidget_);
     mainSplitter_->addWidget(stackedWidget_);
