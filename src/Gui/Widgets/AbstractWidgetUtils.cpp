@@ -21,7 +21,6 @@ void dvWidgets::AbstractWidgetUtils::animateColor(QWidget* widget, const QColor&
                 QString(
                     "background-color: %1;"
                     "border: none;"
-                    "padding: 8px 8px;"
                     "border-radius: 4px;"
                 ).arg(c.name())
             );

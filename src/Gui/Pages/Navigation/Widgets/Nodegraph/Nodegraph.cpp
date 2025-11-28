@@ -5,11 +5,12 @@
 Nodegraph::Nodegraph(const std::vector<std::string>& dependencies, QWidget* parent)
     : QWidget(parent), graph_(new fdg::ForceDirectedGraph(this))
 {
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setContentsMargins(0, 0, 0, 0);
+
     mainLayout_ = new QVBoxLayout(this);
     mainLayout_->setContentsMargins(0, 0, 0, 0);
     mainLayout_->addWidget(graph_);
-
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QTimer::singleShot(0, graph_, &fdg::ForceDirectedGraph::initSimulation);
 }

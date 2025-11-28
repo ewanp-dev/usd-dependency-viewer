@@ -6,6 +6,9 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <Gui/Widgets/AbstractButton.h>
+#include <Core/NodePath.h>
+
+#include "ItemListWidget.h"
 
 class ItemBackgroundWidget : public QWidget
 {
@@ -13,6 +16,9 @@ class ItemBackgroundWidget : public QWidget
 
     public:
         ItemBackgroundWidget(QWidget* parent = nullptr);
+
+        ItemListWidget* getListWidget();
+        void setActivePath(NodePath nodePath);
 
     private:
         void initHeader();
@@ -24,5 +30,8 @@ class ItemBackgroundWidget : public QWidget
         QLineEdit* searchBar_;
         dvWidgets::AbstractButton* filterButton_;
 
-        QScrollArea* itemArea_;
+        ItemListWidget* itemArea_;
+
+        NodePath nodePath_;
+        std::shared_ptr<DependencyNode> activeNode_;
 };

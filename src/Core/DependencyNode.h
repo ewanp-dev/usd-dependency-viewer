@@ -19,7 +19,7 @@ class DependencyNode
         size_t getNumChildren() const;
         std::shared_ptr<DependencyNode> getChildNode(size_t index);
         pxr::SdfLayerRefPtr asSdf();
-        // std::string getDateModifiedTime();
+        std::string getDateModifiedTime();
 
     private:
         std::string filePath_;

@@ -6,8 +6,9 @@
 
 ItemThumbnail::ItemThumbnail(QWidget* parent)
 {
-    setMinimumSize(150, 150);
+    setMinimumSize(100, 100);
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    setFallBackIcon();
 }
 
 void ItemThumbnail::setThumbnail(const QPixmap& pixmap)
@@ -40,9 +41,10 @@ void ItemThumbnail::paintEvent(QPaintEvent* event)
     painter.fillRect(rect(), QColor("#716E6E"));
 
     QRect target = rect();
-    target.setWidth(qMin(width(), height()));
-    target.setHeight(qMin(width(), height()));
+    target.setWidth(qMin(width(), height()) * 0.9);
+    target.setHeight(qMin(width(), height()) * 0.9);
     target.moveCenter(rect().center());
+    target.translate(0, 8);
 
     painter.drawPixmap(target, thumbnail_);
 }
