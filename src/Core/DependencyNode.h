@@ -22,10 +22,13 @@ class DependencyNode
         std::string getDateModifiedTime();
         void setFavourite(bool condition);
         bool isFavourite();
+        void setActive(bool condition = true);
+        bool isActive();
 
     private:
         std::string filePath_;
         std::vector<std::shared_ptr<DependencyNode>> childrenNodes_;
 
         bool isFavourite_;
+        bool isActive_;
 };

@@ -69,6 +69,36 @@ void NavigationPage::onItemWidgetDoubleClicked(const std::string& filePath)
     for (ItemWidget* item : itemArea_->getItems())
     {
         connect(item, &ItemWidget::itemDoubleClicked, this, &NavigationPage::onItemWidgetDoubleClicked);
+        connect(item, &ItemWidget::itemActivated, this, &NavigationPage::onItemWidgetActivated);
+    }
+}
+
+void NavigationPage::onItemWidgetActivated(const std::string& filePath)
+{
+    for (std::shared_ptr<DependencyNode> node : activeNode_->getChildNodes())
+    {
+        if (node->getFilePath() == filePath)
+        {
+            node->setActive(true);
+        } else
+        {
+            node->setActive(false);
+        }
+    }
+
+    for (ItemWidget* item : itemArea_->getItems())
+    {
+        if (item->getFilePath() != filePath)
+        {
+            item->setChecked(false);
+
+            item->getContainer()->setStyleSheet(
+                "border: none;"
+                "background-color: #262626;"
+                "padding: 0px 0px;"
+                "border-radius: 8px;"
+            );
+        }
     }
 }
 
@@ -86,6 +116,7 @@ void NavigationPage::onNavUpButtonClicked(std::shared_ptr<DependencyNode> node)
     for (ItemWidget* item : itemArea_->getItems())
     {
         connect(item, &ItemWidget::itemDoubleClicked, this, &NavigationPage::onItemWidgetDoubleClicked);
+        connect(item, &ItemWidget::itemActivated, this, &NavigationPage::onItemWidgetActivated);
     }
 }
 
@@ -112,6 +143,7 @@ void NavigationPage::initWidgets()
     for (ItemWidget* item : itemArea_->getItems())
     {
         connect(item, &ItemWidget::itemDoubleClicked, this, &NavigationPage::onItemWidgetDoubleClicked);
+        connect(item, &ItemWidget::itemActivated, this, &NavigationPage::onItemWidgetActivated);
     }
     connect(itemBackgroundWidget_->getNavigationButton(), &dvWidgets::AbstractButton::clicked, this, [this] () {
         onNavUpButtonClicked(activeNode_);

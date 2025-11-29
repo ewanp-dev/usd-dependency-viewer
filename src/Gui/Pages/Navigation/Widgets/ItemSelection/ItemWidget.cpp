@@ -2,14 +2,37 @@
 
 #include <Gui/Widgets/AbstractWidgetUtils.h>
 
+#include <iostream>
+
 ItemWidget::ItemWidget(std::shared_ptr<DependencyNode> activeNode, QWidget* parent)
     : activeNode_(activeNode)
 {
     setMouseTracking(true);
     setFixedHeight(148);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    setChecked(false);
 
     initUI();
+}
+
+bool ItemWidget::checkState()
+{
+    return checkState_;
+}
+
+void ItemWidget::setChecked(bool condition)
+{
+    checkState_ = condition;
+}
+
+std::string ItemWidget::getFilePath()
+{
+    return filePath_.toStdString();
+}
+
+QWidget* ItemWidget::getContainer()
+{
+    return container;
 }
 
 bool ItemWidget::eventFilter(QObject* obj, QEvent* event)
@@ -159,12 +182,14 @@ std::shared_ptr<DependencyNode> ItemWidget::asNode()
 
 void ItemWidget::enterEvent(QEnterEvent* event)
 {
-    dvWidgets::AbstractWidgetUtils::animateColor(container, startColor_, endColor_, "8", "0"); 
+    if (!checkState())
+        dvWidgets::AbstractWidgetUtils::animateColor(container, startColor_, endColor_, "8", "0"); 
 }
 
 void ItemWidget::leaveEvent(QEvent* event)
 {
-    dvWidgets::AbstractWidgetUtils::animateColor(container, endColor_, startColor_, "8", "0");
+    if (!checkState())
+        dvWidgets::AbstractWidgetUtils::animateColor(container, endColor_, startColor_, "8", "0");
 }
 
 void ItemWidget::resizeEvent(QResizeEvent* event)
@@ -182,4 +207,34 @@ void ItemWidget::mouseDoubleClickEvent(QMouseEvent* event)
         Q_EMIT itemDoubleClicked(filePath_.toStdString());
 
     QWidget::mouseDoubleClickEvent(event);
+}
+
+void ItemWidget::mousePressEvent(QMouseEvent* event)
+{
+    if (event->button() == Qt::LeftButton)
+    {
+        if (!checkState())
+        {
+            setChecked(true);
+            container->setStyleSheet(
+                "border: none;"
+                "background-color: #749E94;"
+                "padding: 0px 0px;"
+                "border-radius: 8px;"
+            );
+            Q_EMIT itemActivated(filePath_.toStdString());
+        } else
+        {
+            setChecked(false);
+            container->setStyleSheet(
+                "border: none;"
+                "background-color: #262626;"
+                "padding: 0px 0px;"
+                "border-radius: 8px;"
+            );
+        }
+    } else
+    {
+        QWidget::mousePressEvent(event); 
+    }
 }

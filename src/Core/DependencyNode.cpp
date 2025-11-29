@@ -8,6 +8,7 @@ DependencyNode::DependencyNode(std::string filePath)
 : filePath_{filePath}
 {
     isFavourite_ = false;
+    setActive(false);
 }
 
 void DependencyNode::addChildNode(std::shared_ptr<DependencyNode> childNode)
@@ -84,3 +85,14 @@ bool DependencyNode::isFavourite()
 {
     return isFavourite_;
 }
+
+void DependencyNode::setActive(bool condition)
+{
+    isActive_ = condition;
+}
+
+bool DependencyNode::isActive()
+{
+    return isActive_;
+}
+

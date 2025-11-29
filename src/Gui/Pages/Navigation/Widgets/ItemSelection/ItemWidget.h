@@ -21,6 +21,7 @@ class ItemWidget : public QWidget
 
     Q_SIGNALS:
         void itemDoubleClicked(const std::string& filePath);
+        void itemActivated(const std::string& filePath);
 
     public:
         ItemWidget(
@@ -28,11 +29,17 @@ class ItemWidget : public QWidget
             QWidget* parent = nullptr
         );
 
+        void setChecked(bool condition);
+        bool checkState();
+        std::string getFilePath();
+        QWidget* getContainer();
+
     protected:
         void enterEvent(QEnterEvent* event) override;
         void leaveEvent(QEvent* event) override;
         void resizeEvent(QResizeEvent* event) override;
         void mouseDoubleClickEvent(QMouseEvent* event) override;
+        void mousePressEvent(QMouseEvent* event) override;
         bool eventFilter(QObject* obj, QEvent* event) override;
 
     private:
@@ -64,4 +71,6 @@ class ItemWidget : public QWidget
         
         NodePath nodePath_;
         std::shared_ptr<DependencyNode> activeNode_;
+
+        bool checkState_;
 };
