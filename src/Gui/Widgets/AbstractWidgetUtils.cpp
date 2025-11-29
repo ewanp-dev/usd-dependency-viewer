@@ -3,7 +3,15 @@
 
 #include <iostream>
 
-void dvWidgets::AbstractWidgetUtils::animateColor(QWidget* widget, const QColor& from, const QColor& to, int duration)
+void dvWidgets::AbstractWidgetUtils::animateColor(
+    QWidget* widget, 
+    const QColor& from, 
+    const QColor& to, 
+    const QString& borderRadius,
+    const QString& padding,
+    const QString& settings,
+    int duration
+)
 {
     widget->setProperty("bgColor", from);
 
@@ -14,16 +22,17 @@ void dvWidgets::AbstractWidgetUtils::animateColor(QWidget* widget, const QColor&
 
     QObject::connect(anim, &QVariantAnimation::valueChanged,
         widget,
-        [widget] (const QVariant& v)
+        [widget, borderRadius, padding, settings] (const QVariant& v)
         {
             const QColor c = v.value<QColor>();
             widget->setStyleSheet(
                 QString(
                     "background-color: %1;"
                     "border: none;"
-                    "padding: 8px 8px;"
-                    "border-radius: 4px;"
-                ).arg(c.name())
+                    "border-radius: %2px;"
+                    "padding: %3px %3px"
+                    "%4"
+                ).arg(c.name()).arg(borderRadius).arg(padding).arg(settings)
             );
         }
     );
@@ -31,7 +40,12 @@ void dvWidgets::AbstractWidgetUtils::animateColor(QWidget* widget, const QColor&
     anim->start(QAbstractAnimation::DeleteWhenStopped);
 }
 
-void dvWidgets::AbstractWidgetUtils::setSelectedButtonItem(const std::vector<dvWidgets::AbstractButton*>& buttons, QPushButton* activatedButton)
+void dvWidgets::AbstractWidgetUtils::setSelectedButtonItem(
+    const std::vector<dvWidgets::AbstractButton*>& buttons, 
+    QPushButton* activatedButton,
+    const QString& borderRadius,
+    const QString& padding
+)
 {
     // This is a hacky solution to having selected pages reflect on the buttons
     // we can probably implement this in the qss at some point or using a 
@@ -43,19 +57,23 @@ void dvWidgets::AbstractWidgetUtils::setSelectedButtonItem(const std::vector<dvW
         {
             button->setChecked(true);
             button->setStyleSheet(
+                QString(
                 "background-color: #799E94;"
                 "border: none;"
-                "padding: 8px 8px;"
-                "border-radius: 4px;"
+                "padding: %1px %1px;"
+                "border-radius: %2px;"
+                ).arg(padding).arg(borderRadius)
             );
         } else
         {
             button->setChecked(false);
             button->setStyleSheet(
+                QString(
                 "background-color: #262626;"
                 "border: none;"
-                "padding: 8px 8px;"
-                "border-radius: 4px;"
+                "padding: %1px %1px;"
+                "border-radius: %2px;"
+                ).arg(padding).arg(borderRadius)
             );
         }
     }

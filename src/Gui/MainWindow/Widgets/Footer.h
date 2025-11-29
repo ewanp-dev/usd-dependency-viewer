@@ -7,7 +7,7 @@
 class Footer : public QWidget
 {
     public:
-        Footer(const std::string& dependencyPath = "", QWidget* parent = nullptr);
+        Footer(const std::string& dependencyPath = "", int numDependencies = 0, QWidget* parent = nullptr);
 
     private:
         QHBoxLayout* mainLayout_;

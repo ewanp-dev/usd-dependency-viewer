@@ -15,8 +15,11 @@ NavigationStackedWidget::NavigationStackedWidget(const std::vector<std::string>&
     //    it needs to become a global variable or easily
     //    accessible
 
+    setContentsMargins(0, 0, 0, 0);
     mainLayout_ = new QVBoxLayout(this);
+    mainLayout_->setContentsMargins(8, 8, 0, 0);
     mainLayout_->setSpacing(0);
+    
 
     header_ = new StackedWidgetHeader();
 

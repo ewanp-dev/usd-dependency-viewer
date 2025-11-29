@@ -15,6 +15,11 @@
         <file>icons/view.png</file>
 
         <file>icons/DarkMode/asset.png</file>
+        <file>icons/DarkMode/properties.png</file>
+        <file>icons/DarkMode/camera.png</file>
+        <file>icons/DarkMode/jug.png</file>
+        <file>icons/DarkMode/star_filled.png</file>
+        <file>icons/DarkMode/star_outline.png</file>
         <file>icons/DarkMode/bullet_point.png</file>
         <file>icons/DarkMode/file.png</file>
         <file>icons/DarkMode/filter.png</file>

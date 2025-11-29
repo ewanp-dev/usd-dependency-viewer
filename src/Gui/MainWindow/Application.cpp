@@ -15,10 +15,11 @@ DependencyViewer::DependencyViewer(const std::string& startFile, QWidget* parent
     int height           = screenGeometry.height() * 0.8;
 
     resize(width, height);
-    setWindowTitle("USD Depedency Viewer");
+    setWindowTitle("USD Dependency Viewer");
 
     dependencyGraph_ = std::make_shared<UsdDependencyGraph>(startFile_);
     std::vector<std::string> flattenedDependencies_ = dependencyGraph_->getFlattenedPaths();
+    numDependencies_ = flattenedDependencies_.size();
 
     centralWidget_ = new QWidget(this);
     centralWidget_->setContentsMargins(2, 2, 2, 10);
@@ -138,8 +139,9 @@ void DependencyViewer::initPages(std::vector<std::string> dependencies)
 
 void DependencyViewer::initWidgets(std::vector<std::string> dependencies)
 {
+    std::cout << numDependencies_ << '\n';
     header_ = new Header();
-    footer_ = new Footer(startFile_);
+    footer_ = new Footer(startFile_, numDependencies_);
 
     initPages(dependencies);
 

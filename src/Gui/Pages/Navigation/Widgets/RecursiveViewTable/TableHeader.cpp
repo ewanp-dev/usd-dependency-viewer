@@ -3,8 +3,9 @@
 TableHeader::TableHeader(QWidget* parent)
 {
     setProperty("class", "standardWidget");
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-    setContentsMargins(0, 0, 0, 0);
+    setFixedHeight(42);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    // setContentsMargins(0, 0, 0, 0);
     setStyleSheet(
         "border-radius: 4px;"
     );
@@ -22,9 +23,9 @@ TableHeader::TableHeader(QWidget* parent)
     upButton_ = initButton(":/icons/DarkMode/up.png");
 
     mainLayout_->addWidget(dependencyPath_);
-    mainLayout_->addWidget(propertiesButton_);
-    mainLayout_->addWidget(homeButton_);
-    mainLayout_->addWidget(upButton_);
+    // mainLayout_->addWidget(propertiesButton_);
+    // mainLayout_->addWidget(homeButton_);
+    // mainLayout_->addWidget(upButton_);
 }
 
 dvWidgets::AbstractButton* TableHeader::initButton(const std::string& iconPath)

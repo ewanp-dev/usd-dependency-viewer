@@ -15,14 +15,18 @@ class Nodegraph : public QWidget
         Nodegraph(const std::vector<std::string>& dependencies, QWidget* parent = nullptr);
         void setDependencyGraph(std::shared_ptr<UsdDependencyGraph> graph);
         void setActiveNode(std::shared_ptr<DependencyNode> node);
+        void setSelectedNodeItem(const std::string& fileName);
+        std::vector<fdg::Node*> getAllNodes();
         void clear();
 
     private:
         void initGraph();
 
         fdg::ForceDirectedGraph* graph_;
+
         std::shared_ptr<DependencyNode> activeNode_;
         std::shared_ptr<DependencyNode> rootNode_;
+
 
         QVBoxLayout* mainLayout_;
 };

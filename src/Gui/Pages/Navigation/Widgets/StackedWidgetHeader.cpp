@@ -4,17 +4,18 @@
 
 StackedWidgetHeader::StackedWidgetHeader(QWidget* parent)
 {
-    setFixedHeight(60);
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    // setFixedHeight(52);
+    setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
     setAttribute(Qt::WidgetAttribute::WA_StyledBackground, true);
     setProperty("class", "standardWidget");
+    setContentsMargins(0, 0, 0, 0);
     setStyleSheet(
         "border-top-left-radius: 4px;"
         "border-top-right-radius: 4px;"
     );
 
     mainLayout_    = new QHBoxLayout(this);
-    mainLayout_->setContentsMargins(16, 8, 16, 8);
+    mainLayout_->setContentsMargins(12, 12, 12, 12);
 
     nodegraphButton_ = initButton("Nodegraph");
     nodegraphButton_->setChecked(true); // Nodegraph is first selected by default

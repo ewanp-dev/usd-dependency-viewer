@@ -4,11 +4,9 @@
 #include <QTableWidget>
 #include <QTableWidgetItem>
 #include <QHeaderView>
-#include <iostream>
 
 DependenciesListPage::DependenciesListPage(std::vector<std::string> dependencies, QWidget* parent)
 {
-    std::cout << "AHHHHHH: " << dependencies.size() <<'\n';
     mainLayout_ = new QVBoxLayout(this);
 
     pageLabel_ = new QLabel("Dependencies List Page");

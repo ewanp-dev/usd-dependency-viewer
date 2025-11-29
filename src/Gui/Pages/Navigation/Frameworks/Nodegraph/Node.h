@@ -17,6 +17,7 @@ class Node : public QObject, public QGraphicsEllipseItem
     Q_SIGNALS:
         void hoverEntered(fdg::Node* node);
         void hoverLeft(fdg::Node* node);
+        void nodeDoubleClicked(const std::string& filePath);
 
     public:
         Node(std::string &nodeName, qreal x = 0, qreal y = 0, qreal w = 20.0, 
@@ -36,6 +37,8 @@ class Node : public QObject, public QGraphicsEllipseItem
         std::string getName();
         QPointF getCenterPosition();
         bool isDragging() const;
+        void setNodePath(const std::string& filePath);
+        const std::string& getNodePath();
 
         QPointF velocity;
 
@@ -45,12 +48,14 @@ class Node : public QObject, public QGraphicsEllipseItem
         void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
         void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
         void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+        void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
         QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
 
     private:
         void updateLabelPosition_(int y_pos);
 
         std::string nodeName_;
+        std::string nodePath_;
         std::string nodeColor_;
         std::string hoverColor_;
 

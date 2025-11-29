@@ -15,16 +15,20 @@ Header::Header(QWidget* parent)
 
     mainLayout_ = new QHBoxLayout(this);
 
-    homeButton_ = initButton("", ":/icons/DarkMode/leaf_colored.png", false);
+    homeButton_ = initButton("STRATA", "", false);
+    QFont f = homeButton_->font();
+    f.setPointSize(14);
+    f.setBold(true);
+    homeButton_->setFont(f);
     homeButton_->setProperty("class", "HomeButton");
     homeButton_->setStyleSheet("background-color: transparent;");
     homeButton_->setIconSize(QSize(FIXED_BUTTON_HEIGHT_, FIXED_BUTTON_HEIGHT_));
     homeButton_->enableHoverEvent(false);
     homeButton_->setCheckable(false);
 
-    visButton_          = initButton(" Visualization", ":/icons/DarkMode/graph.png");
-    dependenciesButton_ = initButton(" Dependencies List", ":/icons/DarkMode/list.png");
-    assetButton_        = initButton(" Asset View", ":/icons/DarkMode/asset.png");
+    visButton_          = initButton(" BROWSE", ":/icons/DarkMode/graph.png");
+    dependenciesButton_ = initButton(" DEPENDENCIES", ":/icons/DarkMode/list.png");
+    assetButton_        = initButton(" ASSET", ":/icons/DarkMode/asset.png");
     settingsButton_     = initButton("", ":/icons/DarkMode/settings.png");
     settingsButton_->setIconSize(QSize(FIXED_BUTTON_HEIGHT_ - 10, FIXED_BUTTON_HEIGHT_ - 10));
     settingsButton_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
