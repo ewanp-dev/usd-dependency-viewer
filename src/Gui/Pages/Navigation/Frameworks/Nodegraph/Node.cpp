@@ -73,6 +73,16 @@ void fdg::Node::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsEllipseItem::mouseReleaseEvent(event);
 } 
 
+void fdg::Node::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
+{
+    if (event->button() == Qt::LeftButton)
+    {
+        Q_EMIT nodeDoubleClicked(getNodePath());
+    }
+
+    QGraphicsEllipseItem::mouseDoubleClickEvent(event);
+}
+
 QVariant fdg::Node::itemChange(GraphicsItemChange change, const QVariant &value) 
 {
     if (change == GraphicsItemChange::ItemPositionHasChanged) 
@@ -213,3 +223,12 @@ bool fdg::Node::isDragging() const
     return isDragging_;
 }
 
+void fdg::Node::setNodePath(const std::string& filePath)
+{
+    nodePath_ = filePath;
+}
+
+const std::string& fdg::Node::getNodePath()
+{
+    return nodePath_;
+}

@@ -40,6 +40,8 @@ void NavigationPage::setActiveNode(NodePath nodePath)
         std::shared_ptr<DependencyNode> dependencyNode = dependencyNodes[i];
         itemArea_->addItem(dependencyNode);
     }
+
+    ///////
 }
 
 const NodePath NavigationPage::getActivePath() const
@@ -80,6 +82,7 @@ void NavigationPage::onItemWidgetActivated(const std::string& filePath)
         if (node->getFilePath() == filePath)
         {
             node->setActive(true);
+            nodegraph_->setSelectedNodeItem(node->getFilePath().c_str());
         } else
         {
             node->setActive(false);
@@ -120,6 +123,38 @@ void NavigationPage::onNavUpButtonClicked(std::shared_ptr<DependencyNode> node)
     }
 }
 
+void NavigationPage::onNodeDoubleClicked(const std::string& filePath)
+{
+    // NOTE:
+    // 
+    // This is causing segmentation faults!!!
+
+    itemArea_->clearItems();
+    for (std::shared_ptr<DependencyNode> node : activeNode_->getChildNodes())
+    {
+        if (node->getFilePath() == filePath)
+        {
+            if (node->getNumChildren() == 0)
+            {
+                break;
+            }
+            setActiveNode(getActivePath().appendNode(node));
+            nodegraph_->setActiveNode(node);
+        }
+    }
+
+    for (ItemWidget* item : itemArea_->getItems())
+    {
+        connect(item, &ItemWidget::itemDoubleClicked, this, &NavigationPage::onItemWidgetDoubleClicked);
+        connect(item, &ItemWidget::itemActivated, this, &NavigationPage::onItemWidgetActivated);
+    }
+
+    // for (fdg::Node* node : nodegraph_->getAllNodes())
+    // {
+    //     connect(node, &fdg::Node::nodeDoubleClicked, this, &NavigationPage::onNodeDoubleClicked);
+    // }
+}
+
 void NavigationPage::initWidgets()
 {
     // TODO:
@@ -138,15 +173,33 @@ void NavigationPage::initWidgets()
 
     rootNode_ = graph_->getRootNode();
     setActiveNode(rootNode_);
-    nodegraph_->setDependencyGraph(graph_);
+    nodegraph_->setActiveNode(rootNode_);
+    // nodegraph_->setDependencyGraph(graph_);
 
     for (ItemWidget* item : itemArea_->getItems())
     {
         connect(item, &ItemWidget::itemDoubleClicked, this, &NavigationPage::onItemWidgetDoubleClicked);
         connect(item, &ItemWidget::itemActivated, this, &NavigationPage::onItemWidgetActivated);
     }
+
+    for (fdg::Node* node : nodegraph_->getAllNodes())
+    {
+        connect(node, &fdg::Node::nodeDoubleClicked, this, &NavigationPage::onNodeDoubleClicked);
+    }
+
     connect(itemBackgroundWidget_->getNavigationButton(), &dvWidgets::AbstractButton::clicked, this, [this] () {
         onNavUpButtonClicked(activeNode_);
+    });
+
+    connect(itemBackgroundWidget_->getHomeButton(), &dvWidgets::AbstractButton::clicked, this, [this] () {
+        itemArea_->clearItems();
+        setActiveNode(rootNode_);
+        nodegraph_->setActiveNode(rootNode_);
+        for (ItemWidget* item : itemArea_->getItems())
+        {
+            connect(item, &ItemWidget::itemDoubleClicked, this, &NavigationPage::onItemWidgetDoubleClicked);
+            connect(item, &ItemWidget::itemActivated, this, &NavigationPage::onItemWidgetActivated);
+        }
     });
 
     mainSplitter_->addWidget(itemBackgroundWidget_);

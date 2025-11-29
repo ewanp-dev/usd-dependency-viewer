@@ -23,6 +23,8 @@ class ForceDirectedGraph : public QWidget
         void connectMultipleNodes(fdg::Node* startNode, const std::vector<fdg::Node*>& endNodes);
         void clearNodes();
         void initSimulation();
+        void setNodeAsSelected(const std::string& fileName);
+        std::vector<fdg::Node*> nodeStore();
 
     protected:
         void onNodeHoverEnter(fdg::Node* hoveredNode);
@@ -45,6 +47,7 @@ class ForceDirectedGraph : public QWidget
         NodegraphPropertiesWidget* nodegraphPropertiesWidget_;
 
         std::vector<fdg::Node*> nodeStore_;
+        std::vector<fdg::Edge*> connectionStore_;
 };
 
 }

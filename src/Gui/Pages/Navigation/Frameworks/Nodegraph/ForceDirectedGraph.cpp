@@ -70,14 +70,18 @@ fdg::Node* fdg::ForceDirectedGraph::addNode(std::string name)
 
 void fdg::ForceDirectedGraph::connectNodes(fdg::Node* startNode, fdg::Node* endNode)
 {
-    scene_->addItem(new fdg::Edge(startNode, endNode));
+    fdg::Edge* edge = new fdg::Edge(startNode, endNode);
+    connectionStore_.push_back(edge);
+    scene_->addItem(edge);
 }
 
 void fdg::ForceDirectedGraph::connectMultipleNodes(fdg::Node* startNode, const std::vector<fdg::Node*> &endNodes) 
 {
     for (fdg::Node* node : endNodes) 
     {
-        scene_->addItem(new fdg::Edge(startNode, node));
+        fdg::Edge* edge = new fdg::Edge(startNode, node);
+        connectionStore_.push_back(edge);
+        scene_->addItem(edge);
     } 
 }
 
@@ -249,4 +253,28 @@ dvWidgets::AbstractButton* fdg::ForceDirectedGraph::initPropertiesButton()
     });
 
     return button;
+}
+
+void fdg::ForceDirectedGraph::setNodeAsSelected(const std::string& fileName)
+{
+    // for (fdg::Edge* edge : connectionStore_)
+    // {
+    //     edge->setFadeColor(QColor("#2c2f33"), QColor("#2c2f33"));
+    // }
+
+    for (fdg::Node* node : nodeStore_)
+    {
+        if (node->getNodePath() == fileName)
+        {
+            node->setFadeColor(node->brush().color(), QColor("#749e94"));
+        } else
+        {
+            node->setFadeColor(node->brush().color(), QColor("#404040"));
+        }
+    }
+}
+
+std::vector<fdg::Node*> fdg::ForceDirectedGraph::nodeStore()
+{
+    return nodeStore_;
 }

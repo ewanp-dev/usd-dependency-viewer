@@ -23,6 +23,7 @@ class NavigationPage : public QWidget
     private Q_SLOTS:
         void onItemWidgetDoubleClicked(const std::string& filePath);
         void onItemWidgetActivated(const std::string& filePath);
+        void onNodeDoubleClicked(const std::string& filePath);
 
     public: 
         NavigationPage(const std::vector<std::string>& dependencies, std::shared_ptr<UsdDependencyGraph> graph, QWidget* parent = nullptr);
