@@ -7,6 +7,8 @@
 #include "GraphicsView.h"
 #include "GraphicsScene.h"
 #include "Node.h"
+#include <Gui/Widgets/AbstractButton.h>
+#include <Gui/Pages/Navigation/Widgets/Nodegraph/NodegraphPropertiesWidget.h>
 
 namespace fdg
 {
@@ -32,12 +34,15 @@ class ForceDirectedGraph : public QWidget
         QPointF computeCenterGravity(fdg::Node* node);
         void updatePhysics(double dt);
         void tick();
+        dvWidgets::AbstractButton* initPropertiesButton();
 
         QTimer*        timer_;
         QElapsedTimer  elapsed_;
 
         GraphicsScene* scene_;
         GraphicsView*  view_;
+        dvWidgets::AbstractButton* propertiesButton_;
+        NodegraphPropertiesWidget* nodegraphPropertiesWidget_;
 
         std::vector<fdg::Node*> nodeStore_;
 };

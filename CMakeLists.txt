@@ -46,6 +46,7 @@ set(SOURCES
     src/Gui/Pages/Navigation/Widgets/ItemSelection/ItemListWidget.cpp
     src/Gui/Pages/Navigation/Widgets/Viewport/Viewport.cpp
     src/Gui/Pages/Navigation/Widgets/Nodegraph/Nodegraph.cpp
+    src/Gui/Pages/Navigation/Widgets/Nodegraph/NodegraphPropertiesWidget.cpp
     src/Gui/Pages/Navigation/Widgets/FileProperties/FilePropertiesPage.cpp
     src/Gui/Pages/Navigation/Widgets/UsdInspection/UsdInspectionPage.cpp
     src/Gui/Pages/Navigation/Widgets/Nodegraph/Nodegraph.cpp

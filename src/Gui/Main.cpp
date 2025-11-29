@@ -10,7 +10,7 @@
 
 int main(int argc, char **argv)
 {
-    QApplication::setDesktopSettingsAware(false);
+    qputenv("QT_QPA_PLATFORMTHEME", QByteArray(""));
     QApplication app(argc, argv);
     QApplication::setCursorFlashTime(0);
 

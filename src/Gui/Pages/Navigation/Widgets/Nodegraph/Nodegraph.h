@@ -21,8 +21,10 @@ class Nodegraph : public QWidget
         void initGraph();
 
         fdg::ForceDirectedGraph* graph_;
+
         std::shared_ptr<DependencyNode> activeNode_;
         std::shared_ptr<DependencyNode> rootNode_;
+
 
         QVBoxLayout* mainLayout_;
 };

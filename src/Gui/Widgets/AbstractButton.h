@@ -35,5 +35,6 @@ class AbstractButton : public QPushButton
         bool        hoverEvents_;
         QColor      startColor_;
         QColor      endColor_;
+
 };
 }

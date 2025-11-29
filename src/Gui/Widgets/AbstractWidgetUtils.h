@@ -17,6 +17,7 @@ namespace dvWidgets
             const QColor& to,
             const QString& borderRadius = "4",
             const QString& padding = "8",
+            const QString& settings = "",
             int duration = 150
         );
 

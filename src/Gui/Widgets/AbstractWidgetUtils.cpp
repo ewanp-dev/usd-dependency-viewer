@@ -9,6 +9,7 @@ void dvWidgets::AbstractWidgetUtils::animateColor(
     const QColor& to, 
     const QString& borderRadius,
     const QString& padding,
+    const QString& settings,
     int duration
 )
 {
@@ -21,7 +22,7 @@ void dvWidgets::AbstractWidgetUtils::animateColor(
 
     QObject::connect(anim, &QVariantAnimation::valueChanged,
         widget,
-        [widget, borderRadius, padding] (const QVariant& v)
+        [widget, borderRadius, padding, settings] (const QVariant& v)
         {
             const QColor c = v.value<QColor>();
             widget->setStyleSheet(
@@ -30,7 +31,8 @@ void dvWidgets::AbstractWidgetUtils::animateColor(
                     "border: none;"
                     "border-radius: %2px;"
                     "padding: %3px %3px"
-                ).arg(c.name()).arg(borderRadius).arg(padding)
+                    "%4"
+                ).arg(c.name()).arg(borderRadius).arg(padding).arg(settings)
             );
         }
     );

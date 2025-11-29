@@ -30,11 +30,10 @@ fdg::ForceDirectedGraph::ForceDirectedGraph(QWidget* parent)
     // button on the nodegraph, will replace with a bespoke 
     // class later on
 
-    QPushButton* btn = new QPushButton("Push Me", this);
-    btn->setFixedSize(48, 48);
+    propertiesButton_ = initPropertiesButton();
     setLayout(mainLayout);
-    btn->raise();
-    btn->move(16, 10);
+    propertiesButton_->raise();
+    propertiesButton_->move(12, 10);
 
 }
 
@@ -212,4 +211,42 @@ void fdg::ForceDirectedGraph::clearNodes()
 {
     nodeStore_.clear();
     scene_->clear();
+}
+
+dvWidgets::AbstractButton* fdg::ForceDirectedGraph::initPropertiesButton()
+{
+    dvWidgets::AbstractButton* button = new dvWidgets::AbstractButton();
+
+    button->setParent(this);
+    button->setIcon(QIcon(":icons/DarkMode/properties.png"));
+    button->setFixedSize(48, 48);
+    button->setIconSize(QSize(32, 32));
+    button->setCheckable(false);
+
+    nodegraphPropertiesWidget_ = nullptr;
+
+    connect(button, &dvWidgets::AbstractButton::clicked, this, [this, button] () {
+
+        if (nodegraphPropertiesWidget_ && nodegraphPropertiesWidget_->isVisible()) {
+            return;
+        }
+
+        if (!nodegraphPropertiesWidget_) {
+            nodegraphPropertiesWidget_ = new NodegraphPropertiesWidget(nullptr);
+            nodegraphPropertiesWidget_->setAttribute(Qt::WA_DeleteOnClose);  // auto-delete when closed
+            connect(nodegraphPropertiesWidget_, &QWidget::destroyed, this, [this]() {
+                nodegraphPropertiesWidget_ = nullptr;
+            });
+        }
+
+        nodegraphPropertiesWidget_->adjustSize();
+
+        QPoint globalPos = button->mapToGlobal(QPoint(0, button->height()));
+
+        nodegraphPropertiesWidget_->move(globalPos);
+        nodegraphPropertiesWidget_->show();
+        nodegraphPropertiesWidget_->raise();
+    });
+
+    return button;
 }

@@ -15,7 +15,7 @@ DependencyViewer::DependencyViewer(const std::string& startFile, QWidget* parent
     int height           = screenGeometry.height() * 0.8;
 
     resize(width, height);
-    setWindowTitle("USD Depedency Viewer");
+    setWindowTitle("USD Dependency Viewer");
 
     dependencyGraph_ = std::make_shared<UsdDependencyGraph>(startFile_);
     std::vector<std::string> flattenedDependencies_ = dependencyGraph_->getFlattenedPaths();
