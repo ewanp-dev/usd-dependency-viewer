@@ -28,8 +28,6 @@ class ItemWidget : public QWidget
             QWidget* parent = nullptr
         );
 
-        ~ItemWidget();
-
     protected:
         void enterEvent(QEnterEvent* event) override;
         void leaveEvent(QEvent* event) override;

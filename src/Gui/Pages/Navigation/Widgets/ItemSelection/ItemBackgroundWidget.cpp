@@ -74,12 +74,6 @@ ItemListWidget* ItemBackgroundWidget::getListWidget()
     return itemArea_;
 }
 
-void ItemBackgroundWidget::setActivePath(NodePath nodePath)
-{
-     
-}
-
-
 dvWidgets::AbstractButton* ItemBackgroundWidget::getFiltersButton()
 {
     return filterButton_;

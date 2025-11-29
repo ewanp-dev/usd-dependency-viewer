@@ -105,9 +105,10 @@ QHeaderView::section
 
 QToolTip
 {
-    background: @bg-light-1;
-    color: @fg-main;
+    background: @bg-dark-2;
+    color: @text-white-1;
     padding: 3px;
+    border-radius: 4px 4px;
     border: none;
 }
 

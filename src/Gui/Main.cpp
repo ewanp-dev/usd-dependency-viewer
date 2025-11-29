@@ -10,6 +10,7 @@
 
 int main(int argc, char **argv)
 {
+    QApplication::setDesktopSettingsAware(false);
     QApplication app(argc, argv);
     QApplication::setCursorFlashTime(0);
 

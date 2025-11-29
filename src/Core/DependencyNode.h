@@ -20,8 +20,12 @@ class DependencyNode
         std::shared_ptr<DependencyNode> getChildNode(size_t index);
         pxr::SdfLayerRefPtr asSdf();
         std::string getDateModifiedTime();
+        void setFavourite(bool condition);
+        bool isFavourite();
 
     private:
         std::string filePath_;
         std::vector<std::shared_ptr<DependencyNode>> childrenNodes_;
+
+        bool isFavourite_;
 };

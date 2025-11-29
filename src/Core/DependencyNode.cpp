@@ -7,7 +7,7 @@
 DependencyNode::DependencyNode(std::string filePath)
 : filePath_{filePath}
 {
-
+    isFavourite_ = false;
 }
 
 void DependencyNode::addChildNode(std::shared_ptr<DependencyNode> childNode)
@@ -73,4 +73,14 @@ std::string DependencyNode::getDateModifiedTime()
     oss << std::put_time(&tm, "%Y-%m-%d %H:%M:%S");
 
     return oss.str();
+}
+
+void DependencyNode::setFavourite(bool condition)
+{
+    isFavourite_ = condition;
+}
+
+bool DependencyNode::isFavourite()
+{
+    return isFavourite_;
 }

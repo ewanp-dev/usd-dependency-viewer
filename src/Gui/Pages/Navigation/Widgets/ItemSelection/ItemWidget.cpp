@@ -12,11 +12,6 @@ ItemWidget::ItemWidget(std::shared_ptr<DependencyNode> activeNode, QWidget* pare
     initUI();
 }
 
-ItemWidget::~ItemWidget()
-{
-    std::cout << "Item is deleted" << '\n';
-}
-
 bool ItemWidget::eventFilter(QObject* obj, QEvent* event)
 {
     if (obj == favouriteButton_)
@@ -58,8 +53,17 @@ favouriteLayout_ = new QVBoxLayout();
     favouriteLayout_->addWidget(favouriteButton_);
     favouriteLayout_->addStretch();
     favouriteButton_->setCheckable(true);
-    favouriteButton_->setChecked(false);
+
+    if (activeNode_->isFavourite())
+    {
+        favouriteButton_->setChecked(true);
+    } else
+    {
+        favouriteButton_->setChecked(false);
+    }
+
     favouriteButton_->installEventFilter(this);
+    favouriteButton_->setToolTip("Favourite Item");
 
     mainLayout_->addLayout(favouriteLayout_);
 
@@ -69,7 +73,7 @@ favouriteLayout_ = new QVBoxLayout();
         "border: none;"
         "background-color: #262626;"
         "padding: 0px 0px;"
-        "border-radius: 4px;"
+        "border-radius: 8px;"
     );
     container->setAttribute(Qt::WidgetAttribute::WA_StyledBackground, true);
     container->setContentsMargins(8, 8, 8, 8);
@@ -122,10 +126,29 @@ dvWidgets::AbstractButton* ItemWidget::initButton()
 
     button->setFixedSize(28, 28);
     button->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    button->setIcon(QIcon(":/icons/DarkMode/star_outline.png"));
+
+    if (activeNode_->isFavourite())
+    {
+        button->setIcon(QIcon(":/icons/DarkMode/star_filled.png"));
+    } else
+    {
+        button->setIcon(QIcon(":/icons/DarkMode/star_outline.png"));
+    }
+
     button->setIconSize(QSize(24, 24));
     button->enableHoverEvent(false);
 
+    connect(button, &dvWidgets::AbstractButton::clicked, this, [this, button] () {
+        if (!button->isChecked())
+        {
+            button->setChecked(false);
+            activeNode_->setFavourite(false);
+        } else
+        {
+            button->setChecked(true);
+            activeNode_->setFavourite(true);
+        }
+    });
     return button;
 }
 
@@ -136,14 +159,12 @@ std::shared_ptr<DependencyNode> ItemWidget::asNode()
 
 void ItemWidget::enterEvent(QEnterEvent* event)
 {
-    dvWidgets::AbstractWidgetUtils::animateColor(container, startColor_, endColor_); 
-    setStyleSheet("padding: 0px 0px;");
+    dvWidgets::AbstractWidgetUtils::animateColor(container, startColor_, endColor_, "8", "0"); 
 }
 
 void ItemWidget::leaveEvent(QEvent* event)
 {
-    dvWidgets::AbstractWidgetUtils::animateColor(container, endColor_, startColor_);
-    setStyleSheet("padding: 0px 0px;");
+    dvWidgets::AbstractWidgetUtils::animateColor(container, endColor_, startColor_, "8", "0");
 }
 
 void ItemWidget::resizeEvent(QResizeEvent* event)
@@ -157,8 +178,6 @@ void ItemWidget::resizeEvent(QResizeEvent* event)
 
 void ItemWidget::mouseDoubleClickEvent(QMouseEvent* event)
 {
-    std::cout << "This is double clicked" << '\n';
-
     if (activeNode_->getNumChildren() > 0) 
         Q_EMIT itemDoubleClicked(filePath_.toStdString());
 

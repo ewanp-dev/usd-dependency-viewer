@@ -18,7 +18,6 @@ class ItemBackgroundWidget : public QWidget
         ItemBackgroundWidget(QWidget* parent = nullptr);
 
         ItemListWidget* getListWidget();
-        void setActivePath(NodePath nodePath);
         dvWidgets::AbstractButton* getFiltersButton();
         dvWidgets::AbstractButton* getHomeButton();
         dvWidgets::AbstractButton* getNavigationButton();
