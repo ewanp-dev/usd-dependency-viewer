@@ -4,6 +4,7 @@
 #include <QTableWidget>
 #include <QTableWidgetItem>
 #include <QHeaderView>
+#include <Gui/Widgets/AbstractTable.h>
 
 DependenciesListPage::DependenciesListPage(std::vector<std::string> dependencies, QWidget* parent)
 {
@@ -16,15 +17,17 @@ DependenciesListPage::DependenciesListPage(std::vector<std::string> dependencies
 
 void DependenciesListPage::setTable(std::vector<std::string> items)
 {
-    QTableWidget* table = new QTableWidget;
-    table->setColumnCount(1);
-    table->setRowCount(static_cast<int>(items.size()));
-    table->setHorizontalHeaderLabels({ "Value" });
+    AbstractTable* table = new AbstractTable();
+    table->verticalHeader()->setVisible(false);
+    QStandardItemModel* model_ = table->getModel();
+    model_->setColumnCount(1);
+    model_->setRowCount(static_cast<int>(items.size()));
+    model_->setHorizontalHeaderLabels({ "FILE PATH" });
 
     for (int i = 0; i < static_cast<int>(items.size()); i++)
     {
-        auto* item = new QTableWidgetItem(QString::fromStdString(items[i]));    
-        table->setItem(i, 0, item);
+        auto* item = new QStandardItem(QString::fromStdString(items[i]));    
+        model_->setItem(i, 0, item);
     }
 
     table->horizontalHeader()->setStretchLastSection(true);
