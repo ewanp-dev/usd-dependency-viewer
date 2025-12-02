@@ -24,22 +24,28 @@ void ItemListWidget::addItem(std::shared_ptr<DependencyNode> node)
     items_.push_back(item);
     mainLayout_->insertWidget(mainLayout_->count() - 1, item);
 }
+
 void ItemListWidget::clearItems()
 {
-    for (ItemWidget* item : items_) {
+    for (ItemWidget* item : items_) 
+    {
         item->setParent(nullptr);
-        item->deleteLater(); // safe, won't delete during event processing
+        item->deleteLater(); 
     }
+
     items_.clear();
 
+    // Might be able to get the same effect without creating the QLayoutItem
     QLayoutItem* child;
-    while ((child = mainLayout_->takeAt(0))) {
+    while ((child = mainLayout_->takeAt(0))) 
+    {
         if (child->spacerItem())
         {
             mainLayout_->addItem(child->spacerItem());
             break;
         }
-        delete child;  // just delete layout items, not widgets
+
+        delete child;  
     }
 }
 

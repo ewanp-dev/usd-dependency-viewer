@@ -2,13 +2,11 @@
 
 #include <Gui/Widgets/AbstractWidgetUtils.h>
 
-#include <iostream>
-
 ItemWidget::ItemWidget(std::shared_ptr<DependencyNode> activeNode, QWidget* parent)
     : activeNode_(activeNode)
 {
     setMouseTracking(true);
-    setFixedHeight(148);
+    setFixedHeight(148); // TODO Move to a minimum height, might not work on smaller screens
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     setChecked(false);
 
@@ -22,11 +20,16 @@ bool ItemWidget::checkState()
 
 void ItemWidget::setChecked(bool condition)
 {
+    // QWidget doesn't have a built in checkable state so this is just a workaround
+
     checkState_ = condition;
 }
 
 std::string ItemWidget::getFilePath()
 {
+    // Need to look into this right now, I think it's super inefficient
+    // all the strings that are getting passed around
+
     return filePath_.toStdString();
 }
 
@@ -37,6 +40,12 @@ QWidget* ItemWidget::getContainer()
 
 bool ItemWidget::eventFilter(QObject* obj, QEvent* event)
 {
+    // TODO
+    //
+    // Create active state for the favourite button rather than
+    // just setting the icon. It will be a efficient way to get the 
+    // favourite state and set the icons at the same time
+
     if (obj == favouriteButton_)
     {
         if (event->type() == QEvent::Enter)
@@ -52,6 +61,7 @@ bool ItemWidget::eventFilter(QObject* obj, QEvent* event)
             }
         }
     }
+
     return QObject::eventFilter(obj, event);
 }
 
@@ -91,6 +101,7 @@ favouriteLayout_ = new QVBoxLayout();
     mainLayout_->addLayout(favouriteLayout_);
 
     layout->addWidget(container);
+
     container->setCursor(Qt::PointingHandCursor);
     container->setStyleSheet(
         "border: none;"
