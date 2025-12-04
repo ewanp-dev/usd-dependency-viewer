@@ -11,7 +11,7 @@ Footer::Footer(const std::string& dependencyPath, int numDependencies, QWidget* 
 
     centralWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     centralWidget->setFixedHeight(24);
-    centralWidget->setProperty("class", "standardWidget");
+    centralWidget->setProperty("class", "ClassStandardWidget");
     centralWidget->setContentsMargins(10, 0, 10, 0);
 
     mainLayout_ = new QHBoxLayout(centralWidget);

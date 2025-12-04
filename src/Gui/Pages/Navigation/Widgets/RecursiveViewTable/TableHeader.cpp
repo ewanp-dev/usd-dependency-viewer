@@ -2,7 +2,7 @@
 
 TableHeader::TableHeader(QWidget* parent)
 {
-    setProperty("class", "standardWidget");
+    setProperty("class", "ClassStandardWidget");
     setFixedHeight(42);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     // setContentsMargins(0, 0, 0, 0);

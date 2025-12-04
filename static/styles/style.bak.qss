@@ -1,0 +1,277 @@
+/* ------------------------------------------------------------------------- */
+/* QT WIDGETS
+
+
+/* ---------------------- */
+/* MAIN WINDOW            */
+/* ---------------------- */
+
+QMainWindow
+{
+    background-color: @bg-main;
+}
+
+
+
+
+/* ---------------------- */
+/* BASIC WIDGETS          */
+/* ---------------------- */
+
+QWidget { border: none; }
+
+QGraphicsView { border: none; }
+
+QHeaderView { background: @bg-light-1; }
+
+QLabel { color: @text-white-1; }
+
+
+
+
+/* ---------------------- */
+/* LINE EDITS             */
+/* ---------------------- */
+
+QLineEdit
+{
+    background-color: @bg-main;
+    border: 1px solid @bg-dark-1;
+    color: @text-white-1;
+    padding: 4px;
+    border-radius: 0px;
+}
+
+
+
+
+/* ---------------------- */
+/* TABLE WIDGET           */
+/* ---------------------- */
+
+QTableWidget 
+{
+    background: transparent;
+    color: @fg-main;
+}
+
+QTableWidget::item 
+{
+    border-right: 1px solid @bg-light-1;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+QTableWidget::item:hover 
+{
+    color: rgb(210, 210, 210);
+}
+
+QTableWidget::item:focus 
+{
+    background-color: @bg-light-1;
+}
+
+QTableWidgetItem 
+{
+    color: red;
+}
+
+
+
+
+/* ---------------------- */
+/* TABLE VIEW             */
+/* ---------------------- */
+
+QTableView
+{
+    background: @bg-dark-2;
+    color: @text-white-1;
+    padding-left: 8px;
+    padding-right: 8px;
+    border: none;
+}
+
+QTableView::item
+{
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+QTableView::item:selected
+{
+    background: @bg-accent-1;
+    border: none;
+}
+
+QTableView::item:focus
+{
+    border: none;
+    outline: none;
+}
+
+QHeaderView::section
+{
+    background: @bg-dark-2;
+    color: @text-grey-1;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+
+
+
+/* ---------------------- */
+/* SCROLL BAR             */
+/* ---------------------- */
+
+QScrollBar
+{
+    height: 20px;
+    padding-bottom: 10px;
+    background: transparent;
+}
+
+QScrollBar::handle
+{
+    min-height: 22px;
+    background: @bg-dark-1;
+    border-radius: 5px;
+}
+
+QScrollBar::handle:hover
+{
+    background: #535353;
+}
+
+QScrollBar::sub-line,
+QScrollBar::sub-line:disabled,
+QScrollBar::sub-line:hover,
+QScrollBar::sub-line:off,
+QScrollBar::sub-line:on,
+QScrollBar::add-line,
+QScrollBar::add-line:disabled,
+QScrollBar::add-line:hover,
+QScrollBar::add-line:off,
+QScrollBar::add-line:on 
+{
+    width: 0;
+    height: 0;
+    border: none;
+    background: none;
+}
+
+QScrollBar::left-arrow,
+QScrollBar::right-arrow 
+{
+    width: 0;
+    height: 0;
+    background: none;
+}
+
+QScrollBar::sub-page,
+QScrollBar::add-page 
+{
+    width: 0;
+    height: 0;
+    background: none;
+}
+
+QScrollBar::up-arrow, 
+QScrollBar::down-arrow
+{
+    width: 0;
+    height: 0;
+    background: none;
+}
+
+
+
+
+/* ---------------------- */
+/* MISC WIDGETS           */
+/* ---------------------- */
+
+QToolTip
+{
+    background: @bg-dark-2;
+    color: @text-white-1;
+    padding: 3px;
+    border-radius: 4px 4px;
+    border: none;
+}
+
+QSplitter::handle
+{
+    background: transparent;
+    border-left: 1px solid @bg-main;
+    width: 2px;
+}
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+/* CLASSES
+
+
+/* ---------------------- */
+/* BASE CLASSES           */
+/* ---------------------- */
+
+QWidget[class="ClassStandardWidget"]
+{
+    border: none;
+    background-color: @bg-dark-2;
+}
+
+QWidget[class="ClassHeaderWidget"]
+{
+    background-color: transparent;
+}
+
+
+
+QPushButton[class="ClassDefaultAbstractButton"]
+{
+    border: none;
+    color: @text-white-1;
+    background: @bg-dark-1;
+    padding: 8px 8px;
+    border-radius: 4px;
+}
+
+QPushButton[class="ClassHoveredAbstractButton"]
+{
+    border: none;
+    color: @text-white-1;
+    background: @bg-accent-1;
+    padding: 8px 8px;
+    border-radius: 4px;
+}
+
+QPushButton[class="ClassLogoAbstractButton"]
+{
+    background-color: transparent;
+}
+
+QPushButton[class="ClassLogoAbstractButton"]:hover
+{
+    background-color: transparent;
+}
+
+
+
+QLabel[class="ClassHomePageTitle"]
+{
+    color: @text-white-1;
+}
+
+
+

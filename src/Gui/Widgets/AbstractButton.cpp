@@ -8,7 +8,7 @@ dvWidgets::AbstractButton::AbstractButton(
 ) 
     : startColor_(QColor("#262626")), endColor_(QColor("#799E94")) // NOTE: Move to global at some point
 { 
-    setProperty("class", "AbstractButton");
+    setProperty("class", "ClassDefaultAbstractButton");
     setAttribute(Qt::WA_Hover);
     setMouseTracking(true);
     setCheckable(true);

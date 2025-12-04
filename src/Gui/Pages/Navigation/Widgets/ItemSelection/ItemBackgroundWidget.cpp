@@ -21,7 +21,7 @@ ItemBackgroundWidget::ItemBackgroundWidget(QWidget* parent)
     layout->addWidget(container);
     layout->setContentsMargins(0, 8, 8, 0);
     container->setAttribute(Qt::WidgetAttribute::WA_StyledBackground, true);
-    container->setProperty("class", "standardWidget");
+    container->setProperty("class", "ClassStandardWidget");
     container->setStyleSheet(
         "border-top-left-radius: 4px;"
         "border-top-right-radius: 4px;"

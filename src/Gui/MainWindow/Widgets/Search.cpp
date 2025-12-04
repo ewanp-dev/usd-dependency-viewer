@@ -36,7 +36,7 @@ SearchWidget::SearchWidget(std::vector<std::string> dependencies, QWidget* paren
 
     populateDefaultList();
 
-    searchBar_->setProperty("class", "SearchBar");
+    // searchBar_->setProperty("class", "SearchBar");
 }
 
 void SearchWidget::keyPressEvent(QKeyEvent *event) 

@@ -25,6 +25,5 @@ HomePage::HomePage(QWidget *parent) {
     layout->addWidget(search_, 0, Qt::AlignmentFlag::AlignHCenter);
     layout->addStretch();
 
-    homeLabel_->setProperty("class", "Title");
-    search_->setProperty("class", "lineEdit");
+    homeLabel_->setProperty("class", "ClassHomePageTitle");
 }

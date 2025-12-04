@@ -7,7 +7,7 @@ StackedWidgetHeader::StackedWidgetHeader(QWidget* parent)
     // setFixedHeight(52);
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
     setAttribute(Qt::WidgetAttribute::WA_StyledBackground, true);
-    setProperty("class", "standardWidget");
+    setProperty("class", "ClassStandardWidget");
     setContentsMargins(0, 0, 0, 0);
     setStyleSheet(
         "border-top-left-radius: 4px;"
