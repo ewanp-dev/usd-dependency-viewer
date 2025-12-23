@@ -267,7 +267,6 @@ QPushButton[class="ClassLogoAbstractButton"]:hover
 }
 
 
-
 QLabel[class="ClassHomePageTitle"]
 {
     color: @text-white-1;

@@ -15,17 +15,17 @@ namespace dvWidgets
             QWidget* widget,
             const QColor& from,
             const QColor& to,
-            const QString& borderRadius = "4",
-            const QString& padding = "8",
-            const QString& settings = "",
             int duration = 150
         );
 
         static void setSelectedButtonItem(
             const std::vector<dvWidgets::AbstractButton*>& buttons, 
-            QPushButton* activatedButton,
-            const QString& borderRadius = "4",
-            const QString& padding = "8"
+            QPushButton* activatedButton
+        );
+
+        static void setStyleProperty(
+            QWidget* widget,
+            const QString& className
         );
     };
 }

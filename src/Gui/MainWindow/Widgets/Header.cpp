@@ -20,8 +20,7 @@ Header::Header(QWidget* parent)
     f.setPointSize(14);
     f.setBold(true);
     homeButton_->setFont(f);
-    homeButton_->setProperty("class", "HomeButton");
-    homeButton_->setStyleSheet("background-color: transparent;");
+    homeButton_->setProperty("class", "ClassLogoAbstractButton");
     homeButton_->setIconSize(QSize(FIXED_BUTTON_HEIGHT_, FIXED_BUTTON_HEIGHT_));
     homeButton_->enableHoverEvent(false);
     homeButton_->setCheckable(false);
@@ -57,7 +56,7 @@ dvWidgets::AbstractButton* Header::initButton(const std::string& text, const std
     button->setIcon(QIcon(iconPath.c_str()));
     button->setIconSize(FIXED_ICON_SIZE_);
     button->setCursor(Qt::PointingHandCursor);
-    button->setProperty("class", "HeaderButton");
+    button->setProperty("class", "ClassDefaultAbstractButton");
 
     QFont headerButtonFont = button->font();
     headerButtonFont.setPointSize(FIXED_FONT_SIZE_);

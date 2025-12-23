@@ -16,7 +16,6 @@ TableHeader::TableHeader(QWidget* parent)
     dependencyPath_ = new QLineEdit("/");
     dependencyPath_->setReadOnly(true);
     dependencyPath_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-    dependencyPath_->setProperty("class", "lineEdit");
 
     propertiesButton_ = initButton(":/icons/DarkMode/filter.png");
     homeButton_ = initButton(":/icons/DarkMode/home.png");

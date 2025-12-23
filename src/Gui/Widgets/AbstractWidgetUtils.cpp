@@ -1,17 +1,9 @@
 #include "AbstractWidgetUtils.h"
 #include "AbstractButton.h"
 
-#include <iostream>
+#include <QStyle>
 
-void dvWidgets::AbstractWidgetUtils::animateColor(
-    QWidget* widget, 
-    const QColor& from, 
-    const QColor& to, 
-    const QString& borderRadius,
-    const QString& padding,
-    const QString& settings,
-    int duration
-)
+void dvWidgets::AbstractWidgetUtils::animateColor(QWidget* widget, const QColor& from, const QColor& to, int duration)
 {
     widget->setProperty("bgColor", from);
 
@@ -22,17 +14,13 @@ void dvWidgets::AbstractWidgetUtils::animateColor(
 
     QObject::connect(anim, &QVariantAnimation::valueChanged,
         widget,
-        [widget, borderRadius, padding, settings] (const QVariant& v)
+        [widget] (const QVariant& v)
         {
             const QColor c = v.value<QColor>();
             widget->setStyleSheet(
                 QString(
                     "background-color: %1;"
-                    "border: none;"
-                    "border-radius: %2px;"
-                    "padding: %3px %3px"
-                    "%4"
-                ).arg(c.name()).arg(borderRadius).arg(padding).arg(settings)
+                ).arg(c.name())
             );
         }
     );
@@ -40,12 +28,7 @@ void dvWidgets::AbstractWidgetUtils::animateColor(
     anim->start(QAbstractAnimation::DeleteWhenStopped);
 }
 
-void dvWidgets::AbstractWidgetUtils::setSelectedButtonItem(
-    const std::vector<dvWidgets::AbstractButton*>& buttons, 
-    QPushButton* activatedButton,
-    const QString& borderRadius,
-    const QString& padding
-)
+void dvWidgets::AbstractWidgetUtils::setSelectedButtonItem(const std::vector<dvWidgets::AbstractButton*>& buttons, QPushButton* activatedButton)
 {
     // This is a hacky solution to having selected pages reflect on the buttons
     // we can probably implement this in the qss at some point or using a 
@@ -56,25 +39,21 @@ void dvWidgets::AbstractWidgetUtils::setSelectedButtonItem(
         if ( button == activatedButton )
         {
             button->setChecked(true);
-            button->setStyleSheet(
-                QString(
-                "background-color: #799E94;"
-                "border: none;"
-                "padding: %1px %1px;"
-                "border-radius: %2px;"
-                ).arg(padding).arg(borderRadius)
-            );
+            setStyleProperty(button, "ClassHoveredAbstractButton");
         } else
         {
             button->setChecked(false);
-            button->setStyleSheet(
-                QString(
-                "background-color: #262626;"
-                "border: none;"
-                "padding: %1px %1px;"
-                "border-radius: %2px;"
-                ).arg(padding).arg(borderRadius)
-            );
+            setStyleProperty(button, "ClassDefaultAbstractButton");
         }
     }
+}
+
+void dvWidgets::AbstractWidgetUtils::setStyleProperty(QWidget* widget, const QString& className)
+{
+    // There are a few times in the application where the style sheet needs to change
+    // like on hover events, this avoids any boilerplate code for style sheets 
+
+    widget->setProperty("class", className);
+    widget->style()->unpolish(widget);
+    widget->style()->polish(widget);
 }
