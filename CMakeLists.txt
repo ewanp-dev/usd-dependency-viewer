@@ -24,7 +24,6 @@ set(SOURCES
     src/Gui/MainWindow/Widgets/Search.cpp
     src/Gui/MainWindow/Widgets/Footer.cpp
 
-    src/Gui/Pages/Home/Home.cpp
     src/Gui/Pages/Settings/Settings.cpp
 
     src/Gui/Pages/Navigation/NavigationPage.cpp
@@ -34,24 +33,13 @@ set(SOURCES
     src/Gui/Pages/Navigation/Frameworks/Nodegraph/GraphicsView.cpp
     src/Gui/Pages/Navigation/Frameworks/Nodegraph/Node.cpp
 
-    src/Gui/Pages/AssetView/AssetView.cpp
-
-    src/Gui/Pages/DependenciesList/DependenciesList.cpp
-
-    src/Gui/Pages/Navigation/Widgets/StackedWidget.cpp
-    src/Gui/Pages/Navigation/Widgets/StackedWidgetHeader.cpp
     src/Gui/Pages/Navigation/Widgets/ItemSelection/ItemBackgroundWidget.cpp
     src/Gui/Pages/Navigation/Widgets/ItemSelection/ItemWidget.cpp
     src/Gui/Pages/Navigation/Widgets/ItemSelection/ItemThumbnail.cpp
     src/Gui/Pages/Navigation/Widgets/ItemSelection/ItemListWidget.cpp
-    src/Gui/Pages/Navigation/Widgets/Viewport/Viewport.cpp
     src/Gui/Pages/Navigation/Widgets/Nodegraph/Nodegraph.cpp
     src/Gui/Pages/Navigation/Widgets/Nodegraph/NodegraphPropertiesWidget.cpp
-    src/Gui/Pages/Navigation/Widgets/FileProperties/FilePropertiesPage.cpp
-    src/Gui/Pages/Navigation/Widgets/UsdInspection/UsdInspectionPage.cpp
-    src/Gui/Pages/Navigation/Widgets/Nodegraph/Nodegraph.cpp
     src/Gui/Pages/Navigation/Widgets/RecursiveViewTable/TableHeader.cpp
-    src/Gui/Pages/Navigation/Widgets/RecursiveViewTable/RecursiveTableWidget.cpp
 
     src/Gui/Widgets/AbstractButton.cpp
     src/Gui/Widgets/AbstractTable.cpp

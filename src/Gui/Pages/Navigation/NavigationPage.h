@@ -11,7 +11,6 @@
 #include <Core/UsdDependencyGraph.h>
 #include <Core/DependencyNode.h>
 #include <Gui/Pages/Navigation/Widgets/Nodegraph/Nodegraph.h>
-#include <Gui/Pages/Navigation/Widgets/StackedWidget.h>
 #include <Gui/Pages/Navigation/Widgets/ItemSelection/ItemBackgroundWidget.h>
 #include <Gui/Pages/Navigation/Widgets/RecursiveViewTable/TableHeader.h>
 #include <Gui/Widgets/AbstractButton.h>
@@ -47,6 +46,5 @@ class NavigationPage : public QWidget
         TableHeader* header_;
         ItemBackgroundWidget* itemBackgroundWidget_;
         ItemListWidget* itemArea_;
-        NavigationStackedWidget* stackedWidget_;
         Nodegraph* nodegraph_;
 };

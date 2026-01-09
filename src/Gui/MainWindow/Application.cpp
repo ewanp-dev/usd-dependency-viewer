@@ -106,47 +106,15 @@ void DependencyViewer::initFonts()
     qApp->setFont(font);
 }
 
-void DependencyViewer::initPages(std::vector<std::string> dependencies)
-{
-    navigationPage_       = new NavigationPage(itemDependencies_, dependencyGraph_);
-    assetViewPage_        = new AssetViewPage();
-    dependenciesListPage_ = new DependenciesListPage(dependencies);
-    homePage_             = new HomePage();
-    
-    mainPages_ = new QStackedWidget();
-    mainPages_->setContentsMargins(0, 0, 0, 0);
-    mainPages_->addWidget(homePage_);
-    mainPages_->addWidget(navigationPage_);
-    mainPages_->addWidget(dependenciesListPage_);
-    mainPages_->addWidget(assetViewPage_);
-
-    connect(header_->homeButton(), &dvWidgets::AbstractButton::clicked, this, [this]() {
-        mainPages_->setCurrentWidget(homePage_);
-    });
-
-    connect(header_->visualizationButton(), &dvWidgets::AbstractButton::clicked, this, [this]() {
-        mainPages_->setCurrentWidget(navigationPage_);
-    });
-
-    connect(header_->dependenciesButton(), &dvWidgets::AbstractButton::clicked, this, [this]() {
-        mainPages_->setCurrentWidget(dependenciesListPage_);
-    });
-
-    connect(header_->assetButton(), &dvWidgets::AbstractButton::clicked, this, [this]() {
-        mainPages_->setCurrentWidget(assetViewPage_);
-    });
-}
-
 void DependencyViewer::initWidgets(std::vector<std::string> dependencies)
 {
     std::cout << numDependencies_ << '\n';
     header_ = new Header();
     footer_ = new Footer(startFile_, numDependencies_);
-
-    initPages(dependencies);
+    navigationPage_       = new NavigationPage(itemDependencies_, dependencyGraph_);
 
     mainLayout_->addWidget(header_);
-    mainLayout_->addWidget(mainPages_);
+    mainLayout_->addWidget(navigationPage_);
     mainLayout_->addWidget(footer_);
 }
 

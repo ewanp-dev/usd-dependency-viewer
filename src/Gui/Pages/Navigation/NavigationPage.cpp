@@ -1,11 +1,5 @@
 #include "NavigationPage.h"
 
-#include <iostream>
-
-// TODO:
-//  - Remove outline from the nodegraph
-//  - Update stylesheet of the main QSplitter class
-
 
 NavigationPage::NavigationPage(const std::vector<std::string>& dependencies, std::shared_ptr<UsdDependencyGraph> graph, QWidget* parent)
     : dependencies_(dependencies), graph_(graph)
@@ -168,8 +162,8 @@ void NavigationPage::initWidgets()
     itemBackgroundWidget_ = new ItemBackgroundWidget();
     itemArea_ = itemBackgroundWidget_->getListWidget();
 
-    stackedWidget_ = new NavigationStackedWidget(dependencies_);
-    nodegraph_ = stackedWidget_->nodegraph();
+    // stackedWidget_ = new NavigationStackedWidget(dependencies_);
+    nodegraph_ = new Nodegraph(dependencies_);
 
     rootNode_ = graph_->getRootNode();
     setActiveNode(rootNode_);
@@ -203,7 +197,7 @@ void NavigationPage::initWidgets()
     });
 
     mainSplitter_->addWidget(itemBackgroundWidget_);
-    mainSplitter_->addWidget(stackedWidget_);
+    mainSplitter_->addWidget(nodegraph_);
     mainSplitter_->setSizes({200, 200});
     mainSplitter_->setContentsMargins(0, 0, 0, 0);
 
