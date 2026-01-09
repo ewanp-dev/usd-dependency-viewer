@@ -1,5 +1,5 @@
 #include "NavigationPage.h"
-
+#include <qsizepolicy.h>
 
 NavigationPage::NavigationPage(const std::vector<std::string>& dependencies, std::shared_ptr<UsdDependencyGraph> graph, QWidget* parent)
     : dependencies_(dependencies), graph_(graph)
@@ -34,8 +34,6 @@ void NavigationPage::setActiveNode(NodePath nodePath)
         std::shared_ptr<DependencyNode> dependencyNode = dependencyNodes[i];
         itemArea_->addItem(dependencyNode);
     }
-
-    ///////
 }
 
 const NodePath NavigationPage::getActivePath() const
@@ -121,31 +119,26 @@ void NavigationPage::onNodeDoubleClicked(const std::string& filePath)
 {
     // NOTE:
     // 
-    // This is causing segmentation faults!!!
+    // Currently causing seg faults so disabling for now
 
-    itemArea_->clearItems();
-    for (std::shared_ptr<DependencyNode> node : activeNode_->getChildNodes())
-    {
-        if (node->getFilePath() == filePath)
-        {
-            if (node->getNumChildren() == 0)
-            {
-                break;
-            }
-            setActiveNode(getActivePath().appendNode(node));
-            nodegraph_->setActiveNode(node);
-        }
-    }
-
-    for (ItemWidget* item : itemArea_->getItems())
-    {
-        connect(item, &ItemWidget::itemDoubleClicked, this, &NavigationPage::onItemWidgetDoubleClicked);
-        connect(item, &ItemWidget::itemActivated, this, &NavigationPage::onItemWidgetActivated);
-    }
-
-    // for (fdg::Node* node : nodegraph_->getAllNodes())
+    // itemArea_->clearItems();
+    // for (std::shared_ptr<DependencyNode> node : activeNode_->getChildNodes())
     // {
-    //     connect(node, &fdg::Node::nodeDoubleClicked, this, &NavigationPage::onNodeDoubleClicked);
+    //     if (node->getFilePath() == filePath)
+    //     {
+    //         if (node->getNumChildren() == 0)
+    //         {
+    //             break;
+    //         }
+    //         setActiveNode(getActivePath().appendNode(node));
+    //         nodegraph_->setActiveNode(node);
+    //     }
+    // }
+    //
+    // for (ItemWidget* item : itemArea_->getItems())
+    // {
+    //     connect(item, &ItemWidget::itemDoubleClicked, this, &NavigationPage::onItemWidgetDoubleClicked);
+    //     connect(item, &ItemWidget::itemActivated, this, &NavigationPage::onItemWidgetActivated);
     // }
 }
 
@@ -161,14 +154,12 @@ void NavigationPage::initWidgets()
     header_ = new TableHeader();
     itemBackgroundWidget_ = new ItemBackgroundWidget();
     itemArea_ = itemBackgroundWidget_->getListWidget();
-
-    // stackedWidget_ = new NavigationStackedWidget(dependencies_);
     nodegraph_ = new Nodegraph(dependencies_);
+    properties_ = new PropertiesWidget();
 
     rootNode_ = graph_->getRootNode();
     setActiveNode(rootNode_);
     nodegraph_->setActiveNode(rootNode_);
-    // nodegraph_->setDependencyGraph(graph_);
 
     for (ItemWidget* item : itemArea_->getItems())
     {
@@ -198,7 +189,8 @@ void NavigationPage::initWidgets()
 
     mainSplitter_->addWidget(itemBackgroundWidget_);
     mainSplitter_->addWidget(nodegraph_);
-    mainSplitter_->setSizes({200, 200});
+    mainSplitter_->addWidget(properties_);
+    mainSplitter_->setSizes({80, 280, 60});
     mainSplitter_->setContentsMargins(0, 0, 0, 0);
 
     mainLayout_->addWidget(header_);

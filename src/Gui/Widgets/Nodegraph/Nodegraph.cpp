@@ -10,8 +10,20 @@ Nodegraph::Nodegraph(const std::vector<std::string>& dependencies, QWidget* pare
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setContentsMargins(0, 0, 0, 0);
 
-    mainLayout_ = new QVBoxLayout(this);
-    mainLayout_->setContentsMargins(0, 0, 0, 0);
+    QWidget* container = new QWidget(this);
+    QVBoxLayout* layout = new QVBoxLayout(this);
+    mainLayout_ = new QVBoxLayout(container);
+
+    layout->addWidget(container);
+    layout->setContentsMargins(0, 8, 8, 0);
+    container->setAttribute(Qt::WidgetAttribute::WA_StyledBackground, true);
+    container->setProperty("class", "standardWidget");
+    container->setStyleSheet(
+        "border-top-left-radius: 4px;"
+        "border-top-right-radius: 4px;"
+    );
+    container->setContentsMargins(0, 0, 0, 0);
+
     mainLayout_->addWidget(graph_);
 
     QTimer::singleShot(0, graph_, &fdg::ForceDirectedGraph::initSimulation);

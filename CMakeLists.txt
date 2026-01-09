@@ -40,6 +40,7 @@ set(SOURCES
     src/Gui/Widgets/Nodegraph/Nodegraph.cpp
     src/Gui/Widgets/Nodegraph/NodegraphPropertiesWidget.cpp
     src/Gui/Widgets/RecursiveViewTable/TableHeader.cpp
+    src/Gui/Widgets/Properties/PropertiesWidget.cpp
 
     src/Gui/Widgets/AbstractWidgets/AbstractButton.cpp
     src/Gui/Widgets/AbstractWidgets/AbstractTable.cpp

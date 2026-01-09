@@ -6,7 +6,7 @@ ItemWidget::ItemWidget(std::shared_ptr<DependencyNode> activeNode, QWidget* pare
     : activeNode_(activeNode)
 {
     setMouseTracking(true);
-    setFixedHeight(148);
+    setFixedHeight(92);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     setChecked(false);
 
@@ -62,14 +62,11 @@ void ItemWidget::initUI()
 
     thumbnailWidget_ = new ItemThumbnail();
 
-    mainLayout_->addWidget(thumbnailWidget_);
-    mainLayout_->addSpacing(8);
-
     initInformationLayout();
 
     mainLayout_->addLayout(labelLayout_);
 
-favouriteLayout_ = new QVBoxLayout();
+    favouriteLayout_ = new QVBoxLayout();
     favouriteButton_ = initButton();
     favouriteLayout_->addWidget(favouriteButton_);
     favouriteLayout_->addStretch();
@@ -97,25 +94,26 @@ favouriteLayout_ = new QVBoxLayout();
         "border-radius: 8px;"
     );
     container->setAttribute(Qt::WidgetAttribute::WA_StyledBackground, true);
-    container->setContentsMargins(8, 8, 8, 8);
+    container->setContentsMargins(4, 4, 4, 4);
 }
 
 void ItemWidget::initInformationLayout()
 {
     labelLayout_ = new QVBoxLayout();
 
-    fileName_ = QString(activeNode_->getFileName().c_str());
     filePath_ = QString(activeNode_->getFilePath().c_str());
     numChildren_ = QString("Children: " + QString::number(activeNode_->getNumChildren()));
     dateModified_ = QString("Date Modified: " + QString(activeNode_->getDateModifiedTime().c_str()));
 
+
+    fileName_ = QString(activeNode_->getFileName().c_str());
     fileNameLabel_ = new QLabel(fileName_); 
     fileNameLabel_->setStyleSheet("color: #FEEED7;");
     QFont f = fileNameLabel_->font();
-    f.setPointSize(12);
+    f.setPointSize(10);
     f.setBold(true);
     fileNameLabel_->setFont(f);
-
+    // fileNameLabel_->setFixedWidth(140);
     QFontMetrics fm(fileNameLabel_->font());
 
     // f.setPointSize(8);
@@ -137,8 +135,8 @@ void ItemWidget::initInformationLayout()
     labelLayout_->addWidget(fileNameLabel_);
     labelLayout_->addWidget(filePathLabel_);
     labelLayout_->addWidget(childrenLabel_);
-    labelLayout_->addSpacing(1);
-    labelLayout_->addWidget(dateModifiedLabel_);
+    // labelLayout_->addSpacing(1);
+    // labelLayout_->addWidget(dateModifiedLabel_);
 }
 
 dvWidgets::AbstractButton* ItemWidget::initButton()
@@ -156,7 +154,7 @@ dvWidgets::AbstractButton* ItemWidget::initButton()
         button->setIcon(QIcon(":/icons/DarkMode/star_outline.png"));
     }
 
-    button->setIconSize(QSize(24, 24));
+    button->setIconSize(QSize(16, 16));
     button->enableHoverEvent(false);
 
     connect(button, &dvWidgets::AbstractButton::clicked, this, [this, button] () {

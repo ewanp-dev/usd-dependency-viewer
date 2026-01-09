@@ -2,7 +2,8 @@
 
 ItemBackgroundWidget::ItemBackgroundWidget(QWidget* parent)
 {
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setMinimumWidth(40);
+    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
     setContentsMargins(0, 0, 0, 0);
 
     auto* container = new QWidget(this);

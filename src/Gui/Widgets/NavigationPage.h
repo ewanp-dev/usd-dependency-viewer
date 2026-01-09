@@ -14,6 +14,7 @@
 #include <Gui/Widgets/ItemSelection/ItemBackgroundWidget.h>
 #include <Gui/Widgets/RecursiveViewTable/TableHeader.h>
 #include <Gui/Widgets/AbstractWidgets/AbstractButton.h>
+#include <Gui/Widgets/Properties/PropertiesWidget.h>
 
 class NavigationPage : public QWidget
 {
@@ -47,4 +48,5 @@ class NavigationPage : public QWidget
         ItemBackgroundWidget* itemBackgroundWidget_;
         ItemListWidget* itemArea_;
         Nodegraph* nodegraph_;
+        PropertiesWidget* properties_;
 };
