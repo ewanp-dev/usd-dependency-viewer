@@ -1,4 +1,5 @@
 #include "Results.h"
+
 #include <QVBoxLayout>
 
 ResultsDropdownWidget::ResultsDropdownWidget(QWidget *parent) {

@@ -1,8 +1,10 @@
 #pragma once
+
+#include "Core/DependencyNode.h"
+
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include "Core/DependencyNode.h"
 #include <memory>
 
 class UsdDependencyGraph
