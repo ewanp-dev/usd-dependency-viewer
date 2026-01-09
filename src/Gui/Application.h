@@ -4,12 +4,14 @@
 #include <QVBoxLayout>
 #include <QStackedWidget>
 #include <QSplitter>
+
 #include <Core/UsdDependencyGraph.h>
-#include <Gui/MainWindow/Widgets/Search.h>
-#include <Gui/MainWindow/Widgets/Header.h>
-#include <Gui/MainWindow/Widgets/Footer.h>
-#include <Gui/Pages/Navigation/NavigationPage.h>
-#include <Gui/Pages/Settings/Settings.h>
+
+#include <Gui/Widgets/Search.h>
+#include <Gui/Widgets/Header.h>
+#include <Gui/Widgets/Footer.h>
+#include <Gui/Widgets/NavigationPage.h>
+#include <Gui/Widgets/Settings/Settings.h>
 
 class DependencyViewer : public QMainWindow 
 {

@@ -2,7 +2,8 @@
 
 #include <QWidget>
 #include <QKeyEvent>
-#include <Gui/Widgets/AbstractButton.h>
+
+#include <Gui/Widgets/AbstractWidgets/AbstractButton.h>
 
 class SettingsWidget : public QWidget 
 {

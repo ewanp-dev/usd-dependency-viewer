@@ -1,4 +1,5 @@
 #include "Properties.h"
+
 #include <QVBoxLayout>
 
 PropertiesDropdownWidget::PropertiesDropdownWidget(QWidget *parent) {

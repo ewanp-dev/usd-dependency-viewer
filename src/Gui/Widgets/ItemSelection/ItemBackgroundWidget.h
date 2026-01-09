@@ -1,14 +1,16 @@
 #pragma once
 
+#include "ItemListWidget.h"
+
 #include <QWidget>
 #include <QScrollArea>
 #include <QLineEdit>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <Gui/Widgets/AbstractButton.h>
-#include <Core/NodePath.h>
 
-#include "ItemListWidget.h"
+#include <Gui/Widgets/AbstractWidgets/AbstractButton.h>
+
+#include <Core/NodePath.h>
 
 class ItemBackgroundWidget : public QWidget
 {

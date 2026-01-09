@@ -1,9 +1,11 @@
 #pragma once
 
+#include "ItemWidget.h"
+
 #include <QScrollArea>
 #include <QVBoxLayout>
+
 #include <vector>
-#include "ItemWidget.h"
 
 class ItemListWidget : public QScrollArea
 {

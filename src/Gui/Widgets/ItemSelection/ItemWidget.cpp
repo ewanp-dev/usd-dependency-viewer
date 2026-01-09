@@ -1,8 +1,6 @@
 #include "ItemWidget.h"
 
-#include <Gui/Widgets/AbstractWidgetUtils.h>
-
-#include <iostream>
+#include <Gui/Widgets/AbstractWidgets/AbstractWidgetUtils.h>
 
 ItemWidget::ItemWidget(std::shared_ptr<DependencyNode> activeNode, QWidget* parent)
     : activeNode_(activeNode)

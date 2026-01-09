@@ -4,7 +4,7 @@
 #include <QImage>
 #include <QPixmap>
 
-#include <Gui/MainWindow/Globals.h>
+#include <Gui/Globals.h>
 
 namespace dvWidgets
 {

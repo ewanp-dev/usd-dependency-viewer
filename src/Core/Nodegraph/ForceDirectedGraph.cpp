@@ -159,7 +159,10 @@ void fdg::ForceDirectedGraph::updatePhysics(double dt)
             node->setPos(node->pos() + node->velocity);
         }
 
+        std::cout << "Velocity: " << node->velocity.x() << " " << node->velocity.y() << '\n';
+
         double speed = std::hypot(node->velocity.x(), node->velocity.y());
+
     }
 }
 

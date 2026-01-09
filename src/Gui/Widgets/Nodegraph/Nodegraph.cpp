@@ -1,5 +1,7 @@
 #include "Nodegraph.h"
+
 #include <QTimer>
+
 #include <memory>
 
 Nodegraph::Nodegraph(const std::vector<std::string>& dependencies, QWidget* parent)

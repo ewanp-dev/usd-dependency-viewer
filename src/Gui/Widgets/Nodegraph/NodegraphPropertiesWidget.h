@@ -6,7 +6,8 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QKeyEvent>
-#include <Gui/Widgets/AbstractButton.h>
+
+#include <Gui/Widgets/AbstractWidgets/AbstractButton.h>
 
 class NodegraphPropertiesWidget : public QWidget
 {

@@ -2,8 +2,10 @@
 
 #include <QWidget>
 #include <QHBoxLayout>
+
 #include <vector>
-#include <Gui/Widgets/AbstractButton.h>
+
+#include <Gui/Widgets/AbstractWidgets/AbstractButton.h>
 
 class Header : public QWidget
 {

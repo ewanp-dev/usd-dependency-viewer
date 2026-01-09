@@ -11,7 +11,9 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QMouseEvent>
-#include <Gui/Widgets/AbstractButton.h>
+
+#include <Gui/Widgets/AbstractWidgets/AbstractButton.h>
+
 #include <Core/DependencyNode.h>
 #include <Core/NodePath.h>
 

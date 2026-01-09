@@ -1,4 +1,5 @@
 #include "Settings.h"
+
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 

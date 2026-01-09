@@ -5,7 +5,7 @@
 #include <QLineEdit>
 #include <QListWidget>
 #include <QKeyEvent>
-#include <Gui/Widgets/AbstractButton.h>
+#include <Gui/Widgets/AbstractWidgets/AbstractButton.h>
 
 class SearchWidget : public QWidget
 {

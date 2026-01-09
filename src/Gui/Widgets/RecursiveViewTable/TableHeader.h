@@ -3,7 +3,8 @@
 #include <QWidget>
 #include <QLineEdit>
 #include <QHBoxLayout>
-#include <Gui/Widgets/AbstractButton.h>
+
+#include <Gui/Widgets/AbstractWidgets/AbstractButton.h>
 
 class TableHeader : public QWidget
 {

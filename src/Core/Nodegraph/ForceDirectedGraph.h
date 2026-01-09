@@ -7,8 +7,8 @@
 #include "GraphicsView.h"
 #include "GraphicsScene.h"
 #include "Node.h"
-#include <Gui/Widgets/AbstractButton.h>
-#include <Gui/Pages/Navigation/Widgets/Nodegraph/NodegraphPropertiesWidget.h>
+#include <Gui/Widgets/AbstractWidgets/AbstractButton.h>
+#include <Gui/Widgets/Nodegraph/NodegraphPropertiesWidget.h>
 
 namespace fdg
 {

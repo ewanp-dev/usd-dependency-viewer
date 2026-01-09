@@ -19,31 +19,31 @@ set(SOURCES
     static/resources.qrc
     src/Gui/Main.cpp
 
-    src/Gui/MainWindow/Application.cpp
-    src/Gui/MainWindow/Widgets/Header.cpp
-    src/Gui/MainWindow/Widgets/Search.cpp
-    src/Gui/MainWindow/Widgets/Footer.cpp
+    src/Gui/Application.cpp
+    src/Gui/Widgets/Header.cpp
+    src/Gui/Widgets/Search.cpp
+    src/Gui/Widgets/Footer.cpp
 
-    src/Gui/Pages/Settings/Settings.cpp
+    src/Gui/Widgets/Settings/Settings.cpp
 
-    src/Gui/Pages/Navigation/NavigationPage.cpp
-    src/Gui/Pages/Navigation/Frameworks/Nodegraph/Edge.cpp
-    src/Gui/Pages/Navigation/Frameworks/Nodegraph/ForceDirectedGraph.cpp
-    src/Gui/Pages/Navigation/Frameworks/Nodegraph/GraphicsScene.cpp
-    src/Gui/Pages/Navigation/Frameworks/Nodegraph/GraphicsView.cpp
-    src/Gui/Pages/Navigation/Frameworks/Nodegraph/Node.cpp
+    src/Core/Nodegraph/Edge.cpp
+    src/Core/Nodegraph/ForceDirectedGraph.cpp
+    src/Core/Nodegraph/GraphicsScene.cpp
+    src/Core/Nodegraph/GraphicsView.cpp
+    src/Core/Nodegraph/Node.cpp
 
-    src/Gui/Pages/Navigation/Widgets/ItemSelection/ItemBackgroundWidget.cpp
-    src/Gui/Pages/Navigation/Widgets/ItemSelection/ItemWidget.cpp
-    src/Gui/Pages/Navigation/Widgets/ItemSelection/ItemThumbnail.cpp
-    src/Gui/Pages/Navigation/Widgets/ItemSelection/ItemListWidget.cpp
-    src/Gui/Pages/Navigation/Widgets/Nodegraph/Nodegraph.cpp
-    src/Gui/Pages/Navigation/Widgets/Nodegraph/NodegraphPropertiesWidget.cpp
-    src/Gui/Pages/Navigation/Widgets/RecursiveViewTable/TableHeader.cpp
+    src/Gui/Widgets/NavigationPage.cpp
+    src/Gui/Widgets/ItemSelection/ItemBackgroundWidget.cpp
+    src/Gui/Widgets/ItemSelection/ItemWidget.cpp
+    src/Gui/Widgets/ItemSelection/ItemThumbnail.cpp
+    src/Gui/Widgets/ItemSelection/ItemListWidget.cpp
+    src/Gui/Widgets/Nodegraph/Nodegraph.cpp
+    src/Gui/Widgets/Nodegraph/NodegraphPropertiesWidget.cpp
+    src/Gui/Widgets/RecursiveViewTable/TableHeader.cpp
 
-    src/Gui/Widgets/AbstractButton.cpp
-    src/Gui/Widgets/AbstractTable.cpp
-    src/Gui/Widgets/AbstractWidgetUtils.cpp
+    src/Gui/Widgets/AbstractWidgets/AbstractButton.cpp
+    src/Gui/Widgets/AbstractWidgets/AbstractTable.cpp
+    src/Gui/Widgets/AbstractWidgets/AbstractWidgetUtils.cpp
 
     src/Gui/Widgets/DropdownWidgets/Properties.cpp
     src/Gui/Widgets/DropdownWidgets/Results.cpp

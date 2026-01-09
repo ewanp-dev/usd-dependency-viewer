@@ -3,7 +3,8 @@
 #include <QWidget>
 #include <QComboBox>
 #include <QStringList>
-#include <Gui/Widgets/AbstractButton.h>
+
+#include <Gui/Widgets/AbstractWidgets/AbstractButton.h>
 
 class SortDropdownWidget : public QWidget 
 {

@@ -2,7 +2,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <Qt>
-#include <Gui/MainWindow/Globals.h>
+#include <Gui/Globals.h>
 
 SearchWidget::SearchWidget(std::vector<std::string> dependencies, QWidget* parent) {
     setWindowFlags(Qt::WindowFlags(Qt::FramelessWindowHint | Qt::Dialog));

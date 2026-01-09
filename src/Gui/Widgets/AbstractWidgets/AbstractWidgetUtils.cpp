@@ -1,8 +1,6 @@
 #include "AbstractWidgetUtils.h"
 #include "AbstractButton.h"
 
-#include <iostream>
-
 void dvWidgets::AbstractWidgetUtils::animateColor(
     QWidget* widget, 
     const QColor& from, 

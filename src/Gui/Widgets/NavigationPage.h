@@ -10,10 +10,10 @@
 
 #include <Core/UsdDependencyGraph.h>
 #include <Core/DependencyNode.h>
-#include <Gui/Pages/Navigation/Widgets/Nodegraph/Nodegraph.h>
-#include <Gui/Pages/Navigation/Widgets/ItemSelection/ItemBackgroundWidget.h>
-#include <Gui/Pages/Navigation/Widgets/RecursiveViewTable/TableHeader.h>
-#include <Gui/Widgets/AbstractButton.h>
+#include <Gui/Widgets/Nodegraph/Nodegraph.h>
+#include <Gui/Widgets/ItemSelection/ItemBackgroundWidget.h>
+#include <Gui/Widgets/RecursiveViewTable/TableHeader.h>
+#include <Gui/Widgets/AbstractWidgets/AbstractButton.h>
 
 class NavigationPage : public QWidget
 {

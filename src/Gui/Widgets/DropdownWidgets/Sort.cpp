@@ -1,4 +1,5 @@
 #include "Sort.h"
+
 #include <QHBoxLayout>
 
 // TODO: Add in signal functions from Python branch

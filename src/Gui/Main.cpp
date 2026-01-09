@@ -4,8 +4,8 @@
 #include <QString>
 #include <QFile>
 #include <QDir>
-#include <Gui/MainWindow/Application.h>
-#include <Gui/MainWindow/Globals.h>
+#include <Gui/Application.h>
+#include <Gui/Globals.h>
 #include <argparse/argparse.hpp>
 
 int main(int argc, char **argv)

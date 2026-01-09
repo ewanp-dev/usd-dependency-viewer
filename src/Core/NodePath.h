@@ -1,5 +1,7 @@
 #pragma once
+
 #include "./DependencyNode.h"
+
 #include <iostream>
 
 class NodePath

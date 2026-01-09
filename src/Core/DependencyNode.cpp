@@ -1,8 +1,6 @@
 #include "Core/DependencyNode.h"
+
 #include <filesystem>
-// #include <chrono>
-// #include <iomanip>
-// #include <sstream>
 
 DependencyNode::DependencyNode(std::string filePath)
 : filePath_{filePath}

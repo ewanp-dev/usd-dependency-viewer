@@ -1,7 +1,8 @@
 #pragma once
 
-#include <Gui/Widgets/AbstractButton.h>
 #include <QLineEdit>
+
+#include <Gui/Widgets/AbstractWidgets/AbstractButton.h>
 
 class ResultsDropdownWidget : public QWidget
 {

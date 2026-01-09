@@ -1,7 +1,6 @@
 #include "NodegraphPropertiesWidget.h"
 
 #include <QStyleFactory>
-#include <iostream>
 
 NodegraphPropertiesWidget::NodegraphPropertiesWidget(QWidget* parent)
     : QWidget(parent)

@@ -3,13 +3,16 @@
 #include <fstream>
 #include <iostream>
 #include <algorithm>
+
 #include <pxr/usd/sdf/layer.h>
 #include <pxr/usd/sdf/layerUtils.h>
 #include <pxr/usd/ar/resolver.h>
 #include <pxr/usd/ar/resolverContextBinder.h>
 #include <pxr/usd/ar/resolverScopedCache.h>
+
 #include "Core/UsdDependencyGraph.h"
 #include "Core/DependencyNode.h"
+
 #include <QFileDialog>
 
 UsdDependencyGraph::UsdDependencyGraph(std::string usdFilePath)

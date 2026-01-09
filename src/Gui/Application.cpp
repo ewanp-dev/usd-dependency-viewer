@@ -1,11 +1,13 @@
 #include "Application.h"
+
 #include <QObject>
 #include <vector>
 #include <QFile>
 #include <QDir>
 #include <QApplication>
 #include <QFontDatabase>
-#include <Gui/MainWindow/Widgets/Search.h>
+
+#include <Gui/Widgets/Search.h>
 
 DependencyViewer::DependencyViewer(const std::string& startFile, QWidget* parent) 
     : startFile_(startFile)

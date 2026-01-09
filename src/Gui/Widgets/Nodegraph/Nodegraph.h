@@ -2,12 +2,14 @@
 
 #include <QWidget>
 #include <QVBoxLayout>
+
 #include <memory>
 
-#include <Gui/Pages/Navigation/Frameworks/Nodegraph/ForceDirectedGraph.h>
-#include <Gui/Widgets/AbstractButton.h>
+#include <Core/Nodegraph/ForceDirectedGraph.h>
 #include <Core/DependencyNode.h>
 #include <Core/UsdDependencyGraph.h>
+
+#include <Gui/Widgets/AbstractWidgets/AbstractButton.h>
 
 class Nodegraph : public QWidget
 {

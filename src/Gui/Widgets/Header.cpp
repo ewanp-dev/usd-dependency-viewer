@@ -1,8 +1,9 @@
 #include "Header.h"
 
 #include <QHBoxLayout>
-#include <Gui/MainWindow/Globals.h>
-#include <Gui/Widgets/AbstractWidgetUtils.h>
+
+#include <Gui/Globals.h>
+#include <Gui/Widgets/AbstractWidgets/AbstractWidgetUtils.h>
 
 Header::Header(QWidget* parent) 
 {
